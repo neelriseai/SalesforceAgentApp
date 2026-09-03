@@ -1,6 +1,6 @@
 # Application knowledge graph
 
-The full [machine-readable graph](../knowledge/application-graph.json) contains typed nodes and directed, source-attributed edges for metadata, permissions, components, tests, datasets, 368 logical fixtures and ten manual scenarios. These compact views show its main relationships; the JSON has the field-level detail. Nothing in the graph grants an agent permission to execute an action.
+The full [machine-readable graph](../knowledge/application-graph.json) contains typed nodes and directed, source-attributed edges for metadata, permissions, components, tests, datasets, 368 logical fixtures and 42 manual scenarios. These compact views show its main relationships; the JSON has the field-level detail. Nothing in the graph grants an agent permission to execute an action.
 
 ## Business record relationships
 
@@ -48,6 +48,12 @@ flowchart TD
 
 Policy eligibility is not an approval request. Human decisions change the derived status through native field updates but do not append policy-input evaluations. Relevant input changes evaluate again; unrelated Stage/Name changes do not. Admin overrides remain outside the app's restrictive action adapter.
 
+## Configurable CRM save guards
+
+Eight `config:Demo_Business_Rule.<key>` nodes connect to the seven `apex-trigger` nodes, the `DemoBusinessRules` service, affected objects and manual-case IDs. The service reads current Custom Metadata, rejects invalid saves and never writes data itself. Lead conversion uses after-update rollback; other guarded saves use before triggers.
+
+Follow `tests_configuration` from a manual case to the rule, `configures` to its trigger, and `guards_save_of` to affected objects. `DemoBusinessRulesTest` links to all eight rule records. Default values in this source graph are OFF and may differ from the live org during a demo. Scope prefixes are not security guarantees; see the [rule guide](demo-rules-guide.md).
+
 ## Agent access boundaries
 
 ```mermaid
@@ -68,7 +74,7 @@ Dashed edges describe limitations/prerequisites, not active access grants. The U
 
 Top level: `schemaVersion`, `apiVersion`, `sourceSnapshot`, `provenance`, `authorization`, `nodes`, `edges`.
 
-- Node: stable `id`, `kind`, human `label`, source path and type-specific attributes. Kinds include object, field, apex-class, apex-test, flow, permission-set, approval-process, workflow-field-update, lightning-component/page/app, capability, dataset, synthetic-fixture, manual-use-case and file.
+- Node: stable `id`, `kind`, human `label`, source path and type-specific attributes. Kinds include object, field, apex-class, apex-test, apex-trigger, custom-metadata-record, flow, permission-set, approval-process, workflow-field-update, lightning-component/page/app, capability, dataset, synthetic-fixture, manual-use-case and file.
 - Edge: stable `id`, `from`, `relation`, `to`, `source`, optional relationship details. Examples: `has_field`, `references`, `reads`, `writes`, `calls`, `appends`, `routes_via`, `tests`, `object_grant`, `field_grant`, `contains`.
 - File paths and edge provenance use repository-relative paths. Static fields parsed from custom XML include type, label, requiredness, precision/scale and picklist values. Standard fields referenced by fixtures require runtime describe for complete schema/permissions.
 - Permission edges describe additive source grants, not a user's complete effective access. Historical evidence is not treated as current runtime authority.

@@ -1,0 +1,1273 @@
+{
+  "schemaVersion": "1.0.0",
+  "rules": [
+    {
+      "key": "Account_Reparent",
+      "label": "01 Account parent changes",
+      "description": "Blocks Parent Account changes on SYN-MM-/SYN-RULE- Accounts when enabled.",
+      "defaultEnabled": false,
+      "baselineVersion": "baseline-off-v1",
+      "appliesTo": [
+        "Account"
+      ],
+      "trigger": "DemoAccountRules",
+      "defaultNumber": null,
+      "defaultRequiredValue": null
+    },
+    {
+      "key": "Contact_Reparent",
+      "label": "02 Contact account changes",
+      "description": "Blocks Account changes on SYN-MM-/SYN-RULE- Contacts when enabled.",
+      "defaultEnabled": false,
+      "baselineVersion": "baseline-off-v1",
+      "appliesTo": [
+        "Contact"
+      ],
+      "trigger": "DemoContactRules",
+      "defaultNumber": null,
+      "defaultRequiredValue": null
+    },
+    {
+      "key": "Lead_Qualification",
+      "label": "03 Lead qualification",
+      "description": "Requires previously saved Lead Status to equal Required Value before native conversion.",
+      "defaultEnabled": false,
+      "baselineVersion": "baseline-off-v1",
+      "appliesTo": [
+        "Lead"
+      ],
+      "trigger": "DemoLeadRules",
+      "defaultNumber": null,
+      "defaultRequiredValue": "Working - Contacted"
+    },
+    {
+      "key": "Opportunity_Minimum",
+      "label": "04 Won deal minimum",
+      "description": "Requires Amount greater than or equal to Numeric Value in USD when saving Stage Closed Won.",
+      "defaultEnabled": false,
+      "baselineVersion": "baseline-off-v1",
+      "appliesTo": [
+        "Opportunity"
+      ],
+      "trigger": "DemoOpportunityRules",
+      "defaultNumber": 100000,
+      "defaultRequiredValue": null
+    },
+    {
+      "key": "Opportunity_Primary_Contact",
+      "label": "05 Won deal primary contact",
+      "description": "Requires an existing primary Contact Role when saving Stage Closed Won. Insert as open first.",
+      "defaultEnabled": false,
+      "baselineVersion": "baseline-off-v1",
+      "appliesTo": [
+        "Opportunity",
+        "OpportunityContactRole"
+      ],
+      "trigger": "DemoOpportunityRules",
+      "defaultNumber": null,
+      "defaultRequiredValue": null
+    },
+    {
+      "key": "Case_Resolution",
+      "label": "06 Case resolution",
+      "description": "Requires nonblank Demo Resolution when saving Status Closed. No emails or SLA automation.",
+      "defaultEnabled": false,
+      "baselineVersion": "baseline-off-v1",
+      "appliesTo": [
+        "Case"
+      ],
+      "trigger": "DemoCaseRules",
+      "defaultNumber": null,
+      "defaultRequiredValue": null
+    },
+    {
+      "key": "Task_Due_Date",
+      "label": "07 Task due date",
+      "description": "Requires Due Date when saving Status Completed; does not close the related Case.",
+      "defaultEnabled": false,
+      "baselineVersion": "baseline-off-v1",
+      "appliesTo": [
+        "Task"
+      ],
+      "trigger": "DemoTaskRules",
+      "defaultNumber": null,
+      "defaultRequiredValue": null
+    },
+    {
+      "key": "Campaign_Active",
+      "label": "08 Active campaign responses",
+      "description": "Blocks member Status changes for inactive SYN-MM-/SYN-RULE- Campaigns. No email is sent.",
+      "defaultEnabled": false,
+      "baselineVersion": "baseline-off-v1",
+      "appliesTo": [
+        "Campaign",
+        "CampaignMember"
+      ],
+      "trigger": "DemoCampaignMemberRules",
+      "defaultNumber": null,
+      "defaultRequiredValue": null
+    }
+  ],
+  "cases": [
+    {
+      "id": "RULE-01",
+      "title": "Account reparent blocked, then allowed by switch",
+      "modules": [
+        "Account"
+      ],
+      "ruleKeys": [
+        "Account_Reparent"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Account reparent blocked, then allowed by switch",
+      "fixtures": [
+        "SYN-MM-A06 Customer",
+        "SYN-MM-A02 Group",
+        "SYN-MM-A01 Group"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Open A06 and record Parent=A02, contacts C04-C06 and deals O03-O04.",
+          "Baseline relationships match."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Account_Reparent. Set Enabled=true; Rule Version=demo-on-v1.  Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Edit A06 Parent Account to A01 and Save.",
+          "Save is rejected with DEMO_RULE Account_Reparent."
+        ],
+        [
+          "Cancel unsaved changes and refresh A06; open hierarchy.",
+          "Parent remains A02; no contact/deal moved."
+        ],
+        [
+          "Edit only Description by appending a synthetic test note; Save.",
+          "Unrelated edit succeeds while rule is enabled; preserve original Description marker."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Account_Reparent. Set Enabled=false; Rule Version=baseline-off-v1.  Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Change Parent to A01 and save again.",
+          "Save succeeds; A01 has six seeded children and A02 four; children of A06 unchanged."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Set Account_Reparent Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Restore A06 Parent=A02 and original Description; confirm original counts.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "RULE-02",
+      "title": "Contact account change blocked and case links preserved",
+      "modules": [
+        "Contact"
+      ],
+      "ruleKeys": [
+        "Contact_Reparent"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Contact account change blocked and case links preserved",
+      "fixtures": [
+        "Synthetic SYN-MM-C04",
+        "SYN-MM-A06 Customer",
+        "SYN-MM-A07 Customer",
+        "SYN-MM-S04 Support"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Open C04 and S04; record both Account=A06.",
+          "Starting customer links match."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Contact_Reparent. Set Enabled=true; Rule Version=demo-on-v1.  Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Edit C04 Account to A07 and Save.",
+          "DEMO_RULE Contact_Reparent; reload shows A06."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Contact_Reparent. Set Enabled=false; Rule Version=baseline-off-v1.  Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Repeat Contact Account=A07; save and inspect S04.",
+          "Contact moves to A07; existing Case Account remains A06, Contact remains C04."
+        ],
+        [
+          "Inspect A06/A07 Contact lists.",
+          "Seeded counts are two/four, with the same C04 ID."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Set Contact_Reparent Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Restore C04 Account=A06; counts three/three; do not change S04.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "RULE-03",
+      "title": "Native lead conversion qualification gate and rollback",
+      "modules": [
+        "Lead"
+      ],
+      "ruleKeys": [
+        "Lead_Qualification"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Native lead conversion qualification gate and rollback",
+      "fixtures": [
+        "New Lead SYN-RULE-LEAD-{run}",
+        "SYN-MM-A24 Customer"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "In Leads click New: First Name=Synthetic, Last Name=SYN-RULE-LEAD-{run}, Company=Synthetic Rule Prospect, Status=Open - Not Contacted; save.",
+          "One new unconverted synthetic Lead. {run} is a unique locally recorded run suffix."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Lead_Qualification. Set Enabled=true; Rule Version=demo-on-v1. Required Value=Working - Contacted. Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Record A24 Contact/Opportunity counts. Convert lead into existing A24, new Contact, new Opportunity SYN-RULE-LEAD-{run} Deal; leave notifications off.",
+          "Conversion is rejected with Lead_Qualification in the error."
+        ],
+        [
+          "Reload Lead and A24; search the requested Opportunity name.",
+          "Lead remains unconverted; no conversion Contact/Opportunity persisted and counts unchanged."
+        ],
+        [
+          "Edit Lead Status=Working - Contacted and Save before pressing Convert.",
+          "Qualification is persisted as a separate save."
+        ],
+        [
+          "Repeat the same conversion choices.",
+          "Conversion succeeds exactly once; new Contact/Opportunity link to A24; ordinary open-lead list excludes the converted Lead."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Set Lead_Qualification Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Conversion is consumed, not reversible by reset. Retain run records and ledger; use a fresh unique Lead next run. Customer counts increase intentionally.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "RULE-04",
+      "title": "Closed Won minimum: 99999.99 USD is blocked",
+      "modules": [
+        "Opportunity"
+      ],
+      "ruleKeys": [
+        "Opportunity_Minimum"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Closed Won minimum: 99999.99 USD is blocked",
+      "fixtures": [
+        "SYN-MM-O01 Deal"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Open O01; record Stage=Prospecting, Amount=101000, Strategic=false, Discount=5 and latest policy evaluation.",
+          "Baseline matches; no pending native approval."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Opportunity_Minimum. Set Enabled=true; Rule Version=demo-on-v1. Numeric Value=100000. Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Set Amount=99999.99; keep Stage=Prospecting and save.",
+          "Open-stage save succeeds; Amount change appends policy evidence, still Not Required."
+        ],
+        [
+          "Record newest evaluation; change only Stage to Closed Won and Save.",
+          "DEMO_RULE Opportunity_Minimum; reload remains Prospecting."
+        ],
+        [
+          "Inspect Amount, policy and latest evaluation after the stage-only attempt.",
+          "Amount remains the value saved above; no additional strategic evaluation from a stage-only change/rejection."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Set Opportunity_Minimum Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Restore Stage=Prospecting then Amount=101000. Genuine Amount changes add history; do not delete evidence.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "RULE-05",
+      "title": "Closed Won minimum: 100000 USD is allowed",
+      "modules": [
+        "Opportunity"
+      ],
+      "ruleKeys": [
+        "Opportunity_Minimum"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Closed Won minimum: 100000 USD is allowed",
+      "fixtures": [
+        "SYN-MM-O01 Deal"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Open O01; record Stage=Prospecting, Amount=101000, Strategic=false, Discount=5 and latest policy evaluation.",
+          "Baseline matches; no pending native approval."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Opportunity_Minimum. Set Enabled=true; Rule Version=demo-on-v1. Numeric Value=100000. Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Set Amount=100000; keep Stage=Prospecting and save.",
+          "Open-stage save succeeds; Amount change appends policy evidence, still Not Required."
+        ],
+        [
+          "Record newest evaluation; change only Stage to Closed Won and Save.",
+          "Save succeeds; reload shows Closed Won."
+        ],
+        [
+          "Inspect Amount, policy and latest evaluation after the stage-only attempt.",
+          "Amount remains the value saved above; no additional strategic evaluation from a stage-only change/rejection."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Set Opportunity_Minimum Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Restore Stage=Prospecting then Amount=101000. Genuine Amount changes add history; do not delete evidence.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "RULE-06",
+      "title": "Closed Won minimum: 100000.01 USD is allowed",
+      "modules": [
+        "Opportunity"
+      ],
+      "ruleKeys": [
+        "Opportunity_Minimum"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Closed Won minimum: 100000.01 USD is allowed",
+      "fixtures": [
+        "SYN-MM-O01 Deal"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Open O01; record Stage=Prospecting, Amount=101000, Strategic=false, Discount=5 and latest policy evaluation.",
+          "Baseline matches; no pending native approval."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Opportunity_Minimum. Set Enabled=true; Rule Version=demo-on-v1. Numeric Value=100000. Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Set Amount=100000.01; keep Stage=Prospecting and save.",
+          "Open-stage save succeeds; Amount change appends policy evidence, still Not Required."
+        ],
+        [
+          "Record newest evaluation; change only Stage to Closed Won and Save.",
+          "Save succeeds; reload shows Closed Won."
+        ],
+        [
+          "Inspect Amount, policy and latest evaluation after the stage-only attempt.",
+          "Amount remains the value saved above; no additional strategic evaluation from a stage-only change/rejection."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Set Opportunity_Minimum Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Restore Stage=Prospecting then Amount=101000. Genuine Amount changes add history; do not delete evidence.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "RULE-07",
+      "title": "Closed Won minimum: blank is blocked",
+      "modules": [
+        "Opportunity"
+      ],
+      "ruleKeys": [
+        "Opportunity_Minimum"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Closed Won minimum: blank is blocked",
+      "fixtures": [
+        "SYN-MM-O01 Deal"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Open O01; record Stage=Prospecting, Amount=101000, Strategic=false, Discount=5 and latest policy evaluation.",
+          "Baseline matches; no pending native approval."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Opportunity_Minimum. Set Enabled=true; Rule Version=demo-on-v1. Numeric Value=100000. Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Set Amount=blank (clear the field); keep Stage=Prospecting and save.",
+          "Open-stage save succeeds; Amount change appends policy evidence, still Not Required."
+        ],
+        [
+          "Record newest evaluation; change only Stage to Closed Won and Save.",
+          "DEMO_RULE Opportunity_Minimum; reload remains Prospecting."
+        ],
+        [
+          "Inspect Amount, policy and latest evaluation after the stage-only attempt.",
+          "Amount remains the value saved above; no additional strategic evaluation from a stage-only change/rejection."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Set Opportunity_Minimum Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Restore Stage=Prospecting then Amount=101000. Genuine Amount changes add history; do not delete evidence.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "RULE-08",
+      "title": "Minimum changes immediately for the next save; switch-off restores permissive behavior",
+      "modules": [
+        "Opportunity"
+      ],
+      "ruleKeys": [
+        "Opportunity_Minimum"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Minimum changes immediately for the next save; switch-off restores permissive behavior",
+      "fixtures": [
+        "SYN-MM-O01 Deal"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Confirm O01 Amount=101000 and Stage=Prospecting.",
+          "No approval request is pending."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Opportunity_Minimum. Set Enabled=true; Rule Version=demo-on-v1. Numeric Value=120000. Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Set Stage=Closed Won and save.",
+          "Blocked by Opportunity_Minimum; remains Prospecting."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Opportunity_Minimum. Set Enabled=true; Rule Version=demo-on-v1. Numeric Value=100000; Rule Version=demo-min-100k. Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Retry Stage=Closed Won.",
+          "Allowed with unchanged Amount=101000."
+        ],
+        [
+          "Reopen Stage=Prospecting; configure minimum=120000 but Enabled=false.",
+          "Saved amount remains 101000; rule is disabled."
+        ],
+        [
+          "Set Closed Won and save.",
+          "Allowed: disabled switch removes the extra restriction."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Set Opportunity_Minimum Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Restore O01 Stage=Prospecting, Amount=101000.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "RULE-09",
+      "title": "Primary contact gate at Opportunity save",
+      "modules": [
+        "Opportunity",
+        "OpportunityContactRole"
+      ],
+      "ruleKeys": [
+        "Opportunity_Primary_Contact"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Primary contact gate at Opportunity save",
+      "fixtures": [
+        "New Opportunity SYN-RULE-PRIMARY-{run}",
+        "SYN-MM-A05 Customer",
+        "Synthetic SYN-MM-C01"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Create Opportunity SYN-RULE-PRIMARY-{run}: Account=A05, Stage=Prospecting, Close Date=2026-12-31, Amount=100000, Strategic=false, Discount=5; do not add contact roles.",
+          "One open deal exists with zero Contact Roles."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Opportunity_Primary_Contact. Set Enabled=true; Rule Version=demo-on-v1.  Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Change Stage=Closed Won and save.",
+          "DEMO_RULE Opportunity_Primary_Contact; remains Prospecting."
+        ],
+        [
+          "Open the same record in standard Sales app > Related > Contact Roles. Add C01 as Decision Maker, Primary unchecked; save.",
+          "Exactly one non-primary role exists."
+        ],
+        [
+          "Retry Closed Won.",
+          "Still blocked: a contact role alone is insufficient."
+        ],
+        [
+          "Edit Contact Roles; mark C01 Primary; save. Retry Closed Won.",
+          "Save succeeds; exactly one primary role is present."
+        ],
+        [
+          "Refresh policy history; compare with before stage edits.",
+          "Stage/role-only edits add no strategic policy evaluation."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Set Opportunity_Primary_Contact Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Return new deal to Prospecting and retain it as a recorded run fixture. No deletion of roles or evidence required.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "RULE-10",
+      "title": "Case resolution: blank and whitespace fail; text passes",
+      "modules": [
+        "Case"
+      ],
+      "ruleKeys": [
+        "Case_Resolution"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Case resolution: blank and whitespace fail; text passes",
+      "fixtures": [
+        "SYN-MM-S01 Support"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Open S01 Details > Edit. Record New/Medium, Account=A05, Contact=C01; Demo Resolution blank.",
+          "Demo Resolution is visible to demo operator. If absent, report layout/FLS blocker."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Case_Resolution. Set Enabled=true; Rule Version=demo-on-v1.  Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Set Status=Closed with Demo Resolution blank. Leave notification and assignment-rule options off; Save.",
+          "DEMO_RULE Case_Resolution; refresh shows original status."
+        ],
+        [
+          "Retry with Demo Resolution containing spaces only.",
+          "Still blocked; spaces are not a resolution."
+        ],
+        [
+          "Enter Demo Resolution=Synthetic connectivity issue resolved; verified with test customer. Set Closed and Save.",
+          "Closed persists with the exact resolution; Account/Contact unchanged; no custom notification is sent."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Case_Resolution. Set Enabled=false; Rule Version=baseline-off-v1.  Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Clear Demo Resolution while leaving Closed and save.",
+          "Save succeeds when rule disabled."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Set Case_Resolution Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Restore Status=New, Priority=Medium, Demo Resolution blank. Do not clear seeded Description.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "RULE-11",
+      "title": "Task completion requires a due date, not a future due date",
+      "modules": [
+        "Task"
+      ],
+      "ruleKeys": [
+        "Task_Due_Date"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Task completion requires a due date, not a future due date",
+      "fixtures": [
+        "SYN-MM-T41 Follow Up",
+        "SYN-MM-S01 Support"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Open T41; record Status=Not Started, Due Date=2026-12-15, Related To=S01, Name=C01.",
+          "Relationships match; Case status recorded."
+        ],
+        [
+          "Clear Due Date while task remains Not Started and save.",
+          "Allowed; task incomplete."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Task_Due_Date. Set Enabled=true; Rule Version=demo-on-v1.  Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Mark Complete or set Status=Completed; save.",
+          "DEMO_RULE Task_Due_Date; reload remains incomplete."
+        ],
+        [
+          "Set Due Date=2026-01-01 and Status=Completed; save.",
+          "Allowed: presence is checked, not lateness/future date."
+        ],
+        [
+          "Inspect S01.",
+          "Task completes; Case is not automatically closed."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Task_Due_Date. Set Enabled=false; Rule Version=baseline-off-v1.  Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Clear Due Date on the completed Task and save.",
+          "Allowed with rule disabled."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Set Task_Due_Date Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Restore Not Started and 2026-12-15; retain owner, WhoId, WhatId.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "RULE-12",
+      "title": "Inactive campaign response blocked without sending messages",
+      "modules": [
+        "Campaign",
+        "CampaignMember"
+      ],
+      "ruleKeys": [
+        "Campaign_Active"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Inactive campaign response blocked without sending messages",
+      "fixtures": [
+        "SYN-MM-M01 Outreach",
+        "Synthetic SYN-MM-C01"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Open M01 and record Active=true, member count=10, C01 Status=Sent.",
+          "Baseline response count is zero if other tests were cleaned."
+        ],
+        [
+          "Edit Campaign Active=false and save.",
+          "Campaign becomes inactive; members unchanged."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Campaign_Active. Set Enabled=true; Rule Version=demo-on-v1.  Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Edit C01's Campaign Member Status=Responded; save.",
+          "DEMO_RULE Campaign_Active; refresh shows Sent and unchanged response count."
+        ],
+        [
+          "Set Campaign Active=true; retry member Status=Responded.",
+          "Allowed; total members remains 10 and responses increase by one."
+        ],
+        [
+          "Set Campaign Active=false again.",
+          "No response changes occur just from deactivation."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Campaign_Active. Set Enabled=false; Rule Version=baseline-off-v1.  Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Change C01 member Status=Sent; save.",
+          "Allowed while inactive because rule is disabled; no email-send action was used."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Set Campaign_Active Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Restore M01 Active=true and C01 member Status=Sent. Verify original counts.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "RULE-13",
+      "title": "Two Opportunity guards compose without weakening either",
+      "modules": [
+        "Opportunity",
+        "OpportunityContactRole"
+      ],
+      "ruleKeys": [
+        "Opportunity_Minimum",
+        "Opportunity_Primary_Contact"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Two Opportunity guards compose without weakening either",
+      "fixtures": [
+        "New Opportunity SYN-RULE-COMBINED-{run}",
+        "SYN-MM-A05 Customer",
+        "Synthetic SYN-MM-C01"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Create named open deal under A05: Prospecting, Amount=99999.99, Close Date=2026-12-31, Strategic=false, Discount=5, no roles.",
+          "Deal created once."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Opportunity_Minimum. Set Enabled=true; Rule Version=demo-on-v1. Numeric Value=100000. Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Opportunity_Primary_Contact. Set Enabled=true; Rule Version=demo-on-v1.  Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Attempt Stage=Closed Won.",
+          "Rejected; Salesforce may expose only the first rule error. Record remains Prospecting. Subsequent steps independently prove both guards."
+        ],
+        [
+          "Save Amount=100000 while open; retry Closed Won.",
+          "Still rejected by Opportunity_Primary_Contact."
+        ],
+        [
+          "Add primary C01 Decision Maker role using standard Sales app; retry Closed Won.",
+          "Allowed only after both conditions satisfied."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Set Opportunity_Minimum Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Set Opportunity_Primary_Contact Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Return created deal to Prospecting; keep synthetic run records.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "RULE-14",
+      "title": "Invalid enabled configuration fails closed",
+      "modules": [
+        "Opportunity"
+      ],
+      "ruleKeys": [
+        "Opportunity_Minimum"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Invalid enabled configuration fails closed",
+      "fixtures": [
+        "SYN-MM-O01 Deal"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Confirm O01 Stage=Prospecting and Amount=101000.",
+          "Baseline is ready."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Opportunity_Minimum. Set Enabled=true; Rule Version=demo-on-v1. Clear Numeric Value. Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Attempt Stage=Closed Won.",
+          "DEMO_CONFIG; record unchanged."
+        ],
+        [
+          "Set Numeric Value=-1; retry Closed Won.",
+          "DEMO_CONFIG; negative minimum is invalid."
+        ],
+        [
+          "Set Numeric Value=100000 but clear Rule Version; retry Closed Won.",
+          "DEMO_CONFIG; enabled rule requires nonblank version."
+        ],
+        [
+          "Set Rule Version=demo-repaired-v1 and retry Closed Won.",
+          "Allowed. If testing a defect, agent must report mismatch against approved requirement before any repair."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Set Opportunity_Minimum Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Restore O01 Stage=Prospecting and Amount=101000. Never leave invalid configuration enabled.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "RULE-15",
+      "title": "Lead required status is configurable",
+      "modules": [
+        "Lead"
+      ],
+      "ruleKeys": [
+        "Lead_Qualification"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Lead required status is configurable",
+      "fixtures": [
+        "New Lead SYN-RULE-LEAD-CONFIG-{run}",
+        "SYN-MM-A24 Customer"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Create named Lead, Company=Synthetic Configuration Prospect, Status=Working - Contacted.",
+          "One unconverted Lead; use unique suffix."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Lead_Qualification. Set Enabled=true; Rule Version=demo-on-v1. Clear Required Value. Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "Attempt Convert to existing A24, new Contact, no Opportunity, notification off.",
+          "DEMO_CONFIG; no new Contact persists."
+        ],
+        [
+          "Set Required Value=Open - Not Contacted, version=demo-status-v2; retry.",
+          "Rejected with Lead_Qualification; saved prior status is Working - Contacted."
+        ],
+        [
+          "Save Lead Status=Open - Not Contacted, then retry conversion.",
+          "Allowed under the changed requirement; one new Contact linked to A24."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Set Lead_Qualification Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Consumed Lead stays converted; log new Contact and use another Lead next time.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "RULE-16",
+      "title": "Renaming in the same save does not evade a reparent guard",
+      "modules": [
+        "Account"
+      ],
+      "ruleKeys": [
+        "Account_Reparent"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Renaming in the same save does not evade a reparent guard",
+      "fixtures": [
+        "New Account SYN-RULE-SCOPE-{run}",
+        "SYN-MM-A01 Group",
+        "SYN-MM-A02 Group"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Create named synthetic Account with Parent=A01; record original Name.",
+          "Account is in synthetic scope."
+        ],
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Account_Reparent. Set Enabled=true; Rule Version=demo-on-v1.  Save and reopen.",
+          "Saved configuration matches the requested values. Do not edit record API name or Protected."
+        ],
+        [
+          "In one Edit form change Name=Synthetic scope probe {run} and Parent=A02; Save.",
+          "Blocked by Account_Reparent because the old name is in scope; both changes roll back."
+        ],
+        [
+          "Reload and verify original Name and Parent=A01.",
+          "No partial name change occurred."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Set Account_Reparent Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Retain named run Account; no record deletion. Prefix scoping is demo targeting, not a security boundary.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "RULE-17",
+      "title": "Disabled rules preserve original workflows",
+      "modules": [
+        "Account",
+        "Contact",
+        "Lead",
+        "Opportunity",
+        "OpportunityContactRole",
+        "Case",
+        "Task",
+        "Campaign",
+        "CampaignMember"
+      ],
+      "ruleKeys": [
+        "Account_Reparent",
+        "Contact_Reparent",
+        "Lead_Qualification",
+        "Opportunity_Minimum",
+        "Opportunity_Primary_Contact",
+        "Case_Resolution",
+        "Task_Due_Date",
+        "Campaign_Active"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Disabled rules preserve original workflows",
+      "fixtures": [
+        "Original SYN-MM fixtures"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Open all eight Demo Business Rule records; set Enabled=false and Rule Version=baseline-off-v1; restore default numeric/status values.",
+          "All eight records match baseline."
+        ],
+        [
+          "Execute MM-01 through MM-10 using their detailed steps and specified order; run conversions last.",
+          "Original native workflows remain valid; record results per case, not as one inferred pass."
+        ],
+        [
+          "Run read-only multi-module Verify after cleanup.",
+          "Restored seeded fields match; consumed lead conversions are recorded as intentional drift. New SYN-RULE run records are outside loader ownership."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Keep all eight switches off. Follow each MM cleanup; never automatically undo conversion or delete approval/evaluation history.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "POLICY-08",
+      "title": "Discount configuration change from 15 to 20 with independent expected behavior",
+      "modules": [
+        "Opportunity",
+        "Strategic_Discount_Rule__mdt"
+      ],
+      "ruleKeys": [],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Discount configuration change from 15 to 20 with independent expected behavior",
+      "fixtures": [
+        "New Opportunities SYN-RULE-POLICY-BEFORE-{run} and SYN-RULE-POLICY-AFTER-{run}",
+        "SYN-MM-A05 Customer",
+        "Synthetic Regional VP"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Verify Strategic Discount Rule Default: Active=true, minimum=50000000, discount=15, version=baseline-15.",
+          "Baseline configuration is exact."
+        ],
+        [
+          "Create BEFORE deal: A05, Prospecting, Close Date=2026-12-31, Amount=60000000, Strategic=true, Discount=18, VP=Synthetic Regional VP.",
+          "Pending Regional VP eligibility with baseline-15; do not submit."
+        ],
+        [
+          "As admin edit Default: Discount Threshold Percent=20, Rule Version=demo-20. Leave other fields unchanged.",
+          "Configuration now 20; approved demo requirement determines whether this is intended change or injected defect."
+        ],
+        [
+          "Refresh BEFORE policy card; click unchanged Save and Evaluate.",
+          "Existing stored outcome/version does not automatically re-evaluate; stale baseline-15 remains detectable."
+        ],
+        [
+          "Create AFTER deal with the same input values and different unique name.",
+          "Not Required under demo-20; one initial evaluation."
+        ],
+        [
+          "Attempt app Submit for Approval on stale BEFORE deal if offered.",
+          "Current-policy recheck rejects stale eligibility; do not use standard approval API to bypass it."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Restore Default to Active=true, minimum=50000000, discount=15, version=baseline-15. Retain both run deals and snapshots; metadata restoration does not re-evaluate them.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "POLICY-09",
+      "title": "Inactive strategic policy produces configuration error, not approval bypass",
+      "modules": [
+        "Opportunity",
+        "Strategic_Discount_Rule__mdt"
+      ],
+      "ruleKeys": [],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Inactive strategic policy produces configuration error, not approval bypass",
+      "fixtures": [
+        "New Opportunity SYN-RULE-INACTIVE-{run}",
+        "SYN-MM-A05 Customer"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Save Default Active=false while leaving baseline numbers/version unchanged.",
+          "Central policy explicitly inactive."
+        ],
+        [
+          "Create named deal: A05, Prospecting, Close Date=2026-12-31, Amount=60000000, Strategic=true, Discount=20, VP set.",
+          "Configuration Error; no native approval is created. Inactive does not mean Not Required."
+        ],
+        [
+          "Restore Default Active=true and genuinely change Discount=21 on the new deal; save.",
+          "Fresh evaluation is Pending Regional VP under baseline-15. Record both evaluations."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Restore strategic baseline; do not submit or delete the new deal.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "APPROVAL-01",
+      "title": "Native approval approve with separate actors",
+      "modules": [
+        "Opportunity",
+        "User",
+        "ApprovalProcess"
+      ],
+      "ruleKeys": [],
+      "actor": "Owner and separate Synthetic Regional VP; owner performs Recall only",
+      "objective": "Native approval approve with separate actors",
+      "fixtures": [
+        "New Opportunity SYN-RULE-APPROVAL-01-{run}",
+        "SYN-MM-A05 Customer",
+        "Synthetic Regional VP"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "As owner create named deal: A05, Prospecting, 2026-12-31, Amount=60000000, Strategic=true, Discount=20, VP=Synthetic Regional VP.",
+          "Eligibility Pending Regional VP; no request until explicit submit."
+        ],
+        [
+          "Record policy history; click Submit for Approval.",
+          "Latest native request Pending; owner sees Recall, not app Approve/Reject."
+        ],
+        [
+          "In separate Synthetic Regional VP session open same Opportunity, refresh approval and click Approve.",
+          "Native request and Opportunity status become Approved."
+        ],
+        [
+          "Reload as owner; compare policy history with pre-submit snapshot.",
+          "Native history records decision; no additional strategic evaluation from submit/decision/recall."
+        ],
+        [
+          "Confirm no pending native request remains.",
+          "Record unlocked for ordinary permitted edits; admin overrides are not used as security evidence."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Retain created deal and both history types. Restore baseline configuration; no pending requests left.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "APPROVAL-02",
+      "title": "Native approval reject with separate actors",
+      "modules": [
+        "Opportunity",
+        "User",
+        "ApprovalProcess"
+      ],
+      "ruleKeys": [],
+      "actor": "Owner and separate Synthetic Regional VP; owner performs Recall only",
+      "objective": "Native approval reject with separate actors",
+      "fixtures": [
+        "New Opportunity SYN-RULE-APPROVAL-02-{run}",
+        "SYN-MM-A05 Customer",
+        "Synthetic Regional VP"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "As owner create named deal: A05, Prospecting, 2026-12-31, Amount=60000000, Strategic=true, Discount=20, VP=Synthetic Regional VP.",
+          "Eligibility Pending Regional VP; no request until explicit submit."
+        ],
+        [
+          "Record policy history; click Submit for Approval.",
+          "Latest native request Pending; owner sees Recall, not app Approve/Reject."
+        ],
+        [
+          "In separate Synthetic Regional VP session open same Opportunity, refresh approval and click Reject.",
+          "Native request and Opportunity status become Rejected."
+        ],
+        [
+          "Reload as owner; compare policy history with pre-submit snapshot.",
+          "Native history records decision; no additional strategic evaluation from submit/decision/recall."
+        ],
+        [
+          "Confirm no pending native request remains.",
+          "Record unlocked for ordinary permitted edits; admin overrides are not used as security evidence."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Retain created deal and both history types. Restore baseline configuration; no pending requests left.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "APPROVAL-03",
+      "title": "Native approval recall with separate actors",
+      "modules": [
+        "Opportunity",
+        "User",
+        "ApprovalProcess"
+      ],
+      "ruleKeys": [],
+      "actor": "Owner and separate Synthetic Regional VP; owner performs Recall only",
+      "objective": "Native approval recall with separate actors",
+      "fixtures": [
+        "New Opportunity SYN-RULE-APPROVAL-03-{run}",
+        "SYN-MM-A05 Customer",
+        "Synthetic Regional VP"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "As owner create named deal: A05, Prospecting, 2026-12-31, Amount=60000000, Strategic=true, Discount=20, VP=Synthetic Regional VP.",
+          "Eligibility Pending Regional VP; no request until explicit submit."
+        ],
+        [
+          "Record policy history; click Submit for Approval.",
+          "Latest native request Pending; owner sees Recall, not app Approve/Reject."
+        ],
+        [
+          "As owner click Recall Approval.",
+          "Native status Removed; Opportunity returns Pending Regional VP."
+        ],
+        [
+          "Reload as owner; compare policy history with pre-submit snapshot.",
+          "Native history records decision; no additional strategic evaluation from submit/decision/recall."
+        ],
+        [
+          "Confirm no pending native request remains.",
+          "Record unlocked for ordinary permitted edits; admin overrides are not used as security evidence."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Retain created deal and both history types. Restore baseline configuration; no pending requests left.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "SECURITY-01",
+      "title": "VP read-only inputs and no metadata-admin access",
+      "modules": [
+        "User",
+        "Opportunity"
+      ],
+      "ruleKeys": [],
+      "actor": "Separate Synthetic Regional VP",
+      "objective": "VP read-only inputs and no metadata-admin access",
+      "fixtures": [
+        "Any assigned SYN-RULE approval Opportunity",
+        "Synthetic Regional VP"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Sign in as separate VP, open an assigned synthetic Opportunity and record Amount/Discount.",
+          "VP can read assigned deal."
+        ],
+        [
+          "Inspect Deal Inputs and attempt a normal edit/save only if UI permits entering a changed Discount.",
+          "Save denied; refresh confirms original inputs. Visible Save and Evaluate does not grant edit rights."
+        ],
+        [
+          "Attempt to navigate to Setup Custom Metadata Types through normal UI navigation.",
+          "VP cannot manage demo rules; do not add permissions or use admin session as workaround."
+        ],
+        [
+          "Return to approval panel with a pending request assigned to this VP.",
+          "Approve/Reject remains available only for assigned request; separate permission boundary from editing inputs."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Discard unsaved edits; finish or recall the test request through its authorized actor.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "SECURITY-02",
+      "title": "Non-synthetic records remain outside demo guard scope",
+      "modules": [
+        "Case",
+        "Task",
+        "Opportunity"
+      ],
+      "ruleKeys": [
+        "Case_Resolution",
+        "Task_Due_Date",
+        "Opportunity_Minimum"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Non-synthetic records remain outside demo guard scope",
+      "fixtures": [
+        "New synthetic-content controls named Synthetic Control {run} (no SYN-MM-/SYN-RULE- prefix)"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Case_Resolution. Set Enabled=true; Rule Version=demo-on-v1.  Save and reopen. Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Task_Due_Date. Set Enabled=true; Rule Version=demo-on-v1.  Save and reopen. Setup > Custom Metadata Types > Demo Business Rule > Manage Records > Edit Opportunity_Minimum. Set Enabled=true; Rule Version=demo-on-v1. Numeric Value=100000. Save and reopen.",
+          "Three guards enabled."
+        ],
+        [
+          "Create a Case Subject=Synthetic Control Case {run}, Origin=Web, Status=Closed, Demo Resolution blank; notifications off.",
+          "New demo guard does not reject because prefix is outside scope; unrelated platform rules can still apply."
+        ],
+        [
+          "Create Task Subject=Synthetic Control Task {run}, Status=Completed, no Due Date, no external assignee.",
+          "New due-date guard does not reject."
+        ],
+        [
+          "Create Opportunity Name=Synthetic Control Deal {run}, Account=A05, Stage=Closed Won, Close Date=2026-12-31, Amount=1, Strategic=false.",
+          "New minimum guard does not reject; strategic policy Not Required."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "Set Case_Resolution Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Set Task_Due_Date Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Set Opportunity_Minimum Enabled=false and Rule Version=baseline-off-v1; restore Number Value=100000 for Opportunity_Minimum or Required Value=Working - Contacted for Lead_Qualification. Retain these explicitly created synthetic-content controls in the run ledger. Never test against real records.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    },
+    {
+      "id": "RECOVERY-01",
+      "title": "Rule restoration and dataset reconciliation",
+      "modules": [
+        "Account",
+        "Contact",
+        "Lead",
+        "Opportunity",
+        "OpportunityContactRole",
+        "Case",
+        "Task",
+        "Campaign",
+        "CampaignMember"
+      ],
+      "ruleKeys": [
+        "Account_Reparent",
+        "Contact_Reparent",
+        "Lead_Qualification",
+        "Opportunity_Minimum",
+        "Opportunity_Primary_Contact",
+        "Case_Resolution",
+        "Task_Due_Date",
+        "Campaign_Active"
+      ],
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "objective": "Rule restoration and dataset reconciliation",
+      "fixtures": [
+        "All eight rule records",
+        "Strategic Discount Rule Default",
+        "Touched SYN-MM fixtures"
+      ],
+      "precondition": "Run common preflight; restore baseline first. Keep other demo rules disabled. Use only the named synthetic records.",
+      "steps": [
+        [
+          "Finish/recall every pending test approval; record consumed conversions.",
+          "No pending request is silently canceled."
+        ],
+        [
+          "Disable all eight demo rules, restore baseline-off-v1 and default parameters; restore strategic 15% baseline.",
+          "Configuration is back to approved baseline."
+        ],
+        [
+          "Execute cleanup in reverse mutation order: campaigns/members, tasks, cases, Opportunity stages/amounts/roles, contact Accounts, account parents.",
+          "Touched reusable fixtures match their documented starting values; history is retained."
+        ],
+        [
+          "Run operator read-only Verify or inspect each named record and relationships in UI.",
+          "No unexplained drift; consumed Leads/new records documented. Create-only seeding is not a reset."
+        ],
+        [
+          "Capture before/after config and completion of every cleanup.",
+          "Automation may report clean only with explicit evidence, not because switches are disabled."
+        ]
+      ],
+      "negative": "On rejection, refresh and verify stored values, not just the error toast. Do not bypass permissions or overwrite derived approval fields.",
+      "cleanup": "No deletion. Preserve run ledger, policy and native approval evidence.",
+      "evidence": "Record approved expected behavior, configuration before/after, exact synthetic fixture, save outcome, stored before/after values, error code and cleanup confirmation. Never capture secrets.",
+      "executionStatus": "NOT_RUN"
+    }
+  ]
+}

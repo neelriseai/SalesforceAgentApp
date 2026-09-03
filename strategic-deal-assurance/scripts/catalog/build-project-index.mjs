@@ -86,6 +86,28 @@ export function buildArtifacts() {
     const s=read(p), name=path.posix.basename(p,'.cls'), test=/@isTest\b/i.test(s);
     sourced('apex:'+name,test?'apex-test':'apex-class',name,p,{withSharing:/\bwith sharing class\b/.test(s),restResource:/@RestResource\b/.test(s),auraEnabled:/@AuraEnabled\b/.test(s),invocable:/@InvocableMethod\b/.test(s)});
   }
+  const rulesPath=prefix+'data/demo-rule-scenarios.json';
+  const rulesSpec=JSON.parse(read(rulesPath));
+  const rulesReq=sourced('requirement:BR-DEMO-CONFIGURABLE-RULES','requirement','Eight optional synthetic CRM save guards',prefix+'requirements/BR-DEMO-CONFIGURABLE-RULES.md',{defaultEnabled:false,scopePrefixes:['SYN-MM-','SYN-RULE-'],scopeIsSecurityBoundary:false});
+  edge(rulesReq,'implemented_by','apex:DemoBusinessRules',base+'classes/DemoBusinessRules.cls');
+  for(const p of files.filter(p=>p.startsWith(base+'triggers/') && p.endsWith('.trigger'))) {
+    const s=read(p), match=s.match(/trigger\s+(\w+)\s+on\s+(\w+)\s*\(([^)]+)\)/);
+    if(!match) throw new Error('Unrecognized trigger shape: '+p);
+    const id=sourced('trigger:'+match[1],'apex-trigger',match[1],p,{events:match[3].split(',').map(v=>v.trim())});
+    edge(object(match[2]),'triggers',id,p); edge(id,'calls','apex:DemoBusinessRules',p);
+  }
+  for(const r of rulesSpec.rules) {
+    const p=base+'customMetadata/Demo_Business_Rule.'+r.key+'.md-meta.xml';
+    const id=sourced('config:Demo_Business_Rule.'+r.key,'custom-metadata-record',r.label,p,{values:Object.fromEntries(blocks(read(p),'values').map(v=>[tag(v,'field'),tag(v,'value')])),runtimeConfigurationMayDiffer:true});
+    edge(id,'instance_of',object('Demo_Business_Rule__mdt'),p);
+    edge('apex:DemoBusinessRules','reads',id,base+'classes/DemoBusinessRules.cls');
+    edge(id,'configures','trigger:'+r.trigger,rulesPath);
+    for(const obj of r.appliesTo) edge(id,'guards_save_of',object(obj),rulesPath);
+    edge('apex:DemoBusinessRulesTest','tests',id,base+'classes/DemoBusinessRulesTest.cls');
+  }
+  edge('apex:DemoBusinessRules','reads',field('Case.Demo_Resolution__c'),base+'classes/DemoBusinessRules.cls');
+  edge('apex:DemoBusinessRules','reads_user_mode',object('OpportunityContactRole'),base+'classes/DemoBusinessRules.cls');
+  edge('apex:DemoBusinessRules','reads_user_mode',object('Campaign'),base+'classes/DemoBusinessRules.cls');
   const policy='apex:StrategicDiscountPolicy'; const flow='flow:Strategic_Discount_Approval';
   const policyPath=base+'classes/StrategicDiscountPolicy.cls';
   const flowPath=base+'flows/Strategic_Discount_Approval.flow-meta.xml';
@@ -172,10 +194,16 @@ export function buildArtifacts() {
     edge(id,'uses_dataset',dataset,casesPath);
     for(const module of c.modules) edge(id,'covers',module==='ApprovalProcess'?ap:object(module),casesPath);
   }
+  const manualPath=prefix+'data/manual-test-suite.json';
+  for(const c of JSON.parse(read(manualPath)).cases) {
+    const id=sourced('use-case:'+c.id,'manual-use-case',c.title,manualPath,{objective:c.objective,actor:c.actor,steps:c.steps.length,manualSuiteExecution:'NOT_RUN specification; consult run evidence'});
+    for(const key of c.ruleKeys) edge(id,'tests_configuration','config:Demo_Business_Rule.'+key,manualPath);
+    for(const module of c.modules) edge(id,'covers',module==='ApprovalProcess'?ap:object(module),manualPath);
+  }
   for(const [runner,target] of [['scripts/demo/reset-baseline.ps1',baselineId],['scripts/demo/seed-multi-module.ps1',dataset]]) edge('file:'+prefix+runner,'manages',target,prefix+runner);
   for(const e of edges.values()) if(!nodes.has(e.from) || !nodes.has(e.to)) throw new Error('Unresolved graph edge: '+e.from+' -> '+e.to);
   const graph={schemaVersion:'1.0.0',application:'Strategic Deal Assurance',apiVersion:contract.apiVersion,sourceSnapshot,provenance:'Static DX metadata, curated lifecycle relationships and logical synthetic fixture references. Not a live org dump or complete Apex call graph.',authorization:'Descriptive only; graph edges grant no execution authority.',nodes:[...nodes.values()].sort((a,b)=>a.id.localeCompare(b.id)),edges:[...edges.values()].sort((a,b)=>a.id.localeCompare(b.id))};
-  const index={schemaVersion:'1.0.0',application:'Strategic Deal Assurance',pathBase:'repository-root',sourceSnapshot,hashAlgorithm:'SHA-256 of UTF-8 text normalized to LF',generator:prefix+'scripts/catalog/build-project-index.mjs',generatedOutputs:outputs,readOrder:[prefix+'contracts/agent-interface.json',prefix+'docs/agent-integration-guide.md',prefix+'docs/project-index.md',outputs[0],prefix+'data/multi-module-use-cases.json'],authoritativePaths:[prefix+'force-app/main/default',prefix+'requirements'],historicalEvidenceNotice:'Milestone reports describe their recorded snapshot, not current runtime state. Older permission descriptions can be stale.',files:inventory};
+  const index={schemaVersion:'1.0.0',application:'Strategic Deal Assurance',pathBase:'repository-root',sourceSnapshot,hashAlgorithm:'SHA-256 of UTF-8 text normalized to LF',generator:prefix+'scripts/catalog/build-project-index.mjs',generatedOutputs:outputs,readOrder:[prefix+'contracts/agent-interface.json',prefix+'docs/agent-integration-guide.md',prefix+'docs/project-index.md',outputs[0],prefix+'docs/demo-rules-guide.md',prefix+'docs/test-plan.md',prefix+'data/manual-test-suite.json'],authoritativePaths:[prefix+'force-app/main/default',prefix+'requirements'],historicalEvidenceNotice:'Milestone reports describe their recorded snapshot, not current runtime state. Older permission descriptions can be stale.',files:inventory};
   return new Map([[outputs[0],JSON.stringify(graph,null,2)+'\n'],[outputs[1],JSON.stringify(index,null,2)+'\n']]);
 }
 

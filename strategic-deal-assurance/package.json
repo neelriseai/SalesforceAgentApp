@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "description": "Salesforce App",
   "scripts": {
+    "manual:build": "node scripts/catalog/build-manual-suite.mjs",
+    "manual:check": "node scripts/catalog/build-manual-suite.mjs --check",
+    "manual:test": "node --test scripts/catalog/manual-suite.test.mjs",
     "catalog:build": "node scripts/catalog/build-project-index.mjs",
     "catalog:check": "node scripts/catalog/build-project-index.mjs --check",
     "catalog:test": "node --test scripts/catalog/catalog.test.mjs",

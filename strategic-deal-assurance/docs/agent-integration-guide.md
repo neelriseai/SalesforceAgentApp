@@ -9,7 +9,7 @@ This is the current handoff contract for an external agent interacting with **St
 3. This guide and [project index](project-index.md): runtime and source entry points.
 4. `knowledge/application-graph.json`: metadata dependencies, lifecycle, permissions, logical fixture relationships and test mappings.
 5. `knowledge/project-index.json`: repository-relative file paths and LF-normalized SHA-256 source fingerprints.
-6. `data/multi-module-use-cases.json` and [manual E2E guide](multi-module-manual-e2e.md): ten objectives and 53 action/expected-result steps.
+6. `data/manual-test-suite.json`, [complete manual suite](manual-test-cases.md), [test plan](test-plan.md) and [rule configuration guide](demo-rules-guide.md): 42 cases / 232 steps, exact fixtures, cleanup and future automation contract. The original ten-case file remains the native-workflow source.
 7. Relevant `force-app/main/default` source and `requirements/BR-STRATEGIC-DISCOUNT-baseline.md`: implementation and policy authority.
 
 The graph is a static source snapshot, not a live org export, entitlement engine or complete Apex call graph. Source-derived and curated relationship edges have provenance. Check `npm run catalog:check` after checkout. When source changes, regenerate with `npm run catalog:build`. Do not infer a live deployment solely from files or hashes.
@@ -85,6 +85,22 @@ Create or change any of `Amount`, `Discount__c`, `Strategic_Deal__c`, `Regional_
 Policy evaluation only checks that an approver identifier is present. Native submission additionally requires active, separate owner/approver identities and synthetic name. A lookup labelled Regional VP is not organizational-title attestation.
 
 After human approval/rejection, changing a relevant input can reset eligibility and require a new approval. An unchanged save does not force re-evaluation after metadata-only policy drift. Do not secretly toggle a field to manufacture evidence; surface the stale version and seek the approved maintenance workflow.
+
+## 5a. Configurable cross-module save guards
+
+The [approved rule requirement](../requirements/BR-DEMO-CONFIGURABLE-RULES.md) defines eight optional restrictions read from `Demo_Business_Rule__mdt`. All source defaults are OFF, version `baseline-off-v1`. Metadata administration stays with the approved operator; there is no new custom rule-write API or agent admin grant.
+
+Rules cover Account parent changes, Contact Account changes, saved Lead qualification before native conversion, Closed Won minimum amount (inclusive >= 100000 USD baseline), Closed Won primary Contact Role, Closed Case resolution, Completed Task due date and member response updates on inactive Campaigns. This minimum is separate from the strict USD 50m / 15% strategic-approval predicate.
+
+New field `Case.Demo_Resolution__c` is writable only with appropriate field and Case permissions. `Demo_Rule_Operator` grants that field, not Case CRUD, metadata administration or API access. Original integration permission sets do not gain these CRM privileges.
+
+`DemoBusinessRules` and seven triggers enforce the optional rules on native saves. Six are before triggers; Lead uses after-update addError to roll back conversion. Related primary-role/campaign reads are WITH USER_MODE. Only names/last names/subjects beginning SYN-MM- or SYN-RULE- are targeted (old or new name on direct updates; current Campaign name for membership). Editable prefixes are not immutable security labels.
+
+`DEMO_RULE <key>` denotes a business rejection; `DEMO_CONFIG` denotes configuration/context failure. Verify persisted state after both success and failure; no evaluation/approval field may be directly patched to override a rejection. Metadata edits affect the next relevant save; they do not refresh existing strategic outcomes or auto-run all tests.
+
+Exact guarded status API values are Closed Won, Closed and Completed. Lead requires a separately saved pre-conversion Status matching the configured Required Value. Primary-role enforcement runs on Opportunity save, not later role deletion. Campaign enforcement runs on member Status updates, not inserts. Customer 360 remains read-only reconciliation. No new User-management, SLA or outbound messaging engine exists.
+
+Ingest `data/manual-test-suite.json` as the test specification, not an execution receipt. Approved expected behavior must be independent from runtime settings: a deliberate incorrect threshold must not become the agent's expected answer. Every configuration change/repair needs explicit task scope. Ordinary sObject REST cannot update Custom Metadata; do not replay Aura to work around that.
 
 ## 6. Browser interaction contract
 
@@ -203,7 +219,7 @@ npm run lint
 powershell -NoProfile -File scripts/demo/test-reset-local.ps1
 powershell -NoProfile -File scripts/demo/test-multi-module-local.ps1
 # Requires the separately authorized demo org:
-powershell -NoProfile -File scripts/test-milestone-4.ps1
+powershell -NoProfile -File scripts/test-milestone-6.ps1
 ```
 
 Use graph paths to identify affected artifacts: requirement → policy/config → Flow/derived fields/evidence → controllers/UI/permissions → Apex/Jest/manual cases. Inspect the referenced source before recommending a repair; the graph is intentionally not exhaustive static analysis. Regenerate after any source edit.
@@ -212,11 +228,11 @@ For an external-agent run, record source snapshot/commit, environment fingerprin
 
 Separate failures: authentication/environment; CRUD/FLS/sharing; configuration/stale version; fixture drift/duplicate; policy defect; wrong assertion; UI locator/layout; pending approval lock. Do not label all denied writes as product failures or all API tests as browser evidence. On insufficient evidence, report Blocked/Incomplete rather than claim success.
 
-The latest recorded regression in milestone-5 is 35/35 Apex results with 99% coverage; component tests are mocks. The original two-login approval was user-completed and backend-verified. The new ten-case manual suite is prepared, not a completed browser suite. Full external API/UI automation, Code Analyzer release gates, a clean tagged reset and dedicated agent OAuth remain outstanding.
+Milestone-5 recorded 35/35 Apex results with 99% coverage; that remains historical. See [milestone-6 evidence](../evidence/milestone-6-verification.md) for current five-suite regression and optional-rule checks; component tests are mocks. The original two-login approval was user-completed and backend-verified. The unified 42-case manual suite is prepared, not a completed browser suite. Full external API/UI automation, Code Analyzer release gates, a clean tagged reset and dedicated agent OAuth remain outstanding.
 
 ## 11. Deployment and source maintenance
 
-Do not deploy merely to inspect or connect. For an explicitly authorized rebuild into the verified non-production org, use scoped manifests in order: milestone-1, milestone-2, milestone-3, milestone-4, milestone-4-lightning-access, milestone-5-navigation, each with its named tests and explicit test level. Review native Workflow/ApprovalProcess conflicts and licenses before deployment. Avoid the broad scaffold `manifest/package.xml`.
+Do not deploy merely to inspect or connect. For an explicitly authorized rebuild into the verified non-production org, use scoped manifests in order: milestone-1, milestone-2, milestone-3, milestone-4, milestone-4-lightning-access, milestone-5-navigation, milestone-6-demo-rules, each with its named tests and explicit test level. Review native Workflow/ApprovalProcess conflicts and licenses before deployment. Avoid the broad scaffold `manifest/package.xml`. Milestone 6 includes OFF Custom Metadata values and will restore those settings on deployment; do not redeploy mid-demo. Its Case layout references pre-existing Developer Edition sample fields; adapt explicitly for a different org.
 
 Metadata in Git is the reproducible source; retrieved runtime authorization is not. User activation, permission assignment, Marketing User enablement and local org binding are environment setup actions that require appropriate authorization. The seed scripts do not silently grant missing permissions. A Git push neither deploys the org nor creates API credentials.
 

@@ -1,6 +1,16 @@
 # Strategic Deal Assurance
 
-Salesforce system-under-test for a separately developed assurance agent. The current milestone adds **10 native cross-module scenarios and 368 linked synthetic business records** to the Lightning workbench, USD 15% policy and separate-persona Regional VP approval. This is not yet a full showcase release.
+Salesforce system-under-test for a separately developed assurance agent. The current milestone adds **eight configurable CRM save guards and a 42-case / 232-step manual suite** to the existing 368-record demo, in addition to the Lightning workbench, USD 15% policy and separate-persona Regional VP approval. This is not yet a full showcase release.
+
+## Configure and demo without code changes
+
+As administrator, open **Setup > Custom Metadata Types > Demo Business Rule > Manage Records**. All eight new restrictions start OFF. Enable the desired rule, adjust its supported parameter/version, then save the target record to observe the changed behavior. The existing strategic discount remains under **Strategic Discount Rule > Default**, unchanged at 15%.
+
+Read the [configuration guide](docs/demo-rules-guide.md), [approved rule specification](requirements/BR-DEMO-CONFIGURABLE-RULES.md), [test plan](docs/test-plan.md), [42 step-by-step manual cases](docs/manual-test-cases.md) and [JSON suite for future automation](data/manual-test-suite.json). Each case supplies exact data, actor, preconditions, action/expected-result steps, negative checks, evidence and cleanup. Configuration changes do not automatically re-evaluate old records; successful Lead conversion cannot be undone by the seed loader.
+
+Implementation: DemoBusinessRules, seven thin triggers, eight Demo_Business_Rule__mdt records, Case Demo Resolution field/layout and field-only Demo_Rule_Operator permission set. Existing approval security and 15% policy are not weakened. New guards target only SYN-MM-/SYN-RULE- synthetic names; this is not a production-wide validation framework.
+
+Run `npm run manual:build`, `npm run manual:check` and `npm run manual:test` after changing scenarios; then rebuild/check the knowledge catalog. Current live runner: [test-milestone-6.ps1](scripts/test-milestone-6.ps1), all five Apex suites with coverage. Scoped deployment: [milestone-6-demo-rules.xml](manifest/milestone-6-demo-rules.xml). Read [verification and limitations](evidence/milestone-6-verification.md) before claiming execution.
 
 ## Agent handoff and project discovery
 
@@ -32,9 +42,9 @@ Regenerate discovery artifacts with `npm run catalog:build`, validate freshness 
 
 The first slice provides seven Opportunity fields, the evaluation evidence object, central policy custom metadata, and tested invocable Apex. Milestone 2 activates the after-save Flow: creating an Opportunity or changing policy inputs updates its outcome and creates one evaluation row. Irrelevant/output-only changes create none. The rule is strategic=true AND Amount > USD 50,000,000 AND Discount > 15%. No currency conversion occurs.
 
-Four permission sets are deployed; Strategic_Deal_User is assigned to the authorized demo identity with user approval. Evaluation history remains private without direct normal-user CRUD; the controller checks parent access before returning five narrow history summaries. Seven managed synthetic deals have a repeatable, non-destructive data reset. Native approval supports submission, assigned-actor approval/rejection, owner recall and record locking. A separate minimum-access demo VP is provisioned. Reset refuses pending approval requests. External API correlation, a repeatable UI/API harness and full tagged release reset remain future milestones. A custom external REST facade is deferred; the approval controller is an internal Lightning adapter.
+Five permission sets are defined; Strategic_Deal_User is assigned to the authorized demo identity with user approval. Evaluation history remains private without direct normal-user CRUD; the controller checks parent access before returning five narrow history summaries. Seven managed synthetic deals have a repeatable, non-destructive data reset. Native approval supports submission, assigned-actor approval/rejection, owner recall and record locking. A separate minimum-access demo VP is provisioned. Reset refuses pending approval requests. External API correlation, a repeatable UI/API harness and full tagged release reset remain future milestones. A custom external REST facade is deferred; the approval controller is an internal Lightning adapter.
 
-Run commands from this directory and explicitly target `caip-dev`. Do not deploy the template's broad package manifest; use the appropriate scoped milestone manifest. Repeat current Apex tests with `powershell -NoProfile -File scripts/test-milestone-4.ps1`, component tests with `npm run test:unit -- -- --runInBand`, and lint with `npm run lint`. VS Code is optional. Open App Launcher > Strategic Deal Assurance for the demo UI.
+Run commands from this directory and explicitly target `caip-dev`. Do not deploy the template's broad package manifest; use the appropriate scoped milestone manifest. Repeat current Apex tests with `powershell -NoProfile -File scripts/test-milestone-6.ps1`, component tests with `npm run test:unit -- -- --runInBand`, and lint with `npm run lint`. VS Code is optional. Open App Launcher > Strategic Deal Assurance for the demo UI.
 
 The expanded navigation exposes Accounts, Contacts, Leads, Opportunities, Cases, Tasks and Campaigns as permitted by the current user's access. Search `SYN-MM-` in an all-records list to find the new fixtures. Forty new Opportunities produce forty initial evaluation rows in addition to the 368 business records. The loader is create-only and leaves the original `SYN-SDA-` approval demo unchanged. Manual test results remain Not run until the stated browser steps are executed; successful seeding is not a manual E2E pass.
 

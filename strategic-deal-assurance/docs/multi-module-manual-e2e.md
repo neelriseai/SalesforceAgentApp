@@ -1,5 +1,7 @@
 # Cross-module demo: 10 manual end-to-end use cases
 
+Milestone 6 prerequisite: restore all eight **Demo Business Rule** switches to OFF before these baseline cases. The current [complete manual suite](manual-test-cases.md) includes these ten cases plus strategic-policy, configurable-rule, approval, security and restoration cases. Read the [test plan](test-plan.md) and [configuration guide](demo-rules-guide.md); this original guide remains the detailed baseline workflow reference.
+
 This pack adds native CRM scenarios and a linked synthetic dataset to the existing strategic-deal app. It does not add ten custom automation engines. Case escalation, campaign response changes and pipeline progression are manual native workflows unless explicitly stated otherwise. The separately developed assurance agent can use these objectives and expected results as test inputs.
 
 ## Start here

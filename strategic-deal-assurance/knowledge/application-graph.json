@@ -2,10 +2,30 @@
   "schemaVersion": "1.0.0",
   "application": "Strategic Deal Assurance",
   "apiVersion": "67.0",
-  "sourceSnapshot": "fbe3832fb1ffb8ff9c3bb67c6603765f41c3b0bf60b7773250c87db92f730bcc",
+  "sourceSnapshot": "7cfb475133f7605a70fad57ee6dcbd1830da93985854197880b9e6a05e979c32",
   "provenance": "Static DX metadata, curated lifecycle relationships and logical synthetic fixture references. Not a live org dump or complete Apex call graph.",
   "authorization": "Descriptive only; graph edges grant no execution authority.",
   "nodes": [
+    {
+      "id": "apex:DemoBusinessRules",
+      "kind": "apex-class",
+      "label": "DemoBusinessRules",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls",
+      "withSharing": true,
+      "restResource": false,
+      "auraEnabled": false,
+      "invocable": false
+    },
+    {
+      "id": "apex:DemoBusinessRulesTest",
+      "kind": "apex-test",
+      "label": "DemoBusinessRulesTest",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls",
+      "withSharing": false,
+      "restResource": false,
+      "auraEnabled": false,
+      "invocable": false
+    },
     {
       "id": "apex:StrategicDealApprovalController",
       "kind": "apex-class",
@@ -144,6 +164,18 @@
       "gate": "OAuth, CRUD/FLS, record sharing and explicit action scope; describe does not prove per-record edit access"
     },
     {
+      "id": "capability:configuration.demo.save.guards",
+      "kind": "capability",
+      "label": "configuration.demo.save.guards",
+      "source": "strategic-deal-assurance/contracts/agent-interface.json",
+      "status": "implemented; eight OFF defaults",
+      "metadataType": "Demo_Business_Rule__mdt",
+      "entryPoint": "Administrator Setup > Custom Metadata Types > Demo Business Rule > Manage Records",
+      "writeGate": "Explicitly approved configuration demo; existing metadata-admin privileges required",
+      "service": "DemoBusinessRules",
+      "externalHttpEndpoint": false
+    },
+    {
       "id": "capability:ui.approval",
       "kind": "capability",
       "label": "ui.approval",
@@ -184,6 +216,104 @@
       "internalMethod": "StrategicDealPolicyController.getPolicy",
       "externalHttpEndpoint": false,
       "historyLimit": 5
+    },
+    {
+      "id": "config:Demo_Business_Rule.Account_Reparent",
+      "kind": "custom-metadata-record",
+      "label": "01 Account parent changes",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Account_Reparent.md-meta.xml",
+      "values": {
+        "Enabled__c": "false",
+        "Rule_Version__c": "baseline-off-v1",
+        "Instructions__c": "Blocks Parent Account changes on SYN-MM-/SYN-RULE- Accounts when enabled."
+      },
+      "runtimeConfigurationMayDiffer": true
+    },
+    {
+      "id": "config:Demo_Business_Rule.Campaign_Active",
+      "kind": "custom-metadata-record",
+      "label": "08 Active campaign responses",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Campaign_Active.md-meta.xml",
+      "values": {
+        "Enabled__c": "false",
+        "Rule_Version__c": "baseline-off-v1",
+        "Instructions__c": "Blocks member Status changes for inactive SYN-MM-/SYN-RULE- Campaigns. No email is sent."
+      },
+      "runtimeConfigurationMayDiffer": true
+    },
+    {
+      "id": "config:Demo_Business_Rule.Case_Resolution",
+      "kind": "custom-metadata-record",
+      "label": "06 Case resolution",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Case_Resolution.md-meta.xml",
+      "values": {
+        "Enabled__c": "false",
+        "Rule_Version__c": "baseline-off-v1",
+        "Instructions__c": "Requires nonblank Demo Resolution when saving Status Closed. No emails or SLA automation."
+      },
+      "runtimeConfigurationMayDiffer": true
+    },
+    {
+      "id": "config:Demo_Business_Rule.Contact_Reparent",
+      "kind": "custom-metadata-record",
+      "label": "02 Contact account changes",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Contact_Reparent.md-meta.xml",
+      "values": {
+        "Enabled__c": "false",
+        "Rule_Version__c": "baseline-off-v1",
+        "Instructions__c": "Blocks Account changes on SYN-MM-/SYN-RULE- Contacts when enabled."
+      },
+      "runtimeConfigurationMayDiffer": true
+    },
+    {
+      "id": "config:Demo_Business_Rule.Lead_Qualification",
+      "kind": "custom-metadata-record",
+      "label": "03 Lead qualification",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Lead_Qualification.md-meta.xml",
+      "values": {
+        "Enabled__c": "false",
+        "Rule_Version__c": "baseline-off-v1",
+        "Instructions__c": "Requires previously saved Lead Status to equal Required Value before native conversion.",
+        "Required_Value__c": "Working - Contacted"
+      },
+      "runtimeConfigurationMayDiffer": true
+    },
+    {
+      "id": "config:Demo_Business_Rule.Opportunity_Minimum",
+      "kind": "custom-metadata-record",
+      "label": "04 Won deal minimum",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Opportunity_Minimum.md-meta.xml",
+      "values": {
+        "Enabled__c": "false",
+        "Rule_Version__c": "baseline-off-v1",
+        "Instructions__c": "Requires Amount greater than or equal to Numeric Value in USD when saving Stage Closed Won.",
+        "Number_Value__c": "100000"
+      },
+      "runtimeConfigurationMayDiffer": true
+    },
+    {
+      "id": "config:Demo_Business_Rule.Opportunity_Primary_Contact",
+      "kind": "custom-metadata-record",
+      "label": "05 Won deal primary contact",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Opportunity_Primary_Contact.md-meta.xml",
+      "values": {
+        "Enabled__c": "false",
+        "Rule_Version__c": "baseline-off-v1",
+        "Instructions__c": "Requires an existing primary Contact Role when saving Stage Closed Won. Insert as open first."
+      },
+      "runtimeConfigurationMayDiffer": true
+    },
+    {
+      "id": "config:Demo_Business_Rule.Task_Due_Date",
+      "kind": "custom-metadata-record",
+      "label": "07 Task due date",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Task_Due_Date.md-meta.xml",
+      "values": {
+        "Enabled__c": "false",
+        "Rule_Version__c": "baseline-off-v1",
+        "Instructions__c": "Requires Due Date when saving Status Completed; does not close the related Case."
+      },
+      "runtimeConfigurationMayDiffer": true
     },
     {
       "id": "config:Strategic_Discount_Rule.Default",
@@ -394,6 +524,18 @@
       "runtimeDescribeRequired": true
     },
     {
+      "id": "field:Case.Demo_Resolution__c",
+      "kind": "field",
+      "label": "Demo Resolution",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Case/fields/Demo_Resolution__c.field-meta.xml",
+      "type": "LongTextArea",
+      "required": false,
+      "length": "1000",
+      "precision": null,
+      "scale": null,
+      "picklistValues": []
+    },
+    {
       "id": "field:Case.Description",
       "kind": "field",
       "label": "Case.Description",
@@ -483,6 +625,66 @@
       "label": "Contact.Title",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "runtimeDescribeRequired": true
+    },
+    {
+      "id": "field:Demo_Business_Rule__mdt.Enabled__c",
+      "kind": "field",
+      "label": "Enabled",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Enabled__c.field-meta.xml",
+      "type": "Checkbox",
+      "required": false,
+      "length": null,
+      "precision": null,
+      "scale": null,
+      "picklistValues": []
+    },
+    {
+      "id": "field:Demo_Business_Rule__mdt.Instructions__c",
+      "kind": "field",
+      "label": "Demo Instructions",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Instructions__c.field-meta.xml",
+      "type": "TextArea",
+      "required": false,
+      "length": null,
+      "precision": null,
+      "scale": null,
+      "picklistValues": []
+    },
+    {
+      "id": "field:Demo_Business_Rule__mdt.Number_Value__c",
+      "kind": "field",
+      "label": "Numeric Value (USD for Opportunity)",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Number_Value__c.field-meta.xml",
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": "16",
+      "scale": "2",
+      "picklistValues": []
+    },
+    {
+      "id": "field:Demo_Business_Rule__mdt.Required_Value__c",
+      "kind": "field",
+      "label": "Required Value (Lead Status)",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Required_Value__c.field-meta.xml",
+      "type": "Text",
+      "required": false,
+      "length": "80",
+      "precision": null,
+      "scale": null,
+      "picklistValues": []
+    },
+    {
+      "id": "field:Demo_Business_Rule__mdt.Rule_Version__c",
+      "kind": "field",
+      "label": "Rule Version",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Rule_Version__c.field-meta.xml",
+      "type": "Text",
+      "required": false,
+      "length": "80",
+      "precision": null,
+      "scale": null,
+      "picklistValues": []
     },
     {
       "id": "field:Lead.Company",
@@ -1032,7 +1234,7 @@
       "label": "README.md",
       "path": "README.md",
       "category": "documentation",
-      "sha256NormalizedLf": "ded59f9cf36a42094d8c62b8d5a2cc7830844fbc0278fcb2d599773ca25d3c24"
+      "sha256NormalizedLf": "87c49f3de621db7d7ac16a696541c3c59abde562a346d02e8436a37869ee647d"
     },
     {
       "id": "file:strategic-deal-assurance/.env.example",
@@ -1128,7 +1330,7 @@
       "label": "strategic-deal-assurance/contracts/agent-interface.json",
       "path": "strategic-deal-assurance/contracts/agent-interface.json",
       "category": "agent-contract",
-      "sha256NormalizedLf": "d63199e7a6c077c53df0cce57c9036ee7af4c495f30a1dc5bed3f93404273d97"
+      "sha256NormalizedLf": "2d919cc35a1fb1c869552b98a63f1d0c2f8b2384339a3a747dfbef7e96114b09"
     },
     {
       "id": "file:strategic-deal-assurance/data/baseline-15-plan.json",
@@ -1137,6 +1339,22 @@
       "path": "strategic-deal-assurance/data/baseline-15-plan.json",
       "category": "synthetic-fixture",
       "sha256NormalizedLf": "57e0b5d40caeb654e99ce217c757df2169356cd951c644f6abd68045c98453c1"
+    },
+    {
+      "id": "file:strategic-deal-assurance/data/demo-rule-scenarios.json",
+      "kind": "file",
+      "label": "strategic-deal-assurance/data/demo-rule-scenarios.json",
+      "path": "strategic-deal-assurance/data/demo-rule-scenarios.json",
+      "category": "synthetic-fixture",
+      "sha256NormalizedLf": "70c905c5e536045c7342d92f8ab866c70d7f79255a9fa1e9e94772e5f72b0893"
+    },
+    {
+      "id": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "kind": "file",
+      "label": "strategic-deal-assurance/data/manual-test-suite.json",
+      "path": "strategic-deal-assurance/data/manual-test-suite.json",
+      "category": "synthetic-fixture",
+      "sha256NormalizedLf": "01ac9d3f9d48b85d8f90e1ebb4a5f4d47058e0581592788b8c97f98e3189a526"
     },
     {
       "id": "file:strategic-deal-assurance/data/multi-module-plan.json",
@@ -1160,7 +1378,7 @@
       "label": "strategic-deal-assurance/docs/agent-integration-guide.md",
       "path": "strategic-deal-assurance/docs/agent-integration-guide.md",
       "category": "documentation",
-      "sha256NormalizedLf": "edc17c8b5e7ec815fddbdc6a174bbc09adec8d952ef4abcbf2dd5f22a99d04a5"
+      "sha256NormalizedLf": "539aaa626bd2ea7b8c7544a46c481d5c9d7ea1ad321cad8312eaf6510ea50603"
     },
     {
       "id": "file:strategic-deal-assurance/docs/application-knowledge-graph.md",
@@ -1168,7 +1386,7 @@
       "label": "strategic-deal-assurance/docs/application-knowledge-graph.md",
       "path": "strategic-deal-assurance/docs/application-knowledge-graph.md",
       "category": "documentation",
-      "sha256NormalizedLf": "aa60ef32d1a245fbec8040ae55fd4afe2d3354b298ad838823944fc22abebf06"
+      "sha256NormalizedLf": "cf4b3f8dd810a51d31b6e2048928e8a3b93aaa8f35751ac4682e50be17f51d23"
     },
     {
       "id": "file:strategic-deal-assurance/docs/approval-demo-walkthrough.md",
@@ -1185,6 +1403,22 @@
       "path": "strategic-deal-assurance/docs/demo-data-reset.md",
       "category": "documentation",
       "sha256NormalizedLf": "c117489515a2c1d610a25bdf9ad0cdd7bda01c17f052bfc6297e6ee84a6c5207"
+    },
+    {
+      "id": "file:strategic-deal-assurance/docs/demo-rules-guide.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/docs/demo-rules-guide.md",
+      "path": "strategic-deal-assurance/docs/demo-rules-guide.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "5cf0820f61ecaa8014c30ede6f76a0a507e2350035121b42db8888b5f82df957"
+    },
+    {
+      "id": "file:strategic-deal-assurance/docs/manual-test-cases.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/docs/manual-test-cases.md",
+      "path": "strategic-deal-assurance/docs/manual-test-cases.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "c14003d635984a3d15989b3137af67b9fbd1fdecd5305625f98342ad10d27513"
     },
     {
       "id": "file:strategic-deal-assurance/docs/milestone-1-design.md",
@@ -1224,7 +1458,7 @@
       "label": "strategic-deal-assurance/docs/multi-module-data.md",
       "path": "strategic-deal-assurance/docs/multi-module-data.md",
       "category": "documentation",
-      "sha256NormalizedLf": "e3403b82faafb6750f315bfe703459dbe89fe1a89fb3fc9c0441c81ba1cf3776"
+      "sha256NormalizedLf": "0995eb0f92eb9ecf31269ba3a79517100a93d5592918a91d833f076513225886"
     },
     {
       "id": "file:strategic-deal-assurance/docs/multi-module-manual-e2e.md",
@@ -1232,7 +1466,7 @@
       "label": "strategic-deal-assurance/docs/multi-module-manual-e2e.md",
       "path": "strategic-deal-assurance/docs/multi-module-manual-e2e.md",
       "category": "documentation",
-      "sha256NormalizedLf": "420fd0d080bf939477192e31a4083af34dfdaa889827941e78262376c4a7778b"
+      "sha256NormalizedLf": "7c0fc79292d155060c47aec1d10face7afba200667e307af2c1f69ff5e40ae16"
     },
     {
       "id": "file:strategic-deal-assurance/docs/multi-module-test-results.md",
@@ -1248,7 +1482,15 @@
       "label": "strategic-deal-assurance/docs/project-index.md",
       "path": "strategic-deal-assurance/docs/project-index.md",
       "category": "documentation",
-      "sha256NormalizedLf": "b8d47e5a1fc4489ac92c4db37b7cc2ff4192aab4aa1c0b8ba83b3fe167822764"
+      "sha256NormalizedLf": "d11237bd67e3f1e4b9e187d88419a18c9960bbed360c6428af9719512d24f647"
+    },
+    {
+      "id": "file:strategic-deal-assurance/docs/test-plan.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/docs/test-plan.md",
+      "path": "strategic-deal-assurance/docs/test-plan.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "e67023dcdc2ac8e0b2348638efbc199e6d84bc6acdb67f905b11a9338b1b12a3"
     },
     {
       "id": "file:strategic-deal-assurance/eslint.config.js",
@@ -1355,6 +1597,14 @@
       "sha256NormalizedLf": "d0e6d8ed6683765ed66ecb9b5b19440a4da483a80607df3006dfae9b475f6c29"
     },
     {
+      "id": "file:strategic-deal-assurance/evidence/milestone-6-verification.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/evidence/milestone-6-verification.md",
+      "path": "strategic-deal-assurance/evidence/milestone-6-verification.md",
+      "category": "historical-evidence",
+      "sha256NormalizedLf": "60d482c7b14174121be74da675483410a26f781d6e04f9989166d10caddfce7d"
+    },
+    {
       "id": "file:strategic-deal-assurance/force-app/main/default/applications/Strategic_Deal_Assurance.app-meta.xml",
       "kind": "file",
       "label": "strategic-deal-assurance/force-app/main/default/applications/Strategic_Deal_Assurance.app-meta.xml",
@@ -1369,6 +1619,38 @@
       "path": "strategic-deal-assurance/force-app/main/default/approvalProcesses/Opportunity.Strategic_Opportunity_Regional_VP.approvalProcess-meta.xml",
       "category": "salesforce-source",
       "sha256NormalizedLf": "21f885d750d319f7ca1379e7808c77a05f271ba33c6e785caab1336c13a8ed4c"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls",
+      "path": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "a6106ba2d42bec1317298dd22de69b542a5370fa11d36d5810b71bbc7ef25a61"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "17e31f2473b0c9f7048b434edab7d12261a9b8a0b9ede833cb9c3141eeeccb7b"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls",
+      "path": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls",
+      "category": "test",
+      "sha256NormalizedLf": "7677908f833d5da4d07936f47ad5e9b985d6edada4514d5b96fd11c588a04999"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls-meta.xml",
+      "category": "test",
+      "sha256NormalizedLf": "17e31f2473b0c9f7048b434edab7d12261a9b8a0b9ede833cb9c3141eeeccb7b"
     },
     {
       "id": "file:strategic-deal-assurance/force-app/main/default/classes/StrategicDealApprovalController.cls",
@@ -1483,6 +1765,70 @@
       "sha256NormalizedLf": "a242f6e22b472afffbd726be71165de394e417355cdf1edd81b5601278ddea32"
     },
     {
+      "id": "file:strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Account_Reparent.md-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Account_Reparent.md-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Account_Reparent.md-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "56a55a9cf19452a03fc6ffb5fd3175e5033700dfa4b491448928070a673f669f"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Campaign_Active.md-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Campaign_Active.md-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Campaign_Active.md-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "fc5ce231ec15bd350eb0cc29102069389cf9f92192c7b4b9680de71d7e6b6c96"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Case_Resolution.md-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Case_Resolution.md-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Case_Resolution.md-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "444ba19eb6380f61cff4c2f754640f6d48ff9369e4869662784093de719bbeb7"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Contact_Reparent.md-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Contact_Reparent.md-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Contact_Reparent.md-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "a0b47d981ad9d9e0d42c6dec673c0dddd967d0492845b59733c835942c961362"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Lead_Qualification.md-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Lead_Qualification.md-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Lead_Qualification.md-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "e93052a2cbf1e042edac47a93db43797e44840f4225a4b9f531f33f25c4623d3"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Opportunity_Minimum.md-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Opportunity_Minimum.md-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Opportunity_Minimum.md-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "464b91f5b51daa08c122e754eead17850b35afc61741016f25003fa75ab4f60c"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Opportunity_Primary_Contact.md-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Opportunity_Primary_Contact.md-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Opportunity_Primary_Contact.md-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "e3c62ef50cf6421a857f9988eaa76aec4a6e14ba8e16771c989a5777c77e42c4"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Task_Due_Date.md-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Task_Due_Date.md-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Task_Due_Date.md-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "407e752cd105961078ce6c18947f0804e77d559490719c0970bf2bfd44a444b1"
+    },
+    {
       "id": "file:strategic-deal-assurance/force-app/main/default/customMetadata/Strategic_Discount_Rule.Default.md-meta.xml",
       "kind": "file",
       "label": "strategic-deal-assurance/force-app/main/default/customMetadata/Strategic_Discount_Rule.Default.md-meta.xml",
@@ -1513,6 +1859,22 @@
       "path": "strategic-deal-assurance/force-app/main/default/flows/Strategic_Discount_Approval.flow-meta.xml",
       "category": "salesforce-source",
       "sha256NormalizedLf": "acb4f98ec2c779f4eb94abcb912054d68174d9d7933c2da44a527fec7afcd511"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/layouts/Case-Case Layout.layout-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/layouts/Case-Case Layout.layout-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/layouts/Case-Case Layout.layout-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "e7bb0e03fed69aabeeded87a98a9f49842f0b49b1812071bbe3d06dd82b83c31"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/layouts/Demo_Business_Rule__mdt-Demo Business Rule Layout.layout-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/layouts/Demo_Business_Rule__mdt-Demo Business Rule Layout.layout-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/layouts/Demo_Business_Rule__mdt-Demo Business Rule Layout.layout-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "4b1027b8b7de3f67d02894c7a5bcb11450d8a2a6ca9d4d56e4a7595b63b14628"
     },
     {
       "id": "file:strategic-deal-assurance/force-app/main/default/layouts/Opportunity-Strategic Deal Layout.layout-meta.xml",
@@ -1633,6 +1995,62 @@
       "path": "strategic-deal-assurance/force-app/main/default/lwc/strategicDealWorkbench/strategicDealWorkbench.js-meta.xml",
       "category": "salesforce-source",
       "sha256NormalizedLf": "b8075f1ae683e6bd1deadc8a8fd9c0d56653fdf44f8ce6dd66195a867fed69cf"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/objects/Case/fields/Demo_Resolution__c.field-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/objects/Case/fields/Demo_Resolution__c.field-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/objects/Case/fields/Demo_Resolution__c.field-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "cd4d84ab32e72a7bc4cebb9df1d461d3c5934f934e9c6b358ba00ba7e9c16084"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/Demo_Business_Rule__mdt.object-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/Demo_Business_Rule__mdt.object-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/Demo_Business_Rule__mdt.object-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "10b44a8eaff58cb978dffbbe4ec077056f9e7a6c4845344a6bd951c5a013de3b"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Enabled__c.field-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Enabled__c.field-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Enabled__c.field-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "9f39887ea7d5b22e8592654ddfdeecfa52ce628c0a02004667c98d68805ea1d4"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Instructions__c.field-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Instructions__c.field-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Instructions__c.field-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "53862cb4c97fe9af0a015fc7165a0ec5e25f3f6039bbce8f4257e4dd1076e2b9"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Number_Value__c.field-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Number_Value__c.field-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Number_Value__c.field-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "19fa04c866306b0cd32a63fa170aa2af2b51ee8dc24e07ed6925f830f7e74096"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Required_Value__c.field-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Required_Value__c.field-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Required_Value__c.field-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "4063046c33b5e727362d77e09f498cad222316b6c6f02ed9f3bd4bdacd746820"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Rule_Version__c.field-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Rule_Version__c.field-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Rule_Version__c.field-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "69cf4bd85e2cf935ac6bbe5f7a6527c11c1851d1be1cf5f1a437bdbd7e4f5046"
     },
     {
       "id": "file:strategic-deal-assurance/force-app/main/default/objects/Opportunity/fields/Approval_Reason__c.field-meta.xml",
@@ -1851,6 +2269,14 @@
       "sha256NormalizedLf": "fe4f0f2d3732fddc1c46a1608a07366c720faec75dc505feab8f722585ef29f9"
     },
     {
+      "id": "file:strategic-deal-assurance/force-app/main/default/permissionsets/Demo_Rule_Operator.permissionset-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/permissionsets/Demo_Rule_Operator.permissionset-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/permissionsets/Demo_Rule_Operator.permissionset-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "6505d709087b443734e7ff0c6c64ae8a9a349b0c046a0451721ebd24ab075e65"
+    },
+    {
       "id": "file:strategic-deal-assurance/force-app/main/default/permissionsets/Regional_VP_Approver.permissionset-meta.xml",
       "kind": "file",
       "label": "strategic-deal-assurance/force-app/main/default/permissionsets/Regional_VP_Approver.permissionset-meta.xml",
@@ -1881,6 +2307,118 @@
       "path": "strategic-deal-assurance/force-app/main/default/tabs/Strategic_Deal_Workbench.tab-meta.xml",
       "category": "salesforce-source",
       "sha256NormalizedLf": "e5b4e261776c9df2f3dc3dbf915ed94633ae69d03f2ffb5120c2db5a05eae026"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoAccountRules.trigger",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/triggers/DemoAccountRules.trigger",
+      "path": "strategic-deal-assurance/force-app/main/default/triggers/DemoAccountRules.trigger",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "9704e3b20c18390ca35524ba0aa44f508a932e3909074c3c30aa470635ab901f"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoAccountRules.trigger-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/triggers/DemoAccountRules.trigger-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/triggers/DemoAccountRules.trigger-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "f55d61906b7b90e89627ab50051141b363879720520f8985e229f3f425286ed8"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoCampaignMemberRules.trigger",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/triggers/DemoCampaignMemberRules.trigger",
+      "path": "strategic-deal-assurance/force-app/main/default/triggers/DemoCampaignMemberRules.trigger",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "8dbf001e1cfa266015630e2bfbd4c7f3e004f839ca33028d90c0fed4dcdc4e88"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoCampaignMemberRules.trigger-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/triggers/DemoCampaignMemberRules.trigger-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/triggers/DemoCampaignMemberRules.trigger-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "f55d61906b7b90e89627ab50051141b363879720520f8985e229f3f425286ed8"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoCaseRules.trigger",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/triggers/DemoCaseRules.trigger",
+      "path": "strategic-deal-assurance/force-app/main/default/triggers/DemoCaseRules.trigger",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "3922b1758459c6804510595c51b640c39842bc111a7505fc606b62f7278dc871"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoCaseRules.trigger-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/triggers/DemoCaseRules.trigger-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/triggers/DemoCaseRules.trigger-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "f55d61906b7b90e89627ab50051141b363879720520f8985e229f3f425286ed8"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoContactRules.trigger",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/triggers/DemoContactRules.trigger",
+      "path": "strategic-deal-assurance/force-app/main/default/triggers/DemoContactRules.trigger",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "f326471a84c85f83921a389de7b6721c366f6f9942d981a46822b8c3b627cc81"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoContactRules.trigger-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/triggers/DemoContactRules.trigger-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/triggers/DemoContactRules.trigger-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "f55d61906b7b90e89627ab50051141b363879720520f8985e229f3f425286ed8"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoLeadRules.trigger",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/triggers/DemoLeadRules.trigger",
+      "path": "strategic-deal-assurance/force-app/main/default/triggers/DemoLeadRules.trigger",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "f23458f4bea3d8b477fa31a80652856bd53638834760f52566f7d5373750a6df"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoLeadRules.trigger-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/triggers/DemoLeadRules.trigger-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/triggers/DemoLeadRules.trigger-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "f55d61906b7b90e89627ab50051141b363879720520f8985e229f3f425286ed8"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoOpportunityRules.trigger",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/triggers/DemoOpportunityRules.trigger",
+      "path": "strategic-deal-assurance/force-app/main/default/triggers/DemoOpportunityRules.trigger",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "50f7e5978a503199dbc92d8a9a200d40766e87deb07692a0ef2fc0918e3809f1"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoOpportunityRules.trigger-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/triggers/DemoOpportunityRules.trigger-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/triggers/DemoOpportunityRules.trigger-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "f55d61906b7b90e89627ab50051141b363879720520f8985e229f3f425286ed8"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoTaskRules.trigger",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/triggers/DemoTaskRules.trigger",
+      "path": "strategic-deal-assurance/force-app/main/default/triggers/DemoTaskRules.trigger",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "130bb2b1a1b28c23da17f863f9ef81fee98ca4c5e06ed953ea679c90b79ee399"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoTaskRules.trigger-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/triggers/DemoTaskRules.trigger-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/triggers/DemoTaskRules.trigger-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "f55d61906b7b90e89627ab50051141b363879720520f8985e229f3f425286ed8"
     },
     {
       "id": "file:strategic-deal-assurance/force-app/main/default/workflows/Opportunity.workflow-meta.xml",
@@ -1947,6 +2485,14 @@
       "sha256NormalizedLf": "3c86f731b700bff5a1d4647ace5381611d1e7d6abbd3f2ec5e03ab0109751504"
     },
     {
+      "id": "file:strategic-deal-assurance/manifest/milestone-6-demo-rules.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/manifest/milestone-6-demo-rules.xml",
+      "path": "strategic-deal-assurance/manifest/milestone-6-demo-rules.xml",
+      "category": "deployment-scope",
+      "sha256NormalizedLf": "65a8a347df2e8f5f2bfbb7dcaa94ea32e3eaced198f33e247c1335c8ecb6cdf8"
+    },
+    {
       "id": "file:strategic-deal-assurance/manifest/package.xml",
       "kind": "file",
       "label": "strategic-deal-assurance/manifest/package.xml",
@@ -1968,7 +2514,7 @@
       "label": "strategic-deal-assurance/package.json",
       "path": "strategic-deal-assurance/package.json",
       "category": "configuration",
-      "sha256NormalizedLf": "8a064dff66afc87ddcaa3b0cd67c732ee5b5408df512509b7ed315dc93a66f91"
+      "sha256NormalizedLf": "071ae3feb85c494a523806de86fd7438a9ed26459a01bd55f84e940187c5249d"
     },
     {
       "id": "file:strategic-deal-assurance/README.md",
@@ -1976,7 +2522,15 @@
       "label": "strategic-deal-assurance/README.md",
       "path": "strategic-deal-assurance/README.md",
       "category": "documentation",
-      "sha256NormalizedLf": "71be2b3c2a9a8d25b8186e09d8bc28c8d12b1bc5ea1dc67bbca5cac339372ad7"
+      "sha256NormalizedLf": "6a9132fd0e3698fee89a7e7b19a93d471e4080b603c6578e0b8b64619a9f284a"
+    },
+    {
+      "id": "file:strategic-deal-assurance/requirements/BR-DEMO-CONFIGURABLE-RULES.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/requirements/BR-DEMO-CONFIGURABLE-RULES.md",
+      "path": "strategic-deal-assurance/requirements/BR-DEMO-CONFIGURABLE-RULES.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "17d39f135bbe2624096fb3a6bc65691cc13fe781b91d253e0fd41c51d3b3f5d9"
     },
     {
       "id": "file:strategic-deal-assurance/requirements/BR-STRATEGIC-DISCOUNT-baseline.md",
@@ -1995,12 +2549,20 @@
       "sha256NormalizedLf": "0b8cac6770ee49f2d72fc201f78829da0847c0a5662322ba9ce68f0e201642e5"
     },
     {
+      "id": "file:strategic-deal-assurance/scripts/catalog/build-manual-suite.mjs",
+      "kind": "file",
+      "label": "strategic-deal-assurance/scripts/catalog/build-manual-suite.mjs",
+      "path": "strategic-deal-assurance/scripts/catalog/build-manual-suite.mjs",
+      "category": "operator-tool",
+      "sha256NormalizedLf": "bf52d7a484a8d36379d02c31dba4f6941d989a681cd3a7fb7d7415419aecfb5e"
+    },
+    {
       "id": "file:strategic-deal-assurance/scripts/catalog/build-project-index.mjs",
       "kind": "file",
       "label": "strategic-deal-assurance/scripts/catalog/build-project-index.mjs",
       "path": "strategic-deal-assurance/scripts/catalog/build-project-index.mjs",
       "category": "operator-tool",
-      "sha256NormalizedLf": "b842b3aeed0bf3fa15bbb46a61e57fccc498faf1c420833f1354a2b2f9fde09f"
+      "sha256NormalizedLf": "e72d30cc73799ff2e1bd01dab601efd39075e382d7c029004dfc26640cba3ed9"
     },
     {
       "id": "file:strategic-deal-assurance/scripts/catalog/catalog.test.mjs",
@@ -2008,7 +2570,15 @@
       "label": "strategic-deal-assurance/scripts/catalog/catalog.test.mjs",
       "path": "strategic-deal-assurance/scripts/catalog/catalog.test.mjs",
       "category": "operator-tool",
-      "sha256NormalizedLf": "4e1d64591594e3da2939b5cb8907c9f5ed2154729accf88d76bdcfde67cf0a34"
+      "sha256NormalizedLf": "f5c09907eb67b7136705574193b8aa21138e7bd3a6f6d805aba15698c37117e5"
+    },
+    {
+      "id": "file:strategic-deal-assurance/scripts/catalog/manual-suite.test.mjs",
+      "kind": "file",
+      "label": "strategic-deal-assurance/scripts/catalog/manual-suite.test.mjs",
+      "path": "strategic-deal-assurance/scripts/catalog/manual-suite.test.mjs",
+      "category": "operator-tool",
+      "sha256NormalizedLf": "2ed208fbe8fc8038b2beb39a1be3b353937fa601341e91577a247acd1e784281"
     },
     {
       "id": "file:strategic-deal-assurance/scripts/demo/create-regional-vp.apex",
@@ -2113,6 +2683,14 @@
       "path": "strategic-deal-assurance/scripts/test-milestone-4.ps1",
       "category": "operator-tool",
       "sha256NormalizedLf": "362de75b318ba5d2d67e4ae16b9fbc18427c6af8190abdd02baf40171e30b077"
+    },
+    {
+      "id": "file:strategic-deal-assurance/scripts/test-milestone-6.ps1",
+      "kind": "file",
+      "label": "strategic-deal-assurance/scripts/test-milestone-6.ps1",
+      "path": "strategic-deal-assurance/scripts/test-milestone-6.ps1",
+      "category": "operator-tool",
+      "sha256NormalizedLf": "b0d9fc3b04018a4a6a90ba277cff1613a59e14316b2ed39215d9a90aa8bf314b"
     },
     {
       "id": "file:strategic-deal-assurance/sfdx-project.json",
@@ -5882,6 +6460,14 @@
       "source": "standard-platform; verify via runtime describe"
     },
     {
+      "id": "object:Demo_Business_Rule__mdt",
+      "kind": "object",
+      "label": "Demo Business Rule",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/Demo_Business_Rule__mdt.object-meta.xml",
+      "sharingModel": null,
+      "externalSharingModel": null
+    },
+    {
       "id": "object:Lead",
       "kind": "object",
       "label": "Lead",
@@ -5969,6 +6555,15 @@
       ]
     },
     {
+      "id": "permission-set:Demo_Rule_Operator",
+      "kind": "permission-set",
+      "label": "Demo_Rule_Operator",
+      "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Demo_Rule_Operator.permissionset-meta.xml",
+      "grantsAreAdditive": true,
+      "notEffectiveUserAccess": true,
+      "userPermissions": []
+    },
+    {
       "id": "permission-set:Regional_VP_Approver",
       "kind": "permission-set",
       "label": "Regional_VP_Approver",
@@ -6012,6 +6607,18 @@
       "realUserIdIncluded": false
     },
     {
+      "id": "requirement:BR-DEMO-CONFIGURABLE-RULES",
+      "kind": "requirement",
+      "label": "Eight optional synthetic CRM save guards",
+      "source": "strategic-deal-assurance/requirements/BR-DEMO-CONFIGURABLE-RULES.md",
+      "defaultEnabled": false,
+      "scopePrefixes": [
+        "SYN-MM-",
+        "SYN-RULE-"
+      ],
+      "scopeIsSecurityBoundary": false
+    },
+    {
       "id": "requirement:BR-STRATEGIC-DISCOUNT",
       "kind": "requirement",
       "label": "Strict USD strategic-discount rule",
@@ -6023,104 +6630,490 @@
       "discount": 15
     },
     {
+      "id": "trigger:DemoAccountRules",
+      "kind": "apex-trigger",
+      "label": "DemoAccountRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoAccountRules.trigger",
+      "events": [
+        "before update"
+      ]
+    },
+    {
+      "id": "trigger:DemoCampaignMemberRules",
+      "kind": "apex-trigger",
+      "label": "DemoCampaignMemberRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoCampaignMemberRules.trigger",
+      "events": [
+        "before update"
+      ]
+    },
+    {
+      "id": "trigger:DemoCaseRules",
+      "kind": "apex-trigger",
+      "label": "DemoCaseRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoCaseRules.trigger",
+      "events": [
+        "before insert",
+        "before update"
+      ]
+    },
+    {
+      "id": "trigger:DemoContactRules",
+      "kind": "apex-trigger",
+      "label": "DemoContactRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoContactRules.trigger",
+      "events": [
+        "before update"
+      ]
+    },
+    {
+      "id": "trigger:DemoLeadRules",
+      "kind": "apex-trigger",
+      "label": "DemoLeadRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoLeadRules.trigger",
+      "events": [
+        "after update"
+      ]
+    },
+    {
+      "id": "trigger:DemoOpportunityRules",
+      "kind": "apex-trigger",
+      "label": "DemoOpportunityRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoOpportunityRules.trigger",
+      "events": [
+        "before insert",
+        "before update"
+      ]
+    },
+    {
+      "id": "trigger:DemoTaskRules",
+      "kind": "apex-trigger",
+      "label": "DemoTaskRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoTaskRules.trigger",
+      "events": [
+        "before insert",
+        "before update"
+      ]
+    },
+    {
+      "id": "use-case:APPROVAL-01",
+      "kind": "manual-use-case",
+      "label": "Native approval approve with separate actors",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Native approval approve with separate actors",
+      "actor": "Owner and separate Synthetic Regional VP; owner performs Recall only",
+      "steps": 5,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:APPROVAL-02",
+      "kind": "manual-use-case",
+      "label": "Native approval reject with separate actors",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Native approval reject with separate actors",
+      "actor": "Owner and separate Synthetic Regional VP; owner performs Recall only",
+      "steps": 5,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:APPROVAL-03",
+      "kind": "manual-use-case",
+      "label": "Native approval recall with separate actors",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Native approval recall with separate actors",
+      "actor": "Owner and separate Synthetic Regional VP; owner performs Recall only",
+      "steps": 5,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
       "id": "use-case:MM-01",
       "kind": "manual-use-case",
       "label": "Account hierarchy and subsidiary reassignment",
-      "source": "strategic-deal-assurance/data/multi-module-use-cases.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
       "objective": "Verify that changing a subsidiary's parent updates the account hierarchy without moving its contacts or deals.",
       "actor": "Original demo administrator (business-operator stand-in)",
       "steps": 5,
-      "manualSuiteExecution": "not run as a complete suite"
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
     },
     {
       "id": "use-case:MM-02",
       "kind": "manual-use-case",
       "label": "Contact reassignment between customer accounts",
-      "source": "strategic-deal-assurance/data/multi-module-use-cases.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
       "objective": "Verify contact-to-account reassignment and detect that an existing case's Account is not automatically rewritten.",
       "actor": "Original demo administrator",
       "steps": 5,
-      "manualSuiteExecution": "not run as a complete suite"
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
     },
     {
       "id": "use-case:MM-03",
       "kind": "manual-use-case",
       "label": "Lead qualification and conversion into a customer deal",
-      "source": "strategic-deal-assurance/data/multi-module-use-cases.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
       "objective": "Verify native lead conversion links an existing customer to a new contact and a new synthetic Opportunity.",
       "actor": "Original demo administrator",
       "steps": 6,
-      "manualSuiteExecution": "not run as a complete suite"
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
     },
     {
       "id": "use-case:MM-04",
       "kind": "manual-use-case",
       "label": "Opportunity pipeline progression without policy-input changes",
-      "source": "strategic-deal-assurance/data/multi-module-use-cases.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
       "objective": "Verify sales-stage changes persist while the strategic policy and evaluation count stay unchanged when policy inputs did not change.",
       "actor": "Original demo administrator",
       "steps": 5,
-      "manualSuiteExecution": "not run as a complete suite"
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
     },
     {
       "id": "use-case:MM-05",
       "kind": "manual-use-case",
       "label": "Buying-team contact roles and primary contact",
-      "source": "strategic-deal-assurance/data/multi-module-use-cases.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
       "objective": "Verify a deal can retain multiple buying-team contacts while changing its primary contact and role.",
       "actor": "Original demo administrator",
       "steps": 5,
-      "manualSuiteExecution": "not run as a complete suite"
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
     },
     {
       "id": "use-case:MM-06",
       "kind": "manual-use-case",
       "label": "Customer support case triage and closure",
-      "source": "strategic-deal-assurance/data/multi-module-use-cases.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
       "objective": "Verify manual case triage, priority changes and resolution while preserving the customer/contact links.",
       "actor": "Original demo administrator (service-operator stand-in)",
       "steps": 5,
-      "manualSuiteExecution": "not run as a complete suite"
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
     },
     {
       "id": "use-case:MM-07",
       "kind": "manual-use-case",
       "label": "Case follow-up task and activity completion",
-      "source": "strategic-deal-assurance/data/multi-module-use-cases.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
       "objective": "Verify an assigned follow-up task is linked to both the correct case and person and moves to completed activity.",
       "actor": "Original demo administrator",
       "steps": 5,
-      "manualSuiteExecution": "not run as a complete suite"
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
     },
     {
       "id": "use-case:MM-08",
       "kind": "manual-use-case",
       "label": "Campaign member response tracking",
-      "source": "strategic-deal-assurance/data/multi-module-use-cases.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
       "objective": "Verify changing one member's response updates campaign response tracking without duplicating members or sending a message.",
       "actor": "Original demo administrator with the user-approved Marketing User setting",
       "steps": 5,
-      "manualSuiteExecution": "not run as a complete suite"
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
     },
     {
       "id": "use-case:MM-09",
       "kind": "manual-use-case",
       "label": "User separation, assigned approval and rejection",
-      "source": "strategic-deal-assurance/data/multi-module-use-cases.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
       "objective": "Verify the owner submits a deal, the separate VP can decide it but cannot edit its inputs, and rejection preserves native history.",
       "actor": "Two sessions: original demo owner/administrator and Synthetic Regional VP",
       "steps": 6,
-      "manualSuiteExecution": "not run as a complete suite"
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
     },
     {
       "id": "use-case:MM-10",
       "kind": "manual-use-case",
       "label": "Customer 360 relationship reconciliation",
-      "source": "strategic-deal-assurance/data/multi-module-use-cases.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
       "objective": "Trace a customer's sales, service, buying-team and follow-up records and verify counts/relationships across modules.",
       "actor": "Original demo administrator",
       "steps": 6,
-      "manualSuiteExecution": "not run as a complete suite"
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:POLICY-01",
+      "kind": "manual-use-case",
+      "label": "Non Strategic",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Verify OBL-NON-STRATEGIC using an independent baseline expectation, without editing an existing approved fixture.",
+      "actor": "Original demo owner",
+      "steps": 6,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:POLICY-02",
+      "kind": "manual-use-case",
+      "label": "Exact Amount",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Verify OBL-AMOUNT-EXACT using an independent baseline expectation, without editing an existing approved fixture.",
+      "actor": "Original demo owner",
+      "steps": 6,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:POLICY-03",
+      "kind": "manual-use-case",
+      "label": "Exact 15 Percent",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Verify OBL-DISCOUNT-EXACT using an independent baseline expectation, without editing an existing approved fixture.",
+      "actor": "Original demo owner",
+      "steps": 6,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:POLICY-04",
+      "kind": "manual-use-case",
+      "label": "Above 15 Percent",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Verify OBL-DISCOUNT-ABOVE using an independent baseline expectation, without editing an existing approved fixture.",
+      "actor": "Original demo owner",
+      "steps": 6,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:POLICY-05",
+      "kind": "manual-use-case",
+      "label": "Missing Approver",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Verify OBL-MISSING-APPROVER using an independent baseline expectation, without editing an existing approved fixture.",
+      "actor": "Original demo owner",
+      "steps": 6,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:POLICY-06",
+      "kind": "manual-use-case",
+      "label": "Null Discount",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Verify OBL-NULL-INPUT using an independent baseline expectation, without editing an existing approved fixture.",
+      "actor": "Original demo owner",
+      "steps": 6,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:POLICY-07",
+      "kind": "manual-use-case",
+      "label": "Null Amount",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Verify OBL-NULL-INPUT using an independent baseline expectation, without editing an existing approved fixture.",
+      "actor": "Original demo owner",
+      "steps": 6,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:POLICY-08",
+      "kind": "manual-use-case",
+      "label": "Discount configuration change from 15 to 20 with independent expected behavior",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Discount configuration change from 15 to 20 with independent expected behavior",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 6,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:POLICY-09",
+      "kind": "manual-use-case",
+      "label": "Inactive strategic policy produces configuration error, not approval bypass",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Inactive strategic policy produces configuration error, not approval bypass",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 3,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:RECOVERY-01",
+      "kind": "manual-use-case",
+      "label": "Rule restoration and dataset reconciliation",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Rule restoration and dataset reconciliation",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 5,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:RULE-01",
+      "kind": "manual-use-case",
+      "label": "Account reparent blocked, then allowed by switch",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Account reparent blocked, then allowed by switch",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 7,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:RULE-02",
+      "kind": "manual-use-case",
+      "label": "Contact account change blocked and case links preserved",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Contact account change blocked and case links preserved",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 6,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:RULE-03",
+      "kind": "manual-use-case",
+      "label": "Native lead conversion qualification gate and rollback",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Native lead conversion qualification gate and rollback",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 6,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:RULE-04",
+      "kind": "manual-use-case",
+      "label": "Closed Won minimum: 99999.99 USD is blocked",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Closed Won minimum: 99999.99 USD is blocked",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 5,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:RULE-05",
+      "kind": "manual-use-case",
+      "label": "Closed Won minimum: 100000 USD is allowed",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Closed Won minimum: 100000 USD is allowed",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 5,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:RULE-06",
+      "kind": "manual-use-case",
+      "label": "Closed Won minimum: 100000.01 USD is allowed",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Closed Won minimum: 100000.01 USD is allowed",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 5,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:RULE-07",
+      "kind": "manual-use-case",
+      "label": "Closed Won minimum: blank is blocked",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Closed Won minimum: blank is blocked",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 5,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:RULE-08",
+      "kind": "manual-use-case",
+      "label": "Minimum changes immediately for the next save; switch-off restores permissive behavior",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Minimum changes immediately for the next save; switch-off restores permissive behavior",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 7,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:RULE-09",
+      "kind": "manual-use-case",
+      "label": "Primary contact gate at Opportunity save",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Primary contact gate at Opportunity save",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 7,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:RULE-10",
+      "kind": "manual-use-case",
+      "label": "Case resolution: blank and whitespace fail; text passes",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Case resolution: blank and whitespace fail; text passes",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 7,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:RULE-11",
+      "kind": "manual-use-case",
+      "label": "Task completion requires a due date, not a future due date",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Task completion requires a due date, not a future due date",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 8,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:RULE-12",
+      "kind": "manual-use-case",
+      "label": "Inactive campaign response blocked without sending messages",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Inactive campaign response blocked without sending messages",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 8,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:RULE-13",
+      "kind": "manual-use-case",
+      "label": "Two Opportunity guards compose without weakening either",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Two Opportunity guards compose without weakening either",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 6,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:RULE-14",
+      "kind": "manual-use-case",
+      "label": "Invalid enabled configuration fails closed",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Invalid enabled configuration fails closed",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 6,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:RULE-15",
+      "kind": "manual-use-case",
+      "label": "Lead required status is configurable",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Lead required status is configurable",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 5,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:RULE-16",
+      "kind": "manual-use-case",
+      "label": "Renaming in the same save does not evade a reparent guard",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Renaming in the same save does not evade a reparent guard",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 4,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:RULE-17",
+      "kind": "manual-use-case",
+      "label": "Disabled rules preserve original workflows",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Disabled rules preserve original workflows",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 3,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:SECURITY-01",
+      "kind": "manual-use-case",
+      "label": "VP read-only inputs and no metadata-admin access",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "VP read-only inputs and no metadata-admin access",
+      "actor": "Separate Synthetic Regional VP",
+      "steps": 4,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
+    },
+    {
+      "id": "use-case:SECURITY-02",
+      "kind": "manual-use-case",
+      "label": "Non-synthetic records remain outside demo guard scope",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json",
+      "objective": "Non-synthetic records remain outside demo guard scope",
+      "actor": "Original demo administrator; separate VP only where explicitly stated",
+      "steps": 4,
+      "manualSuiteExecution": "NOT_RUN specification; consult run evidence"
     }
   ],
   "edges": [
@@ -6207,11 +7200,25 @@
       "source": "strategic-deal-assurance/force-app/main/default/objects/Strategic_Deal_Evaluation__c/fields/Evaluation_Source__c.field-meta.xml"
     },
     {
+      "id": "edge:00c19d5856d897b519275e04",
+      "from": "trigger:DemoContactRules",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoContactRules.trigger",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoContactRules.trigger"
+    },
+    {
       "id": "edge:01469cf91e1f6746ab76c33d",
       "from": "fixture:CM36",
       "relation": "instance_of",
       "to": "object:CampaignMember",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:015b43c7f46b7663e77ec367",
+      "from": "apex:DemoBusinessRules",
+      "relation": "reads_user_mode",
+      "to": "object:OpportunityContactRole",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls"
     },
     {
       "id": "edge:017106177cd289fe6a8da6ea",
@@ -6283,6 +7290,13 @@
       "field": "Account.OwnerId"
     },
     {
+      "id": "edge:02624e91eaa587c2ff7028ee",
+      "from": "use-case:RECOVERY-01",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Contact_Reparent",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:027cebc8b2e328cebe33b243",
       "from": "fixture:R10B",
       "relation": "references",
@@ -6297,6 +7311,13 @@
       "to": "fixture:M04",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "CampaignMember.CampaignId"
+    },
+    {
+      "id": "edge:02d7dc727dd579e161cede08",
+      "from": "apex:DemoBusinessRules",
+      "relation": "reads",
+      "to": "config:Demo_Business_Rule.Case_Resolution",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls"
     },
     {
       "id": "edge:02dcbc4f524b538822e8590a",
@@ -6462,6 +7483,13 @@
       "field": "Contact.OwnerId"
     },
     {
+      "id": "edge:05944152e8efed25a802f389",
+      "from": "use-case:RULE-06",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:05bccf7451077489b9483faf",
       "from": "fixture:C01",
       "relation": "defined_in",
@@ -6474,6 +7502,13 @@
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:05c113e144a34c92d2ef0a66",
+      "from": "use-case:APPROVAL-03",
+      "relation": "covers",
+      "to": "object:User",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:05d031aae483c8a90270009b",
@@ -6534,6 +7569,13 @@
       "field": "Opportunity.Regional_VP_Approver__c"
     },
     {
+      "id": "edge:06e59e56ae0b637bc9d2f003",
+      "from": "use-case:RULE-11",
+      "relation": "covers",
+      "to": "object:Task",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:06e75ce703816825fd52ec44",
       "from": "fixture:C27",
       "relation": "instance_of",
@@ -6555,11 +7597,25 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:0710a9d97779939a621aee65",
+      "from": "use-case:RULE-17",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Case_Resolution",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:07423c1ea15841b8fde1a82e",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
       "to": "fixture:S14",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:0790bb220ab3ca78101ea824",
+      "from": "object:Case",
+      "relation": "triggers",
+      "to": "trigger:DemoCaseRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoCaseRules.trigger"
     },
     {
       "id": "edge:079cf4e7c3ce75243d666107",
@@ -6703,6 +7759,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:09449070d0af9aa875c4c2c3",
+      "from": "use-case:POLICY-03",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:096cd5cea52bd7558be3bfe8",
       "from": "object:Opportunity",
       "relation": "has_field",
@@ -6737,6 +7800,13 @@
       "relation": "contains",
       "to": "fixture:R34B",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:0a3ab3bd585215d02797099a",
+      "from": "apex:DemoBusinessRulesTest",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls"
     },
     {
       "id": "edge:0a3d74264e72c365c0de56af",
@@ -6883,6 +7953,13 @@
       "field": "OpportunityContactRole.OpportunityId"
     },
     {
+      "id": "edge:0c5c04cac19e231c0d1999bd",
+      "from": "trigger:DemoTaskRules",
+      "relation": "calls",
+      "to": "apex:DemoBusinessRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoTaskRules.trigger"
+    },
+    {
       "id": "edge:0c5e64660f8fd53e8a3179ce",
       "from": "fixture:CM14",
       "relation": "references",
@@ -6920,6 +7997,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:0d019a419c5ef3a844501177",
+      "from": "use-case:RECOVERY-01",
+      "relation": "covers",
+      "to": "object:Contact",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:0d0f1eefb50ad568212fa2bb",
       "from": "fixture:R02A",
       "relation": "instance_of",
@@ -6935,11 +8019,39 @@
       "field": "Task.WhoId"
     },
     {
+      "id": "edge:0d1850d325613c3544a69b2d",
+      "from": "use-case:SECURITY-02",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:0d26b44bdb0b33d28f9849ca",
       "from": "fixture:T30",
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:0d63b8ed8bb2c12b2d5599cd",
+      "from": "use-case:POLICY-02",
+      "relation": "covers",
+      "to": "object:Strategic_Deal_Evaluation__c",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:0d686883a4d79fa4db2c911c",
+      "from": "config:Demo_Business_Rule.Opportunity_Minimum",
+      "relation": "guards_save_of",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/demo-rule-scenarios.json"
+    },
+    {
+      "id": "edge:0d821b6f055197e0733c19f0",
+      "from": "use-case:RULE-17",
+      "relation": "covers",
+      "to": "object:Lead",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:0d9bbd4750544299886c6857",
@@ -7007,6 +8119,13 @@
       "to": "fixture:C16",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Task.WhoId"
+    },
+    {
+      "id": "edge:0e5ec7699952cd8d4384dce1",
+      "from": "use-case:MM-05",
+      "relation": "covers",
+      "to": "object:Contact",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:0e6ecdf644822f714e4c4c13",
@@ -7135,6 +8254,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:107395449e5b7c248e88d7fb",
+      "from": "trigger:DemoLeadRules",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoLeadRules.trigger",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoLeadRules.trigger"
+    },
+    {
       "id": "edge:1082ea0405c6ab1470a4970a",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -7170,6 +8296,13 @@
       "relation": "authorizes_parent",
       "to": "object:Opportunity",
       "source": "strategic-deal-assurance/force-app/main/default/classes/StrategicDealPolicyController.cls"
+    },
+    {
+      "id": "edge:1103e063c9c39cd93c94cfd3",
+      "from": "use-case:POLICY-02",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:11178612ce025c5a84dd945b",
@@ -7434,6 +8567,13 @@
       "field": "Contact.OwnerId"
     },
     {
+      "id": "edge:14ba41b11acfaa7c786cb658",
+      "from": "object:CampaignMember",
+      "relation": "triggers",
+      "to": "trigger:DemoCampaignMemberRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoCampaignMemberRules.trigger"
+    },
+    {
       "id": "edge:14e2064f831dbf2bf4717faa",
       "from": "fixture:T03",
       "relation": "references",
@@ -7450,6 +8590,13 @@
       "field": "Task.OwnerId"
     },
     {
+      "id": "edge:150bcc37b461198f1b4e4b25",
+      "from": "use-case:MM-04",
+      "relation": "covers",
+      "to": "object:Account",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:152348b0fd0245ea8806601e",
       "from": "fixture:CM39",
       "relation": "references",
@@ -7463,6 +8610,13 @@
       "relation": "has_field",
       "to": "field:Opportunity.Policy_Rule_Version__c",
       "source": "source-reference"
+    },
+    {
+      "id": "edge:154b102f88f619a07514c2c4",
+      "from": "use-case:APPROVAL-03",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:1562b892fd5c1f54f555ecd6",
@@ -7493,6 +8647,13 @@
       "to": "fixture:C28",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "OpportunityContactRole.ContactId"
+    },
+    {
+      "id": "edge:16223ed737f2d74d97272087",
+      "from": "use-case:APPROVAL-01",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:163707efa40611235cccb33f",
@@ -7589,6 +8750,13 @@
       "field": "Opportunity.AccountId"
     },
     {
+      "id": "edge:177657f54a0eeb445ce05f6e",
+      "from": "use-case:RECOVERY-01",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Case_Resolution",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:178b217ce9a1db569f0a6ed5",
       "from": "object:Contact",
       "relation": "has_field",
@@ -7609,6 +8777,13 @@
       "relation": "relevant_change_triggers",
       "to": "flow:Strategic_Discount_Approval",
       "source": "strategic-deal-assurance/force-app/main/default/flows/Strategic_Discount_Approval.flow-meta.xml"
+    },
+    {
+      "id": "edge:17a032ea6da8e2703da2f24a",
+      "from": "use-case:RULE-04",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Opportunity_Minimum",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:17aee03903e0009d761b05bf",
@@ -7714,6 +8889,13 @@
       "source": "strategic-deal-assurance/force-app/main/default/classes/StrategicDiscountPolicy.cls"
     },
     {
+      "id": "edge:197ac4bf016b21f0aa2bc376",
+      "from": "use-case:POLICY-09",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:1a141b0ea283f8db88e3bcd0",
       "from": "apex:StrategicDealApprovalControllerTest",
       "relation": "tests",
@@ -7747,6 +8929,13 @@
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:1aeda30419cde84de986c0e7",
+      "from": "use-case:SECURITY-02",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:1b04f197034a14c288ab56e1",
@@ -7898,6 +9087,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:1cd4e57b27f078c40c11db31",
+      "from": "config:Demo_Business_Rule.Opportunity_Primary_Contact",
+      "relation": "instance_of",
+      "to": "object:Demo_Business_Rule__mdt",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Opportunity_Primary_Contact.md-meta.xml"
+    },
+    {
       "id": "edge:1d33558e2bc2eb953cedd4f3",
       "from": "lwc:strategicDealWorkbench",
       "relation": "defined_in",
@@ -7940,6 +9136,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:1d9d7570d732840ac6a5136d",
+      "from": "config:Demo_Business_Rule.Lead_Qualification",
+      "relation": "instance_of",
+      "to": "object:Demo_Business_Rule__mdt",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Lead_Qualification.md-meta.xml"
+    },
+    {
       "id": "edge:1db1e877e72c463e25e07bfb",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -7975,11 +9178,25 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:1df7d245c8fd5b689e6ff1ad",
+      "from": "config:Demo_Business_Rule.Case_Resolution",
+      "relation": "configures",
+      "to": "trigger:DemoCaseRules",
+      "source": "strategic-deal-assurance/data/demo-rule-scenarios.json"
+    },
+    {
       "id": "edge:1e2cc8327031e58e0af3ba8c",
       "from": "field-update:SDA_Recalled",
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/force-app/main/default/workflows/Opportunity.workflow-meta.xml",
       "source": "strategic-deal-assurance/force-app/main/default/workflows/Opportunity.workflow-meta.xml"
+    },
+    {
+      "id": "edge:1e3625a816ae32eb0f21e004",
+      "from": "use-case:MM-03",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:1e44a07598e4df2059aba4c9",
@@ -8147,6 +9364,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:1fa22b06802d6cd9d42a81b8",
+      "from": "apex:DemoBusinessRules",
+      "relation": "reads",
+      "to": "config:Demo_Business_Rule.Campaign_Active",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls"
+    },
+    {
       "id": "edge:1fd8fcec4550c95b2e128fb9",
       "from": "fixture:T09",
       "relation": "references",
@@ -8281,6 +9505,13 @@
       "source": "strategic-deal-assurance/force-app/main/default/objects/Opportunity/fields/Approval_Status__c.field-meta.xml"
     },
     {
+      "id": "edge:21855924714b699445b2bf73",
+      "from": "use-case:RECOVERY-01",
+      "relation": "covers",
+      "to": "object:Case",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:21a94e1bed2205e418e37076",
       "from": "fixture:CM07",
       "relation": "references",
@@ -8295,6 +9526,13 @@
       "to": "fixture:O02",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Task.WhatId"
+    },
+    {
+      "id": "edge:21ac122efff50056e2cf14d0",
+      "from": "config:Demo_Business_Rule.Contact_Reparent",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Contact_Reparent.md-meta.xml",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Contact_Reparent.md-meta.xml"
     },
     {
       "id": "edge:21df797cac492f6993677266",
@@ -8324,6 +9562,13 @@
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/force-app/main/default/objects/Strategic_Deal_Evaluation__c/fields/Discount_Percent__c.field-meta.xml",
       "source": "strategic-deal-assurance/force-app/main/default/objects/Strategic_Deal_Evaluation__c/fields/Discount_Percent__c.field-meta.xml"
+    },
+    {
+      "id": "edge:22473ecd460aa9e5ec04bd90",
+      "from": "capability:configuration.demo.save.guards",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/contracts/agent-interface.json",
+      "source": "strategic-deal-assurance/contracts/agent-interface.json"
     },
     {
       "id": "edge:2248c2cb9b547aaf3b830f3c",
@@ -8396,6 +9641,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:22ee5ba7bb80854e134a0355",
+      "from": "use-case:SECURITY-02",
+      "relation": "covers",
+      "to": "object:Case",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:22f53ef72f608c39e3210fb9",
       "from": "fixture:T06",
       "relation": "references",
@@ -8416,6 +9668,13 @@
       "relation": "has_field",
       "to": "field:Strategic_Deal_Evaluation__c.Outcome__c",
       "source": "strategic-deal-assurance/force-app/main/default/objects/Strategic_Deal_Evaluation__c/fields/Outcome__c.field-meta.xml"
+    },
+    {
+      "id": "edge:2354246da71b4f9ed8ebc25f",
+      "from": "use-case:RULE-11",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Task_Due_Date",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:23684480f6239c7f5c1e0f73",
@@ -8491,6 +9750,13 @@
       "source": "strategic-deal-assurance/force-app/main/default/flows/Strategic_Discount_Approval.flow-meta.xml"
     },
     {
+      "id": "edge:24785fc2b21aff723b456e84",
+      "from": "config:Demo_Business_Rule.Opportunity_Minimum",
+      "relation": "configures",
+      "to": "trigger:DemoOpportunityRules",
+      "source": "strategic-deal-assurance/data/demo-rule-scenarios.json"
+    },
+    {
       "id": "edge:247fcc9e8c5b3dd089e5101b",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -8563,6 +9829,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:2557f2e2ca1612d00f60c24b",
+      "from": "use-case:MM-09",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:256e2fdda596ec270b65f934",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -8596,6 +9869,13 @@
       "relation": "has_field",
       "to": "field:Opportunity.Discount__c",
       "source": "source-reference"
+    },
+    {
+      "id": "edge:25bdb636f5b5360195fd4fe8",
+      "from": "config:Demo_Business_Rule.Campaign_Active",
+      "relation": "instance_of",
+      "to": "object:Demo_Business_Rule__mdt",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Campaign_Active.md-meta.xml"
     },
     {
       "id": "edge:25d68ad82d66208f0b995395",
@@ -8739,6 +10019,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:278ab560bcc8124ddcb74f21",
+      "from": "use-case:RULE-17",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Task_Due_Date",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:27a8e89d2a2ae5983db10b7b",
       "from": "fixture:O35",
       "relation": "references",
@@ -8747,11 +10034,25 @@
       "field": "Opportunity.OwnerId"
     },
     {
+      "id": "edge:28299cfb934b01cb810f07a6",
+      "from": "object:Opportunity",
+      "relation": "triggers",
+      "to": "trigger:DemoOpportunityRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoOpportunityRules.trigger"
+    },
+    {
       "id": "edge:284bee3588b0ea65f8705479",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
       "to": "fixture:L13",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:2869c1046b037d2fdc9b378d",
+      "from": "use-case:APPROVAL-02",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:286c8dee6dcd01a124aea296",
@@ -8784,6 +10085,13 @@
       "relation": "instance_of",
       "to": "object:Account",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:28c5f352603a19b712960771",
+      "from": "permission-set:Demo_Rule_Operator",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/permissionsets/Demo_Rule_Operator.permissionset-meta.xml",
+      "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Demo_Rule_Operator.permissionset-meta.xml"
     },
     {
       "id": "edge:28e9c89497c35dda637a5b93",
@@ -9160,6 +10468,13 @@
       "field": "Opportunity.OwnerId"
     },
     {
+      "id": "edge:2dca9ca0a362ae104b397932",
+      "from": "apex:DemoBusinessRulesTest",
+      "relation": "tests",
+      "to": "config:Demo_Business_Rule.Contact_Reparent",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls"
+    },
+    {
       "id": "edge:2dcd5cf5faba61adf98e7bd5",
       "from": "fixture:C06",
       "relation": "references",
@@ -9180,6 +10495,13 @@
       "relation": "contains",
       "to": "fixture:C44",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:2e47fbd0cd01652983e632ee",
+      "from": "use-case:RULE-17",
+      "relation": "covers",
+      "to": "object:OpportunityContactRole",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:2e4c06f65ceda814085d90a5",
@@ -9339,6 +10661,13 @@
       "observedFixtureReference": true
     },
     {
+      "id": "edge:2fffa0a1e6ccf58d991015c6",
+      "from": "use-case:MM-03",
+      "relation": "covers",
+      "to": "object:Contact",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:30234d232a0cb3699295300a",
       "from": "fixture:L08",
       "relation": "defined_in",
@@ -9397,6 +10726,13 @@
       "to": "persona:operator",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Opportunity.OwnerId"
+    },
+    {
+      "id": "edge:30d44319fd46f29644e72f5f",
+      "from": "use-case:RULE-13",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:310ce60f88b852e4e63350b0",
@@ -9499,6 +10835,13 @@
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:326d2b2b0c37ceba9737354d",
+      "from": "use-case:MM-08",
+      "relation": "covers",
+      "to": "object:CampaignMember",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:327f352f91c3a40b60100d2a",
@@ -9633,6 +10976,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:33e0e7e12fdffa90af805ecc",
+      "from": "use-case:RULE-05",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:33eeb38c5c877f584fe60468",
       "from": "fixture:C49",
       "relation": "references",
@@ -9724,11 +11074,25 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:3620f28f2e147046267a05a8",
+      "from": "field:Demo_Business_Rule__mdt.Rule_Version__c",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Rule_Version__c.field-meta.xml",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Rule_Version__c.field-meta.xml"
+    },
+    {
       "id": "edge:3626f957df3de08ccac5151b",
       "from": "fixture:CM05",
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:363be42000cd3860b9170d43",
+      "from": "use-case:SECURITY-02",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Opportunity_Minimum",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:3652d514c749acb608fefe8f",
@@ -9774,6 +11138,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:36a3fa5fd29dfb5aac4095e1",
+      "from": "use-case:POLICY-01",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:36afac09fc3c07a8c7feb92c",
       "from": "object:Opportunity",
       "relation": "has_field",
@@ -9804,6 +11175,13 @@
       "field": "CampaignMember.LeadId"
     },
     {
+      "id": "edge:375651a90c1fedd7e41393c8",
+      "from": "use-case:POLICY-08",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:376e7ab2b6a803e3791748f1",
       "from": "fixture:R32B",
       "relation": "defined_in",
@@ -9831,6 +11209,13 @@
       "relation": "has_field",
       "to": "field:Opportunity.Regional_VP_Approver__c",
       "source": "strategic-deal-assurance/force-app/main/default/objects/Opportunity/fields/Regional_VP_Approver__c.field-meta.xml"
+    },
+    {
+      "id": "edge:37c2b0bbe5ee6f4304ab9afe",
+      "from": "use-case:POLICY-09",
+      "relation": "covers",
+      "to": "object:Strategic_Discount_Rule__mdt",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:37c747c37fb91dc628740a95",
@@ -9942,6 +11327,13 @@
       "to": "persona:operator",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Contact.OwnerId"
+    },
+    {
+      "id": "edge:393a11c2bafa51490763e226",
+      "from": "use-case:RULE-07",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:39401d3e3e2f44dc7ad21120",
@@ -10075,6 +11467,13 @@
       "field": "OpportunityContactRole.OpportunityId"
     },
     {
+      "id": "edge:3a76602d7cf678c59ba4783f",
+      "from": "use-case:POLICY-04",
+      "relation": "covers",
+      "to": "object:Strategic_Deal_Evaluation__c",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:3a9d5e89788ce82fc32b06b3",
       "from": "use-case:MM-03",
       "relation": "covers",
@@ -10109,6 +11508,13 @@
       "to": "fixture:O23",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "OpportunityContactRole.OpportunityId"
+    },
+    {
+      "id": "edge:3b43cb96c0004859d8d0fdb9",
+      "from": "use-case:RULE-17",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:3b47460940078508e3352bd3",
@@ -10189,6 +11595,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:3cb891a8ea803335e8704280",
+      "from": "use-case:SECURITY-02",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Task_Due_Date",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:3cca3338094fbd25f9b15307",
       "from": "fixture:C48",
       "relation": "defined_in",
@@ -10245,6 +11658,13 @@
       "to": "fixture:A05",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Task.WhatId"
+    },
+    {
+      "id": "edge:3df12a5e719f5aea38829155",
+      "from": "use-case:RULE-17",
+      "relation": "covers",
+      "to": "object:Contact",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:3e0d677a763f445d7a02de5c",
@@ -10339,6 +11759,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:3f861532f91b8696b8835247",
+      "from": "use-case:RULE-12",
+      "relation": "covers",
+      "to": "object:CampaignMember",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:3f970cd4a3a653d1c72e9416",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -10359,6 +11786,13 @@
       "relation": "implemented_by",
       "to": "apex:StrategicDiscountPolicy",
       "source": "strategic-deal-assurance/force-app/main/default/classes/StrategicDiscountPolicy.cls"
+    },
+    {
+      "id": "edge:3fcf4414d51b222c09f2ecfe",
+      "from": "use-case:RULE-06",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Opportunity_Minimum",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:3fdaa4fb4edb5f98ed32172c",
@@ -10540,6 +11974,13 @@
       "to": "persona:operator",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Opportunity.OwnerId"
+    },
+    {
+      "id": "edge:4240b93f9fc25f9440e3d607",
+      "from": "use-case:RULE-16",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Account_Reparent",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:4252feffc1b9327edbaa9d6a",
@@ -10809,6 +12250,13 @@
       "field": "CampaignMember.LeadId"
     },
     {
+      "id": "edge:45ec371f5b0112740054bc19",
+      "from": "use-case:RULE-07",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:463e216e107e5c902d9f872b",
       "from": "fixture:T07",
       "relation": "defined_in",
@@ -10899,6 +12347,13 @@
       "relation": "contains",
       "to": "fixture:L15",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:4778186987873d8dee4ea599",
+      "from": "use-case:MM-06",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:47844256a10ffb4eaa30524a",
@@ -11018,6 +12473,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:48b8b10400e204830ae40b24",
+      "from": "use-case:POLICY-04",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:48ce87a22e55562183c0c137",
       "from": "fixture:O31",
       "relation": "references",
@@ -11097,6 +12559,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:4a53378139594fb49be91bd0",
+      "from": "use-case:RULE-08",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:4a7f3f7ada98812486913f19",
       "from": "permission-set:Change_Assurance_Integration",
       "relation": "field_grant",
@@ -11104,6 +12573,13 @@
       "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Change_Assurance_Integration.permissionset-meta.xml",
       "readable": true,
       "editable": false
+    },
+    {
+      "id": "edge:4a8f8dfe2c93c88b6dd4dce0",
+      "from": "object:Case",
+      "relation": "has_field",
+      "to": "field:Case.Demo_Resolution__c",
+      "source": "source-reference"
     },
     {
       "id": "edge:4ace748a180ff58263c8c231",
@@ -11118,6 +12594,13 @@
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:4b20ab02702339b393034469",
+      "from": "config:Demo_Business_Rule.Case_Resolution",
+      "relation": "guards_save_of",
+      "to": "object:Case",
+      "source": "strategic-deal-assurance/data/demo-rule-scenarios.json"
     },
     {
       "id": "edge:4b2199aacb7daa78202c2393",
@@ -11223,6 +12706,20 @@
       "observedFixtureReference": true
     },
     {
+      "id": "edge:4caebc52485ca28632dab1e0",
+      "from": "use-case:RECOVERY-01",
+      "relation": "covers",
+      "to": "object:CampaignMember",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:4cd38dcb3bfed9e7be7ba2a0",
+      "from": "use-case:RULE-10",
+      "relation": "covers",
+      "to": "object:Case",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:4d47372ccbf565460eca61a3",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -11272,6 +12769,13 @@
       "relation": "has_field",
       "to": "field:Contact.Description",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:4d7a89d8b2a883cebc6f5947",
+      "from": "object:Demo_Business_Rule__mdt",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/Demo_Business_Rule__mdt.object-meta.xml",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/Demo_Business_Rule__mdt.object-meta.xml"
     },
     {
       "id": "edge:4d9454d960f065f561ee9254",
@@ -11702,6 +13206,13 @@
       "field": "Task.WhatId"
     },
     {
+      "id": "edge:52e709f4fbe441afcc8c7257",
+      "from": "use-case:POLICY-06",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:5310a413b78c5673aa4350a0",
       "from": "fixture:T20",
       "relation": "references",
@@ -11815,12 +13326,26 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:5459875ca9894509b6971704",
+      "from": "use-case:RULE-05",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Opportunity_Minimum",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:545b3c85a47c1b4224d3736e",
       "from": "fixture:R25B",
       "relation": "references",
       "to": "fixture:C38",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "OpportunityContactRole.ContactId"
+    },
+    {
+      "id": "edge:545d040c5730b8bf57947b0a",
+      "from": "use-case:RULE-17",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Campaign_Active",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:5466ffe656a0e977605f72a6",
@@ -11887,6 +13412,13 @@
       "field": "Case.AccountId"
     },
     {
+      "id": "edge:553073654101f55f61b42313",
+      "from": "use-case:MM-08",
+      "relation": "covers",
+      "to": "object:Lead",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:554f2231ab6fc276a5088cb3",
       "from": "fixture:CM10",
       "relation": "instance_of",
@@ -11915,6 +13447,13 @@
       "to": "persona:operator",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Contact.OwnerId"
+    },
+    {
+      "id": "edge:559dbaf7468d79a243ff067f",
+      "from": "object:Demo_Business_Rule__mdt",
+      "relation": "has_field",
+      "to": "field:Demo_Business_Rule__mdt.Rule_Version__c",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Rule_Version__c.field-meta.xml"
     },
     {
       "id": "edge:55a31d163bdc298dbced241c",
@@ -11981,6 +13520,13 @@
       "relation": "contains",
       "to": "fixture:T08",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:5614d4d4bdc78d72a4b99dc4",
+      "from": "use-case:RULE-17",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Lead_Qualification",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:561c7d071198b85585004779",
@@ -12101,6 +13647,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:57de6dec99724f11e7a6decf",
+      "from": "trigger:DemoOpportunityRules",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoOpportunityRules.trigger",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoOpportunityRules.trigger"
+    },
+    {
       "id": "edge:57f1d4af472382ade863947e",
       "from": "fixture:CM06",
       "relation": "references",
@@ -12215,6 +13768,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:593c3df5cf7b0f4b958d3dd5",
+      "from": "config:Demo_Business_Rule.Campaign_Active",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Campaign_Active.md-meta.xml",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Campaign_Active.md-meta.xml"
+    },
+    {
       "id": "edge:595f226e4e01901d4e273bd1",
       "from": "fixture:C32",
       "relation": "references",
@@ -12228,6 +13788,13 @@
       "relation": "instance_of",
       "to": "object:Account",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:59a99e520f0c408bc4640172",
+      "from": "use-case:MM-09",
+      "relation": "covers",
+      "to": "object:User",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:59cef04a6b41425cdc726a3a",
@@ -12286,6 +13853,13 @@
       "to": "fixture:C37",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "OpportunityContactRole.ContactId"
+    },
+    {
+      "id": "edge:5a509605a578188d72522419",
+      "from": "config:Demo_Business_Rule.Campaign_Active",
+      "relation": "guards_save_of",
+      "to": "object:Campaign",
+      "source": "strategic-deal-assurance/data/demo-rule-scenarios.json"
     },
     {
       "id": "edge:5a671b13dc175a482e6f566a",
@@ -12469,6 +14043,13 @@
       "field": "Task.WhoId"
     },
     {
+      "id": "edge:5cec68c4efa040bf6abf113d",
+      "from": "use-case:RULE-12",
+      "relation": "covers",
+      "to": "object:Campaign",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:5d09ff473f5bf42777c9ad83",
       "from": "field:Strategic_Deal_Evaluation__c.Reason__c",
       "relation": "defined_in",
@@ -12551,6 +14132,20 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:5dd716d58150c15f710ec440",
+      "from": "use-case:SECURITY-01",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:5ddca32a19b80e2b79739d55",
+      "from": "use-case:MM-10",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:5de3d0a2c0fbde4f77ff3ad7",
       "from": "field:Strategic_Deal_Evaluation__c.Approval_Required__c",
       "relation": "defined_in",
@@ -12584,6 +14179,20 @@
       "relation": "instance_of",
       "to": "object:OpportunityContactRole",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:5e78d35fe6e7c1785d967269",
+      "from": "field:Demo_Business_Rule__mdt.Enabled__c",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Enabled__c.field-meta.xml",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Enabled__c.field-meta.xml"
+    },
+    {
+      "id": "edge:5e7a45b5ae4c482a550ee176",
+      "from": "use-case:POLICY-09",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:5eb75e3fbf9740baeba33ad1",
@@ -12694,6 +14303,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:600e3e4580df1785b6946c2b",
+      "from": "config:Demo_Business_Rule.Opportunity_Minimum",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Opportunity_Minimum.md-meta.xml",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Opportunity_Minimum.md-meta.xml"
+    },
+    {
       "id": "edge:60119aa24a806b8d3f38dfcc",
       "from": "fixture:T34",
       "relation": "references",
@@ -12746,6 +14362,13 @@
       "field": "Task.OwnerId"
     },
     {
+      "id": "edge:61122553e686230e6404dcf9",
+      "from": "apex:DemoBusinessRules",
+      "relation": "reads",
+      "to": "config:Demo_Business_Rule.Task_Due_Date",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls"
+    },
+    {
       "id": "edge:61246f49656ef5ab55a79080",
       "from": "fixture:R05A",
       "relation": "references",
@@ -12785,6 +14408,13 @@
       "field": "OpportunityContactRole.OpportunityId"
     },
     {
+      "id": "edge:6157a6c4c9f4bdd036f44695",
+      "from": "trigger:DemoAccountRules",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoAccountRules.trigger",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoAccountRules.trigger"
+    },
+    {
       "id": "edge:615edfa5df9b8447e174620a",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -12819,6 +14449,13 @@
       "relation": "instance_of",
       "to": "object:Opportunity",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:622a8c5d19a8897ae6d252f2",
+      "from": "use-case:POLICY-06",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:6230b895647bff11e9735f8a",
@@ -12872,6 +14509,13 @@
       "source": "strategic-deal-assurance/data/multi-module-use-cases.json"
     },
     {
+      "id": "edge:62a7444a8bcde419ee9efb57",
+      "from": "trigger:DemoCampaignMemberRules",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoCampaignMemberRules.trigger",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoCampaignMemberRules.trigger"
+    },
+    {
       "id": "edge:62bfb54bc3ebf07245d08c67",
       "from": "fixture:S27",
       "relation": "references",
@@ -12887,12 +14531,26 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:63362645eebb5591c28fb5d8",
+      "from": "use-case:RULE-03",
+      "relation": "covers",
+      "to": "object:Lead",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:633e2c7922dc5ca3a7cb6b4e",
       "from": "fixture:T48",
       "relation": "references",
       "to": "fixture:C08",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Task.WhoId"
+    },
+    {
+      "id": "edge:637930f898ab4502ad839596",
+      "from": "config:Demo_Business_Rule.Case_Resolution",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Case_Resolution.md-meta.xml",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Case_Resolution.md-meta.xml"
     },
     {
       "id": "edge:6384c63c6167abf009a1cad4",
@@ -13054,6 +14712,20 @@
       "relation": "contains",
       "to": "fixture:T55",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:65fe6fde2a76f1904eb99397",
+      "from": "use-case:MM-04",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:6611a17a37cdcd77e8c191b1",
+      "from": "use-case:RULE-01",
+      "relation": "covers",
+      "to": "object:Account",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:6638752f3822664c66ea6fd6",
@@ -13465,6 +15137,13 @@
       "field": "Case.AccountId"
     },
     {
+      "id": "edge:6d27cde96e8be0995942d06b",
+      "from": "trigger:DemoLeadRules",
+      "relation": "calls",
+      "to": "apex:DemoBusinessRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoLeadRules.trigger"
+    },
+    {
       "id": "edge:6d7c8b375dc7e6331769febf",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -13661,6 +15340,13 @@
       "field": "Case.OwnerId"
     },
     {
+      "id": "edge:70470583fec48dfbd936778a",
+      "from": "config:Demo_Business_Rule.Account_Reparent",
+      "relation": "guards_save_of",
+      "to": "object:Account",
+      "source": "strategic-deal-assurance/data/demo-rule-scenarios.json"
+    },
+    {
       "id": "edge:7048012b2bef13d1fadf0f32",
       "from": "fixture:T17",
       "relation": "instance_of",
@@ -13792,6 +15478,20 @@
       "field": "Contact.AccountId"
     },
     {
+      "id": "edge:71e49a11a470de4a00146f3b",
+      "from": "use-case:POLICY-08",
+      "relation": "covers",
+      "to": "object:Strategic_Discount_Rule__mdt",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:71ec979169ab8b96e77383bc",
+      "from": "use-case:RECOVERY-01",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:71ed3f98c5b843c052973600",
       "from": "use-case:MM-09",
       "relation": "covers",
@@ -13821,6 +15521,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:725f08e99f74c5cf8fcc8f79",
+      "from": "use-case:APPROVAL-03",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:7260462fe768514757b31187",
       "from": "fixture:C34",
       "relation": "instance_of",
@@ -13833,6 +15540,13 @@
       "relation": "instance_of",
       "to": "object:OpportunityContactRole",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:7273b5c4bdd27d93c97df2c0",
+      "from": "trigger:DemoAccountRules",
+      "relation": "calls",
+      "to": "apex:DemoBusinessRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoAccountRules.trigger"
     },
     {
       "id": "edge:7285043e9d92ad2b6cb27803",
@@ -13880,6 +15594,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:73392458247b91fdee398f43",
+      "from": "use-case:APPROVAL-01",
+      "relation": "covers",
+      "to": "object:User",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:733d1f495fc8229e31f4465f",
       "from": "fixture:R27B",
       "relation": "references",
@@ -13903,6 +15624,13 @@
       "source": "strategic-deal-assurance/force-app/main/default/objects/Strategic_Deal_Evaluation__c/fields/Evaluated_At__c.field-meta.xml"
     },
     {
+      "id": "edge:738ac9b50d874ccfd5ee100c",
+      "from": "use-case:MM-10",
+      "relation": "covers",
+      "to": "object:Account",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:739b6c63a4cbeb1d1c380a1c",
       "from": "object:Contact",
       "relation": "has_field",
@@ -13916,6 +15644,13 @@
       "to": "persona:operator",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Case.OwnerId"
+    },
+    {
+      "id": "edge:73a2387e70bd105019edd283",
+      "from": "config:Demo_Business_Rule.Opportunity_Primary_Contact",
+      "relation": "configures",
+      "to": "trigger:DemoOpportunityRules",
+      "source": "strategic-deal-assurance/data/demo-rule-scenarios.json"
     },
     {
       "id": "edge:73b245ec8014a6452659caeb",
@@ -13986,6 +15721,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:747d7636440b608e48363cd5",
+      "from": "use-case:RECOVERY-01",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Opportunity_Primary_Contact",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:748753eaebadf06ad324ef18",
       "from": "object:Account",
       "relation": "has_field",
@@ -14000,6 +15742,13 @@
       "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Change_Assurance_Integration.permissionset-meta.xml",
       "readable": true,
       "editable": true
+    },
+    {
+      "id": "edge:74e66113828b97b8d379f527",
+      "from": "use-case:MM-02",
+      "relation": "covers",
+      "to": "object:Case",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:753cbca66502d49479b67c15",
@@ -14328,6 +16077,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:7ad5ede8c9ee9195e7f72c08",
+      "from": "config:Demo_Business_Rule.Account_Reparent",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Account_Reparent.md-meta.xml",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Account_Reparent.md-meta.xml"
+    },
+    {
       "id": "edge:7af275c6ff7102733b1eec0e",
       "from": "fixture:CM20",
       "relation": "defined_in",
@@ -14350,6 +16106,13 @@
       "field": "OpportunityContactRole.OpportunityId"
     },
     {
+      "id": "edge:7b19b8296ad83403dfdf391a",
+      "from": "use-case:RULE-17",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Account_Reparent",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:7b1a6c9afd42a4e565e0c3b2",
       "from": "fixture:O19",
       "relation": "references",
@@ -14364,6 +16127,27 @@
       "to": "fixture:C13",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Case.ContactId"
+    },
+    {
+      "id": "edge:7b24c8b7215a23b08d5e143a",
+      "from": "use-case:POLICY-05",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:7b5397ee79155eb91f2e537b",
+      "from": "use-case:APPROVAL-03",
+      "relation": "covers",
+      "to": "approval:Strategic_Opportunity_Regional_VP",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:7b6f772ddd63760fca53fa1f",
+      "from": "apex:DemoBusinessRulesTest",
+      "relation": "tests",
+      "to": "config:Demo_Business_Rule.Opportunity_Primary_Contact",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls"
     },
     {
       "id": "edge:7b6f780db1d2c062bf41a262",
@@ -14426,6 +16210,13 @@
       "to": "object:Account",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "observedFixtureReference": true
+    },
+    {
+      "id": "edge:7cca3939c73aa610f0db9539",
+      "from": "use-case:RULE-15",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:7ce3e7f5cf12123353d12cfd",
@@ -14548,6 +16339,13 @@
       "field": "Campaign.OwnerId"
     },
     {
+      "id": "edge:7e8f8aec7a7731e23d50bbab",
+      "from": "config:Demo_Business_Rule.Account_Reparent",
+      "relation": "configures",
+      "to": "trigger:DemoAccountRules",
+      "source": "strategic-deal-assurance/data/demo-rule-scenarios.json"
+    },
+    {
       "id": "edge:7eb7acd62d607925cfa613fa",
       "from": "fixture:C44",
       "relation": "references",
@@ -14619,6 +16417,13 @@
       "field": "OpportunityContactRole.ContactId"
     },
     {
+      "id": "edge:7fc8fc828e3a233b31948dff",
+      "from": "config:Demo_Business_Rule.Opportunity_Primary_Contact",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Opportunity_Primary_Contact.md-meta.xml",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Opportunity_Primary_Contact.md-meta.xml"
+    },
+    {
       "id": "edge:7fe0c0ef48df7853c527f1b7",
       "from": "fixture:C41",
       "relation": "references",
@@ -14642,6 +16447,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:801074b29ce27d463a78aadf",
+      "from": "object:Case",
+      "relation": "has_field",
+      "to": "field:Case.Demo_Resolution__c",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Case/fields/Demo_Resolution__c.field-meta.xml"
+    },
+    {
       "id": "edge:801ca1e14e6578d6b5c154e6",
       "from": "config:Strategic_Discount_Rule.Default",
       "relation": "defined_in",
@@ -14661,6 +16473,13 @@
       "relation": "instance_of",
       "to": "object:OpportunityContactRole",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:804e975c496c16c61be60489",
+      "from": "config:Demo_Business_Rule.Contact_Reparent",
+      "relation": "instance_of",
+      "to": "object:Demo_Business_Rule__mdt",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Contact_Reparent.md-meta.xml"
     },
     {
       "id": "edge:8059bb490d71144a9f975b1c",
@@ -14736,6 +16555,13 @@
       "field": "Opportunity.AccountId"
     },
     {
+      "id": "edge:81a5b4be5f6f660660fa7fb1",
+      "from": "use-case:RULE-12",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:81bea46fada14189bb6769bf",
       "from": "fixture:CM19",
       "relation": "references",
@@ -14749,6 +16575,13 @@
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:8204acbc1f3deb9951d30e91",
+      "from": "use-case:RULE-10",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Case_Resolution",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:82107c69a9e13d730563577e",
@@ -14774,6 +16607,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:8249eaf3b6c8526642adac98",
+      "from": "object:Demo_Business_Rule__mdt",
+      "relation": "has_field",
+      "to": "field:Demo_Business_Rule__mdt.Required_Value__c",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Required_Value__c.field-meta.xml"
+    },
+    {
       "id": "edge:824b83a6148c260952cb9e5b",
       "from": "fixture:T30",
       "relation": "instance_of",
@@ -14793,6 +16633,13 @@
       "relation": "contains",
       "to": "fixture:S25",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:82c06ede90f18b9e0627c718",
+      "from": "object:Account",
+      "relation": "triggers",
+      "to": "trigger:DemoAccountRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoAccountRules.trigger"
     },
     {
       "id": "edge:8303c16709ecf369a9852d54",
@@ -14838,11 +16685,25 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:83ca9cdc468a700ef45815c3",
+      "from": "use-case:RECOVERY-01",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Campaign_Active",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:84095babd762d75d520e9ae7",
       "from": "fixture:R05B",
       "relation": "instance_of",
       "to": "object:OpportunityContactRole",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:8477b7a667e0930a747d6c6d",
+      "from": "use-case:MM-03",
+      "relation": "covers",
+      "to": "object:Account",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:847ed241e4fad899fb34b44b",
@@ -14852,12 +16713,26 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:84b632d8f2d2978ab0e8849c",
+      "from": "use-case:RULE-16",
+      "relation": "covers",
+      "to": "object:Account",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:84eb2be36367d17956e71bbc",
       "from": "fixture:S12",
       "relation": "references",
       "to": "fixture:A08",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Case.AccountId"
+    },
+    {
+      "id": "edge:84f524c672e602fb99c65a53",
+      "from": "config:Demo_Business_Rule.Lead_Qualification",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Lead_Qualification.md-meta.xml",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Lead_Qualification.md-meta.xml"
     },
     {
       "id": "edge:85056649dfa1e10d621d25a9",
@@ -14917,6 +16792,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:858ea12dee908017c67a9363",
+      "from": "use-case:MM-07",
+      "relation": "covers",
+      "to": "object:Case",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:85a897693a1c5609101503f7",
       "from": "object:Strategic_Deal_Evaluation__c",
       "relation": "has_field",
@@ -14930,6 +16812,13 @@
       "to": "persona:operator",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Contact.OwnerId"
+    },
+    {
+      "id": "edge:85d596368421130f31312818",
+      "from": "use-case:RECOVERY-01",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Account_Reparent",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:85ed9b1f5081bd1c66bd0d4e",
@@ -14994,6 +16883,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:86b98f225e3dd1d3d0c7b6d2",
+      "from": "use-case:POLICY-05",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:86e2224d4bb924a40e34b179",
       "from": "object:Opportunity",
       "relation": "triggers",
@@ -15023,6 +16919,13 @@
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/contracts/agent-interface.json",
       "source": "strategic-deal-assurance/contracts/agent-interface.json"
+    },
+    {
+      "id": "edge:871f4fefa8e284e91a38cd2f",
+      "from": "config:Demo_Business_Rule.Contact_Reparent",
+      "relation": "guards_save_of",
+      "to": "object:Contact",
+      "source": "strategic-deal-assurance/data/demo-rule-scenarios.json"
     },
     {
       "id": "edge:873bbab318e995826fce835a",
@@ -15061,6 +16964,20 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:87e2c015c4301079ff941e28",
+      "from": "use-case:RECOVERY-01",
+      "relation": "covers",
+      "to": "object:Task",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:87f358a441edd85d06220f13",
+      "from": "use-case:SECURITY-02",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Case_Resolution",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:8800219ec189382bec52dc2e",
       "from": "fixture:T59",
       "relation": "instance_of",
@@ -15081,6 +16998,13 @@
       "to": "fixture:A04",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Account.ParentId"
+    },
+    {
+      "id": "edge:8871d725d0b07f609af1dce1",
+      "from": "object:Demo_Business_Rule__mdt",
+      "relation": "has_field",
+      "to": "field:Demo_Business_Rule__mdt.Number_Value__c",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Number_Value__c.field-meta.xml"
     },
     {
       "id": "edge:8879f31c1f78b3bf71ba6886",
@@ -15117,6 +17041,22 @@
       "relation": "instance_of",
       "to": "object:Case",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:892a7fcab42d4ab4e01511d8",
+      "from": "use-case:POLICY-03",
+      "relation": "covers",
+      "to": "object:Strategic_Deal_Evaluation__c",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:895226ff251faa817d3677d6",
+      "from": "permission-set:Demo_Rule_Operator",
+      "relation": "field_grant",
+      "to": "field:Case.Demo_Resolution__c",
+      "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Demo_Rule_Operator.permissionset-meta.xml",
+      "readable": true,
+      "editable": true
     },
     {
       "id": "edge:897617a4748c5a1b50e4747b",
@@ -15156,6 +17096,13 @@
       "relation": "instance_of",
       "to": "object:Lead",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:89b607ef44b979dd6900c10d",
+      "from": "use-case:RULE-09",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Opportunity_Primary_Contact",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:89c56f0ffae09627a9662a56",
@@ -15218,6 +17165,13 @@
       "field": "CampaignMember.LeadId"
     },
     {
+      "id": "edge:8a4562db17b872b69e42cb82",
+      "from": "use-case:RULE-14",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:8a6aab8d269bb97364f3e679",
       "from": "fixture:R10B",
       "relation": "defined_in",
@@ -15248,6 +17202,13 @@
       "field": "Contact.OwnerId"
     },
     {
+      "id": "edge:8ac7180e1770bca439f42524",
+      "from": "use-case:MM-10",
+      "relation": "covers",
+      "to": "object:Contact",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:8b12123ddea40c6a514f9020",
       "from": "fixture:S09",
       "relation": "instance_of",
@@ -15270,6 +17231,13 @@
       "source": "strategic-deal-assurance/force-app/main/default/lwc/strategicDealApprovalPanel/strategicDealApprovalPanel.js",
       "method": "getState",
       "externalHttpEndpoint": false
+    },
+    {
+      "id": "edge:8bb849d1f7f9f8a0ade8af69",
+      "from": "use-case:RULE-14",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Opportunity_Minimum",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:8bc76e35a40332195d6d9d29",
@@ -15413,6 +17381,13 @@
       "relation": "instance_of",
       "to": "object:OpportunityContactRole",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:8d40e6cbf60dffae040e4078",
+      "from": "apex:DemoBusinessRules",
+      "relation": "reads",
+      "to": "config:Demo_Business_Rule.Lead_Qualification",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls"
     },
     {
       "id": "edge:8d7c72abcbe7217ef2c61df7",
@@ -15650,6 +17625,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:8ff0474f7481096d1d7d8ad8",
+      "from": "field:Case.Demo_Resolution__c",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/objects/Case/fields/Demo_Resolution__c.field-meta.xml",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Case/fields/Demo_Resolution__c.field-meta.xml"
+    },
+    {
       "id": "edge:8ff7ef14b6750faeac8951c2",
       "from": "permission-set:Strategic_Deal_User",
       "relation": "field_grant",
@@ -15711,6 +17693,13 @@
       "to": "fixture:L13",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "CampaignMember.LeadId"
+    },
+    {
+      "id": "edge:908787bd9710358cb7f4804a",
+      "from": "use-case:RECOVERY-01",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Task_Due_Date",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:90b6668d059c75d292004b8c",
@@ -15895,6 +17884,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:92fda3e2e75696a6f6fe9e05",
+      "from": "apex:DemoBusinessRulesTest",
+      "relation": "tests",
+      "to": "config:Demo_Business_Rule.Task_Due_Date",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls"
+    },
+    {
       "id": "edge:92ff54031d7068776ade8e3e",
       "from": "object:OpportunityContactRole",
       "relation": "has_field",
@@ -15960,6 +17956,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:93bb99d9d657d443757b89b5",
+      "from": "use-case:MM-07",
+      "relation": "covers",
+      "to": "object:Contact",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:93f1e95e6447f39f4c666c97",
       "from": "fixture:O14",
       "relation": "references",
@@ -15973,6 +17976,20 @@
       "relation": "instance_of",
       "to": "object:Lead",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:941c1d0916c742a4a5d6afd5",
+      "from": "use-case:RULE-17",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Opportunity_Primary_Contact",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:9428bb854c24a52d58c1905d",
+      "from": "use-case:RULE-02",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Contact_Reparent",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:947108e0e9ed4d2b4f9be25a",
@@ -16042,6 +18059,20 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:95359d1412e28a11743a1dd7",
+      "from": "apex:DemoBusinessRulesTest",
+      "relation": "tests",
+      "to": "config:Demo_Business_Rule.Campaign_Active",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls"
+    },
+    {
+      "id": "edge:9580bccb7bbe0ea77da56d1b",
+      "from": "apex:DemoBusinessRulesTest",
+      "relation": "tests",
+      "to": "config:Demo_Business_Rule.Case_Resolution",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls"
+    },
+    {
       "id": "edge:958d465eba826ae6db17a3b3",
       "from": "fixture:R27B",
       "relation": "instance_of",
@@ -16061,6 +18092,20 @@
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:95c94443acdcd3b6c43cc042",
+      "from": "use-case:POLICY-02",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:95d762f65b8494a4fa6aa7bf",
+      "from": "use-case:APPROVAL-01",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:95f15e7116a4a54fe735cddc",
@@ -16084,6 +18129,13 @@
       "to": "fixture:C19",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "OpportunityContactRole.ContactId"
+    },
+    {
+      "id": "edge:9643be9259b131eba90055ad",
+      "from": "use-case:MM-06",
+      "relation": "covers",
+      "to": "object:Contact",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:966ad384d709a592636b6a12",
@@ -16127,6 +18179,13 @@
       "to": "fixture:A19",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Contact.AccountId"
+    },
+    {
+      "id": "edge:9733e2a7080b1deaeb3ece40",
+      "from": "use-case:RULE-17",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Contact_Reparent",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:9738b0a77fbede58dc8884d8",
@@ -16173,11 +18232,25 @@
       "field": "Opportunity.AccountId"
     },
     {
+      "id": "edge:980cd3b42dd10e8d124adf5d",
+      "from": "trigger:DemoContactRules",
+      "relation": "calls",
+      "to": "apex:DemoBusinessRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoContactRules.trigger"
+    },
+    {
       "id": "edge:980eef2e7fabfb30109560d5",
       "from": "fixture:R14A",
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:9829c4ff2967c3fea33fb2c1",
+      "from": "use-case:RECOVERY-01",
+      "relation": "covers",
+      "to": "object:Account",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:983f82f56fc573cef1b6a018",
@@ -16194,11 +18267,32 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:988fe39ef74b6e58040b4714",
+      "from": "use-case:POLICY-01",
+      "relation": "covers",
+      "to": "object:Strategic_Deal_Evaluation__c",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:989b95bec8fb04eb860ff61c",
+      "from": "use-case:RULE-17",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Opportunity_Minimum",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:989da9259355b2a632f37c6a",
       "from": "apex:StrategicDealPolicyController",
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/force-app/main/default/classes/StrategicDealPolicyController.cls",
       "source": "strategic-deal-assurance/force-app/main/default/classes/StrategicDealPolicyController.cls"
+    },
+    {
+      "id": "edge:989ea0acb958c2b9a9da15c8",
+      "from": "use-case:MM-02",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:98b4510eb51ca3de3113e07f",
@@ -16281,11 +18375,25 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:99b292b70ee41e959ba93721",
+      "from": "use-case:MM-09",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:99baedc10686e4a84fa43f88",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
       "to": "fixture:S17",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:99bb55b62872104bf3296e6f",
+      "from": "field:Demo_Business_Rule__mdt.Number_Value__c",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Number_Value__c.field-meta.xml",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Number_Value__c.field-meta.xml"
     },
     {
       "id": "edge:99d9f0cdb05a3e54247b3d36",
@@ -16356,6 +18464,13 @@
       "source": "strategic-deal-assurance/force-app/main/default/approvalProcesses/Opportunity.Strategic_Opportunity_Regional_VP.approvalProcess-meta.xml"
     },
     {
+      "id": "edge:9a84ef26f51a9a4d5db6e2c8",
+      "from": "use-case:RULE-09",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:9a9060de2f4797d33d06b41e",
       "from": "use-case:MM-01",
       "relation": "defined_in",
@@ -16389,6 +18504,13 @@
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:9b277b26a8eade4a17159eff",
+      "from": "use-case:APPROVAL-02",
+      "relation": "covers",
+      "to": "object:User",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:9b56d65fc2c7da713ca47b61",
@@ -16512,6 +18634,13 @@
       "to": "persona:operator",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Opportunity.OwnerId"
+    },
+    {
+      "id": "edge:9d4dd564f8e84876eac34a59",
+      "from": "apex:DemoBusinessRules",
+      "relation": "reads",
+      "to": "config:Demo_Business_Rule.Account_Reparent",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls"
     },
     {
       "id": "edge:9d566a5cd3fc631bbee4df35",
@@ -16645,6 +18774,13 @@
       "field": "Lead.OwnerId"
     },
     {
+      "id": "edge:9ec4937a9bb4665794f043ff",
+      "from": "use-case:MM-07",
+      "relation": "covers",
+      "to": "object:Task",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:9f0c93a7353e5e065deb5902",
       "from": "fixture:A10",
       "relation": "instance_of",
@@ -16703,6 +18839,13 @@
       "to": "fixture:A15",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Opportunity.AccountId"
+    },
+    {
+      "id": "edge:9f8dd77fbed8cc9db00b4660",
+      "from": "config:Demo_Business_Rule.Task_Due_Date",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Task_Due_Date.md-meta.xml",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Task_Due_Date.md-meta.xml"
     },
     {
       "id": "edge:9fbc19630e896cb70af15d1d",
@@ -16840,6 +18983,13 @@
       "field": "Opportunity.OwnerId"
     },
     {
+      "id": "edge:a13e5aa970921312f579ff69",
+      "from": "use-case:RECOVERY-01",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:a144d7dacc4426b9b14d5346",
       "from": "fixture:S09",
       "relation": "defined_in",
@@ -16897,6 +19047,13 @@
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:a247387ccbfef4127e15f25c",
+      "from": "use-case:POLICY-07",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:a24aae599fdc956367dec830",
@@ -16957,6 +19114,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:a339b72b7a9a6a6ba6d6bb6f",
+      "from": "use-case:RULE-14",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:a342b793bf7b1cefdfea64a3",
       "from": "fixture:CM36",
       "relation": "references",
@@ -16993,6 +19157,13 @@
       "to": "fixture:L08",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "CampaignMember.LeadId"
+    },
+    {
+      "id": "edge:a3df3cd20034aadf9a656179",
+      "from": "use-case:MM-10",
+      "relation": "covers",
+      "to": "object:Case",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:a469892efe697d78b77817e6",
@@ -17044,6 +19215,13 @@
       "to": "fixture:A08",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Task.WhatId"
+    },
+    {
+      "id": "edge:a4c107032bdf5ad9c7151347",
+      "from": "trigger:DemoTaskRules",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoTaskRules.trigger",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoTaskRules.trigger"
     },
     {
       "id": "edge:a4c9b3ba6edff154a21fce45",
@@ -17132,6 +19310,13 @@
       "field": "Case.AccountId"
     },
     {
+      "id": "edge:a63755d502349827d48ef245",
+      "from": "config:Demo_Business_Rule.Task_Due_Date",
+      "relation": "configures",
+      "to": "trigger:DemoTaskRules",
+      "source": "strategic-deal-assurance/data/demo-rule-scenarios.json"
+    },
+    {
       "id": "edge:a655ee8d7e665d2af1b7378e",
       "from": "fixture:L06",
       "relation": "defined_in",
@@ -17191,6 +19376,13 @@
       "field": "Task.OwnerId"
     },
     {
+      "id": "edge:a7729ce16ef823670eb2293b",
+      "from": "object:Lead",
+      "relation": "triggers",
+      "to": "trigger:DemoLeadRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoLeadRules.trigger"
+    },
+    {
       "id": "edge:a7921d5cb115f5e7048eb988",
       "from": "fixture:A09",
       "relation": "instance_of",
@@ -17235,6 +19427,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:a818c3d78a9407fb8e955380",
+      "from": "use-case:MM-08",
+      "relation": "covers",
+      "to": "object:Contact",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:a819531eed3579cc15228193",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -17248,6 +19447,13 @@
       "to": "fixture:O14",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "OpportunityContactRole.OpportunityId"
+    },
+    {
+      "id": "edge:a8441f1aa3273676dfe5f342",
+      "from": "config:Demo_Business_Rule.Opportunity_Minimum",
+      "relation": "instance_of",
+      "to": "object:Demo_Business_Rule__mdt",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Opportunity_Minimum.md-meta.xml"
     },
     {
       "id": "edge:a87264c50dcd8893895ac3ee",
@@ -17409,6 +19615,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:aa04d02ca7aef3626831d5fc",
+      "from": "use-case:RULE-13",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:aa4d77daf562be91d4647a17",
       "from": "jest:strategicDealApprovalPanel",
       "relation": "defined_in",
@@ -17422,6 +19635,13 @@
       "to": "fixture:A06",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Task.WhatId"
+    },
+    {
+      "id": "edge:aac3c05c5e5061549971e3bf",
+      "from": "config:Demo_Business_Rule.Opportunity_Primary_Contact",
+      "relation": "guards_save_of",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/demo-rule-scenarios.json"
     },
     {
       "id": "edge:aaffd97f77663da2e65c3d61",
@@ -17564,6 +19784,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:acac87c30dcceecb14700889",
+      "from": "config:Demo_Business_Rule.Campaign_Active",
+      "relation": "guards_save_of",
+      "to": "object:CampaignMember",
+      "source": "strategic-deal-assurance/data/demo-rule-scenarios.json"
+    },
+    {
       "id": "edge:acd2363799983476bbcc600a",
       "from": "fixture:O02",
       "relation": "instance_of",
@@ -17636,6 +19863,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:adc9c7d208879a358cc14ab4",
+      "from": "config:Demo_Business_Rule.Task_Due_Date",
+      "relation": "guards_save_of",
+      "to": "object:Task",
+      "source": "strategic-deal-assurance/data/demo-rule-scenarios.json"
+    },
+    {
       "id": "edge:adf2497aa94fbb92152eab8b",
       "from": "field:Opportunity.Discount__c",
       "relation": "relevant_change_triggers",
@@ -17686,6 +19920,13 @@
       "field": "Lead.OwnerId"
     },
     {
+      "id": "edge:ae972423b9771b66d641be74",
+      "from": "apex:DemoBusinessRules",
+      "relation": "reads",
+      "to": "config:Demo_Business_Rule.Contact_Reparent",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls"
+    },
+    {
       "id": "edge:aeb5e8f60713a9e1b417f92e",
       "from": "fixture:CM25",
       "relation": "defined_in",
@@ -17706,6 +19947,13 @@
       "to": "fixture:A14",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Opportunity.AccountId"
+    },
+    {
+      "id": "edge:af0c8460e681b59d23bac8ba",
+      "from": "use-case:POLICY-01",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:af0c94fccf9748c624cacacd",
@@ -17738,11 +19986,25 @@
       "field": "Contact.AccountId"
     },
     {
+      "id": "edge:b0096713668278d68555cdb5",
+      "from": "use-case:POLICY-05",
+      "relation": "covers",
+      "to": "object:Strategic_Deal_Evaluation__c",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:b06d9505b40e0235356c139f",
       "from": "fixture:C32",
       "relation": "instance_of",
       "to": "object:Contact",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:b0adc5e60ab59a7beaff3059",
+      "from": "use-case:POLICY-04",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:b0b659699028709cf1cbae0c",
@@ -17783,6 +20045,13 @@
       "to": "persona:operator",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Contact.OwnerId"
+    },
+    {
+      "id": "edge:b136f5642b105239ac22b913",
+      "from": "use-case:RULE-01",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:b1718a74d382af3faebb681a",
@@ -18028,6 +20297,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:b4e48b394f52a44fe67d83bf",
+      "from": "use-case:MM-01",
+      "relation": "covers",
+      "to": "object:Account",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:b53478a4bef7edfb7069cd2b",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -18088,6 +20364,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:b5f9c9cc631b9b4f4f534c9c",
+      "from": "use-case:RULE-02",
+      "relation": "covers",
+      "to": "object:Contact",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:b60d980481b3fe1d0043bb6c",
       "from": "fixture:T19",
       "relation": "references",
@@ -18109,6 +20392,13 @@
       "to": "fixture:C08",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "OpportunityContactRole.ContactId"
+    },
+    {
+      "id": "edge:b61aee126d99eb8d7fb90fc8",
+      "from": "use-case:RULE-09",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:b625cc0d0f2d7606ad4968ec",
@@ -18158,6 +20448,13 @@
       "relation": "contains",
       "to": "fixture:CM13",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:b66f0f497784a006e33cdcf1",
+      "from": "apex:DemoBusinessRules",
+      "relation": "reads",
+      "to": "config:Demo_Business_Rule.Opportunity_Minimum",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls"
     },
     {
       "id": "edge:b6a0ec6b7f008bd80921244e",
@@ -18286,12 +20583,26 @@
       "field": "Task.WhatId"
     },
     {
+      "id": "edge:b910d17b64364a64ec548a6f",
+      "from": "use-case:RULE-04",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:b91b9236699f49ffcf3ae8c5",
       "from": "fixture:T41",
       "relation": "references",
       "to": "fixture:C01",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Task.WhoId"
+    },
+    {
+      "id": "edge:b9227aad529162b8e79402b2",
+      "from": "use-case:RECOVERY-01",
+      "relation": "covers",
+      "to": "object:OpportunityContactRole",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:b923c2310598cc2403a5e9c6",
@@ -18345,6 +20656,13 @@
       "to": "fixture:M02",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "CampaignMember.CampaignId"
+    },
+    {
+      "id": "edge:b9db0a568da21f39f727455f",
+      "from": "use-case:MM-07",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:ba243215ce27e2b0d3e08ae6",
@@ -18447,6 +20765,20 @@
       "relation": "has_field",
       "to": "field:Strategic_Deal_Evaluation__c.Amount_INR__c",
       "source": "strategic-deal-assurance/force-app/main/default/objects/Strategic_Deal_Evaluation__c/fields/Amount_INR__c.field-meta.xml"
+    },
+    {
+      "id": "edge:bb235014bce532c7af2c15c7",
+      "from": "config:Demo_Business_Rule.Lead_Qualification",
+      "relation": "guards_save_of",
+      "to": "object:Lead",
+      "source": "strategic-deal-assurance/data/demo-rule-scenarios.json"
+    },
+    {
+      "id": "edge:bb28a8848b7dbeb89a17a9ef",
+      "from": "use-case:RULE-10",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:bb439ed744ddfb85bd346322",
@@ -18568,6 +20900,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:bcb5e6feb19af78e3c1719ab",
+      "from": "use-case:RULE-07",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Opportunity_Minimum",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:bcebbbe2b4a8d825991c1a5c",
       "from": "permission-set:Change_Assurance_Integration",
       "relation": "field_grant",
@@ -18597,6 +20936,13 @@
       "to": "fixture:O03",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Task.WhatId"
+    },
+    {
+      "id": "edge:bd66889a22c87cb3c3db0a36",
+      "from": "use-case:RULE-02",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:bd7d406cf1ec12120b6f4ca0",
@@ -18644,6 +20990,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:bdeecdbbc2e9e1a8f8f05b64",
+      "from": "apex:DemoBusinessRules",
+      "relation": "reads_user_mode",
+      "to": "object:Campaign",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls"
+    },
+    {
       "id": "edge:be0efe61e122b66624087dc0",
       "from": "fixture:C50",
       "relation": "instance_of",
@@ -18663,6 +21016,13 @@
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:be831f4c0109fe1ddc9a9379",
+      "from": "use-case:RULE-15",
+      "relation": "covers",
+      "to": "object:Lead",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:bf0b7c3dd338d6a376fa0a47",
@@ -18783,6 +21143,20 @@
       "to": "fixture:A07",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Opportunity.AccountId"
+    },
+    {
+      "id": "edge:c07f083a99345edead1dadac",
+      "from": "config:Demo_Business_Rule.Opportunity_Primary_Contact",
+      "relation": "guards_save_of",
+      "to": "object:OpportunityContactRole",
+      "source": "strategic-deal-assurance/data/demo-rule-scenarios.json"
+    },
+    {
+      "id": "edge:c0a6d49a93908170d3c0ca0c",
+      "from": "use-case:APPROVAL-01",
+      "relation": "covers",
+      "to": "approval:Strategic_Opportunity_Regional_VP",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:c0b4b16e17c519f74dd3e5de",
@@ -18934,6 +21308,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:c2bba9906a09b3f4570f4ebb",
+      "from": "apex:DemoBusinessRules",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls"
+    },
+    {
       "id": "edge:c31e05418bd9e7b99587f6a9",
       "from": "fixture:R34A",
       "relation": "defined_in",
@@ -18955,6 +21336,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:c34485679b2f409771b395a5",
+      "from": "use-case:RULE-15",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Lead_Qualification",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:c346452a1f8aac87d08168c4",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -18969,12 +21357,33 @@
       "source": "strategic-deal-assurance/data/multi-module-use-cases.json"
     },
     {
+      "id": "edge:c37c99b125d69db7e2aee7a1",
+      "from": "use-case:MM-03",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:c386b877e4ae59d8b08efbdd",
       "from": "fixture:T54",
       "relation": "references",
       "to": "fixture:C14",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Task.WhoId"
+    },
+    {
+      "id": "edge:c39259caf7a10bfaf90d251c",
+      "from": "requirement:BR-DEMO-CONFIGURABLE-RULES",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/requirements/BR-DEMO-CONFIGURABLE-RULES.md",
+      "source": "strategic-deal-assurance/requirements/BR-DEMO-CONFIGURABLE-RULES.md"
+    },
+    {
+      "id": "edge:c398f448cdc127ab93d0c401",
+      "from": "use-case:RECOVERY-01",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Lead_Qualification",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:c39c372028464f3e79e06cb3",
@@ -19020,12 +21429,26 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:c41ba02c37ec575d18a29873",
+      "from": "use-case:MM-10",
+      "relation": "covers",
+      "to": "object:CampaignMember",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:c44955abd5fcdbb5ad82df9d",
       "from": "fixture:R04A",
       "relation": "references",
       "to": "fixture:C04",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "OpportunityContactRole.ContactId"
+    },
+    {
+      "id": "edge:c486a78bfc92cd006cdc9643",
+      "from": "use-case:MM-08",
+      "relation": "covers",
+      "to": "object:Campaign",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:c4888ddb7643327f2c071516",
@@ -19064,6 +21487,13 @@
       "to": "fixture:O17",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Task.WhatId"
+    },
+    {
+      "id": "edge:c50d47a3113c5acc702beece",
+      "from": "use-case:RULE-13",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Opportunity_Minimum",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:c53eee9e8dd8cc0675a25023",
@@ -19119,6 +21549,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:c5d341cc1734194ca7e87178",
+      "from": "use-case:POLICY-06",
+      "relation": "covers",
+      "to": "object:Strategic_Deal_Evaluation__c",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:c5f77364181dbf1052817edf",
       "from": "fixture:R14A",
       "relation": "instance_of",
@@ -19155,6 +21592,13 @@
       "to": "fixture:L15",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "CampaignMember.LeadId"
+    },
+    {
+      "id": "edge:c654504022144430992ad7dd",
+      "from": "apex:DemoBusinessRulesTest",
+      "relation": "tests",
+      "to": "config:Demo_Business_Rule.Opportunity_Minimum",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls"
     },
     {
       "id": "edge:c663ee7259fb6967240acf6e",
@@ -19258,6 +21702,13 @@
       "relation": "instance_of",
       "to": "object:OpportunityContactRole",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:c7472bfd6067af6624beda8d",
+      "from": "use-case:RULE-04",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:c767506aefd34b9f44d2336a",
@@ -19396,6 +21847,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:c9c87cb10b33eae3985a3f02",
+      "from": "trigger:DemoOpportunityRules",
+      "relation": "calls",
+      "to": "apex:DemoBusinessRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoOpportunityRules.trigger"
+    },
+    {
       "id": "edge:ca0152e8be25ffc35b06e45b",
       "from": "fixture:R01B",
       "relation": "defined_in",
@@ -19403,11 +21861,32 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:ca0d762350104ed5647d3cad",
+      "from": "use-case:MM-06",
+      "relation": "covers",
+      "to": "object:Case",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:ca12739332d4165338ee86b4",
+      "from": "object:Task",
+      "relation": "triggers",
+      "to": "trigger:DemoTaskRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoTaskRules.trigger"
+    },
+    {
       "id": "edge:ca26e4a433a124580d0c87ec",
       "from": "object:Case",
       "relation": "has_field",
       "to": "field:Case.Status",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:ca299a64201731a34fbc0d0b",
+      "from": "object:Demo_Business_Rule__mdt",
+      "relation": "has_field",
+      "to": "field:Demo_Business_Rule__mdt.Instructions__c",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Instructions__c.field-meta.xml"
     },
     {
       "id": "edge:ca75b6f7eff14d3dbc363598",
@@ -19446,6 +21925,13 @@
       "to": "fixture:A01",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Account.ParentId"
+    },
+    {
+      "id": "edge:cafd44e97232a8e5e96bc5f8",
+      "from": "trigger:DemoCaseRules",
+      "relation": "calls",
+      "to": "apex:DemoBusinessRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoCaseRules.trigger"
     },
     {
       "id": "edge:cb3f60d084b06e22f67580ae",
@@ -19560,6 +22046,13 @@
       "field": "Opportunity.AccountId"
     },
     {
+      "id": "edge:cca018030f38eb8b4c06608a",
+      "from": "use-case:APPROVAL-02",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:ccae918621e98447c4b9880c",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -19650,6 +22143,13 @@
       "field": "Opportunity.OwnerId"
     },
     {
+      "id": "edge:ce2cf4425e837515f5f2dc20",
+      "from": "use-case:MM-04",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:ce44b6a8ae5aaba13fd85dc1",
       "from": "fixture:T20",
       "relation": "references",
@@ -19663,6 +22163,13 @@
       "relation": "instance_of",
       "to": "object:CampaignMember",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:ce667241d62c08b2ba74adfd",
+      "from": "use-case:POLICY-07",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:ce6b29aa4fa1d0868e9d8de4",
@@ -19723,6 +22230,13 @@
       "relation": "instance_of",
       "to": "object:Account",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:cf14f516536bf92f14120354",
+      "from": "use-case:RULE-17",
+      "relation": "covers",
+      "to": "object:Campaign",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:cf32435ca8a4acfb23a8f63e",
@@ -19877,6 +22391,13 @@
       "field": "Task.OwnerId"
     },
     {
+      "id": "edge:d19323c69cc7b73483f7c9e6",
+      "from": "requirement:BR-DEMO-CONFIGURABLE-RULES",
+      "relation": "implemented_by",
+      "to": "apex:DemoBusinessRules",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls"
+    },
+    {
       "id": "edge:d1a80678d63515fd1141480f",
       "from": "fixture:CM06",
       "relation": "instance_of",
@@ -19899,11 +22420,25 @@
       "field": "Opportunity.OwnerId"
     },
     {
+      "id": "edge:d22d5c8d1235358d609861cf",
+      "from": "config:Demo_Business_Rule.Campaign_Active",
+      "relation": "configures",
+      "to": "trigger:DemoCampaignMemberRules",
+      "source": "strategic-deal-assurance/data/demo-rule-scenarios.json"
+    },
+    {
       "id": "edge:d23d2b8172aea7a73a916e61",
       "from": "fixture:CM35",
       "relation": "instance_of",
       "to": "object:CampaignMember",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:d23d70fe3aeb66b1f256ffce",
+      "from": "use-case:MM-05",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:d24814fee1972e49b9a16575",
@@ -19943,6 +22478,13 @@
       "field": "OpportunityContactRole.ContactId"
     },
     {
+      "id": "edge:d2c8a0fe6314c6006b38f567",
+      "from": "apex:DemoBusinessRulesTest",
+      "relation": "tests",
+      "to": "config:Demo_Business_Rule.Lead_Qualification",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls"
+    },
+    {
       "id": "edge:d2f497360332df42497af1aa",
       "from": "object:CampaignMember",
       "relation": "has_field",
@@ -19980,6 +22522,13 @@
       "field": "OpportunityContactRole.OpportunityId"
     },
     {
+      "id": "edge:d37d2e7b9f8e6500a6b0e0b3",
+      "from": "use-case:MM-10",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:d399755d31eaca422e1f69a9",
       "from": "fixture:C23",
       "relation": "instance_of",
@@ -20000,6 +22549,13 @@
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:d3de6f6869eb099868312800",
+      "from": "use-case:MM-08",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:d3fa20c68863ecf02a9b38fe",
@@ -20159,11 +22715,25 @@
       "field": "Contact.AccountId"
     },
     {
+      "id": "edge:d651a91eafcc8574a2c03d7f",
+      "from": "use-case:MM-02",
+      "relation": "covers",
+      "to": "object:Contact",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:d68337e87beaa99bb7e9adb9",
       "from": "fixture:S05",
       "relation": "instance_of",
       "to": "object:Case",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:d6b7ad24b9f4e8fee0900217",
+      "from": "use-case:RULE-08",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Opportunity_Minimum",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:d6c21815003d275e49e444e9",
@@ -20223,6 +22793,13 @@
       "to": "persona:operator",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Task.OwnerId"
+    },
+    {
+      "id": "edge:d77017caf184afe1a154f863",
+      "from": "config:Demo_Business_Rule.Contact_Reparent",
+      "relation": "configures",
+      "to": "trigger:DemoContactRules",
+      "source": "strategic-deal-assurance/data/demo-rule-scenarios.json"
     },
     {
       "id": "edge:d783c5d63e7d9c90ebc1342a",
@@ -20292,6 +22869,20 @@
       "field": "Case.ContactId"
     },
     {
+      "id": "edge:d826e103452d616e1fd844fa",
+      "from": "config:Demo_Business_Rule.Case_Resolution",
+      "relation": "instance_of",
+      "to": "object:Demo_Business_Rule__mdt",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Case_Resolution.md-meta.xml"
+    },
+    {
+      "id": "edge:d83273fad9fc2fb4700dde52",
+      "from": "apex:DemoBusinessRules",
+      "relation": "reads",
+      "to": "config:Demo_Business_Rule.Opportunity_Primary_Contact",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls"
+    },
+    {
       "id": "edge:d84574d4ca6b5c4aa165db40",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -20333,6 +22924,20 @@
       "to": "fixture:C12",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Task.WhoId"
+    },
+    {
+      "id": "edge:d88f8de7a5807a27cf22c214",
+      "from": "use-case:POLICY-07",
+      "relation": "covers",
+      "to": "object:Strategic_Deal_Evaluation__c",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:d8d26b0e3984f778b7926629",
+      "from": "use-case:RULE-17",
+      "relation": "covers",
+      "to": "object:Task",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:d8d3d052e928f31b79266562",
@@ -20476,6 +23081,13 @@
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:db9783b0b0eb535dd8059f90",
+      "from": "use-case:RULE-17",
+      "relation": "covers",
+      "to": "object:Account",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:dbb48bb30c60cb90c9144b54",
@@ -20709,6 +23321,13 @@
       "field": "CampaignMember.CampaignId"
     },
     {
+      "id": "edge:de22ed5c56bcd06f67e6d4ad",
+      "from": "config:Demo_Business_Rule.Account_Reparent",
+      "relation": "instance_of",
+      "to": "object:Demo_Business_Rule__mdt",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Account_Reparent.md-meta.xml"
+    },
+    {
       "id": "edge:de24f8ca9800a5fe0cdc775e",
       "from": "fixture:R20A",
       "relation": "defined_in",
@@ -20746,6 +23365,13 @@
       "field": "Contact.OwnerId"
     },
     {
+      "id": "edge:deb5c0bed4c24fb020f621a8",
+      "from": "use-case:RULE-03",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:deb8ea0a9f311bade13937b2",
       "from": "fixture:L27",
       "relation": "instance_of",
@@ -20761,6 +23387,13 @@
       "field": "Opportunity.Regional_VP_Approver__c"
     },
     {
+      "id": "edge:df160cc9dcbe573a88c71c45",
+      "from": "use-case:MM-09",
+      "relation": "covers",
+      "to": "approval:Strategic_Opportunity_Regional_VP",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:df1d46836761120e2934acae",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -20774,6 +23407,13 @@
       "to": "persona:operator",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Lead.OwnerId"
+    },
+    {
+      "id": "edge:df307229e513116d3ae9b1fe",
+      "from": "use-case:RECOVERY-01",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Opportunity_Minimum",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:df855847c91b8f3faf9f1496",
@@ -20928,6 +23568,20 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:e110973c89f769cd9b47a4f8",
+      "from": "use-case:RULE-13",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Opportunity_Primary_Contact",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:e115487ff70572548ba1380a",
+      "from": "config:Demo_Business_Rule.Lead_Qualification",
+      "relation": "configures",
+      "to": "trigger:DemoLeadRules",
+      "source": "strategic-deal-assurance/data/demo-rule-scenarios.json"
+    },
+    {
       "id": "edge:e12790a9a8d68d19a1b9de63",
       "from": "fixture:A22",
       "relation": "references",
@@ -20989,6 +23643,13 @@
       "field": "Opportunity.OwnerId"
     },
     {
+      "id": "edge:e1be69239040439498d9e51c",
+      "from": "use-case:MM-05",
+      "relation": "covers",
+      "to": "object:OpportunityContactRole",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:e1c2f650d08fad8c113efffa",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -21047,11 +23708,25 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:e2423f935b06b7aefd0a8cc2",
+      "from": "use-case:SECURITY-02",
+      "relation": "covers",
+      "to": "object:Task",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:e2499b27329e8fa4987bdda8",
       "from": "fixture:R38B",
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:e252ba89f9fd26789e95e1e1",
+      "from": "use-case:APPROVAL-02",
+      "relation": "covers",
+      "to": "approval:Strategic_Opportunity_Regional_VP",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:e2631d86eaa1798bba2a23cd",
@@ -21074,6 +23749,13 @@
       "relation": "instance_of",
       "to": "object:CampaignMember",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:e35c672d7d5a77db6689a5ef",
+      "from": "field:Demo_Business_Rule__mdt.Instructions__c",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Instructions__c.field-meta.xml",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Instructions__c.field-meta.xml"
     },
     {
       "id": "edge:e388c058e2a568ec3b4b60f6",
@@ -21215,6 +23897,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:e4be7f891367ec62449abb84",
+      "from": "use-case:RECOVERY-01",
+      "relation": "covers",
+      "to": "object:Lead",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:e4c10624dfd65b654e16951e",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -21312,6 +24001,13 @@
       "field": "OpportunityContactRole.OpportunityId"
     },
     {
+      "id": "edge:e5e133258c91de02db5ee457",
+      "from": "use-case:MM-02",
+      "relation": "covers",
+      "to": "object:Account",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:e60ae0cdaf8ac06163b721c0",
       "from": "fixture:A12",
       "relation": "references",
@@ -21356,6 +24052,20 @@
       "source": "strategic-deal-assurance/force-app/main/default/objects/Strategic_Discount_Rule__mdt/fields/Minimum_Amount_INR__c.field-meta.xml"
     },
     {
+      "id": "edge:e65f61d6f9f8d849807154ef",
+      "from": "use-case:RULE-01",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Account_Reparent",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:e67999009723e8e04de0b14b",
+      "from": "use-case:MM-10",
+      "relation": "covers",
+      "to": "object:Task",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:e6d5bd3387016245f5d44f20",
       "from": "fixture:S14",
       "relation": "references",
@@ -21397,6 +24107,13 @@
       "relation": "instance_of",
       "to": "object:OpportunityContactRole",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:e7742b5ac8a1f21755e9be2b",
+      "from": "use-case:RULE-06",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:e7879e57cd18aed158eabe6b",
@@ -21480,6 +24197,13 @@
       "relation": "instance_of",
       "to": "object:Contact",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:e878c947dc020ca02e5e7e70",
+      "from": "use-case:RULE-05",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:e883dff4415a366ce60f0c92",
@@ -21573,6 +24297,13 @@
       "field": "Task.WhatId"
     },
     {
+      "id": "edge:e992b2e7153b36747d7944c2",
+      "from": "use-case:MM-03",
+      "relation": "covers",
+      "to": "object:Lead",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:e9a7eb7a5603a839b74a152d",
       "from": "fixture:T35",
       "relation": "references",
@@ -21624,6 +24355,13 @@
       "relation": "instance_of",
       "to": "object:OpportunityContactRole",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:ea144089cbaa60966b6d2d17",
+      "from": "use-case:RULE-17",
+      "relation": "covers",
+      "to": "object:CampaignMember",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:ea14ab0d1ea832adab6ed9b8",
@@ -21705,6 +24443,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:eab4f66cf095872792b57c3b",
+      "from": "use-case:POLICY-08",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:eab5c5b5c838552db6eedd9e",
       "from": "fixture:C19",
       "relation": "references",
@@ -21725,6 +24470,13 @@
       "relation": "instance_of",
       "to": "object:CampaignMember",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:eb00689a14f9c2207213866d",
+      "from": "trigger:DemoCampaignMemberRules",
+      "relation": "calls",
+      "to": "apex:DemoBusinessRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoCampaignMemberRules.trigger"
     },
     {
       "id": "edge:eb0b918f15a47ca288d0722b",
@@ -21771,6 +24523,13 @@
       "field": "Case.OwnerId"
     },
     {
+      "id": "edge:ec0a31f4d0053c360df2a709",
+      "from": "use-case:RULE-03",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Lead_Qualification",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:ec125e7b7c338c3bb83f3372",
       "from": "fixture:S12",
       "relation": "instance_of",
@@ -21786,6 +24545,27 @@
       "field": "Case.ContactId"
     },
     {
+      "id": "edge:ec1929baf194f3c028bcae56",
+      "from": "use-case:RULE-13",
+      "relation": "covers",
+      "to": "object:OpportunityContactRole",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:ec1d5bdc34f2f36e8f5c906c",
+      "from": "use-case:MM-05",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:ec3509bc98adf651b717bb9d",
+      "from": "object:Demo_Business_Rule__mdt",
+      "relation": "has_field",
+      "to": "field:Demo_Business_Rule__mdt.Enabled__c",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Enabled__c.field-meta.xml"
+    },
+    {
       "id": "edge:ec51c10e30abf94237c5e665",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -21799,6 +24579,13 @@
       "to": "persona:vp",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Opportunity.Regional_VP_Approver__c"
+    },
+    {
+      "id": "edge:ec7dde2a949454eb427198c1",
+      "from": "use-case:RULE-16",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:ecb1acbe8600862b7e4feb12",
@@ -21864,6 +24651,20 @@
       "field": "Task.WhoId"
     },
     {
+      "id": "edge:ed27a90d705991f8257d3eb7",
+      "from": "use-case:RULE-12",
+      "relation": "tests_configuration",
+      "to": "config:Demo_Business_Rule.Campaign_Active",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:ed5b5822115705f393ed37d9",
+      "from": "use-case:SECURITY-01",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:ed5bb97164be70914ae425bd",
       "from": "object:Opportunity",
       "relation": "has_field",
@@ -21884,6 +24685,13 @@
       "to": "persona:vp",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Opportunity.Regional_VP_Approver__c"
+    },
+    {
+      "id": "edge:eda0a43b517341fbe95177ae",
+      "from": "use-case:RECOVERY-01",
+      "relation": "covers",
+      "to": "object:Campaign",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:eda1c3556df876a5180cce4a",
@@ -21916,6 +24724,13 @@
       "field": "Contact.OwnerId"
     },
     {
+      "id": "edge:edd74dd3244038b0a2426fb6",
+      "from": "use-case:RULE-17",
+      "relation": "covers",
+      "to": "object:Case",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:edf33c8a2024b5d72c1e7b53",
       "from": "fixture:L20",
       "relation": "instance_of",
@@ -21935,6 +24750,13 @@
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:ee7648eb45ef517d9d6347a2",
+      "from": "trigger:DemoCaseRules",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/triggers/DemoCaseRules.trigger",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoCaseRules.trigger"
     },
     {
       "id": "edge:ee8ae69eb382b6690fdb9e95",
@@ -22013,6 +24835,13 @@
       "field": "Task.WhatId"
     },
     {
+      "id": "edge:f025e219e4ff11737878462d",
+      "from": "apex:DemoBusinessRulesTest",
+      "relation": "tests",
+      "to": "config:Demo_Business_Rule.Account_Reparent",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls"
+    },
+    {
       "id": "edge:f026279bb7dbe9586e1a587f",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -22025,6 +24854,13 @@
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:f0489415071ff732c4710351",
+      "from": "use-case:RULE-08",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:f0489b92fed99276b7a3cbde",
@@ -22094,6 +24930,13 @@
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:f11723cc47582a5ed7138cf1",
+      "from": "object:Contact",
+      "relation": "triggers",
+      "to": "trigger:DemoContactRules",
+      "source": "strategic-deal-assurance/force-app/main/default/triggers/DemoContactRules.trigger"
     },
     {
       "id": "edge:f12dcca5c3df1433c3d5f3a0",
@@ -22241,6 +25084,13 @@
       "field": "Account.ParentId"
     },
     {
+      "id": "edge:f30dc371ff554d9a3794c8d1",
+      "from": "use-case:RULE-17",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:f3170764f663b7b2f559170e",
       "from": "fixture:O27",
       "relation": "references",
@@ -22278,6 +25128,13 @@
       "to": "fixture:O36",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "OpportunityContactRole.OpportunityId"
+    },
+    {
+      "id": "edge:f3c19a29330a971862aedfd5",
+      "from": "use-case:RULE-11",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:f3ede132e984e42fddc94606",
@@ -22386,6 +25243,13 @@
       "relation": "has_field",
       "to": "field:Strategic_Discount_Rule__mdt.Discount_Threshold_Percent__c",
       "source": "strategic-deal-assurance/force-app/main/default/objects/Strategic_Discount_Rule__mdt/fields/Discount_Threshold_Percent__c.field-meta.xml"
+    },
+    {
+      "id": "edge:f563b6f2d367b86b4774c6b7",
+      "from": "use-case:POLICY-03",
+      "relation": "covers",
+      "to": "object:Opportunity",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:f60017685e6a1e2065da3a0c",
@@ -22528,6 +25392,20 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:f80eaa8186df2a6eb119d73c",
+      "from": "apex:DemoBusinessRules",
+      "relation": "reads",
+      "to": "field:Case.Demo_Resolution__c",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls"
+    },
+    {
+      "id": "edge:f848f63323fa0307b52a16c1",
+      "from": "use-case:RULE-09",
+      "relation": "covers",
+      "to": "object:OpportunityContactRole",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:f84a0c0a35fddc43181af54f",
       "from": "fixture:CM18",
       "relation": "defined_in",
@@ -22549,6 +25427,13 @@
       "to": "fixture:A05",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Task.WhatId"
+    },
+    {
+      "id": "edge:f8b5cba738b363b2e15d005d",
+      "from": "use-case:SECURITY-01",
+      "relation": "covers",
+      "to": "object:User",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
       "id": "edge:f8c8bf4bd087522a8e2f1ed1",
@@ -22594,6 +25479,13 @@
       "relation": "instance_of",
       "to": "object:Task",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:f92e4d72988d6677e5080734",
+      "from": "config:Demo_Business_Rule.Task_Due_Date",
+      "relation": "instance_of",
+      "to": "object:Demo_Business_Rule__mdt",
+      "source": "strategic-deal-assurance/force-app/main/default/customMetadata/Demo_Business_Rule.Task_Due_Date.md-meta.xml"
     },
     {
       "id": "edge:f938add384c221edf457e0d5",
@@ -22734,6 +25626,13 @@
       "relation": "contains",
       "to": "fixture:CM23",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:fb8f3d44824e65f6c7078458",
+      "from": "field:Demo_Business_Rule__mdt.Required_Value__c",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Required_Value__c.field-meta.xml",
+      "source": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/fields/Required_Value__c.field-meta.xml"
     },
     {
       "id": "edge:fba6299330345c0d8d7550b0",
@@ -22980,6 +25879,13 @@
       "field": "Contact.AccountId"
     },
     {
+      "id": "edge:ffa8865cc1c0f73f32200a61",
+      "from": "use-case:MM-01",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/manual-test-suite.json",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
       "id": "edge:ffbe10f780c4658bd057437d",
       "from": "field:Strategic_Deal_Evaluation__c.Approver_Present__c",
       "relation": "defined_in",
@@ -23000,6 +25906,13 @@
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:ffe099bcb5348353ca65c459",
+      "from": "use-case:MM-06",
+      "relation": "covers",
+      "to": "object:Account",
+      "source": "strategic-deal-assurance/data/manual-test-suite.json"
     }
   ]
 }

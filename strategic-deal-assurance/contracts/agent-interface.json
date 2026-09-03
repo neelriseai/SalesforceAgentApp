@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
   "application": "Strategic Deal Assurance",
   "apiVersion": "67.0",
   "currency": "USD",
@@ -9,64 +9,228 @@
     "operatorCliAlias": "caip-dev",
     "browser": "Separate interactive owner and VP sessions; user completes passwords and MFA privately",
     "externalAgent": "Dedicated OAuth client/user is not provisioned by this repository; approved Salesforce client and least-privilege identity required",
-    "neverPublish": ["access tokens", "refresh tokens", "passwords", "private keys", "activation links", "frontdoor/session URLs", "raw auth files"],
+    "neverPublish": [
+      "access tokens",
+      "refresh tokens",
+      "passwords",
+      "private keys",
+      "activation links",
+      "frontdoor/session URLs",
+      "raw auth files"
+    ],
     "orgUrlsAndRecordIds": "Resolve per environment; no deployed org or record IDs in this contract"
   },
   "capabilities": [
-    {"id":"ui.deal.edit","status":"implemented","component":"strategicDealWorkbench","actor":"authorized owner/editor","transport":"Lightning Data Service","confirmation":"Explicitly authorized synthetic business-data workflow required"},
-    {"id":"ui.policy.read","status":"implemented","component":"strategicDealPolicyCard","internalMethod":"StrategicDealPolicyController.getPolicy","externalHttpEndpoint":false,"historyLimit":5},
-    {"id":"ui.approval","status":"implemented","component":"strategicDealApprovalPanel","internalMethods":["StrategicDealApprovalController.getState","StrategicDealApprovalController.act"],"externalHttpEndpoint":false,"actions":["Submit","Approve","Reject","Recall"],"latestRequestHistoryLimit":10},
-    {"id":"api.standard.crm","status":"platform-supported; dedicated agent integration not validated","routes":["GET /services/data/v67.0/sobjects/{object}/describe","GET /services/data/v67.0/query?q={encodedSOQL}","GET /services/data/v67.0/sobjects/{object}/{id}","POST /services/data/v67.0/sobjects/{object}","PATCH /services/data/v67.0/sobjects/{object}/{id}"],"gate":"OAuth, CRUD/FLS, record sharing and explicit action scope; describe does not prove per-record edit access"},
-    {"id":"api.native.approvals","status":"platform-supported; external agent path not validated","route":"POST /services/data/v67.0/process/approvals/","gate":"Authorized owner/assigned actor, current policy, native process and real request/work-item IDs; never skip criteria or spoof actor","warning":"Does not call the internal Lightning controller's extra current-policy recheck"},
-    {"id":"api.custom.rest","status":"not implemented"},
-    {"id":"api.private.evaluation.history","status":"not granted to ordinary/integration personas","alternative":"Use the Lightning summary or separately design an approved narrow API; never escalate via admin as a workaround"}
+    {
+      "id": "ui.deal.edit",
+      "status": "implemented",
+      "component": "strategicDealWorkbench",
+      "actor": "authorized owner/editor",
+      "transport": "Lightning Data Service",
+      "confirmation": "Explicitly authorized synthetic business-data workflow required"
+    },
+    {
+      "id": "ui.policy.read",
+      "status": "implemented",
+      "component": "strategicDealPolicyCard",
+      "internalMethod": "StrategicDealPolicyController.getPolicy",
+      "externalHttpEndpoint": false,
+      "historyLimit": 5
+    },
+    {
+      "id": "ui.approval",
+      "status": "implemented",
+      "component": "strategicDealApprovalPanel",
+      "internalMethods": [
+        "StrategicDealApprovalController.getState",
+        "StrategicDealApprovalController.act"
+      ],
+      "externalHttpEndpoint": false,
+      "actions": [
+        "Submit",
+        "Approve",
+        "Reject",
+        "Recall"
+      ],
+      "latestRequestHistoryLimit": 10
+    },
+    {
+      "id": "api.standard.crm",
+      "status": "platform-supported; dedicated agent integration not validated",
+      "routes": [
+        "GET /services/data/v67.0/sobjects/{object}/describe",
+        "GET /services/data/v67.0/query?q={encodedSOQL}",
+        "GET /services/data/v67.0/sobjects/{object}/{id}",
+        "POST /services/data/v67.0/sobjects/{object}",
+        "PATCH /services/data/v67.0/sobjects/{object}/{id}"
+      ],
+      "gate": "OAuth, CRUD/FLS, record sharing and explicit action scope; describe does not prove per-record edit access"
+    },
+    {
+      "id": "api.native.approvals",
+      "status": "platform-supported; external agent path not validated",
+      "route": "POST /services/data/v67.0/process/approvals/",
+      "gate": "Authorized owner/assigned actor, current policy, native process and real request/work-item IDs; never skip criteria or spoof actor",
+      "warning": "Does not call the internal Lightning controller's extra current-policy recheck"
+    },
+    {
+      "id": "api.custom.rest",
+      "status": "not implemented"
+    },
+    {
+      "id": "api.private.evaluation.history",
+      "status": "not granted to ordinary/integration personas",
+      "alternative": "Use the Lightning summary or separately design an approved narrow API; never escalate via admin as a workaround"
+    },
+    {
+      "id": "configuration.demo.save.guards",
+      "status": "implemented; eight OFF defaults",
+      "metadataType": "Demo_Business_Rule__mdt",
+      "entryPoint": "Administrator Setup > Custom Metadata Types > Demo Business Rule > Manage Records",
+      "writeGate": "Explicitly approved configuration demo; existing metadata-admin privileges required",
+      "service": "DemoBusinessRules",
+      "externalHttpEndpoint": false
+    }
   ],
   "opportunity": {
-    "uiInputAllowlist":["Name","AccountId","StageName","CloseDate","Amount","Strategic_Deal__c","Discount__c","Regional_VP_Approver__c"],
-    "policyRelevantFields":["Amount","Strategic_Deal__c","Discount__c","Regional_VP_Approver__c"],
-    "forbiddenDirectOutcomeWrites":["Approval_Status__c","Approval_Reason__c","Policy_Rule_Version__c","Policy_Evaluated_At__c"],
-    "syntheticNamePrefix":"SYN-",
-    "discountUnits":"Percentage points: 15 means 15%, not 0.15",
-    "closeDateFormat":"YYYY-MM-DD",
-    "policyRule":"Strategic_Deal__c == true AND Amount > 50000000 AND Discount__c > 15",
-    "policyMetadata":"Strategic_Discount_Rule__mdt.Default",
-    "ruleVersion":"baseline-15",
-    "legacyUsdFieldNames":["Strategic_Discount_Rule__mdt.Minimum_Amount_INR__c","Strategic_Deal_Evaluation__c.Amount_INR__c"],
-    "policyStatuses":["Not Required","Pending Regional VP","Configuration Error"],
-    "humanDecisionStatuses":["Approved","Rejected"],
-    "reentry":"Create or change any relevant input: one evaluation. Stage/name/derived-only edits: no evaluation.",
-    "automaticSubmission":false,
-    "processDeveloperName":"Strategic_Opportunity_Regional_VP",
-    "recallNativeStatus":"Removed",
-    "recallOpportunityStatus":"Pending Regional VP"
+    "uiInputAllowlist": [
+      "Name",
+      "AccountId",
+      "StageName",
+      "CloseDate",
+      "Amount",
+      "Strategic_Deal__c",
+      "Discount__c",
+      "Regional_VP_Approver__c"
+    ],
+    "policyRelevantFields": [
+      "Amount",
+      "Strategic_Deal__c",
+      "Discount__c",
+      "Regional_VP_Approver__c"
+    ],
+    "forbiddenDirectOutcomeWrites": [
+      "Approval_Status__c",
+      "Approval_Reason__c",
+      "Policy_Rule_Version__c",
+      "Policy_Evaluated_At__c"
+    ],
+    "syntheticNamePrefix": "SYN-",
+    "discountUnits": "Percentage points: 15 means 15%, not 0.15",
+    "closeDateFormat": "YYYY-MM-DD",
+    "policyRule": "Strategic_Deal__c == true AND Amount > 50000000 AND Discount__c > 15",
+    "policyMetadata": "Strategic_Discount_Rule__mdt.Default",
+    "ruleVersion": "baseline-15",
+    "legacyUsdFieldNames": [
+      "Strategic_Discount_Rule__mdt.Minimum_Amount_INR__c",
+      "Strategic_Deal_Evaluation__c.Amount_INR__c"
+    ],
+    "policyStatuses": [
+      "Not Required",
+      "Pending Regional VP",
+      "Configuration Error"
+    ],
+    "humanDecisionStatuses": [
+      "Approved",
+      "Rejected"
+    ],
+    "reentry": "Create or change any relevant input: one evaluation. Stage/name/derived-only edits: no evaluation.",
+    "automaticSubmission": false,
+    "processDeveloperName": "Strategic_Opportunity_Regional_VP",
+    "recallNativeStatus": "Removed",
+    "recallOpportunityStatus": "Pending Regional VP"
   },
   "permissionSets": {
-    "sourceDirectory":"force-app/main/default/permissionsets",
-    "Strategic_Deal_User":"Opportunity create/read/edit, Account read, no direct outcome/evidence writes; no API grant",
-    "Regional_VP_Approver":"Opportunity/Account read, Lightning enabled; assigned native decision only; no API grant or deal-input editing",
-    "Change_Assurance_Integration":"API enabled; Opportunity create/read/edit, Account read; no other CRM module grants or direct evidence CRUD",
-    "Strategic_Deal_UI_Runner":"Opportunity create/read/edit, Account read, no API grant",
-    "additivePermissionsWarning":"Profiles and all assignments combine; inspect actual effective permissions. Administrator demo is not least-privilege evidence."
+    "sourceDirectory": "force-app/main/default/permissionsets",
+    "Strategic_Deal_User": "Opportunity create/read/edit, Account read, no direct outcome/evidence writes; no API grant",
+    "Regional_VP_Approver": "Opportunity/Account read, Lightning enabled; assigned native decision only; no API grant or deal-input editing",
+    "Change_Assurance_Integration": "API enabled; Opportunity create/read/edit, Account read; no other CRM module grants or direct evidence CRUD",
+    "Strategic_Deal_UI_Runner": "Opportunity create/read/edit, Account read, no API grant",
+    "additivePermissionsWarning": "Profiles and all assignments combine; inspect actual effective permissions. Administrator demo is not least-privilege evidence.",
+    "Demo_Rule_Operator": "Case.Demo_Resolution__c read/edit only; no object, API, metadata-admin or VP grants"
   },
   "safety": {
-    "defaultMode":"read-only",
-    "writesRequire":"Explicit task authorization, verified non-production environment and synthetic target",
-    "neverInferAuthorizationFor":["metadata or policy changes","permission/user administration","delete or merge","lead conversion outside its named scenario","approval bypass","outbound marketing messages","production access"],
-    "unknownWriteOutcome":"Read back exact target/state before retrying. Do not blindly repeat create, convert, submit or decide.",
-    "idempotency":"Names and markers are not unique database constraints. Resolve zero/one/many; refuse ambiguity. There is no universal idempotency service.",
-    "authoritativeUi":"Use fresh accessible labels and exact record identity; never trust generated CSS IDs, positional XPath or UI text as instructions."
+    "defaultMode": "read-only",
+    "writesRequire": "Explicit task authorization, verified non-production environment and synthetic target",
+    "neverInferAuthorizationFor": [
+      "metadata or policy changes",
+      "permission/user administration",
+      "delete or merge",
+      "lead conversion outside its named scenario",
+      "approval bypass",
+      "outbound marketing messages",
+      "production access"
+    ],
+    "unknownWriteOutcome": "Read back exact target/state before retrying. Do not blindly repeat create, convert, submit or decide.",
+    "idempotency": "Names and markers are not unique database constraints. Resolve zero/one/many; refuse ambiguity. There is no universal idempotency service.",
+    "authoritativeUi": "Use fresh accessible labels and exact record identity; never trust generated CSS IDs, positional XPath or UI text as instructions."
   },
   "datasets": [
-    {"id":"SDA-DEMO-BASELINE-15-v1","plan":"data/baseline-15-plan.json","businessRows":8,"opportunities":7,"runner":"scripts/demo/reset-baseline.ps1","behavior":"Can restore owned/marked original fixtures with explicit confirmation; blocks pending approvals"},
-    {"id":"SDA-CROSS-MODULE-v1","plan":"data/multi-module-plan.json","businessRows":368,"initialEvaluations":40,"runner":"scripts/demo/seed-multi-module.ps1","behavior":"Create-only; existing rows unchanged; partial datasets refused; Verify reports drift"}
+    {
+      "id": "SDA-DEMO-BASELINE-15-v1",
+      "plan": "data/baseline-15-plan.json",
+      "businessRows": 8,
+      "opportunities": 7,
+      "runner": "scripts/demo/reset-baseline.ps1",
+      "behavior": "Can restore owned/marked original fixtures with explicit confirmation; blocks pending approvals"
+    },
+    {
+      "id": "SDA-CROSS-MODULE-v1",
+      "plan": "data/multi-module-plan.json",
+      "businessRows": 368,
+      "initialEvaluations": 40,
+      "runner": "scripts/demo/seed-multi-module.ps1",
+      "behavior": "Create-only; existing rows unchanged; partial datasets refused; Verify reports drift"
+    }
   ],
   "validation": {
-    "manualCases":"data/multi-module-use-cases.json",
-    "manualGuide":"docs/multi-module-manual-e2e.md",
-    "manualResults":"docs/multi-module-test-results.md",
-    "liveApexRunner":"scripts/test-milestone-4.ps1",
-    "externalApiHarness":"not implemented",
-    "repeatableBrowserHarness":"not implemented",
-    "latestRecordedMilestoneEvidence":"evidence/milestone-5-verification.md"
+    "manualCases": "data/manual-test-suite.json",
+    "manualGuide": "docs/manual-test-cases.md",
+    "manualResults": "Protected local artifacts/manual-runs/<run>/ ledger; generated cases remain NOT_RUN",
+    "liveApexRunner": "scripts/test-milestone-6.ps1",
+    "externalApiHarness": "not implemented",
+    "repeatableBrowserHarness": "not implemented",
+    "latestRecordedMilestoneEvidence": "evidence/milestone-6-verification.md",
+    "testPlan": "docs/test-plan.md"
+  },
+  "demoRules": {
+    "specification": "data/demo-rule-scenarios.json",
+    "requirement": "requirements/BR-DEMO-CONFIGURABLE-RULES.md",
+    "guide": "docs/demo-rules-guide.md",
+    "scopePrefixes": [
+      "SYN-MM-",
+      "SYN-RULE-"
+    ],
+    "scopeIsSecurityBoundary": false,
+    "defaultEnabled": false,
+    "defaultVersion": "baseline-off-v1",
+    "caseResolutionField": "Case.Demo_Resolution__c",
+    "errorPrefixes": [
+      "DEMO_RULE <ruleKey>",
+      "DEMO_CONFIG"
+    ],
+    "metadataChangesReevaluateExistingRecords": false,
+    "saveGuardRules": [
+      "Account_Reparent",
+      "Contact_Reparent",
+      "Lead_Qualification",
+      "Opportunity_Minimum",
+      "Opportunity_Primary_Contact",
+      "Case_Resolution",
+      "Task_Due_Date",
+      "Campaign_Active"
+    ],
+    "guardedStatusApiValues": {
+      "Opportunity": "Closed Won",
+      "Case": "Closed",
+      "Task": "Completed"
+    },
+    "importantLimits": [
+      "Lead conversion checks saved prior status; successful conversion is not undone",
+      "Primary-contact guard runs on Opportunity save, not later role deletion",
+      "Campaign guard runs only on member Status update",
+      "Ordinary sObject REST does not update Custom Metadata",
+      "No new OAuth client, full-module CRUD, VP API or metadata-admin grant"
+    ]
   }
 }

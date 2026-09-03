@@ -9,7 +9,7 @@ Native Salesforce demo system for a separately developed assurance/testing agent
 | Agent developer | [Agent integration guide](strategic-deal-assurance/docs/agent-integration-guide.md) |
 | Agent runtime / ingestion | [Interface contract](strategic-deal-assurance/contracts/agent-interface.json), [knowledge graph](strategic-deal-assurance/knowledge/application-graph.json), [project index](strategic-deal-assurance/knowledge/project-index.json) |
 | Application architecture | [Knowledge graph overview](strategic-deal-assurance/docs/application-knowledge-graph.md), [project map](strategic-deal-assurance/docs/project-index.md) |
-| Human demo tester | [10 manual E2E scenarios](strategic-deal-assurance/docs/multi-module-manual-e2e.md), [result sheet](strategic-deal-assurance/docs/multi-module-test-results.md) |
+| Human demo tester | [42 detailed manual cases](strategic-deal-assurance/docs/manual-test-cases.md), [test plan](strategic-deal-assurance/docs/test-plan.md), [rule configuration guide](strategic-deal-assurance/docs/demo-rules-guide.md) |
 | Salesforce maintainer | [Project README](strategic-deal-assurance/README.md), [repository instructions](AGENTS.md), [project instructions](strategic-deal-assurance/AGENTS.md) |
 
 ## What exists
@@ -18,7 +18,8 @@ Native Salesforce demo system for a separately developed assurance/testing agent
 - Active rule: strategic AND Amount **> USD 50,000,000** AND Discount **> 15%**. Missing required approver produces Configuration Error. No currency conversion.
 - Native owner submission, separate assigned VP approval/rejection, owner recall and normal-user record locking.
 - Native Accounts, Contacts, Leads, Opportunities, Cases, Tasks and Campaigns. A create-only loader prepares **368 linked business records + 40 initial policy evaluations**, separate from the original seven-case boundary dataset.
-- Ten additional manual use cases with 53 steps, independent expected results, roles and cleanup instructions.
+- Eight optional CRM save guards, editable in Salesforce Setup and OFF by default: account/contact reassignment, lead qualification, won-deal minimum/primary contact, case resolution, task due date and active-campaign response.
+- A unified **42-case / 232-step manual suite**, with exact fixtures, independent expectations, negative checks, actors, restoration steps and a [machine-readable automation specification](strategic-deal-assurance/data/manual-test-suite.json). This includes the original ten CRM workflows.
 - Versioned Salesforce metadata, Apex/Jest tests, scoped deployment manifests and sanitized milestone evidence.
 
 ## Important integration boundaries
@@ -32,6 +33,8 @@ There is **no custom Apex REST facade**. The `@AuraEnabled` controllers serve Li
 ```powershell
 cd strategic-deal-assurance
 npm ci
+npm run manual:check
+npm run manual:test
 npm run catalog:check
 npm run catalog:test
 npm run test:unit -- -- --runInBand
@@ -44,6 +47,6 @@ powershell -NoProfile -File scripts/demo/test-reset-local.ps1
 
 ## Evidence, secrets and release status
 
-The latest recorded Apex regression is **35/35 results, 99% coverage**; component checks recorded **22 passing Jest tests**. See the [evidence index](strategic-deal-assurance/docs/project-index.md) for dates and scope. The ten-case manual browser suite is prepared, **not marked executed**. A repeatable external API/UI harness, full tagged release reset and dedicated agent OAuth setup are still pending.
+See [milestone 6 verification](strategic-deal-assurance/evidence/milestone-6-verification.md) for current named Apex and local checks; earlier 35/35 Apex results remain historical. The **42-case manual browser suite is specified, not marked executed**. A repeatable external API/UI harness, full tagged release reset and dedicated agent OAuth setup are still pending.
 
 Only synthetic plans and sanitized reports belong in Git. Credentials, `.sf`, `.sfdx`, `.env`, browser profiles and raw artifacts are ignored. Supply org URLs, usernames and secret-store references locally; never publish tokens, passwords, activation links or session URLs. A source snapshot or push does not certify a live org or authorize writes to it.

@@ -48,3 +48,6 @@ Existing SYN-SDA baseline data has its own reset utility. Do not run that reset 
 ## References
 
 The loader uses Salesforce's [user-mode data operations](https://developer.salesforce.com/blogs/2023/05/write-simplified-and-secure-apex-with-spring-23-updates), [native ZIP support](https://developer.salesforce.com/blogs/2025/02/reading-excel-files-using-the-apex-zip-functionality), and [DML email options](https://help.salesforce.com/s/articleView?id=000385486&language=en_US&type=1). Campaign tests use [native campaign-member statuses](https://help.salesforce.com/s/articleView?id=sf.campaigns_customize_member_status_parent.htm&language=en_US), not a marketing-send integration.
+## Configurable-rule prerequisite
+
+Before baseline seeding, verification or the original MM workflows, restore all eight Demo Business Rules to OFF and the strategic discount to baseline-15. See [configuration guide](demo-rules-guide.md) and [complete test plan](test-plan.md). New SYN-RULE per-run fixtures are outside this create-only loader's ownership; it neither restores their fields nor removes them. Successful Lead conversion remains consumed.

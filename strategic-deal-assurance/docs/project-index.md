@@ -14,7 +14,9 @@ All paths below are relative to the Salesforce DX project unless stated otherwis
 | Inspect native approval authorization | [Approval controller](../force-app/main/default/classes/StrategicDealApprovalController.cls), [process](../force-app/main/default/approvalProcesses/Opportunity.Strategic_Opportunity_Regional_VP.approvalProcess-meta.xml), [final/recall actions](../force-app/main/default/workflows/Opportunity.workflow-meta.xml) |
 | Find browser labels / input allowlist | [Workbench HTML](../force-app/main/default/lwc/strategicDealWorkbench/strategicDealWorkbench.html), [workbench JS](../force-app/main/default/lwc/strategicDealWorkbench/strategicDealWorkbench.js), [approval panel](../force-app/main/default/lwc/strategicDealApprovalPanel/strategicDealApprovalPanel.html) |
 | Review privileges | [Permission sets](../force-app/main/default/permissionsets/), [current integration limits](agent-integration-guide.md) |
-| Run manual demos | [Ten-case guide](multi-module-manual-e2e.md), [machine-readable cases](../data/multi-module-use-cases.json), [result sheet](multi-module-test-results.md), [two-login approval](approval-demo-walkthrough.md) |
+| Configure optional demo rules | [Rule guide](demo-rules-guide.md), [requirement](../requirements/BR-DEMO-CONFIGURABLE-RULES.md), [guard service](../force-app/main/default/classes/DemoBusinessRules.cls) |
+| Build a future automation suite | [42 detailed cases](manual-test-cases.md), [JSON suite](../data/manual-test-suite.json), [test plan](test-plan.md) |
+| Run original baseline demos | [Ten-case guide](multi-module-manual-e2e.md), [machine-readable cases](../data/multi-module-use-cases.json), [result sheet](multi-module-test-results.md), [two-login approval](approval-demo-walkthrough.md) |
 | Prepare/reconcile fixtures | [Multi-module operations](multi-module-data.md), [baseline reset](demo-data-reset.md) |
 | Build/check this index | [Catalog generator](../scripts/catalog/build-project-index.mjs), [catalog tests](../scripts/catalog/catalog.test.mjs) |
 
@@ -31,12 +33,13 @@ SalesforceAgentApp/                  repository root
     force-app/main/default/
       applications/, tabs/          app navigation
       objects/, customMetadata/     custom fields, evidence object and policy
-      classes/                      policy/controllers and four Apex test suites
+      classes/                      policy/controllers/save guards and five Apex test suites
+      triggers/                     seven synthetic-record save-guard entry points
       flows/                        record-triggered evaluation and evidence writer
       approvalProcesses/, workflows/ native approval and final/recall field updates
-      permissionsets/               four additive least-privilege capability sets
+      permissionsets/               five additive capability sets; field-only demo operator added
       lwc/                          three components and component tests
-      flexipages/, layouts/         Lightning pages and unassigned custom layout
+      flexipages/, layouts/         Lightning pages, rule settings and Case resolution layout
     manifest/                       scoped deployment slices
     data/                           synthetic fixture plans and manual-case catalog
     docs/                           current integration, operation and test guides
@@ -67,8 +70,9 @@ SalesforceAgentApp/                  repository root
 | 4 | [milestone-4.xml](../manifest/milestone-4.xml) | Adds StrategicDealApprovalControllerTest; native approval |
 | VP UI correction | [milestone-4-lightning-access.xml](../manifest/milestone-4-lightning-access.xml) | One permission set; LightningExperienceUser |
 | 5 | [milestone-5-navigation.xml](../manifest/milestone-5-navigation.xml) | One app; cross-module navigation |
+| 6 | [milestone-6-demo-rules.xml](../manifest/milestone-6-demo-rules.xml) | DemoBusinessRulesTest plus previous four suites; eight OFF rules, seven triggers, Case resolution/layout |
 
-The current live regression runner is [test-milestone-4.ps1](../scripts/test-milestone-4.ps1), covering all four suites. Component tests are under each LWC's `__tests__`. `npm run catalog:test` and the two demo local-test scripts are local-only; they do not establish live UI/API behavior. Do not use the scaffold's broad package.xml as a routine deployment scope.
+The current live regression runner is [test-milestone-6.ps1](../scripts/test-milestone-6.ps1), covering all five suites. Component tests are under each LWC's `__tests__`. `npm run catalog:test` and the two demo local-test scripts are local-only; they do not establish live UI/API behavior. Do not use the scaffold's broad package.xml as a routine deployment scope.
 
 ## Evidence index and freshness
 
@@ -80,6 +84,7 @@ The current live regression runner is [test-milestone-4.ps1](../scripts/test-mil
 | [Original data reset](../evidence/demo-data-reset-verification.md) | Seven boundary fixtures and restore/rehearse behavior |
 | [Milestone 4](../evidence/milestone-4-verification.md) | Native approval, Lightning permission correction, later VP confirmation |
 | [Milestone 5](../evidence/milestone-5-verification.md) | 368-row load, no-op rerun, source/API validation and navigation smoke |
+| [Milestone 6](../evidence/milestone-6-verification.md) | Configurable rule deployment and regression; manual specs do not certify browser execution |
 | [Manual results](multi-module-test-results.md) | Ten-case browser suite remains Not run until explicitly executed |
 
 Historical source-hash files intentionally refer to their original snapshots. They are not expected to match files changed by later milestones. The generated project index is the current LF-normalized source fingerprint, not a substitute for fresh live test receipts. Runtime IDs/auth files are intentionally absent from the source graph.
