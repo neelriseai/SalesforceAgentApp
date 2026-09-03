@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Opportunity.Strategic_Deal__c</members>
+        <members>Opportunity.Discount__c</members>
+        <members>Opportunity.Regional_VP_Approver__c</members>
+        <members>Opportunity.Approval_Status__c</members>
+        <members>Opportunity.Approval_Reason__c</members>
+        <members>Opportunity.Policy_Rule_Version__c</members>
+        <members>Opportunity.Policy_Evaluated_At__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>Strategic_Deal_Evaluation__c</members>
+        <members>Strategic_Discount_Rule__mdt</members>
+        <name>CustomObject</name>
+    </types>
+    <types><members>Strategic_Discount_Rule.Default</members><name>CustomMetadata</name></types>
+    <types>
+        <members>StrategicDiscountPolicy</members>
+        <members>StrategicDiscountPolicyTest</members>
+        <name>ApexClass</name>
+    </types>
+    <version>67.0</version>
+</Package>

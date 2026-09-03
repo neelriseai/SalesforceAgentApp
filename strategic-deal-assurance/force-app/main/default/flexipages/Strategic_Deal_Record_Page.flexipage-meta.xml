@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>BR-STRATEGIC-DISCOUNT: app-specific Opportunity record experience.</description>
+    <flexiPageRegions><itemInstances><componentInstance><componentName>force:highlightsPanel</componentName><identifier>highlights</identifier></componentInstance></itemInstances><name>header</name><type>Region</type></flexiPageRegions>
+    <flexiPageRegions><itemInstances><componentInstance><componentName>c:strategicDealWorkbench</componentName><identifier>dealWorkbench</identifier></componentInstance></itemInstances><name>main</name><type>Region</type></flexiPageRegions>
+    <masterLabel>Strategic Deal Record Page</masterLabel><sobjectType>Opportunity</sobjectType>
+    <template><name>flexipage:recordHomeSingleColTemplateDesktop</name></template><type>RecordPage</type>
+</FlexiPage>

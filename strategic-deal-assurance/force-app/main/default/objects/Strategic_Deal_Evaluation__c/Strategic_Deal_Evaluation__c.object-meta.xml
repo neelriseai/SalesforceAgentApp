@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>BR-STRATEGIC-DISCOUNT: synthetic evaluation evidence. No normal-user edit/delete grants; sharing and writer supplied in later milestones.</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <label>Strategic Deal Evaluation</label>
+    <nameField>
+        <displayFormat>SDE-{000000}</displayFormat>
+        <label>Evaluation Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Strategic Deal Evaluations</pluralLabel>
+    <sharingModel>Private</sharingModel>
+</CustomObject>

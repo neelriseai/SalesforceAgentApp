@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types><members>StrategicDealPolicyController</members><members>StrategicDealPolicyControllerTest</members><members>StrategicDiscountFlowTest</members><name>ApexClass</name></types>
+    <types><members>strategicDealWorkbench</members><members>strategicDealPolicyCard</members><name>LightningComponentBundle</name></types>
+    <types><members>Strategic_Deal_Workbench</members><members>Strategic_Deal_Record_Page</members><name>FlexiPage</name></types>
+    <types><members>Strategic_Deal_Workbench</members><name>CustomTab</name></types>
+    <types><members>Strategic_Deal_Assurance</members><name>CustomApplication</name></types>
+    <types><members>Opportunity-Strategic Deal Layout</members><name>Layout</name></types>
+    <types><members>Strategic_Deal_User</members><members>Regional_VP_Approver</members><members>Change_Assurance_Integration</members><members>Strategic_Deal_UI_Runner</members><name>PermissionSet</name></types>
+    <version>67.0</version>
+</Package>

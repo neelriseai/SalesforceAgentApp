@@ -1,0 +1,35 @@
+<template>
+    <div class="workbench">
+        <header class="intro">
+            <p class="eyebrow">STRATEGIC DEAL ASSURANCE · SYNTHETIC DEMO</p>
+            <h1>{heading}</h1>
+            <p>Save a deal to evaluate the current policy and capture an auditable input snapshot. All amounts are USD.</p>
+        </header>
+        <div class="columns">
+            <lightning-card title="Deal inputs" icon-name="standard:opportunity">
+                <div class="slds-p-around_medium">
+                    <p class="slds-m-bottom_medium">Use only synthetic data. Approval outcomes cannot be edited here.</p>
+                    <lightning-record-edit-form object-api-name={objectApiName} record-id={currentId} onsubmit={handleSubmit} onsuccess={handleSuccess} onerror={handleError}>
+                        <lightning-input-field field-name="Name" value={defaultName} disabled={busy}></lightning-input-field>
+                        <lightning-input-field field-name="AccountId" disabled={busy}></lightning-input-field>
+                        <lightning-input-field field-name="StageName" disabled={busy}></lightning-input-field>
+                        <lightning-input-field field-name="CloseDate" disabled={busy}></lightning-input-field>
+                        <lightning-input-field field-name="Amount" disabled={busy}></lightning-input-field>
+                        <lightning-input-field field-name="Strategic_Deal__c" disabled={busy}></lightning-input-field>
+                        <lightning-input-field field-name="Discount__c" disabled={busy}></lightning-input-field>
+                        <lightning-input-field field-name="Regional_VP_Approver__c" disabled={busy}></lightning-input-field>
+                        <div class="slds-m-top_medium actions">
+                            <lightning-button type="submit" variant="brand" label="Save and Evaluate" data-testid="save-evaluate-v1" disabled={busy}></lightning-button>
+                            <template lwc:if={canStartNew}><lightning-button label="Start new deal" onclick={startNew} disabled={busy}></lightning-button></template>
+                        </div>
+                    </lightning-record-edit-form>
+                    <template lwc:if={busy}><p role="status" class="slds-m-top_small">Saving and evaluating…</p></template>
+                    <p role="status" aria-live="polite" class="slds-m-top_small">{message}</p>
+                    <template lwc:if={error}><p role="alert" class="slds-text-color_error slds-m-top_small">{error}</p></template>
+                </div>
+            </lightning-card>
+            <c-strategic-deal-policy-card record-id={currentId} refresh-key={refreshKey}></c-strategic-deal-policy-card>
+        </div>
+        <div class="slds-m-top_medium"><c-strategic-deal-approval-panel record-id={currentId} refresh-key={refreshKey} onapprovalchange={handleApprovalChange}></c-strategic-deal-approval-panel></div>
+    </div>
+</template>

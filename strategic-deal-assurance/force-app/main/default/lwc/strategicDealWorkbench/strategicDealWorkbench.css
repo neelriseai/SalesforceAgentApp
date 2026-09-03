@@ -1,0 +1,8 @@
+:host { display: block; }
+.workbench { max-width: 1440px; margin: auto; padding: 1rem; }
+.intro { background: #16325c; color: white; border-radius: .5rem; padding: 1.5rem 2rem; margin-bottom: 1rem; }
+.eyebrow { font-size: .7rem; letter-spacing: .12em; margin-bottom: .6rem; }
+h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: .5rem; }
+.columns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem; align-items: start; }
+.actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+@media (max-width: 800px) { .columns { grid-template-columns: 1fr; } .intro { padding: 1rem; } }

@@ -1,0 +1,44 @@
+<template>
+    <lightning-card title="Strategic Deal Policy" icon-name="standard:approval">
+        <div class="slds-p-around_medium">
+            <template lwc:if={hasRecord}>
+                <lightning-button label="Refresh policy" onclick={refresh} disabled={loading}></lightning-button>
+                <template lwc:if={loading}>
+                    <div class="loading" role="status">Loading policy information…</div>
+                </template>
+                <template lwc:if={error}><p role="alert" class="slds-text-color_error">{error}</p></template>
+                <template lwc:if={showView}>
+                    <template lwc:if={configurationWarning}><p role="alert">The current policy configuration is inactive or missing.</p></template>
+                    <template lwc:if={ruleVersionMismatch}><p role="status">The active rule differs from the last evaluation. Change a policy input to reevaluate.</p></template>
+                    <h2 class="slds-text-title_caps slds-m-top_medium">Approval Status</h2>
+                    <p class={statusClass} role="status" aria-label="Approval Status" data-testid="approval-status">{view.status}</p>
+                    <p class="slds-m-bottom_medium">{view.reason}</p>
+                    <dl class="facts">
+                        <dt>Amount boundary (USD)</dt>
+                        <dd>Strictly greater than <lightning-formatted-number value={view.amountThreshold} format-style="currency" currency-code="USD"></lightning-formatted-number></dd>
+                        <dt>Discount boundary</dt><dd data-testid="policy-threshold">Strictly greater than {view.discountThreshold}%</dd>
+                        <dt>Active Rule Version</dt><dd>{view.activeRuleVersion}</dd>
+                        <dt>Applied Rule Version</dt><dd data-testid="applied-rule-version">{view.appliedRuleVersion}</dd>
+                        <dt>Last evaluated</dt><dd><lightning-formatted-date-time value={view.evaluatedAt} year="numeric" month="short" day="2-digit" hour="2-digit" minute="2-digit" second="2-digit"></lightning-formatted-date-time></dd>
+                    </dl>
+                    <h3 class="slds-text-heading_small slds-m-top_large">Evaluation History</h3>
+                    <section aria-label="Evaluation History" data-testid="evaluation-history">
+                        <template lwc:if={hasHistory}>
+                            <ol class="history">
+                                <template for:each={historyRows} for:item="row">
+                                    <li key={row.key}>
+                                        <strong>{row.outcome}</strong> · {row.ruleVersion}
+                                        <p><lightning-formatted-date-time value={row.evaluatedAt} year="numeric" month="short" day="2-digit" hour="2-digit" minute="2-digit" second="2-digit"></lightning-formatted-date-time></p>
+                                        <p>USD <lightning-formatted-number value={row.amount} maximum-fraction-digits="2"></lightning-formatted-number> · Discount {row.discount}%</p>
+                                    </li>
+                                </template>
+                            </ol>
+                        </template>
+                        <template lwc:else><p>No evaluations yet. Save a policy input to evaluate this deal.</p></template>
+                    </section>
+                </template>
+            </template>
+            <template lwc:else><p>Create or select an Opportunity to view its policy results.</p></template>
+        </div>
+    </lightning-card>
+</template>

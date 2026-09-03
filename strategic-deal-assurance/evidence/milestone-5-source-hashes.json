@@ -1,0 +1,54 @@
+{
+  "algorithm": "SHA-256",
+  "scope": "Cross-module scenario definitions, data plan, loader, navigation and prepared manual guides; not the entire repository",
+  "files": [
+    {
+      "path": "data/multi-module-plan.json",
+      "sha256": "80539a3ff9ee78cb5da63aea70c73cd0971e028100b3f7c071b7a2a7cbb48dab"
+    },
+    {
+      "path": "data/multi-module-use-cases.json",
+      "sha256": "0be56f443e93f256c29b80451b563543ed3dcbd78f03ac835cd7e05d88ea9b29"
+    },
+    {
+      "path": "scripts/demo/multi-module.apex.template",
+      "sha256": "5dd6d10495ae83bb0c17c2968166d0f0a395e46e219b6f343a231a26f5ff5576"
+    },
+    {
+      "path": "scripts/demo/seed-multi-module.ps1",
+      "sha256": "3f0301bd97254a8453da08b1c7d3732f91ad046a1c95885668b709e6d47641c2"
+    },
+    {
+      "path": "scripts/demo/test-multi-module-local.ps1",
+      "sha256": "6946ef0f593f691443a50241773d495bf295602787dd9a753bfec72d5770b12a"
+    },
+    {
+      "path": "scripts/demo/enable-demo-marketing.apex",
+      "sha256": "015bf1ced36536f0efbb63b4ae7339b100bde0f589bef113cd7eb7e4c2ab066f"
+    },
+    {
+      "path": "force-app/main/default/applications/Strategic_Deal_Assurance.app-meta.xml",
+      "sha256": "f3b515b276a8ff7ac48087357a54738a5fba804b2d91b5bca8563f3b16ab0079"
+    },
+    {
+      "path": "manifest/milestone-5-navigation.xml",
+      "sha256": "3c86f731b700bff5a1d4647ace5381611d1e7d6abbd3f2ec5e03ab0109751504"
+    },
+    {
+      "path": "docs/multi-module-data.md",
+      "sha256": "e3403b82faafb6750f315bfe703459dbe89fe1a89fb3fc9c0441c81ba1cf3776"
+    },
+    {
+      "path": "docs/multi-module-manual-e2e.md",
+      "sha256": "420fd0d080bf939477192e31a4083af34dfdaa889827941e78262376c4a7778b"
+    },
+    {
+      "path": "docs/multi-module-test-results.md",
+      "sha256": "dafaa88f5cf3ce0aab4def073fe4fd877ddf276ca1aaa93dd1edbdd950d2c2a0"
+    },
+    {
+      "path": "evidence/milestone-5-verification.md",
+      "sha256": "d0e6d8ed6683765ed66ecb9b5b19440a4da483a80607df3006dfae9b475f6c29"
+    }
+  ]
+}

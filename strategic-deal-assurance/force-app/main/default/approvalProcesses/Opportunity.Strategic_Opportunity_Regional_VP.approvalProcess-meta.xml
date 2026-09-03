@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <allowRecall>true</allowRecall>
+    <allowedSubmitters><type>owner</type></allowedSubmitters>
+    <approvalPageFields><field>Name</field><field>Amount</field><field>Discount__c</field><field>Strategic_Deal__c</field><field>Approval_Status__c</field><field>Approval_Reason__c</field></approvalPageFields>
+    <approvalStep>
+        <allowDelegate>false</allowDelegate>
+        <assignedApprover><approver><name>Regional_VP_Approver__c</name><type>relatedUserField</type></approver><whenMultipleApprovers>FirstResponse</whenMultipleApprovers></assignedApprover>
+        <label>Regional VP Review</label><name>Regional_VP_Review</name>
+        <rejectBehavior><type>RejectRequest</type></rejectBehavior>
+    </approvalStep>
+    <description>BR-STRATEGIC-DISCOUNT: native owner submission and separate assigned Regional VP decision. Policy thresholds remain in custom metadata.</description>
+    <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
+    <entryCriteria><formula>AND(BEGINS(Name, "SYN-"), ISPICKVAL(Approval_Status__c, "Pending Regional VP"), NOT(ISBLANK(Regional_VP_Approver__c)), Regional_VP_Approver__c &lt;&gt; OwnerId, Regional_VP_Approver__r.IsActive)</formula></entryCriteria>
+    <finalApprovalActions><action><name>SDA_Approved</name><type>FieldUpdate</type></action></finalApprovalActions>
+    <finalApprovalRecordLock>false</finalApprovalRecordLock>
+    <finalRejectionActions><action><name>SDA_Rejected</name><type>FieldUpdate</type></action></finalRejectionActions>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <label>Strategic Opportunity Regional VP</label>
+    <recallActions><action><name>SDA_Recalled</name><type>FieldUpdate</type></action></recallActions>
+    <recordEditability>AdminOnly</recordEditability>
+    <showApprovalHistory>true</showApprovalHistory>
+</ApprovalProcess>

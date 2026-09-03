@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Evaluate_Policy</name>
+        <description>BR-STRATEGIC-DISCOUNT: pure bulk-safe policy evaluation from versioned metadata.</description>
+        <label>Evaluate Policy</label><locationX>176</locationX><locationY>200</locationY>
+        <actionName>StrategicDiscountPolicy</actionName><actionType>apex</actionType>
+        <connector><targetReference>Update_Outcome</targetReference></connector>
+        <faultConnector><targetReference>Policy_Fault</targetReference></faultConnector>
+        <inputParameters><name>amount</name><value><elementReference>$Record.Amount</elementReference></value></inputParameters>
+        <inputParameters><name>discountPercent</name><value><elementReference>$Record.Discount__c</elementReference></value></inputParameters>
+        <inputParameters><name>strategicDeal</name><value><elementReference>$Record.Strategic_Deal__c</elementReference></value></inputParameters>
+        <inputParameters><name>regionalVpApproverId</name><value><elementReference>$Record.Regional_VP_Approver__c</elementReference></value></inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>67.0</apiVersion>
+    <customErrors>
+        <name>Policy_Fault</name>
+        <description>Fail atomically; never expose raw platform exception text or persist partial evidence.</description>
+        <label>Policy Evaluation Failed</label><locationX>480</locationX><locationY>400</locationY>
+        <customErrorMessages>
+            <errorMessage>Strategic deal evaluation could not be completed. No changes were saved. Contact your administrator.</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <description>BR-STRATEGIC-DISCOUNT: after-save evaluation. Relevant input changes only; one outcome update and one evidence row. Outcome-only recursion does no work. System context writes derived fields and private evidence, never grants user access.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>Approver_Present</name>
+        <description>Non-identifying approver-presence snapshot.</description>
+        <dataType>Boolean</dataType>
+        <expression>NOT(ISBLANK({!$Record.Regional_VP_Approver__c}))</expression>
+    </formulas>
+    <interviewLabel>Strategic Discount Approval {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Strategic Discount Approval</label>
+    <processMetadataValues><name>BuilderType</name><value><stringValue>LightningFlowBuilder</stringValue></value></processMetadataValues>
+    <processMetadataValues><name>CanvasMode</name><value><stringValue>AUTO_LAYOUT_CANVAS</stringValue></value></processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Record_Evaluation</name>
+        <description>Exactly one private evidence row per relevant mutation, even when the policy decision is unchanged.</description>
+        <label>Record Policy Evaluation</label><locationX>176</locationX><locationY>440</locationY>
+        <faultConnector><targetReference>Policy_Fault</targetReference></faultConnector>
+        <inputAssignments><field>Opportunity__c</field><value><elementReference>$Record.Id</elementReference></value></inputAssignments>
+        <inputAssignments><field>Correlation_Id__c</field><value><elementReference>$Flow.InterviewGuid</elementReference></value></inputAssignments>
+        <inputAssignments><field>Amount_INR__c</field><value><elementReference>$Record.Amount</elementReference></value></inputAssignments>
+        <inputAssignments><field>Discount_Percent__c</field><value><elementReference>$Record.Discount__c</elementReference></value></inputAssignments>
+        <inputAssignments><field>Strategic_Deal__c</field><value><elementReference>$Record.Strategic_Deal__c</elementReference></value></inputAssignments>
+        <inputAssignments><field>Approver_Present__c</field><value><elementReference>Approver_Present</elementReference></value></inputAssignments>
+        <inputAssignments><field>Approval_Required__c</field><value><elementReference>Evaluate_Policy.approvalRequired</elementReference></value></inputAssignments>
+        <inputAssignments><field>Outcome__c</field><value><elementReference>Evaluate_Policy.desiredStatus</elementReference></value></inputAssignments>
+        <inputAssignments><field>Reason__c</field><value><elementReference>Evaluate_Policy.reason</elementReference></value></inputAssignments>
+        <inputAssignments><field>Rule_Version__c</field><value><elementReference>Evaluate_Policy.ruleVersion</elementReference></value></inputAssignments>
+        <inputAssignments><field>Evaluated_At__c</field><value><elementReference>Evaluate_Policy.evaluatedAt</elementReference></value></inputAssignments>
+        <inputAssignments><field>Input_Hash__c</field><value><elementReference>Evaluate_Policy.inputHash</elementReference></value></inputAssignments>
+        <inputAssignments><field>Evaluation_Source__c</field><value><stringValue>Flow</stringValue></value></inputAssignments>
+        <object>Strategic_Deal_Evaluation__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordUpdates>
+        <name>Update_Outcome</name>
+        <description>Update derived fields and latest evaluation time on every relevant change. Re-entry fails the Start filter.</description>
+        <label>Update Triggering Opportunity</label><locationX>176</locationX><locationY>320</locationY>
+        <connector><targetReference>Record_Evaluation</targetReference></connector>
+        <faultConnector><targetReference>Policy_Fault</targetReference></faultConnector>
+        <inputAssignments><field>Approval_Status__c</field><value><elementReference>Evaluate_Policy.desiredStatus</elementReference></value></inputAssignments>
+        <inputAssignments><field>Approval_Reason__c</field><value><elementReference>Evaluate_Policy.reason</elementReference></value></inputAssignments>
+        <inputAssignments><field>Policy_Rule_Version__c</field><value><elementReference>Evaluate_Policy.ruleVersion</elementReference></value></inputAssignments>
+        <inputAssignments><field>Policy_Evaluated_At__c</field><value><elementReference>Evaluate_Policy.evaluatedAt</elementReference></value></inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX><locationY>0</locationY>
+        <connector><targetReference>Evaluate_Policy</targetReference></connector>
+        <filterFormula>OR(ISNEW(), ISCHANGED({!$Record.Amount}), ISCHANGED({!$Record.Discount__c}), ISCHANGED({!$Record.Strategic_Deal__c}), ISCHANGED({!$Record.Regional_VP_Approver__c}))</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

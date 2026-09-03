@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <applicationVisibilities><application>Strategic_Deal_Assurance</application><visible>true</visible></applicationVisibilities>
+    <classAccesses><apexClass>StrategicDealPolicyController</apexClass><enabled>true</enabled></classAccesses>
+    <classAccesses><apexClass>StrategicDealApprovalController</apexClass><enabled>true</enabled></classAccesses>
+    <classAccesses><apexClass>StrategicDiscountPolicy</apexClass><enabled>true</enabled></classAccesses>
+    <customMetadataTypeAccesses><enabled>true</enabled><name>Strategic_Discount_Rule__mdt</name></customMetadataTypeAccesses>
+    <description>BR-STRATEGIC-DISCOUNT: edit inputs, read outcomes. No direct evaluation-object access; parent-checked history reader deferred.</description>
+    <fieldPermissions><editable>true</editable><field>Opportunity.Amount</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>true</editable><field>Opportunity.Discount__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>true</editable><field>Opportunity.Strategic_Deal__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>true</editable><field>Opportunity.Regional_VP_Approver__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>false</editable><field>Opportunity.Approval_Status__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>false</editable><field>Opportunity.Approval_Reason__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>false</editable><field>Opportunity.Policy_Rule_Version__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>false</editable><field>Opportunity.Policy_Evaluated_At__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>true</editable><field>Opportunity.AccountId</field><readable>true</readable></fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Strategic Deal User</label>
+    <objectPermissions><allowCreate>false</allowCreate><allowDelete>false</allowDelete><allowEdit>false</allowEdit><allowRead>true</allowRead><modifyAllRecords>false</modifyAllRecords><object>Account</object><viewAllRecords>false</viewAllRecords></objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate><allowDelete>false</allowDelete><allowEdit>true</allowEdit><allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords><object>Opportunity</object><viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <tabSettings><tab>Strategic_Deal_Workbench</tab><visibility>Visible</visibility></tabSettings>
+
+</PermissionSet>

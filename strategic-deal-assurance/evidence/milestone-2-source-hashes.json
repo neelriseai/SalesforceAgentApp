@@ -1,0 +1,26 @@
+{
+  "algorithm": "SHA-256",
+  "scope": "Flow, policy, tests and milestone manifest; not an entire repo snapshot",
+  "files": [
+    {
+      "path": "force-app/main/default/flows/Strategic_Discount_Approval.flow-meta.xml",
+      "sha256": "acb4f98ec2c779f4eb94abcb912054d68174d9d7933c2da44a527fec7afcd511"
+    },
+    {
+      "path": "force-app/main/default/classes/StrategicDiscountFlowTest.cls",
+      "sha256": "90a5ae330da8e3fa65a3a874eeae5a6154279bcbdbbd5e0d8993be6734288fc1"
+    },
+    {
+      "path": "force-app/main/default/classes/StrategicDiscountPolicy.cls",
+      "sha256": "7cc2a17a8d3063fb162b2e10f8c23a58ffd7484d0bf044acc4eec52fa33d952c"
+    },
+    {
+      "path": "force-app/main/default/classes/StrategicDiscountPolicyTest.cls",
+      "sha256": "3e1a57ac858620b8de667f104e52c3c00e249a3caf41301b86650078b0694e7b"
+    },
+    {
+      "path": "manifest/milestone-2.xml",
+      "sha256": "0517bffd737885034999843013db2bac6a4e65964abcd2b2b0632152319e44b4"
+    }
+  ]
+}

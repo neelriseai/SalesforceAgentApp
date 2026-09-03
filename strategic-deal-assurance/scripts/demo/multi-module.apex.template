@@ -1,0 +1,180 @@
+// Local administrative fixture utility. Not a deployed endpoint. No update/delete operations.
+public with sharing class CrossModuleFixtures {
+    public Map<String,Object> objects;
+    public Map<String,Id> ids = new Map<String,Id>();
+    public Map<String,Map<String,SObject>> saved = new Map<String,Map<String,SObject>>();
+    public Map<String,Integer> counts = new Map<String,Integer>();
+    public List<String> drift = new List<String>();
+    public Map<String,Schema.SObjectType> schemaTypes=Schema.getGlobalDescribe();
+    public Map<String,Map<String,Schema.SObjectField>> schemaColumns=new Map<String,Map<String,Schema.SObjectField>>();
+    public Integer existing = 0;
+    public Integer inserted = 0;
+    public String dataset = 'SDA-CROSS-MODULE-v1';
+    public List<Object> entries(String typeName) { return (List<Object>)objects.get(typeName); }
+    public Map<String,Object> fields(Object item) { return (Map<String,Object>)((Map<String,Object>)item).get('fields'); }
+    public String key(Object item) { return (String)((Map<String,Object>)item).get('key'); }
+    public String pair(String typeName, Map<String,Object> values) {
+        String parent = typeName=='CampaignMember'?'CampaignId':'OpportunityId';
+        String child = values.containsKey('LeadId') && values.get('LeadId')!=null?'LeadId':'ContactId';
+        return String.valueOf(values.get(parent))+'|'+String.valueOf(values.get(child));
+    }
+    public SObject desired(String typeName,Object item) {
+        Schema.SObjectType token = schemaTypes.get(typeName);
+        SObject row = token.newSObject();
+        if(!schemaColumns.containsKey(typeName)) schemaColumns.put(typeName,token.getDescribe().fields.getMap());
+        Map<String,Schema.SObjectField> schemaFields = schemaColumns.get(typeName);
+        Map<String,Object> values = fields(item);
+        for(String field:values.keySet()) {
+            Object value = values.get(field);
+            if(value instanceof String && ((String)value).startsWith('@')) {
+                String reference = ((String)value).substring(1);
+                System.assert(ids.containsKey(reference),'Missing logical relationship '+reference);
+                value=ids.get(reference);
+            } else if(value!=null) {
+                Schema.DisplayType kind = schemaFields.get(field).getDescribe().getType();
+                if(kind==Schema.DisplayType.Date) value=Date.valueOf(String.valueOf(value));
+                else if(kind==Schema.DisplayType.Currency || kind==Schema.DisplayType.Percent || kind==Schema.DisplayType.Double) value=Decimal.valueOf(String.valueOf(value));
+            }
+            row.put(field,value);
+        }
+        Database.DMLOptions options=new Database.DMLOptions();
+        options.EmailHeader.triggerUserEmail=false;
+        options.EmailHeader.triggerOtherEmail=false;
+        options.EmailHeader.triggerAutoResponseEmail=false;
+        row.setOptions(options);
+        return row;
+    }
+    public void load(String typeName,String identity) {
+        List<Object> expected=entries(typeName);
+        Set<String> columns=new Set<String>{'Id','IsDeleted'};
+        Set<String> names=new Set<String>();
+        Map<String,String> keys=new Map<String,String>();
+        Boolean junction=typeName=='CampaignMember' || typeName=='OpportunityContactRole';
+        Set<Id> parents=new Set<Id>();
+        String parentField=typeName=='CampaignMember'?'CampaignId':'OpportunityId';
+        for(Object item:expected) {
+            Map<String,Object> values=fields(item); columns.addAll(values.keySet());
+            if(!junction) { String name=String.valueOf(values.get(identity)); names.add(name); keys.put(name,key(item)); }
+            else {
+                String parentKey=((String)values.get(parentField)).substring(1);
+                if(ids.containsKey(parentKey)) {
+                    parents.add(ids.get(parentKey));
+                    SObject wanted=desired(typeName,item);
+                    keys.put(pair(typeName,wanted.getPopulatedFieldsAsMap()),key(item));
+                }
+            }
+        }
+        String whereClause=junction?parentField+' IN :parents':identity+' IN :names';
+        // Also detect exact marker collisions for the two objects with reserved marker fields.
+        Set<String> markers=new Set<String>();
+        if(typeName=='Account' || typeName=='Opportunity') {
+            String markerField=typeName=='Account'?'AccountNumber':'NextStep';
+            for(Object item:expected) markers.add((String)fields(item).get(markerField));
+            whereClause+=' OR '+markerField+' IN :markers';
+        }
+        List<String> selected=new List<String>(columns); selected.sort();
+        String query='SELECT '+String.join(selected,',')+' FROM '+typeName+' WHERE '+whereClause+' ALL ROWS';
+        List<SObject> rows=Database.queryWithBinds(query,new Map<String,Object>{'parents'=>parents,'names'=>names,'markers'=>markers},AccessLevel.USER_MODE);
+        Map<String,SObject> found=new Map<String,SObject>();
+        for(SObject row:rows) {
+            String lookup=junction?pair(typeName,row.getPopulatedFieldsAsMap()):String.valueOf(row.get(identity));
+            String logicalKey=keys.get(lookup);
+            if(junction && logicalKey==null) { drift.add(typeName+':extra relationship'); continue; }
+            System.assert(logicalKey!=null && !found.containsKey(logicalKey),'Identity collision in '+typeName);
+            System.assertEquals(false,row.get('IsDeleted'),'A fixture is deleted; reconcile manually, do not recreate it');
+            if(!junction) {
+                System.assertEquals(ids.get('operator'),row.get('OwnerId'),'Fixture ownership changed; no adoption permitted');
+                System.assert(String.valueOf(row.get('Description')).startsWith(dataset+'|'+logicalKey),'Fixture marker missing; no adoption permitted');
+            }
+            found.put(logicalKey,row); ids.put(logicalKey,(Id)row.get('Id')); existing++;
+        }
+        saved.put(typeName,found); counts.put(typeName,found.size());
+    }
+    public void createRows(String typeName,Integer accountPhase) {
+        List<SObject> rows=new List<SObject>(); List<String> rowKeys=new List<String>();
+        for(Object item:entries(typeName)) {
+            Boolean child=fields(item).containsKey('ParentId');
+            if(typeName=='Account' && ((accountPhase==0 && child)||(accountPhase==1 && !child))) continue;
+            rows.add(desired(typeName,item)); rowKeys.add(key(item));
+        }
+        if(!rows.isEmpty()) Database.insert(rows,true,AccessLevel.USER_MODE);
+        for(Integer i=0;i<rows.size();i++) { ids.put(rowKeys[i],(Id)rows[i].get('Id')); inserted++; }
+    }
+    public void compare(String typeName) {
+        Map<String,SObject> found=saved.get(typeName);
+        for(Object item:entries(typeName)) {
+            String logicalKey=key(item);
+            if(!found.containsKey(logicalKey)) { drift.add(logicalKey+':missing'); continue; }
+            SObject wanted=desired(typeName,item); SObject actual=found.get(logicalKey);
+            for(String field:fields(item).keySet()) {
+                if(wanted.get(field)!=actual.get(field)) drift.add(logicalKey+':'+field);
+            }
+        }
+    }
+    public void loadAll() {
+        existing=0; counts.clear(); saved.clear();
+        load('Account','Name'); load('Contact','LastName'); load('Opportunity','Name');
+        load('Lead','LastName'); load('Case','Subject'); load('Task','Subject'); load('Campaign','Name');
+        load('CampaignMember',null); load('OpportunityContactRole',null);
+    }
+    public void compareAll() {
+        compare('Account'); compare('Contact'); compare('Opportunity'); compare('Lead');
+        compare('Case'); compare('Task'); compare('Campaign'); compare('CampaignMember'); compare('OpportunityContactRole');
+    }
+}
+String mode='__MODE__';
+System.assert(new Set<String>{'Preview','Apply','Verify','Rehearse'}.contains(mode),'Unsupported mode');
+String fingerprint=EncodingUtil.convertToHex(Crypto.generateDigest('SHA-256',Blob.valueOf(UserInfo.getOrganizationId())));
+System.assertEquals('__ORG_FINGERPRINT__',fingerprint,'Org binding mismatch');
+System.assertEquals('Developer Edition',[SELECT OrganizationType FROM Organization WITH USER_MODE LIMIT 1].OrganizationType,'Developer Edition only');
+System.assertEquals('USD',UserInfo.getDefaultCurrency(),'USD only');
+Id profileId=UserInfo.getProfileId();
+System.assert([SELECT PermissionsModifyAllData FROM Profile WHERE Id=:profileId WITH USER_MODE].PermissionsModifyAllData,'Administrative operator required');
+Strategic_Discount_Rule__mdt rule=Strategic_Discount_Rule__mdt.getInstance('Default');
+System.assert(rule!=null && rule.Active__c && rule.Minimum_Amount_INR__c==50000000 && rule.Discount_Threshold_Percent__c==15 && rule.Rule_Version__c=='baseline-15','Baseline policy changed');
+List<User> approvers=[SELECT Id FROM User WHERE Alias='sdademvp' AND FirstName='Synthetic' AND LastName='Regional VP' AND IsActive=true WITH USER_MODE];
+System.assertEquals(1,approvers.size(),'Exactly one active synthetic VP required');
+Compression.ZipReader archive=new Compression.ZipReader(EncodingUtil.base64Decode('__PLAN_BASE64__'));
+Map<String,Object> plan=(Map<String,Object>)JSON.deserializeUntyped(archive.extract(archive.getEntry('plan.json')).toString());
+System.assertEquals('SDA-CROSS-MODULE-v1',plan.get('dataset'),'Unexpected dataset');
+CrossModuleFixtures fixture=new CrossModuleFixtures();
+fixture.objects=(Map<String,Object>)plan.get('objects'); fixture.ids.put('operator',UserInfo.getUserId()); fixture.ids.put('vp',approvers[0].Id);
+fixture.loadAll();
+Integer before=fixture.existing;
+Integer expected=368;
+Boolean writeMode=mode=='Apply'||mode=='Rehearse';
+if(writeMode) System.assert(before==0 || before==expected,'Partial dataset: reconcile manually; no automatic repair or replacement');
+Savepoint checkpoint;
+if(writeMode && before==0) {
+    checkpoint=Database.setSavepoint();
+    fixture.createRows('Account',0); fixture.createRows('Account',1);
+    fixture.createRows('Contact',0); fixture.createRows('Opportunity',0); fixture.createRows('Lead',0);
+    fixture.createRows('Case',0); fixture.createRows('Task',0); fixture.createRows('Campaign',0);
+    fixture.createRows('CampaignMember',0); fixture.createRows('OpportunityContactRole',0);
+    fixture.loadAll();
+}
+if(fixture.existing==expected) fixture.compareAll();
+if(mode!='Preview') System.assertEquals(expected,fixture.existing,'Expected full dataset');
+if(writeMode && before==0) System.assertEquals(0,fixture.drift.size(),'Inserted records do not match plan; rolling back');
+Set<Id> opportunityIds=new Set<Id>();
+for(SObject row:fixture.saved.get('Opportunity').values()) opportunityIds.add((Id)row.get('Id'));
+List<Opportunity> outcomes=[SELECT Id,NextStep,Approval_Status__c,Policy_Rule_Version__c FROM Opportunity WHERE Id IN :opportunityIds WITH USER_MODE];
+Integer policyMatches=0;
+for(Opportunity row:outcomes) {
+    Integer sequence=Integer.valueOf(row.NextStep.substringAfter('|O'));
+    Integer scenario=Math.mod(sequence-1,5);
+    String status=scenario==1?'Pending Regional VP':scenario==4?'Configuration Error':'Not Required';
+    if(row.Approval_Status__c==status && row.Policy_Rule_Version__c=='baseline-15') policyMatches++;
+    else fixture.drift.add('O'+String.valueOf(sequence)+':policy output');
+}
+Integer evaluationCount=[SELECT COUNT() FROM Strategic_Deal_Evaluation__c WHERE Opportunity__c IN :opportunityIds WITH USER_MODE];
+if(writeMode && before==0) { System.assertEquals(40,policyMatches,'Policy oracle mismatch'); System.assertEquals(40,evaluationCount,'One evaluation per new Opportunity required'); }
+Boolean simulation=mode=='Rehearse';
+if(simulation && checkpoint!=null) Database.rollback(checkpoint);
+System.debug('MULTI_MODULE_RESULT|'+JSON.serialize(new Map<String,Object>{
+    'dataset'=>'SDA-CROSS-MODULE-v1','mode'=>mode,'simulation'=>simulation,'beforeRows'=>before,
+    'insertedRows'=>fixture.inserted,'committedRows'=>simulation?0:fixture.inserted,'counts'=>fixture.counts,
+    'expectedRows'=>expected,'baselineMatches'=>fixture.existing==expected && fixture.drift.isEmpty(),
+    'drift'=>fixture.drift,'policyMatches'=>policyMatches,'evaluationCount'=>evaluationCount,
+    'manualBrowserTestsExecuted'=>false,'noExistingRecordsUpdated'=>true
+}));

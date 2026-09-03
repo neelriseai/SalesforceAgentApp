@@ -1,0 +1,71 @@
+{
+  "requirement": "BR-STRATEGIC-DISCOUNT",
+  "milestone": 2,
+  "currency": "USD",
+  "permissions_are_additive": true,
+  "direct_evidence_crud": "none",
+  "history_reader": "deferred; must authorize parent Opportunity first",
+  "real_user_assignments_made": false,
+  "personas": [
+    {
+      "name": "Strategic_Deal_User",
+      "opportunity": {
+        "read": true,
+        "create": true,
+        "edit": true,
+        "delete": false,
+        "view_all": false,
+        "modify_all": false
+      },
+      "input_fields_editable": true,
+      "outcome_fields_editable": false,
+      "api_enabled_grant": false,
+      "approval_authority": false
+    },
+    {
+      "name": "Regional_VP_Approver",
+      "opportunity": {
+        "read": true,
+        "create": false,
+        "edit": false,
+        "delete": false,
+        "view_all": false,
+        "modify_all": false
+      },
+      "input_fields_editable": false,
+      "outcome_fields_editable": false,
+      "api_enabled_grant": false,
+      "approval_authority": false
+    },
+    {
+      "name": "Change_Assurance_Integration",
+      "opportunity": {
+        "read": true,
+        "create": true,
+        "edit": true,
+        "delete": false,
+        "view_all": false,
+        "modify_all": false
+      },
+      "input_fields_editable": true,
+      "outcome_fields_editable": false,
+      "api_enabled_grant": true,
+      "approval_authority": false
+    },
+    {
+      "name": "Strategic_Deal_UI_Runner",
+      "opportunity": {
+        "read": true,
+        "create": true,
+        "edit": true,
+        "delete": false,
+        "view_all": false,
+        "modify_all": false
+      },
+      "input_fields_editable": true,
+      "outcome_fields_editable": false,
+      "api_enabled_grant": false,
+      "approval_authority": false
+    }
+  ]
+}

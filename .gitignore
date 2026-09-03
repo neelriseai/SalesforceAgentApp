@@ -1,0 +1,18 @@
+# Workspace-wide safeguards; the Salesforce project has additional exclusions.
+**/.sf/
+**/.sfdx/
+**/node_modules/
+**/artifacts/
+**/coverage/
+**/browser-profiles/
+**/logs/
+*.log
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+*.pem
+*.key
+auth*.json

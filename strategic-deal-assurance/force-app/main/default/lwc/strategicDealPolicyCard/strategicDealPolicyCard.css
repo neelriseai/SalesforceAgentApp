@@ -1,0 +1,8 @@
+:host { display: block; }
+.status { font-size: 1.3rem; font-weight: 700; color: #16325c; margin: .5rem 0; }
+.status_error { color: #ba0517; }
+.facts { display: grid; grid-template-columns: minmax(8rem, 1fr) 1.5fr; gap: .65rem 1rem; }
+.facts dt { color: #444; font-weight: 600; }
+.history li { border-top: 1px solid #ddd; padding: .8rem 0; }
+.loading { padding: .7rem 0; }
+@media (max-width: 420px) { .facts { grid-template-columns: 1fr; gap: .25rem; } .facts dd { margin-bottom: .6rem; } }

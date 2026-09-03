@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rule_Version__c</fullName>
+    <description>BR-STRATEGIC-DISCOUNT: Rule Version.</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <length>40</length>
+    <type>Text</type>
+    <label>Rule Version</label>
+</CustomField>

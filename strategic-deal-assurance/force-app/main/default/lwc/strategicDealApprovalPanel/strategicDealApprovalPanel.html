@@ -1,0 +1,31 @@
+<template>
+    <template lwc:if={recordId}>
+        <lightning-card title="Regional VP Approval" icon-name="standard:approval">
+            <div class="slds-p-around_medium">
+                <p>Native approval requests are separate from policy evaluations.</p>
+                <lightning-button label="Refresh approval" onclick={refresh} disabled={busy}></lightning-button>
+                <template lwc:if={state}>
+                    <p class="slds-m-top_small">Latest request: <strong data-testid="native-approval-status">{state.status}</strong></p>
+                    <template lwc:if={state.locked}><p>Record locked while approval is pending.</p></template>
+                    <template lwc:if={state.needsSeparateApprover}><p>Select an active Regional VP other than the deal owner before submitting.</p></template>
+                    <div class="slds-m-vertical_small">
+                        <template lwc:if={state.canSubmit}><lightning-button label="Submit for Approval" variant="brand" data-action="Submit" onclick={handleAction} disabled={busy}></lightning-button></template>
+                        <template lwc:if={state.canDecide}>
+                            <lightning-button label="Approve" variant="brand" data-action="Approve" onclick={handleAction} disabled={busy}></lightning-button>
+                            <lightning-button label="Reject" data-action="Reject" onclick={handleAction} disabled={busy}></lightning-button>
+                        </template>
+                        <template lwc:if={state.canRecall}><lightning-button label="Recall Approval" data-action="Recall" onclick={handleAction} disabled={busy}></lightning-button></template>
+                    </div>
+                    <template lwc:if={hasHistory}>
+                        <h3>Latest Request History</h3>
+                        <ul aria-label="Native approval history">
+                            <template for:each={rows} for:item="row"><li key={row.key}>{row.status} · <lightning-formatted-date-time value={row.occurredAt} year="numeric" month="short" day="2-digit" hour="2-digit" minute="2-digit"></lightning-formatted-date-time></li></template>
+                        </ul>
+                    </template>
+                </template>
+                <p role="status" aria-live="polite">{message}</p>
+                <template lwc:if={error}><p role="alert">{error}</p></template>
+            </div>
+        </lightning-card>
+    </template>
+</template>

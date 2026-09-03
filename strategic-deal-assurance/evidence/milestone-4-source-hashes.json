@@ -1,0 +1,106 @@
+{
+  "algorithm": "SHA-256",
+  "scope": "Milestone 4 approval metadata, component tests, four permission sets and related demo scripts; not entire repository",
+  "files": [
+    {
+      "path": "force-app/main/default/approvalProcesses/Opportunity.Strategic_Opportunity_Regional_VP.approvalProcess-meta.xml",
+      "sha256": "21f885d750d319f7ca1379e7808c77a05f271ba33c6e785caab1336c13a8ed4c"
+    },
+    {
+      "path": "force-app/main/default/classes/StrategicDealApprovalController.cls",
+      "sha256": "490826e027031f278096a092d14281b2670304a787226c63fc028bd382c7c2ae"
+    },
+    {
+      "path": "force-app/main/default/classes/StrategicDealApprovalController.cls-meta.xml",
+      "sha256": "7fb44201a93dd417225bd29008c7bf3ff37a3feb12b9ebb4c6d08a84388441cb"
+    },
+    {
+      "path": "force-app/main/default/classes/StrategicDealApprovalControllerTest.cls",
+      "sha256": "246738620854e729d3d65e489c207b4fec5c5e533299e54ea24a30a1cc44ff21"
+    },
+    {
+      "path": "force-app/main/default/classes/StrategicDealApprovalControllerTest.cls-meta.xml",
+      "sha256": "7fb44201a93dd417225bd29008c7bf3ff37a3feb12b9ebb4c6d08a84388441cb"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealApprovalPanel/__tests__/strategicDealApprovalPanel.test.js",
+      "sha256": "9c4a4e2cf783731ec6d7d4137c8856a8f7dd095cab1fc99cef406655ad6a350f"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealApprovalPanel/strategicDealApprovalPanel.html",
+      "sha256": "ec58324859703c990e021eb7f22162c107cfd6153a8775fe529c69e31bc44e7b"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealApprovalPanel/strategicDealApprovalPanel.js",
+      "sha256": "3ea9097533af30aff260bc1dbe8ee1dbf28c524519246f59c5d7f5ae26c96c80"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealApprovalPanel/strategicDealApprovalPanel.js-meta.xml",
+      "sha256": "ae261746d9ae35c02b385d69ce3fa241e38b95ee7dcd9db90bc6dbbf4f21dc21"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealWorkbench/__tests__/strategicDealWorkbench.test.js",
+      "sha256": "09005cc8f4b7dae824ddfafd4e1b47d69883b95fc6f870646cb97f706159c8ec"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealWorkbench/strategicDealWorkbench.css",
+      "sha256": "cac1f33113844151a0c7768b944919f49115cc7f0b8c4ab3547818c26bae6613"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealWorkbench/strategicDealWorkbench.html",
+      "sha256": "1d72a568fa0e9ab5e592950d11abf823498fd63465726f8387fce7f17025e46d"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealWorkbench/strategicDealWorkbench.js",
+      "sha256": "b964252b968f3c8eeea51f418932d41b38f5247cbe2d422f49dff6d01273acb2"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealWorkbench/strategicDealWorkbench.js-meta.xml",
+      "sha256": "b8075f1ae683e6bd1deadc8a8fd9c0d56653fdf44f8ce6dd66195a867fed69cf"
+    },
+    {
+      "path": "force-app/main/default/permissionsets/Change_Assurance_Integration.permissionset-meta.xml",
+      "sha256": "fe4f0f2d3732fddc1c46a1608a07366c720faec75dc505feab8f722585ef29f9"
+    },
+    {
+      "path": "force-app/main/default/permissionsets/Regional_VP_Approver.permissionset-meta.xml",
+      "sha256": "98fb49fb7ec540cf3a8de87092883932cd534364a5fcf9378d830d32aa130157"
+    },
+    {
+      "path": "force-app/main/default/permissionsets/Strategic_Deal_UI_Runner.permissionset-meta.xml",
+      "sha256": "21d07a7e32347494399a0bc73f54a83edecc2d1a0c97a620653762f9332bd83e"
+    },
+    {
+      "path": "force-app/main/default/permissionsets/Strategic_Deal_User.permissionset-meta.xml",
+      "sha256": "232edf88f6405ff9249e735bd853d00e2699f3d019d9357f02dbf866613c5097"
+    },
+    {
+      "path": "force-app/main/default/workflows/Opportunity.workflow-meta.xml",
+      "sha256": "93ca7bdb14c4947c7eafe324747aaaecf3daba15e9b1b883296300bee9ec9cf1"
+    },
+    {
+      "path": "manifest/milestone-4.xml",
+      "sha256": "89493b7c266251feba23a04c26f54e79db2e421814100d41006a93f916dde4da"
+    },
+    {
+      "path": "scripts/demo/create-regional-vp.apex",
+      "sha256": "d23cb772521fb55d501a4a8fe71538feb6c268a8b0c32145488dd9c352a444bf"
+    },
+    {
+      "path": "scripts/demo/reset-baseline.apex.template",
+      "sha256": "3a47c8def66301b234f38a166194c0133dfac8e19ee2274e106565fb473674b0"
+    },
+    {
+      "path": "scripts/demo/reset-baseline.ps1",
+      "sha256": "754eeaf6732c7cb9b80ce15c7d82934df3e682f28493a00324b7f7938fcc86b8"
+    },
+    {
+      "path": "scripts/demo/test-reset-local.ps1",
+      "sha256": "4ebc4c1d74f250c94bd1f6b7ab7a9603fbf17f8940e22d813ba66d5ebbac8a13"
+    },
+    {
+      "path": "scripts/test-milestone-4.ps1",
+      "sha256": "362de75b318ba5d2d67e4ae16b9fbc18427c6af8190abdd02baf40171e30b077"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+// Local operator utility, not a deployed class or client endpoint. No deletes; Apply never writes outcomes. Rehearse includes rolled-back test drift.
+String mode='__MODE__';
+Boolean writeMode=mode=='Apply' || mode=='Rehearse';
+Savepoint checkpoint=Database.setSavepoint();
+String fingerprint=EncodingUtil.convertToHex(Crypto.generateDigest('SHA-256', Blob.valueOf(UserInfo.getOrganizationId())));
+System.assertEquals('__ORG_FINGERPRINT__', fingerprint, 'Demo org binding mismatch');
+System.assertEquals('Developer Edition', [SELECT OrganizationType FROM Organization WITH USER_MODE LIMIT 1].OrganizationType, 'Developer Edition only');
+System.assertEquals('USD', UserInfo.getDefaultCurrency(), 'USD only');
+Id profileId=UserInfo.getProfileId();
+System.assert([SELECT PermissionsModifyAllData FROM Profile WHERE Id=:profileId WITH USER_MODE].PermissionsModifyAllData,'Administrative operator profile required; this utility never grants access');
+Map<String,Object> plan=(Map<String,Object>)JSON.deserializeUntyped(EncodingUtil.base64Decode('__PLAN_BASE64__').toString());
+String dataset=(String)plan.get('dataset');
+String ruleVersion=(String)plan.get('ruleVersion');
+Strategic_Discount_Rule__mdt rule=Strategic_Discount_Rule__mdt.getInstance('Default');
+System.assert(rule!=null && rule.Active__c && rule.Minimum_Amount_INR__c==50000000 && rule.Discount_Threshold_Percent__c==15 && rule.Rule_Version__c=='baseline-15', 'Baseline policy differs; no data changes allowed');
+System.assertEquals('baseline-15',ruleVersion,'Unexpected plan version');
+String accountName=(String)plan.get('accountName');
+String accountMarker=dataset+'|account';
+Id operatorId=UserInfo.getUserId();
+List<User> demoApprovers=[SELECT Id FROM User WHERE Alias='sdademvp' AND FirstName='Synthetic' AND LastName='Regional VP' AND IsActive=true WITH USER_MODE];
+System.assert(demoApprovers.size()<=1,'Ambiguous demo approver; resolve before resetting');
+Id demoApproverId=demoApprovers.isEmpty()?operatorId:demoApprovers[0].Id;
+List<Object> cases=(List<Object>)plan.get('cases');
+System.assertEquals(7,cases.size(),'Expected seven explicit fixtures');
+Set<String> names=new Set<String>(); Set<String> markers=new Set<String>();
+Map<String,Map<String,Object>> casesByMarker=new Map<String,Map<String,Object>>();
+for(Object item:cases) {
+    Map<String,Object> c=(Map<String,Object>)item;
+    String name=(String)c.get('name'); String marker=dataset+'|'+(String)c.get('key');
+    System.assert(name.startsWith('SYN-SDA-'),'Synthetic names required');
+    names.add(name); markers.add(marker); casesByMarker.put(marker,c);
+}
+System.assertEquals(7,names.size(),'Duplicate names'); System.assertEquals(7,markers.size(),'Duplicate markers');
+List<Account> accounts=[SELECT Id, Name, AccountNumber, OwnerId FROM Account WHERE Name=:accountName OR AccountNumber=:accountMarker WITH USER_MODE FOR UPDATE];
+System.assert(accounts.size()<=1,'Account collision: nothing may be overwritten');
+Account account;
+Boolean accountCreated=false; Boolean accountChanged=false;
+if(!accounts.isEmpty()) {
+    account=accounts[0];
+    System.assert(account.AccountNumber==accountMarker && account.OwnerId==operatorId,'Account is not owned by this dataset/operator');
+    accountChanged=account.Name!=accountName;
+} else { account=new Account(Name=accountName,AccountNumber=accountMarker); accountCreated=true; }
+List<Opportunity> existing=[SELECT Id, Name, NextStep, OwnerId, AccountId, StageName, CloseDate,
+    Amount, Discount__c, Strategic_Deal__c, Regional_VP_Approver__c, Approval_Status__c, Policy_Rule_Version__c
+    FROM Opportunity WHERE Name IN :names OR NextStep IN :markers WITH USER_MODE FOR UPDATE];
+Map<String,Opportunity> byMarker=new Map<String,Opportunity>();
+for(Opportunity row:existing) {
+    System.assert(markers.contains(row.NextStep) && row.OwnerId==operatorId,'Fixture collision or ownership changed; refusing to adopt record');
+    System.assert(!byMarker.containsKey(row.NextStep),'Duplicate fixture marker');
+    byMarker.put(row.NextStep,row);
+}
+System.assert(existing.size()<=7,'Unexpected record count');
+Set<Id> initialIds=new Map<Id,Opportunity>(existing).keySet();
+System.assertEquals(0,[SELECT COUNT() FROM ProcessInstance WHERE TargetObjectId IN :initialIds AND Status='Pending' WITH USER_MODE],'Finish or recall outstanding native approvals before resetting demo data');
+Integer evidenceBefore=[SELECT COUNT() FROM Strategic_Deal_Evaluation__c WHERE Opportunity__c IN :initialIds WITH USER_MODE];
+Integer rehearsalActions=0;
+if(mode=='Rehearse') {
+    System.assertEquals(7,existing.size(),'Apply the baseline before rehearsing reset');
+    Opportunity drift=byMarker.get(dataset+'|discount-above');
+    // Relevant input drift, followed by an output-only approved state, all rolled back below.
+    update as user new Opportunity(Id=drift.Id,Discount__c=16);
+    Opportunity outcomeDrift=byMarker.get(dataset+'|discount-exact');
+    update as user new Opportunity(Id=outcomeDrift.Id,Approval_Status__c='Approved');
+    drift.Discount__c=16; outcomeDrift.Approval_Status__c='Approved'; rehearsalActions=1;
+}
+List<Opportunity> creates=new List<Opportunity>(); List<Opportunity> updates=new List<Opportunity>();
+List<Opportunity> forceEvaluation=new List<Opportunity>();
+Integer expectedNewEvidence=rehearsalActions;
+List<String> changedKeys=new List<String>();
+if(writeMode && accountCreated) { insert as user account; }
+else if(writeMode && accountChanged) { update as user new Account(Id=account.Id,Name=accountName); }
+for(Object item:cases) {
+    Map<String,Object> c=(Map<String,Object>)item;
+    String marker=dataset+'|'+(String)c.get('key');
+    Opportunity old=byMarker.get(marker);
+    Decimal amount=c.get('amount')==null?null:Decimal.valueOf(String.valueOf(c.get('amount')));
+    Decimal discount=c.get('discount')==null?null:Decimal.valueOf(String.valueOf(c.get('discount')));
+    Id approver=(Boolean)c.get('approverPresent')?demoApproverId:null;
+    Opportunity desired=new Opportunity(Name=(String)c.get('name'),NextStep=marker,AccountId=account.Id,
+        StageName=(String)plan.get('stage'),CloseDate=Date.valueOf((String)plan.get('closeDate')),
+        Amount=amount,Discount__c=discount,Strategic_Deal__c=(Boolean)c.get('strategic'),Regional_VP_Approver__c=approver);
+    if(old==null) { creates.add(desired); changedKeys.add((String)c.get('key')); expectedNewEvidence++; continue; }
+    Boolean relevant=old.Amount!=amount || old.Discount__c!=discount || old.Strategic_Deal__c!=desired.Strategic_Deal__c || old.Regional_VP_Approver__c!=approver;
+    Boolean outcome=old.Approval_Status__c!=(String)c.get('expectedStatus') || old.Policy_Rule_Version__c!=ruleVersion;
+    Boolean other=old.Name!=desired.Name || old.AccountId!=account.Id || old.StageName!=desired.StageName || old.CloseDate!=desired.CloseDate;
+    if(relevant || outcome || other) {
+        desired.Id=old.Id; updates.add(desired); changedKeys.add((String)c.get('key'));
+        if(outcome && !relevant) {
+            // Re-evaluate through real input changes, never assign a derived outcome in Apply.
+            forceEvaluation.add(new Opportunity(Id=old.Id,Strategic_Deal__c=!old.Strategic_Deal__c));
+            expectedNewEvidence+=2;
+        } else if(relevant) { expectedNewEvidence++; }
+    }
+}
+if(writeMode) {
+    if(!forceEvaluation.isEmpty()) { update as user forceEvaluation; }
+    if(!updates.isEmpty()) { update as user updates; }
+    if(!creates.isEmpty()) { insert as user creates; }
+}
+if(mode=='Verify') {
+    System.assert(!accountCreated && !accountChanged && changedKeys.isEmpty(),'Dataset differs from baseline; run Preview');
+}
+List<Object> verified=new List<Object>(); Integer evidenceAfter=evidenceBefore;
+if(mode!='Preview') {
+    Set<Id> verifiedIds=new Set<Id>(); verifiedIds.addAll(initialIds);
+    for(Opportunity created:creates) { if(created.Id!=null) { verifiedIds.add(created.Id); } }
+    List<Opportunity> actual=[SELECT Id,Name,NextStep,Amount,Discount__c,Strategic_Deal__c,Regional_VP_Approver__c,
+        Approval_Status__c,Approval_Reason__c,Policy_Rule_Version__c,Policy_Evaluated_At__c
+        FROM Opportunity WHERE Id IN :verifiedIds WITH USER_MODE];
+    System.assertEquals(7,actual.size(),'Seven fixtures required');
+    Set<Id> actualIds=new Map<Id,Opportunity>(actual).keySet();
+    evidenceAfter=[SELECT COUNT() FROM Strategic_Deal_Evaluation__c WHERE Opportunity__c IN :actualIds WITH USER_MODE];
+    if(writeMode) { System.assertEquals(expectedNewEvidence,evidenceAfter-evidenceBefore,'Exactly one evaluation per relevant action, including re-evaluation pairs'); }
+    for(Opportunity row:actual) {
+        Map<String,Object> c=casesByMarker.get(row.NextStep);
+        System.assertEquals((String)c.get('expectedStatus'),row.Approval_Status__c,'Independent expected status');
+        System.assertEquals(ruleVersion,row.Policy_Rule_Version__c,'Applied version');
+        Decimal expectedAmount=c.get('amount')==null?null:Decimal.valueOf(String.valueOf(c.get('amount')));
+        Decimal expectedDiscount=c.get('discount')==null?null:Decimal.valueOf(String.valueOf(c.get('discount')));
+        System.assertEquals(expectedAmount,row.Amount,'Amount restored');
+        System.assertEquals(expectedDiscount,row.Discount__c,'Discount restored');
+        System.assertEquals((Boolean)c.get('strategic'),row.Strategic_Deal__c,'Strategic restored');
+        System.assertEquals((Boolean)c.get('approverPresent'),row.Regional_VP_Approver__c!=null,'Approver restored');
+        System.assert(row.Policy_Evaluated_At__c!=null && String.isNotBlank(row.Approval_Reason__c),'Evaluation output required');
+        verified.add(new Map<String,Object>{'case'=>(String)c.get('key'),'obligation'=>(String)c.get('obligation'),'status'=>row.Approval_Status__c,'verified'=>true});
+    }
+    Opportunity above;
+    for(Opportunity row:actual) { if(row.NextStep==dataset+'|discount-above') { above=row; } }
+    StrategicDealPolicyController.PolicyView card=StrategicDealPolicyController.getPolicy(above.Id);
+    System.assert(!card.history.isEmpty(),'Sample parent-authorized history required');
+    System.assertEquals('Pending Regional VP',card.history[0].outcome,'Sample latest evidence outcome');
+    System.assertEquals(15.01,card.history[0].discount,'Sample latest evidence discount');
+    System.assertEquals(50000000.01,card.history[0].amount,'Sample latest evidence amount');
+    System.assertEquals('baseline-15',card.history[0].ruleVersion,'Sample latest evidence version');
+}
+if(mode=='Rehearse') { Database.rollback(checkpoint); }
+System.debug(LoggingLevel.ERROR,'DEMO_DATA_RESULT|'+JSON.serialize(new Map<String,Object>{
+    'mode'=>mode,'dataset'=>dataset,'currency'=>'USD','ruleVersion'=>ruleVersion,'separateDemoApprover'=>demoApproverId!=operatorId,
+    'existingOpportunities'=>existing.size(),'plannedCreates'=>creates.size(),'plannedUpdates'=>updates.size(),
+    'accountCreate'=>accountCreated,'accountRename'=>accountChanged,'reevaluationPairs'=>forceEvaluation.size(),
+    'changedCases'=>changedKeys,'evidenceBefore'=>evidenceBefore,'evidenceAfter'=>evidenceAfter,
+    'rolledBack'=>mode=='Rehearse','deletedRecords'=>0,'verifiedCases'=>verified
+}));

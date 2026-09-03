@@ -1,0 +1,441 @@
+{
+  "dataset": "SDA-CROSS-MODULE-v1",
+  "manualExecutionStatus": "NOT_RUN",
+  "cases": [
+    {
+      "id": "MM-01",
+      "title": "Account hierarchy and subsidiary reassignment",
+      "modules": [
+        "Account"
+      ],
+      "objective": "Verify that changing a subsidiary's parent updates the account hierarchy without moving its contacts or deals.",
+      "actor": "Original demo administrator (business-operator stand-in)",
+      "fixtures": [
+        "SYN-MM-A06 Customer",
+        "SYN-MM-A02 Group",
+        "SYN-MM-A01 Group"
+      ],
+      "precondition": "A06 belongs to A02; A01 and A02 each have five seeded children. A06 has contacts C04–C06 and deals O03–O04.",
+      "steps": [
+        [
+          "Open Accounts, choose All Accounts, search SYN-MM-A06 and open the Customer record.",
+          "Account Name is SYN-MM-A06 Customer; Parent Account is SYN-MM-A02 Group."
+        ],
+        [
+          "Use the account's View Account Hierarchy action (often in the action dropdown).",
+          "A06 is shown under A02."
+        ],
+        [
+          "Edit A06. Change only Parent Account to SYN-MM-A01 Group and save.",
+          "A06 saves under A01; no new Account is created."
+        ],
+        [
+          "Reopen the hierarchy and A06's Related tab.",
+          "A01 now has six seeded children and A02 four. A06 still has contacts C04–C06 and deals O03–O04."
+        ],
+        [
+          "Reload the record and inspect Parent Account again.",
+          "The changed parent persists; the account retains its original name and marker."
+        ]
+      ],
+      "negative": "Do not select a non-SYN account as parent. Moving a parent is not an instruction to move contact/account lookups.",
+      "cleanup": "Restore A06 Parent Account to SYN-MM-A02 Group; confirm five seeded children under each group.",
+      "evidence": "Before/after hierarchy and the unchanged contact/deal lists."
+    },
+    {
+      "id": "MM-02",
+      "title": "Contact reassignment between customer accounts",
+      "modules": [
+        "Contact",
+        "Account",
+        "Case"
+      ],
+      "objective": "Verify contact-to-account reassignment and detect that an existing case's Account is not automatically rewritten.",
+      "actor": "Original demo administrator",
+      "fixtures": [
+        "Synthetic SYN-MM-C04",
+        "SYN-MM-A06 Customer",
+        "SYN-MM-A07 Customer",
+        "SYN-MM-S04 Support"
+      ],
+      "precondition": "C04 belongs to A06. S04 links C04 and A06. A06 and A07 each have three seeded contacts.",
+      "steps": [
+        [
+          "Open Contacts, use an all-records list and search SYN-MM-C04.",
+          "The record is Synthetic SYN-MM-C04; Account is A06; the email ends in example.invalid."
+        ],
+        [
+          "Edit the Contact's Account Name to SYN-MM-A07 Customer; leave Name and Description unchanged; save.",
+          "C04 now links A07."
+        ],
+        [
+          "Open A06 and A07 > Related > Contacts.",
+          "A06 has two seeded contacts; A07 has four. C04 appears under A07."
+        ],
+        [
+          "Open SYN-MM-S04 Support and inspect Contact Name and Account Name.",
+          "Contact remains C04; Case Account remains A06. Native contact reassignment does not promise a case-account cascade."
+        ],
+        [
+          "Reload C04 and then restore its Account to A06.",
+          "C04 returns to A06 and both accounts again have three seeded contacts."
+        ]
+      ],
+      "negative": "If the business wants automatic case-account alignment, that is a new rule to design—not behavior to assume from this fixture.",
+      "cleanup": "Restore C04 to A06. Do not modify S04's customer relationship during this test.",
+      "evidence": "Contact and both account lists before/after; S04's unchanged relationships."
+    },
+    {
+      "id": "MM-03",
+      "title": "Lead qualification and conversion into a customer deal",
+      "modules": [
+        "Lead",
+        "Account",
+        "Contact",
+        "Opportunity"
+      ],
+      "objective": "Verify native lead conversion links an existing customer to a new contact and a new synthetic Opportunity.",
+      "actor": "Original demo administrator",
+      "fixtures": [
+        "Synthetic SYN-MM-L30",
+        "SYN-MM-A24 Customer"
+      ],
+      "precondition": "Run this test LAST. L30 is unconverted and is not one of the seeded campaign members. Conversion is a one-way business operation in the normal UI.",
+      "steps": [
+        [
+          "Open Leads, choose All Open Leads or an equivalent all-records list, and find SYN-MM-L30.",
+          "Lead is Synthetic SYN-MM-L30; Company is SYN-MM-L30 Prospect; Status is Open - Not Contacted."
+        ],
+        [
+          "Edit Status to Working - Contacted and save.",
+          "The qualification state persists; the record is still a Lead."
+        ],
+        [
+          "Use Convert. Select existing Account SYN-MM-A24 Customer, choose to create a new Contact, and create a new Opportunity named SYN-MM-L30 Converted Deal.",
+          "The conversion form identifies only the synthetic customer and new synthetic records. Disable optional notification-email choices if shown."
+        ],
+        [
+          "Confirm Convert and open the resulting Account, Contact and Opportunity links.",
+          "Exactly one new Contact and one new Opportunity are linked to A24; no additional Account was requested."
+        ],
+        [
+          "Inspect the converted Lead or conversion confirmation and the new Opportunity.",
+          "Lead is converted. The Opportunity is named SYN-MM-L30 Converted Deal; its Account is A24. With no qualifying strategic inputs entered, policy status is Not Required."
+        ],
+        [
+          "Search the ordinary open-lead list for L30, then inspect A24's Related lists.",
+          "L30 no longer appears as an open Lead. A24 has the new Contact and Opportunity in addition to its original fixtures."
+        ]
+      ],
+      "negative": "Do not convert twice or reuse a similarly named real prospect. If duplicate detection appears, review the exact synthetic matches instead of bypassing it blindly.",
+      "cleanup": "No automatic unconvert or deletion. Record the conversion as consumed; use unconverted L29, then L28, on later runs with corresponding unique Opportunity names. Verify reports Lead status drift intentionally.",
+      "evidence": "Conversion confirmation plus the three linked records; capture only synthetic record details."
+    },
+    {
+      "id": "MM-04",
+      "title": "Opportunity pipeline progression without policy-input changes",
+      "modules": [
+        "Opportunity",
+        "Account"
+      ],
+      "objective": "Verify sales-stage changes persist while the strategic policy and evaluation count stay unchanged when policy inputs did not change.",
+      "actor": "Original demo administrator",
+      "fixtures": [
+        "SYN-MM-O01 Deal",
+        "SYN-MM-A05 Customer"
+      ],
+      "precondition": "O01: Prospecting, USD 101,000, 5% discount, strategic=false, policy Not Required, one initial evaluation.",
+      "steps": [
+        [
+          "Open Opportunities in Strategic Deal Assurance; use All Opportunities and search SYN-MM-O01.",
+          "The workbench shows the expected input values and Not Required."
+        ],
+        [
+          "Record the existing evaluation-history count and newest timestamp. Change only Stage to Qualification; click Save and Evaluate.",
+          "Stage becomes Qualification; policy remains Not Required; no new policy evaluation is created."
+        ],
+        [
+          "Change only Stage to Closed Won and save.",
+          "Stage is Closed Won. Amount stays USD 101,000 and policy stays Not Required."
+        ],
+        [
+          "Reload the Opportunity and inspect its Account's related Opportunities.",
+          "The same deal appears as Closed Won under A05; no duplicate Opportunity was created."
+        ],
+        [
+          "Compare evaluation history with the first step.",
+          "The count and newest evaluation timestamp are unchanged. A stage-only change is not a strategic-input change."
+        ]
+      ],
+      "negative": "Do not change Amount, Discount, Strategic Deal or Regional VP Approver in this test: those are policy inputs and would create evaluation evidence.",
+      "cleanup": "Restore Stage to Prospecting, leaving the other values unchanged.",
+      "evidence": "Before/after stage, amount, policy status and evaluation history."
+    },
+    {
+      "id": "MM-05",
+      "title": "Buying-team contact roles and primary contact",
+      "modules": [
+        "Opportunity",
+        "Contact",
+        "OpportunityContactRole"
+      ],
+      "objective": "Verify a deal can retain multiple buying-team contacts while changing its primary contact and role.",
+      "actor": "Original demo administrator",
+      "fixtures": [
+        "SYN-MM-O03 Deal",
+        "Synthetic SYN-MM-C04",
+        "Synthetic SYN-MM-C05"
+      ],
+      "precondition": "O03 belongs to A06; C04 is the primary Decision Maker and C05 is the non-primary Technical Buyer.",
+      "steps": [
+        [
+          "Open O03 and find Related > Contact Roles. If the app's custom record page has no Related tab, open the same Opportunity in the standard Sales app.",
+          "There are two roles: C04 Decision Maker (primary), C05 Technical Buyer."
+        ],
+        [
+          "Use Edit Contact Roles or the related-list edit action. Make C05 the primary contact and change its role to Economic Buyer.",
+          "After saving, C05 is primary and its role is Economic Buyer."
+        ],
+        [
+          "Reload the Contact Roles list and count the primary flags.",
+          "Exactly two contacts remain linked and exactly one is primary; C04 is no longer primary."
+        ],
+        [
+          "Open C04 and C05 and inspect their Account links.",
+          "Both still belong to A06. Changing deal roles does not reparent the Contacts."
+        ],
+        [
+          "Inspect O03's strategic policy/history.",
+          "No policy-input changes were made, so the policy result and evaluation count remain unchanged."
+        ]
+      ],
+      "negative": "Do not add a duplicate role for the same Opportunity/Contact pair. If the UI cannot edit roles, report access/layout behavior rather than change global security.",
+      "cleanup": "Restore C04 as primary Decision Maker and C05 as non-primary Technical Buyer.",
+      "evidence": "Both contact roles, the single primary flag and unchanged Contact accounts."
+    },
+    {
+      "id": "MM-06",
+      "title": "Customer support case triage and closure",
+      "modules": [
+        "Case",
+        "Account",
+        "Contact"
+      ],
+      "objective": "Verify manual case triage, priority changes and resolution while preserving the customer/contact links.",
+      "actor": "Original demo administrator (service-operator stand-in)",
+      "fixtures": [
+        "SYN-MM-S01 Support",
+        "SYN-MM-A05 Customer",
+        "Synthetic SYN-MM-C01"
+      ],
+      "precondition": "S01: New, Medium, Origin Web, Account A05, Contact C01. No custom SLA or automatic escalation rule is part of this scenario.",
+      "steps": [
+        [
+          "Open Cases; choose All Cases and find Subject SYN-MM-S01 Support.",
+          "Status New, Priority Medium, Account A05 and Contact C01 are visible."
+        ],
+        [
+          "Edit Status to Working and Priority to High, then save.",
+          "The case persists as Working/High; account and contact remain unchanged."
+        ],
+        [
+          "Open the Account and Contact from the Case and inspect their related cases.",
+          "The same S01 is associated with the intended synthetic customer/contact."
+        ],
+        [
+          "Return to the Case and set Status to Closed (or use Close Case). Leave any optional email-notification checkbox off.",
+          "Case is closed; the record is retained and relationships are unchanged."
+        ],
+        [
+          "Reload the record; compare open versus all-case lists.",
+          "It no longer qualifies for an open-case list but remains available in All Cases."
+        ]
+      ],
+      "negative": "Escalation here is manual status/priority management, not a timed SLA, email-to-case integration or real customer notification.",
+      "cleanup": "Reopen by restoring Status New and Priority Medium. Keep the Description marker and links unchanged.",
+      "evidence": "Working/High and Closed states, case number/subject, and linked Account/Contact."
+    },
+    {
+      "id": "MM-07",
+      "title": "Case follow-up task and activity completion",
+      "modules": [
+        "Task",
+        "Case",
+        "Contact"
+      ],
+      "objective": "Verify an assigned follow-up task is linked to both the correct case and person and moves to completed activity.",
+      "actor": "Original demo administrator",
+      "fixtures": [
+        "SYN-MM-T41 Follow Up",
+        "SYN-MM-S01 Support",
+        "Synthetic SYN-MM-C01"
+      ],
+      "precondition": "T41: Not Started, Normal priority, due 2026-12-15, Assigned To current operator, Related To S01, Name C01.",
+      "steps": [
+        [
+          "Open Tasks, use an all-tasks list, and search SYN-MM-T41 Follow Up.",
+          "Confirm the expected assignee, due date, Related To case and Name contact."
+        ],
+        [
+          "Open the Related To case and check its activity timeline; return to the Task.",
+          "The task is associated with S01, not another support case."
+        ],
+        [
+          "Change Task Status to In Progress and save.",
+          "Status persists; the due date and relationships do not change."
+        ],
+        [
+          "Mark the task Complete or edit Status to Completed.",
+          "Task is Completed and is shown among past/completed activities."
+        ],
+        [
+          "Open S01 and C01 and inspect available activity timelines, expanding completed activity if needed.",
+          "The completed follow-up still refers to the same case/contact; it was not deleted."
+        ]
+      ],
+      "negative": "Do not use Send Email or assign the task to a real unrelated user. Completing a task does not automatically close its Case.",
+      "cleanup": "Restore Task Status Not Started. Retain the original due date, owner and relationships.",
+      "evidence": "Task relationship fields plus the completed activity state."
+    },
+    {
+      "id": "MM-08",
+      "title": "Campaign member response tracking",
+      "modules": [
+        "Campaign",
+        "CampaignMember",
+        "Contact",
+        "Lead"
+      ],
+      "objective": "Verify changing one member's response updates campaign response tracking without duplicating members or sending a message.",
+      "actor": "Original demo administrator with the user-approved Marketing User setting",
+      "fixtures": [
+        "SYN-MM-M01 Outreach",
+        "Synthetic SYN-MM-C01",
+        "SYN-MM-M03 Outreach"
+      ],
+      "precondition": "Four Campaigns exist, with ten members each. M01/M02 have Contacts; M03/M04 have Leads. All forty members initially have Status Sent.",
+      "steps": [
+        [
+          "Open Campaigns, choose All Campaigns and open SYN-MM-M01 Outreach.",
+          "Campaign is active and Planned; its Campaign Members list contains ten Contacts."
+        ],
+        [
+          "Find Synthetic SYN-MM-C01 in Campaign Members and open Edit for that member.",
+          "The membership status is Sent. This is a status label, not evidence an email was sent."
+        ],
+        [
+          "Change only the member Status to Responded and save.",
+          "The same member is now Responded; member count remains ten."
+        ],
+        [
+          "Refresh campaign statistics and the Campaign Members list.",
+          "One member is responded (initially none); membership count did not increase."
+        ],
+        [
+          "Open C01 and check Campaign History, then inspect M03's member list.",
+          "C01 remains linked to M01. M03 contains ten Lead members, demonstrating both supported person types."
+        ]
+      ],
+      "negative": "Do not click Send List Email or any campaign-send action. This use case does not send marketing communications.",
+      "cleanup": "Restore C01's M01 membership Status to Sent; response count returns to its prior value.",
+      "evidence": "Member before/after status and unchanged total membership count."
+    },
+    {
+      "id": "MM-09",
+      "title": "User separation, assigned approval and rejection",
+      "modules": [
+        "User",
+        "Opportunity",
+        "ApprovalProcess"
+      ],
+      "objective": "Verify the owner submits a deal, the separate VP can decide it but cannot edit its inputs, and rejection preserves native history.",
+      "actor": "Two sessions: original demo owner/administrator and Synthetic Regional VP",
+      "fixtures": [
+        "SYN-MM-O02 Deal",
+        "Synthetic Regional VP"
+      ],
+      "precondition": "O02: USD 60m, 20% discount, strategic=true, VP lookup set, Pending Regional VP policy eligibility, no native request initially. The VP uses the activated account and separate browser session.",
+      "steps": [
+        [
+          "As owner, open O02 and confirm the input values and VP lookup. Click Submit for Approval in Regional VP Approval.",
+          "Latest native request becomes Pending. The owner is offered Recall, not the app's Approve/Reject."
+        ],
+        [
+          "In the separate VP session, open the same Opportunity and refresh the approval panel.",
+          "The assigned VP sees Approve and Reject."
+        ],
+        [
+          "Inspect the deal-input area as VP. Do not attempt to work around its permissions.",
+          "The VP cannot save input changes. Save and Evaluate may still be visible because the current workbench does not hide it by role; failed saving must not change the record."
+        ],
+        [
+          "As VP, click Reject.",
+          "Native request and Opportunity approval status become Rejected. The final decision is recorded and the ordinary-user approval lock is released."
+        ],
+        [
+          "As owner, refresh the page and try to locate a valid Submit action without changing inputs.",
+          "The app does not offer an unchanged rejected record for resubmission. History shows rejection."
+        ],
+        [
+          "As owner, change Discount to 21 and Save and Evaluate; submit the newly eligible deal; then Recall Approval as the owner.",
+          "A fresh evaluation yields Pending Regional VP; a second native request can be submitted and recalled. Its native status becomes Removed and policy status returns to Pending Regional VP."
+        ]
+      ],
+      "negative": "Never demonstrate owner/approver separation using an administrator override. This demo owner is an admin, so ordinary-owner edit locking is established by the separate Apex security tests, not this owner's UI session.",
+      "cleanup": "Ensure there is no pending request. Restore Discount to 20 via Save and Evaluate. Native history and extra evaluation rows remain intentionally; do not delete them.",
+      "evidence": "Separate-session action availability, rejection, second-request recall and final eligibility. No passwords or activation links."
+    },
+    {
+      "id": "MM-10",
+      "title": "Customer 360 relationship reconciliation",
+      "modules": [
+        "Account",
+        "Contact",
+        "Opportunity",
+        "Case",
+        "Task",
+        "CampaignMember"
+      ],
+      "objective": "Trace a customer's sales, service, buying-team and follow-up records and verify counts/relationships across modules.",
+      "actor": "Original demo administrator",
+      "fixtures": [
+        "SYN-MM-A05 Customer",
+        "SYN-MM-A01 Group",
+        "Synthetic SYN-MM-C01 through C03",
+        "SYN-MM-O01 Deal",
+        "SYN-MM-O02 Deal",
+        "SYN-MM-S01 through S03"
+      ],
+      "precondition": "Run before mutations or after their documented cleanup. These are native related lists, not a newly built Customer 360 dashboard.",
+      "steps": [
+        [
+          "Open A05 and inspect Details and Related lists.",
+          "Parent is A01; there are three seeded Contacts (C01–C03), two Opportunities (O01–O02) and three Cases (S01–S03)."
+        ],
+        [
+          "Open both Opportunities and verify Account, Amount, and Contact Roles.",
+          "Both belong to A05. Amounts are USD 101,000 and USD 60,000,000, totaling USD 60,101,000. Each has C01 and C02 as its two buying-team contacts."
+        ],
+        [
+          "Open each of the three Cases and follow its Contact link.",
+          "S01→C01, S02→C02, S03→C03; all three Cases also point to A05."
+        ],
+        [
+          "Find tasks T01–T03, T21–T22 and T41–T43 in Tasks and inspect their relationship fields.",
+          "Eight seeded tasks connect to this customer: three directly to A05, two to its deals and three to its cases. These may not all aggregate into one Account timeline."
+        ],
+        [
+          "Inspect C01–C03's Campaign History or M01's Campaign Members list.",
+          "All three are members of M01. No duplicate Contact record is required to link sales, service and marketing."
+        ],
+        [
+          "Record the counts and compare every link with the expected graph.",
+          "All joins resolve to the same synthetic customer. A similarly named unrelated record is a failure, even if aggregate counts happen to match."
+        ]
+      ],
+      "negative": "Do not treat record-name resemblance as proof of a relationship. Open the lookup links; do not assume account-level automatic activity or campaign rollups.",
+      "cleanup": "Read-only test; no cleanup needed. Restore earlier scenario mutations before claiming a pristine baseline.",
+      "evidence": "Related-list counts, lookup links and the USD 60,101,000 two-deal total."
+    }
+  ]
+}

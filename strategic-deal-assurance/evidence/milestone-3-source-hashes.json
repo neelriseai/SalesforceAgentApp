@@ -1,0 +1,110 @@
+{
+  "algorithm": "SHA-256",
+  "scope": "Milestone 3 metadata, component tests and dependency lockfile; not entire repo",
+  "files": [
+    {
+      "path": "force-app/main/default/applications/Strategic_Deal_Assurance.app-meta.xml",
+      "sha256": "4e8d2dbf7bf621acc34ce29b9985e4a3ded38ce0528c5f95bf943767378fe826"
+    },
+    {
+      "path": "force-app/main/default/classes/StrategicDealPolicyController.cls",
+      "sha256": "43f281d336ffbb80d9c3a61facb86cfdb41caa4d301b21fdb1598fb18e9b3895"
+    },
+    {
+      "path": "force-app/main/default/classes/StrategicDealPolicyController.cls-meta.xml",
+      "sha256": "2803aed01637a2ce67332e033cb342ccf04bfddbbd387f6f56edd31a29e42c7b"
+    },
+    {
+      "path": "force-app/main/default/classes/StrategicDealPolicyControllerTest.cls",
+      "sha256": "d262847bcd17978da3945313ad6acf7b8cda628eb094511b85e005efe3e5fa67"
+    },
+    {
+      "path": "force-app/main/default/classes/StrategicDealPolicyControllerTest.cls-meta.xml",
+      "sha256": "2803aed01637a2ce67332e033cb342ccf04bfddbbd387f6f56edd31a29e42c7b"
+    },
+    {
+      "path": "force-app/main/default/classes/StrategicDiscountFlowTest.cls",
+      "sha256": "99f759448efa804dad7e5120c3ce649cf8c45deeab6f130961eb5f35879c9ea8"
+    },
+    {
+      "path": "force-app/main/default/flexipages/Strategic_Deal_Record_Page.flexipage-meta.xml",
+      "sha256": "66d55c30e3879eda21f310b090371a54e101307ead93be751760925f59ad3801"
+    },
+    {
+      "path": "force-app/main/default/flexipages/Strategic_Deal_Workbench.flexipage-meta.xml",
+      "sha256": "9a92eaed796ff01b053b3e4b15544049eba26156cb8959258a7c9b2e6cca25d2"
+    },
+    {
+      "path": "force-app/main/default/layouts/Opportunity-Strategic Deal Layout.layout-meta.xml",
+      "sha256": "699524d82271a286c32b5938dfd1b0003bb8f82f4db4a3314cfa3933e6e0f16c"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealPolicyCard/__tests__/strategicDealPolicyCard.test.js",
+      "sha256": "0a1fa0815566f0ed4869eab47690bbbfe8ac0329262d13e5bceda3dfcd0f86f7"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealPolicyCard/strategicDealPolicyCard.css",
+      "sha256": "0bd11d558c9cc737df45059318de690dea5a85c61de5497e4185ece78b679b51"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealPolicyCard/strategicDealPolicyCard.html",
+      "sha256": "1b455cd0b4bb9fefeeef5e4467babd73e0917d89499c4082f92f2b229491cb7f"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealPolicyCard/strategicDealPolicyCard.js",
+      "sha256": "49a9929cccd23ea9977e53af514a53a21c6915e9b8c7ebfefa0110a6415dda71"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealPolicyCard/strategicDealPolicyCard.js-meta.xml",
+      "sha256": "d501b51bbe647ee30deae87cf48caa12f35ee3e730baf28417c69d5e9037c639"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealWorkbench/__tests__/strategicDealWorkbench.test.js",
+      "sha256": "076759653640091132aae8e958c00f7dac477657ad5d82072ff186b30888163b"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealWorkbench/strategicDealWorkbench.css",
+      "sha256": "cac1f33113844151a0c7768b944919f49115cc7f0b8c4ab3547818c26bae6613"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealWorkbench/strategicDealWorkbench.html",
+      "sha256": "9fa54ad8273d25c8a2a324fc2e3ab01b1c3c02ab60bc5cf01a40d80f2f74bd2b"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealWorkbench/strategicDealWorkbench.js",
+      "sha256": "0461b6f5d582f8c82ec5fe5269b8957e03b364bcce837903b24ae30fd61b6960"
+    },
+    {
+      "path": "force-app/main/default/lwc/strategicDealWorkbench/strategicDealWorkbench.js-meta.xml",
+      "sha256": "b8075f1ae683e6bd1deadc8a8fd9c0d56653fdf44f8ce6dd66195a867fed69cf"
+    },
+    {
+      "path": "force-app/main/default/permissionsets/Change_Assurance_Integration.permissionset-meta.xml",
+      "sha256": "eb12c95f7c05df7e9d043b27bd0cc84a907be7f9871076121194471831c1339d"
+    },
+    {
+      "path": "force-app/main/default/permissionsets/Regional_VP_Approver.permissionset-meta.xml",
+      "sha256": "8c6ba062c9520249138cb06506c4cad33742e131c0c8ff08685583fbc72ef830"
+    },
+    {
+      "path": "force-app/main/default/permissionsets/Strategic_Deal_UI_Runner.permissionset-meta.xml",
+      "sha256": "fa9fa22ef7524fad2cb1cd402c08f68566e37383172b1d1f4096605c9af49e25"
+    },
+    {
+      "path": "force-app/main/default/permissionsets/Strategic_Deal_User.permissionset-meta.xml",
+      "sha256": "40f295fd479a51df5093a00652e2978df5f8f8abe6a52a873761b32d275c79a2"
+    },
+    {
+      "path": "force-app/main/default/tabs/Strategic_Deal_Workbench.tab-meta.xml",
+      "sha256": "e5b4e261776c9df2f3dc3dbf915ed94633ae69d03f2ffb5120c2db5a05eae026"
+    },
+    {
+      "path": "manifest/milestone-3.xml",
+      "sha256": "b734d5c2f793d3e73ddd24874672fcbd124565ebf49d36bf5ebe70d615378dee"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "089a462aa74ee3bb1873a916c560c7111382acca474d312de056801aa84f057e"
+    }
+  ]
+}

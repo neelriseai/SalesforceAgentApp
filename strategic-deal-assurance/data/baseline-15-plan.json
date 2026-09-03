@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "requirement": "BR-STRATEGIC-DISCOUNT",
+  "dataset": "SDA-DEMO-BASELINE-15-v1",
+  "currency": "USD",
+  "ruleVersion": "baseline-15",
+  "amountThreshold": 50000000,
+  "discountThreshold": 15,
+  "accountName": "SYN-SDA Demo Account",
+  "stage": "Prospecting",
+  "closeDate": "2026-12-31",
+  "cases": [
+    { "key": "non-strategic", "name": "SYN-SDA-01 Non Strategic", "obligation": "OBL-NON-STRATEGIC", "amount": 60000000, "discount": 20, "strategic": false, "approverPresent": true, "expectedStatus": "Not Required", "approvalRequired": false },
+    { "key": "amount-exact", "name": "SYN-SDA-02 Exact Amount", "obligation": "OBL-AMOUNT-EXACT", "amount": 50000000, "discount": 20, "strategic": true, "approverPresent": true, "expectedStatus": "Not Required", "approvalRequired": false },
+    { "key": "discount-exact", "name": "SYN-SDA-03 Exact 15 Percent", "obligation": "OBL-DISCOUNT-EXACT", "amount": 50000000.01, "discount": 15, "strategic": true, "approverPresent": true, "expectedStatus": "Not Required", "approvalRequired": false },
+    { "key": "discount-above", "name": "SYN-SDA-04 Above 15 Percent", "obligation": "OBL-DISCOUNT-ABOVE", "amount": 50000000.01, "discount": 15.01, "strategic": true, "approverPresent": true, "expectedStatus": "Pending Regional VP", "approvalRequired": true },
+    { "key": "missing-approver", "name": "SYN-SDA-05 Missing Approver", "obligation": "OBL-MISSING-APPROVER", "amount": 50000000.01, "discount": 15.01, "strategic": true, "approverPresent": false, "expectedStatus": "Configuration Error", "approvalRequired": true },
+    { "key": "null-discount", "name": "SYN-SDA-06 Null Discount", "obligation": "OBL-NULL-INPUT", "amount": 60000000, "discount": null, "strategic": true, "approverPresent": true, "expectedStatus": "Not Required", "approvalRequired": false },
+    { "key": "null-amount", "name": "SYN-SDA-07 Null Amount", "obligation": "OBL-NULL-INPUT", "amount": null, "discount": 20, "strategic": true, "approverPresent": true, "expectedStatus": "Not Required", "approvalRequired": false }
+  ]
+}

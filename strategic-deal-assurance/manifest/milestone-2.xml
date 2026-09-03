@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types><members>Strategic_Discount_Approval</members><name>Flow</name></types>
+    <types><members>StrategicDiscountFlowTest</members><members>StrategicDiscountPolicy</members><members>StrategicDiscountPolicyTest</members><name>ApexClass</name></types>
+    <types><members>Strategic_Deal_Evaluation__c.Amount_INR__c</members><members>Strategic_Discount_Rule__mdt.Minimum_Amount_INR__c</members><name>CustomField</name></types>
+    <types>
+        <members>Strategic_Deal_User</members><members>Regional_VP_Approver</members>
+        <members>Change_Assurance_Integration</members><members>Strategic_Deal_UI_Runner</members>
+        <name>PermissionSet</name>
+    </types>
+    <version>67.0</version>
+</Package>

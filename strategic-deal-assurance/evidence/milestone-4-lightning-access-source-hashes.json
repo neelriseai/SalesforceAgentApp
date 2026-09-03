@@ -1,0 +1,14 @@
+{
+  "algorithm": "SHA-256",
+  "scope": "Corrective Lightning Experience permission deployment; supplements original milestone 4 hashes",
+  "files": [
+    {
+      "path": "force-app/main/default/permissionsets/Regional_VP_Approver.permissionset-meta.xml",
+      "sha256": "fb9771c08516291483f13dd8228babe5ba8956dc7145958aab16938bbc8227d8"
+    },
+    {
+      "path": "manifest/milestone-4-lightning-access.xml",
+      "sha256": "8b767599130b88c3cb86db635459539eeac87b32757f7a650b7a74c14e7fff31"
+    }
+  ]
+}

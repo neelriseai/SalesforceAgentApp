@@ -1,0 +1,4305 @@
+{
+  "schemaVersion": 1,
+  "dataset": "SDA-CROSS-MODULE-v1",
+  "currency": "USD",
+  "closeDate": "2026-12-31",
+  "description": "Synthetic native CRM scenarios; create-only seeding, no destructive reset.",
+  "objects": {
+    "Account": [
+      {
+        "key": "A01",
+        "fields": {
+          "Name": "SYN-MM-A01 Group",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A01",
+          "Description": "SDA-CROSS-MODULE-v1|A01",
+          "OwnerId": "@operator",
+          "Type": "Other",
+          "Industry": "Technology"
+        }
+      },
+      {
+        "key": "A02",
+        "fields": {
+          "Name": "SYN-MM-A02 Group",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A02",
+          "Description": "SDA-CROSS-MODULE-v1|A02",
+          "OwnerId": "@operator",
+          "Type": "Other",
+          "Industry": "Manufacturing"
+        }
+      },
+      {
+        "key": "A03",
+        "fields": {
+          "Name": "SYN-MM-A03 Group",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A03",
+          "Description": "SDA-CROSS-MODULE-v1|A03",
+          "OwnerId": "@operator",
+          "Type": "Other",
+          "Industry": "Retail"
+        }
+      },
+      {
+        "key": "A04",
+        "fields": {
+          "Name": "SYN-MM-A04 Group",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A04",
+          "Description": "SDA-CROSS-MODULE-v1|A04",
+          "OwnerId": "@operator",
+          "Type": "Other",
+          "Industry": "Healthcare"
+        }
+      },
+      {
+        "key": "A05",
+        "fields": {
+          "Name": "SYN-MM-A05 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A05",
+          "Description": "SDA-CROSS-MODULE-v1|A05",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Technology",
+          "ParentId": "@A01"
+        }
+      },
+      {
+        "key": "A06",
+        "fields": {
+          "Name": "SYN-MM-A06 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A06",
+          "Description": "SDA-CROSS-MODULE-v1|A06",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Manufacturing",
+          "ParentId": "@A02"
+        }
+      },
+      {
+        "key": "A07",
+        "fields": {
+          "Name": "SYN-MM-A07 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A07",
+          "Description": "SDA-CROSS-MODULE-v1|A07",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Retail",
+          "ParentId": "@A03"
+        }
+      },
+      {
+        "key": "A08",
+        "fields": {
+          "Name": "SYN-MM-A08 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A08",
+          "Description": "SDA-CROSS-MODULE-v1|A08",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Healthcare",
+          "ParentId": "@A04"
+        }
+      },
+      {
+        "key": "A09",
+        "fields": {
+          "Name": "SYN-MM-A09 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A09",
+          "Description": "SDA-CROSS-MODULE-v1|A09",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Technology",
+          "ParentId": "@A01"
+        }
+      },
+      {
+        "key": "A10",
+        "fields": {
+          "Name": "SYN-MM-A10 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A10",
+          "Description": "SDA-CROSS-MODULE-v1|A10",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Manufacturing",
+          "ParentId": "@A02"
+        }
+      },
+      {
+        "key": "A11",
+        "fields": {
+          "Name": "SYN-MM-A11 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A11",
+          "Description": "SDA-CROSS-MODULE-v1|A11",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Retail",
+          "ParentId": "@A03"
+        }
+      },
+      {
+        "key": "A12",
+        "fields": {
+          "Name": "SYN-MM-A12 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A12",
+          "Description": "SDA-CROSS-MODULE-v1|A12",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Healthcare",
+          "ParentId": "@A04"
+        }
+      },
+      {
+        "key": "A13",
+        "fields": {
+          "Name": "SYN-MM-A13 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A13",
+          "Description": "SDA-CROSS-MODULE-v1|A13",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Technology",
+          "ParentId": "@A01"
+        }
+      },
+      {
+        "key": "A14",
+        "fields": {
+          "Name": "SYN-MM-A14 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A14",
+          "Description": "SDA-CROSS-MODULE-v1|A14",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Manufacturing",
+          "ParentId": "@A02"
+        }
+      },
+      {
+        "key": "A15",
+        "fields": {
+          "Name": "SYN-MM-A15 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A15",
+          "Description": "SDA-CROSS-MODULE-v1|A15",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Retail",
+          "ParentId": "@A03"
+        }
+      },
+      {
+        "key": "A16",
+        "fields": {
+          "Name": "SYN-MM-A16 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A16",
+          "Description": "SDA-CROSS-MODULE-v1|A16",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Healthcare",
+          "ParentId": "@A04"
+        }
+      },
+      {
+        "key": "A17",
+        "fields": {
+          "Name": "SYN-MM-A17 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A17",
+          "Description": "SDA-CROSS-MODULE-v1|A17",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Technology",
+          "ParentId": "@A01"
+        }
+      },
+      {
+        "key": "A18",
+        "fields": {
+          "Name": "SYN-MM-A18 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A18",
+          "Description": "SDA-CROSS-MODULE-v1|A18",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Manufacturing",
+          "ParentId": "@A02"
+        }
+      },
+      {
+        "key": "A19",
+        "fields": {
+          "Name": "SYN-MM-A19 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A19",
+          "Description": "SDA-CROSS-MODULE-v1|A19",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Retail",
+          "ParentId": "@A03"
+        }
+      },
+      {
+        "key": "A20",
+        "fields": {
+          "Name": "SYN-MM-A20 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A20",
+          "Description": "SDA-CROSS-MODULE-v1|A20",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Healthcare",
+          "ParentId": "@A04"
+        }
+      },
+      {
+        "key": "A21",
+        "fields": {
+          "Name": "SYN-MM-A21 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A21",
+          "Description": "SDA-CROSS-MODULE-v1|A21",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Technology",
+          "ParentId": "@A01"
+        }
+      },
+      {
+        "key": "A22",
+        "fields": {
+          "Name": "SYN-MM-A22 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A22",
+          "Description": "SDA-CROSS-MODULE-v1|A22",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Manufacturing",
+          "ParentId": "@A02"
+        }
+      },
+      {
+        "key": "A23",
+        "fields": {
+          "Name": "SYN-MM-A23 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A23",
+          "Description": "SDA-CROSS-MODULE-v1|A23",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Retail",
+          "ParentId": "@A03"
+        }
+      },
+      {
+        "key": "A24",
+        "fields": {
+          "Name": "SYN-MM-A24 Customer",
+          "AccountNumber": "SDA-CROSS-MODULE-v1|A24",
+          "Description": "SDA-CROSS-MODULE-v1|A24",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Healthcare",
+          "ParentId": "@A04"
+        }
+      }
+    ],
+    "Contact": [
+      {
+        "key": "C01",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C01",
+          "AccountId": "@A05",
+          "Email": "sda.mm.c01@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C01",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C02",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C02",
+          "AccountId": "@A05",
+          "Email": "sda.mm.c02@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C02",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C03",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C03",
+          "AccountId": "@A05",
+          "Email": "sda.mm.c03@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C03",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C04",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C04",
+          "AccountId": "@A06",
+          "Email": "sda.mm.c04@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C04",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C05",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C05",
+          "AccountId": "@A06",
+          "Email": "sda.mm.c05@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C05",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C06",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C06",
+          "AccountId": "@A06",
+          "Email": "sda.mm.c06@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C06",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C07",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C07",
+          "AccountId": "@A07",
+          "Email": "sda.mm.c07@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C07",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C08",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C08",
+          "AccountId": "@A07",
+          "Email": "sda.mm.c08@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C08",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C09",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C09",
+          "AccountId": "@A07",
+          "Email": "sda.mm.c09@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C09",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C10",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C10",
+          "AccountId": "@A08",
+          "Email": "sda.mm.c10@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C10",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C11",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C11",
+          "AccountId": "@A08",
+          "Email": "sda.mm.c11@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C11",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C12",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C12",
+          "AccountId": "@A08",
+          "Email": "sda.mm.c12@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C12",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C13",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C13",
+          "AccountId": "@A09",
+          "Email": "sda.mm.c13@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C13",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C14",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C14",
+          "AccountId": "@A09",
+          "Email": "sda.mm.c14@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C14",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C15",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C15",
+          "AccountId": "@A09",
+          "Email": "sda.mm.c15@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C15",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C16",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C16",
+          "AccountId": "@A10",
+          "Email": "sda.mm.c16@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C16",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C17",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C17",
+          "AccountId": "@A10",
+          "Email": "sda.mm.c17@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C17",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C18",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C18",
+          "AccountId": "@A10",
+          "Email": "sda.mm.c18@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C18",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C19",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C19",
+          "AccountId": "@A11",
+          "Email": "sda.mm.c19@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C19",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C20",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C20",
+          "AccountId": "@A11",
+          "Email": "sda.mm.c20@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C20",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C21",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C21",
+          "AccountId": "@A11",
+          "Email": "sda.mm.c21@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C21",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C22",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C22",
+          "AccountId": "@A12",
+          "Email": "sda.mm.c22@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C22",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C23",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C23",
+          "AccountId": "@A12",
+          "Email": "sda.mm.c23@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C23",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C24",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C24",
+          "AccountId": "@A12",
+          "Email": "sda.mm.c24@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C24",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C25",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C25",
+          "AccountId": "@A13",
+          "Email": "sda.mm.c25@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C25",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C26",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C26",
+          "AccountId": "@A13",
+          "Email": "sda.mm.c26@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C26",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C27",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C27",
+          "AccountId": "@A13",
+          "Email": "sda.mm.c27@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C27",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C28",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C28",
+          "AccountId": "@A14",
+          "Email": "sda.mm.c28@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C28",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C29",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C29",
+          "AccountId": "@A14",
+          "Email": "sda.mm.c29@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C29",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C30",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C30",
+          "AccountId": "@A14",
+          "Email": "sda.mm.c30@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C30",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C31",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C31",
+          "AccountId": "@A15",
+          "Email": "sda.mm.c31@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C31",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C32",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C32",
+          "AccountId": "@A15",
+          "Email": "sda.mm.c32@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C32",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C33",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C33",
+          "AccountId": "@A15",
+          "Email": "sda.mm.c33@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C33",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C34",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C34",
+          "AccountId": "@A16",
+          "Email": "sda.mm.c34@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C34",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C35",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C35",
+          "AccountId": "@A16",
+          "Email": "sda.mm.c35@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C35",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C36",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C36",
+          "AccountId": "@A16",
+          "Email": "sda.mm.c36@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C36",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C37",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C37",
+          "AccountId": "@A17",
+          "Email": "sda.mm.c37@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C37",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C38",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C38",
+          "AccountId": "@A17",
+          "Email": "sda.mm.c38@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C38",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C39",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C39",
+          "AccountId": "@A17",
+          "Email": "sda.mm.c39@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C39",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C40",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C40",
+          "AccountId": "@A18",
+          "Email": "sda.mm.c40@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C40",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C41",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C41",
+          "AccountId": "@A18",
+          "Email": "sda.mm.c41@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C41",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C42",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C42",
+          "AccountId": "@A18",
+          "Email": "sda.mm.c42@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C42",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C43",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C43",
+          "AccountId": "@A19",
+          "Email": "sda.mm.c43@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C43",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C44",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C44",
+          "AccountId": "@A19",
+          "Email": "sda.mm.c44@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C44",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C45",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C45",
+          "AccountId": "@A19",
+          "Email": "sda.mm.c45@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C45",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C46",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C46",
+          "AccountId": "@A20",
+          "Email": "sda.mm.c46@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C46",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C47",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C47",
+          "AccountId": "@A20",
+          "Email": "sda.mm.c47@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C47",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C48",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C48",
+          "AccountId": "@A20",
+          "Email": "sda.mm.c48@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C48",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C49",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C49",
+          "AccountId": "@A21",
+          "Email": "sda.mm.c49@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C49",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C50",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C50",
+          "AccountId": "@A21",
+          "Email": "sda.mm.c50@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C50",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C51",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C51",
+          "AccountId": "@A21",
+          "Email": "sda.mm.c51@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C51",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C52",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C52",
+          "AccountId": "@A22",
+          "Email": "sda.mm.c52@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C52",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C53",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C53",
+          "AccountId": "@A22",
+          "Email": "sda.mm.c53@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C53",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C54",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C54",
+          "AccountId": "@A22",
+          "Email": "sda.mm.c54@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C54",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C55",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C55",
+          "AccountId": "@A23",
+          "Email": "sda.mm.c55@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C55",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C56",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C56",
+          "AccountId": "@A23",
+          "Email": "sda.mm.c56@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C56",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C57",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C57",
+          "AccountId": "@A23",
+          "Email": "sda.mm.c57@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C57",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C58",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C58",
+          "AccountId": "@A24",
+          "Email": "sda.mm.c58@example.invalid",
+          "Title": "Buyer",
+          "Description": "SDA-CROSS-MODULE-v1|C58",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C59",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C59",
+          "AccountId": "@A24",
+          "Email": "sda.mm.c59@example.invalid",
+          "Title": "Technical Lead",
+          "Description": "SDA-CROSS-MODULE-v1|C59",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "C60",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-C60",
+          "AccountId": "@A24",
+          "Email": "sda.mm.c60@example.invalid",
+          "Title": "Finance Reviewer",
+          "Description": "SDA-CROSS-MODULE-v1|C60",
+          "OwnerId": "@operator"
+        }
+      }
+    ],
+    "Opportunity": [
+      {
+        "key": "O01",
+        "fields": {
+          "Name": "SYN-MM-O01 Deal",
+          "AccountId": "@A05",
+          "NextStep": "SDA-CROSS-MODULE-v1|O01",
+          "Description": "SDA-CROSS-MODULE-v1|O01",
+          "OwnerId": "@operator",
+          "StageName": "Prospecting",
+          "CloseDate": "2026-12-31",
+          "Amount": 101000,
+          "Discount__c": 5,
+          "Strategic_Deal__c": false,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O02",
+        "fields": {
+          "Name": "SYN-MM-O02 Deal",
+          "AccountId": "@A05",
+          "NextStep": "SDA-CROSS-MODULE-v1|O02",
+          "Description": "SDA-CROSS-MODULE-v1|O02",
+          "OwnerId": "@operator",
+          "StageName": "Qualification",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O03",
+        "fields": {
+          "Name": "SYN-MM-O03 Deal",
+          "AccountId": "@A06",
+          "NextStep": "SDA-CROSS-MODULE-v1|O03",
+          "Description": "SDA-CROSS-MODULE-v1|O03",
+          "OwnerId": "@operator",
+          "StageName": "Proposal/Price Quote",
+          "CloseDate": "2026-12-31",
+          "Amount": 50000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O04",
+        "fields": {
+          "Name": "SYN-MM-O04 Deal",
+          "AccountId": "@A06",
+          "NextStep": "SDA-CROSS-MODULE-v1|O04",
+          "Description": "SDA-CROSS-MODULE-v1|O04",
+          "OwnerId": "@operator",
+          "StageName": "Negotiation/Review",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 15,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O05",
+        "fields": {
+          "Name": "SYN-MM-O05 Deal",
+          "AccountId": "@A07",
+          "NextStep": "SDA-CROSS-MODULE-v1|O05",
+          "Description": "SDA-CROSS-MODULE-v1|O05",
+          "OwnerId": "@operator",
+          "StageName": "Prospecting",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": null
+        }
+      },
+      {
+        "key": "O06",
+        "fields": {
+          "Name": "SYN-MM-O06 Deal",
+          "AccountId": "@A07",
+          "NextStep": "SDA-CROSS-MODULE-v1|O06",
+          "Description": "SDA-CROSS-MODULE-v1|O06",
+          "OwnerId": "@operator",
+          "StageName": "Qualification",
+          "CloseDate": "2026-12-31",
+          "Amount": 106000,
+          "Discount__c": 5,
+          "Strategic_Deal__c": false,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O07",
+        "fields": {
+          "Name": "SYN-MM-O07 Deal",
+          "AccountId": "@A08",
+          "NextStep": "SDA-CROSS-MODULE-v1|O07",
+          "Description": "SDA-CROSS-MODULE-v1|O07",
+          "OwnerId": "@operator",
+          "StageName": "Proposal/Price Quote",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O08",
+        "fields": {
+          "Name": "SYN-MM-O08 Deal",
+          "AccountId": "@A08",
+          "NextStep": "SDA-CROSS-MODULE-v1|O08",
+          "Description": "SDA-CROSS-MODULE-v1|O08",
+          "OwnerId": "@operator",
+          "StageName": "Negotiation/Review",
+          "CloseDate": "2026-12-31",
+          "Amount": 50000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O09",
+        "fields": {
+          "Name": "SYN-MM-O09 Deal",
+          "AccountId": "@A09",
+          "NextStep": "SDA-CROSS-MODULE-v1|O09",
+          "Description": "SDA-CROSS-MODULE-v1|O09",
+          "OwnerId": "@operator",
+          "StageName": "Prospecting",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 15,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O10",
+        "fields": {
+          "Name": "SYN-MM-O10 Deal",
+          "AccountId": "@A09",
+          "NextStep": "SDA-CROSS-MODULE-v1|O10",
+          "Description": "SDA-CROSS-MODULE-v1|O10",
+          "OwnerId": "@operator",
+          "StageName": "Qualification",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": null
+        }
+      },
+      {
+        "key": "O11",
+        "fields": {
+          "Name": "SYN-MM-O11 Deal",
+          "AccountId": "@A10",
+          "NextStep": "SDA-CROSS-MODULE-v1|O11",
+          "Description": "SDA-CROSS-MODULE-v1|O11",
+          "OwnerId": "@operator",
+          "StageName": "Proposal/Price Quote",
+          "CloseDate": "2026-12-31",
+          "Amount": 111000,
+          "Discount__c": 5,
+          "Strategic_Deal__c": false,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O12",
+        "fields": {
+          "Name": "SYN-MM-O12 Deal",
+          "AccountId": "@A10",
+          "NextStep": "SDA-CROSS-MODULE-v1|O12",
+          "Description": "SDA-CROSS-MODULE-v1|O12",
+          "OwnerId": "@operator",
+          "StageName": "Negotiation/Review",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O13",
+        "fields": {
+          "Name": "SYN-MM-O13 Deal",
+          "AccountId": "@A11",
+          "NextStep": "SDA-CROSS-MODULE-v1|O13",
+          "Description": "SDA-CROSS-MODULE-v1|O13",
+          "OwnerId": "@operator",
+          "StageName": "Prospecting",
+          "CloseDate": "2026-12-31",
+          "Amount": 50000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O14",
+        "fields": {
+          "Name": "SYN-MM-O14 Deal",
+          "AccountId": "@A11",
+          "NextStep": "SDA-CROSS-MODULE-v1|O14",
+          "Description": "SDA-CROSS-MODULE-v1|O14",
+          "OwnerId": "@operator",
+          "StageName": "Qualification",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 15,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O15",
+        "fields": {
+          "Name": "SYN-MM-O15 Deal",
+          "AccountId": "@A12",
+          "NextStep": "SDA-CROSS-MODULE-v1|O15",
+          "Description": "SDA-CROSS-MODULE-v1|O15",
+          "OwnerId": "@operator",
+          "StageName": "Proposal/Price Quote",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": null
+        }
+      },
+      {
+        "key": "O16",
+        "fields": {
+          "Name": "SYN-MM-O16 Deal",
+          "AccountId": "@A12",
+          "NextStep": "SDA-CROSS-MODULE-v1|O16",
+          "Description": "SDA-CROSS-MODULE-v1|O16",
+          "OwnerId": "@operator",
+          "StageName": "Negotiation/Review",
+          "CloseDate": "2026-12-31",
+          "Amount": 116000,
+          "Discount__c": 5,
+          "Strategic_Deal__c": false,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O17",
+        "fields": {
+          "Name": "SYN-MM-O17 Deal",
+          "AccountId": "@A13",
+          "NextStep": "SDA-CROSS-MODULE-v1|O17",
+          "Description": "SDA-CROSS-MODULE-v1|O17",
+          "OwnerId": "@operator",
+          "StageName": "Prospecting",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O18",
+        "fields": {
+          "Name": "SYN-MM-O18 Deal",
+          "AccountId": "@A13",
+          "NextStep": "SDA-CROSS-MODULE-v1|O18",
+          "Description": "SDA-CROSS-MODULE-v1|O18",
+          "OwnerId": "@operator",
+          "StageName": "Qualification",
+          "CloseDate": "2026-12-31",
+          "Amount": 50000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O19",
+        "fields": {
+          "Name": "SYN-MM-O19 Deal",
+          "AccountId": "@A14",
+          "NextStep": "SDA-CROSS-MODULE-v1|O19",
+          "Description": "SDA-CROSS-MODULE-v1|O19",
+          "OwnerId": "@operator",
+          "StageName": "Proposal/Price Quote",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 15,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O20",
+        "fields": {
+          "Name": "SYN-MM-O20 Deal",
+          "AccountId": "@A14",
+          "NextStep": "SDA-CROSS-MODULE-v1|O20",
+          "Description": "SDA-CROSS-MODULE-v1|O20",
+          "OwnerId": "@operator",
+          "StageName": "Negotiation/Review",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": null
+        }
+      },
+      {
+        "key": "O21",
+        "fields": {
+          "Name": "SYN-MM-O21 Deal",
+          "AccountId": "@A15",
+          "NextStep": "SDA-CROSS-MODULE-v1|O21",
+          "Description": "SDA-CROSS-MODULE-v1|O21",
+          "OwnerId": "@operator",
+          "StageName": "Prospecting",
+          "CloseDate": "2026-12-31",
+          "Amount": 121000,
+          "Discount__c": 5,
+          "Strategic_Deal__c": false,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O22",
+        "fields": {
+          "Name": "SYN-MM-O22 Deal",
+          "AccountId": "@A15",
+          "NextStep": "SDA-CROSS-MODULE-v1|O22",
+          "Description": "SDA-CROSS-MODULE-v1|O22",
+          "OwnerId": "@operator",
+          "StageName": "Qualification",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O23",
+        "fields": {
+          "Name": "SYN-MM-O23 Deal",
+          "AccountId": "@A16",
+          "NextStep": "SDA-CROSS-MODULE-v1|O23",
+          "Description": "SDA-CROSS-MODULE-v1|O23",
+          "OwnerId": "@operator",
+          "StageName": "Proposal/Price Quote",
+          "CloseDate": "2026-12-31",
+          "Amount": 50000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O24",
+        "fields": {
+          "Name": "SYN-MM-O24 Deal",
+          "AccountId": "@A16",
+          "NextStep": "SDA-CROSS-MODULE-v1|O24",
+          "Description": "SDA-CROSS-MODULE-v1|O24",
+          "OwnerId": "@operator",
+          "StageName": "Negotiation/Review",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 15,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O25",
+        "fields": {
+          "Name": "SYN-MM-O25 Deal",
+          "AccountId": "@A17",
+          "NextStep": "SDA-CROSS-MODULE-v1|O25",
+          "Description": "SDA-CROSS-MODULE-v1|O25",
+          "OwnerId": "@operator",
+          "StageName": "Prospecting",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": null
+        }
+      },
+      {
+        "key": "O26",
+        "fields": {
+          "Name": "SYN-MM-O26 Deal",
+          "AccountId": "@A17",
+          "NextStep": "SDA-CROSS-MODULE-v1|O26",
+          "Description": "SDA-CROSS-MODULE-v1|O26",
+          "OwnerId": "@operator",
+          "StageName": "Qualification",
+          "CloseDate": "2026-12-31",
+          "Amount": 126000,
+          "Discount__c": 5,
+          "Strategic_Deal__c": false,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O27",
+        "fields": {
+          "Name": "SYN-MM-O27 Deal",
+          "AccountId": "@A18",
+          "NextStep": "SDA-CROSS-MODULE-v1|O27",
+          "Description": "SDA-CROSS-MODULE-v1|O27",
+          "OwnerId": "@operator",
+          "StageName": "Proposal/Price Quote",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O28",
+        "fields": {
+          "Name": "SYN-MM-O28 Deal",
+          "AccountId": "@A18",
+          "NextStep": "SDA-CROSS-MODULE-v1|O28",
+          "Description": "SDA-CROSS-MODULE-v1|O28",
+          "OwnerId": "@operator",
+          "StageName": "Negotiation/Review",
+          "CloseDate": "2026-12-31",
+          "Amount": 50000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O29",
+        "fields": {
+          "Name": "SYN-MM-O29 Deal",
+          "AccountId": "@A19",
+          "NextStep": "SDA-CROSS-MODULE-v1|O29",
+          "Description": "SDA-CROSS-MODULE-v1|O29",
+          "OwnerId": "@operator",
+          "StageName": "Prospecting",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 15,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O30",
+        "fields": {
+          "Name": "SYN-MM-O30 Deal",
+          "AccountId": "@A19",
+          "NextStep": "SDA-CROSS-MODULE-v1|O30",
+          "Description": "SDA-CROSS-MODULE-v1|O30",
+          "OwnerId": "@operator",
+          "StageName": "Qualification",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": null
+        }
+      },
+      {
+        "key": "O31",
+        "fields": {
+          "Name": "SYN-MM-O31 Deal",
+          "AccountId": "@A20",
+          "NextStep": "SDA-CROSS-MODULE-v1|O31",
+          "Description": "SDA-CROSS-MODULE-v1|O31",
+          "OwnerId": "@operator",
+          "StageName": "Proposal/Price Quote",
+          "CloseDate": "2026-12-31",
+          "Amount": 131000,
+          "Discount__c": 5,
+          "Strategic_Deal__c": false,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O32",
+        "fields": {
+          "Name": "SYN-MM-O32 Deal",
+          "AccountId": "@A20",
+          "NextStep": "SDA-CROSS-MODULE-v1|O32",
+          "Description": "SDA-CROSS-MODULE-v1|O32",
+          "OwnerId": "@operator",
+          "StageName": "Negotiation/Review",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O33",
+        "fields": {
+          "Name": "SYN-MM-O33 Deal",
+          "AccountId": "@A21",
+          "NextStep": "SDA-CROSS-MODULE-v1|O33",
+          "Description": "SDA-CROSS-MODULE-v1|O33",
+          "OwnerId": "@operator",
+          "StageName": "Prospecting",
+          "CloseDate": "2026-12-31",
+          "Amount": 50000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O34",
+        "fields": {
+          "Name": "SYN-MM-O34 Deal",
+          "AccountId": "@A21",
+          "NextStep": "SDA-CROSS-MODULE-v1|O34",
+          "Description": "SDA-CROSS-MODULE-v1|O34",
+          "OwnerId": "@operator",
+          "StageName": "Qualification",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 15,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O35",
+        "fields": {
+          "Name": "SYN-MM-O35 Deal",
+          "AccountId": "@A22",
+          "NextStep": "SDA-CROSS-MODULE-v1|O35",
+          "Description": "SDA-CROSS-MODULE-v1|O35",
+          "OwnerId": "@operator",
+          "StageName": "Proposal/Price Quote",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": null
+        }
+      },
+      {
+        "key": "O36",
+        "fields": {
+          "Name": "SYN-MM-O36 Deal",
+          "AccountId": "@A22",
+          "NextStep": "SDA-CROSS-MODULE-v1|O36",
+          "Description": "SDA-CROSS-MODULE-v1|O36",
+          "OwnerId": "@operator",
+          "StageName": "Negotiation/Review",
+          "CloseDate": "2026-12-31",
+          "Amount": 136000,
+          "Discount__c": 5,
+          "Strategic_Deal__c": false,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O37",
+        "fields": {
+          "Name": "SYN-MM-O37 Deal",
+          "AccountId": "@A23",
+          "NextStep": "SDA-CROSS-MODULE-v1|O37",
+          "Description": "SDA-CROSS-MODULE-v1|O37",
+          "OwnerId": "@operator",
+          "StageName": "Prospecting",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O38",
+        "fields": {
+          "Name": "SYN-MM-O38 Deal",
+          "AccountId": "@A23",
+          "NextStep": "SDA-CROSS-MODULE-v1|O38",
+          "Description": "SDA-CROSS-MODULE-v1|O38",
+          "OwnerId": "@operator",
+          "StageName": "Qualification",
+          "CloseDate": "2026-12-31",
+          "Amount": 50000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O39",
+        "fields": {
+          "Name": "SYN-MM-O39 Deal",
+          "AccountId": "@A24",
+          "NextStep": "SDA-CROSS-MODULE-v1|O39",
+          "Description": "SDA-CROSS-MODULE-v1|O39",
+          "OwnerId": "@operator",
+          "StageName": "Proposal/Price Quote",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 15,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": "@vp"
+        }
+      },
+      {
+        "key": "O40",
+        "fields": {
+          "Name": "SYN-MM-O40 Deal",
+          "AccountId": "@A24",
+          "NextStep": "SDA-CROSS-MODULE-v1|O40",
+          "Description": "SDA-CROSS-MODULE-v1|O40",
+          "OwnerId": "@operator",
+          "StageName": "Negotiation/Review",
+          "CloseDate": "2026-12-31",
+          "Amount": 60000000,
+          "Discount__c": 20,
+          "Strategic_Deal__c": true,
+          "Regional_VP_Approver__c": null
+        }
+      }
+    ],
+    "Lead": [
+      {
+        "key": "L01",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L01",
+          "Company": "SYN-MM-L01 Prospect",
+          "Email": "sda.mm.l01@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L01",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L02",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L02",
+          "Company": "SYN-MM-L02 Prospect",
+          "Email": "sda.mm.l02@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L02",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L03",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L03",
+          "Company": "SYN-MM-L03 Prospect",
+          "Email": "sda.mm.l03@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L03",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L04",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L04",
+          "Company": "SYN-MM-L04 Prospect",
+          "Email": "sda.mm.l04@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L04",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L05",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L05",
+          "Company": "SYN-MM-L05 Prospect",
+          "Email": "sda.mm.l05@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L05",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L06",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L06",
+          "Company": "SYN-MM-L06 Prospect",
+          "Email": "sda.mm.l06@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L06",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L07",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L07",
+          "Company": "SYN-MM-L07 Prospect",
+          "Email": "sda.mm.l07@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L07",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L08",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L08",
+          "Company": "SYN-MM-L08 Prospect",
+          "Email": "sda.mm.l08@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L08",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L09",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L09",
+          "Company": "SYN-MM-L09 Prospect",
+          "Email": "sda.mm.l09@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L09",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L10",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L10",
+          "Company": "SYN-MM-L10 Prospect",
+          "Email": "sda.mm.l10@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L10",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L11",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L11",
+          "Company": "SYN-MM-L11 Prospect",
+          "Email": "sda.mm.l11@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L11",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L12",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L12",
+          "Company": "SYN-MM-L12 Prospect",
+          "Email": "sda.mm.l12@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L12",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L13",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L13",
+          "Company": "SYN-MM-L13 Prospect",
+          "Email": "sda.mm.l13@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L13",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L14",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L14",
+          "Company": "SYN-MM-L14 Prospect",
+          "Email": "sda.mm.l14@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L14",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L15",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L15",
+          "Company": "SYN-MM-L15 Prospect",
+          "Email": "sda.mm.l15@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L15",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L16",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L16",
+          "Company": "SYN-MM-L16 Prospect",
+          "Email": "sda.mm.l16@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L16",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L17",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L17",
+          "Company": "SYN-MM-L17 Prospect",
+          "Email": "sda.mm.l17@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L17",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L18",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L18",
+          "Company": "SYN-MM-L18 Prospect",
+          "Email": "sda.mm.l18@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L18",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L19",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L19",
+          "Company": "SYN-MM-L19 Prospect",
+          "Email": "sda.mm.l19@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L19",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L20",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L20",
+          "Company": "SYN-MM-L20 Prospect",
+          "Email": "sda.mm.l20@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L20",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L21",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L21",
+          "Company": "SYN-MM-L21 Prospect",
+          "Email": "sda.mm.l21@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L21",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L22",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L22",
+          "Company": "SYN-MM-L22 Prospect",
+          "Email": "sda.mm.l22@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L22",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L23",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L23",
+          "Company": "SYN-MM-L23 Prospect",
+          "Email": "sda.mm.l23@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L23",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L24",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L24",
+          "Company": "SYN-MM-L24 Prospect",
+          "Email": "sda.mm.l24@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L24",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L25",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L25",
+          "Company": "SYN-MM-L25 Prospect",
+          "Email": "sda.mm.l25@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L25",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L26",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L26",
+          "Company": "SYN-MM-L26 Prospect",
+          "Email": "sda.mm.l26@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L26",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L27",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L27",
+          "Company": "SYN-MM-L27 Prospect",
+          "Email": "sda.mm.l27@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L27",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L28",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L28",
+          "Company": "SYN-MM-L28 Prospect",
+          "Email": "sda.mm.l28@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L28",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L29",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L29",
+          "Company": "SYN-MM-L29 Prospect",
+          "Email": "sda.mm.l29@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L29",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "L30",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-L30",
+          "Company": "SYN-MM-L30 Prospect",
+          "Email": "sda.mm.l30@example.invalid",
+          "Status": "Open - Not Contacted",
+          "Description": "SDA-CROSS-MODULE-v1|L30",
+          "OwnerId": "@operator"
+        }
+      }
+    ],
+    "Case": [
+      {
+        "key": "S01",
+        "fields": {
+          "Subject": "SYN-MM-S01 Support",
+          "ContactId": "@C01",
+          "AccountId": "@A05",
+          "Status": "New",
+          "Priority": "Medium",
+          "Origin": "Web",
+          "Description": "SDA-CROSS-MODULE-v1|S01",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S02",
+        "fields": {
+          "Subject": "SYN-MM-S02 Support",
+          "ContactId": "@C02",
+          "AccountId": "@A05",
+          "Status": "Working",
+          "Priority": "Low",
+          "Origin": "Phone",
+          "Description": "SDA-CROSS-MODULE-v1|S02",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S03",
+        "fields": {
+          "Subject": "SYN-MM-S03 Support",
+          "ContactId": "@C03",
+          "AccountId": "@A05",
+          "Status": "Escalated",
+          "Priority": "High",
+          "Origin": "Email",
+          "Description": "SDA-CROSS-MODULE-v1|S03",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S04",
+        "fields": {
+          "Subject": "SYN-MM-S04 Support",
+          "ContactId": "@C04",
+          "AccountId": "@A06",
+          "Status": "New",
+          "Priority": "Medium",
+          "Origin": "Web",
+          "Description": "SDA-CROSS-MODULE-v1|S04",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S05",
+        "fields": {
+          "Subject": "SYN-MM-S05 Support",
+          "ContactId": "@C05",
+          "AccountId": "@A06",
+          "Status": "Working",
+          "Priority": "Low",
+          "Origin": "Phone",
+          "Description": "SDA-CROSS-MODULE-v1|S05",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S06",
+        "fields": {
+          "Subject": "SYN-MM-S06 Support",
+          "ContactId": "@C06",
+          "AccountId": "@A06",
+          "Status": "Escalated",
+          "Priority": "High",
+          "Origin": "Email",
+          "Description": "SDA-CROSS-MODULE-v1|S06",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S07",
+        "fields": {
+          "Subject": "SYN-MM-S07 Support",
+          "ContactId": "@C07",
+          "AccountId": "@A07",
+          "Status": "New",
+          "Priority": "Medium",
+          "Origin": "Web",
+          "Description": "SDA-CROSS-MODULE-v1|S07",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S08",
+        "fields": {
+          "Subject": "SYN-MM-S08 Support",
+          "ContactId": "@C08",
+          "AccountId": "@A07",
+          "Status": "Working",
+          "Priority": "Low",
+          "Origin": "Phone",
+          "Description": "SDA-CROSS-MODULE-v1|S08",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S09",
+        "fields": {
+          "Subject": "SYN-MM-S09 Support",
+          "ContactId": "@C09",
+          "AccountId": "@A07",
+          "Status": "Escalated",
+          "Priority": "High",
+          "Origin": "Email",
+          "Description": "SDA-CROSS-MODULE-v1|S09",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S10",
+        "fields": {
+          "Subject": "SYN-MM-S10 Support",
+          "ContactId": "@C10",
+          "AccountId": "@A08",
+          "Status": "New",
+          "Priority": "Medium",
+          "Origin": "Web",
+          "Description": "SDA-CROSS-MODULE-v1|S10",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S11",
+        "fields": {
+          "Subject": "SYN-MM-S11 Support",
+          "ContactId": "@C11",
+          "AccountId": "@A08",
+          "Status": "Working",
+          "Priority": "Low",
+          "Origin": "Phone",
+          "Description": "SDA-CROSS-MODULE-v1|S11",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S12",
+        "fields": {
+          "Subject": "SYN-MM-S12 Support",
+          "ContactId": "@C12",
+          "AccountId": "@A08",
+          "Status": "Escalated",
+          "Priority": "High",
+          "Origin": "Email",
+          "Description": "SDA-CROSS-MODULE-v1|S12",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S13",
+        "fields": {
+          "Subject": "SYN-MM-S13 Support",
+          "ContactId": "@C13",
+          "AccountId": "@A09",
+          "Status": "New",
+          "Priority": "Medium",
+          "Origin": "Web",
+          "Description": "SDA-CROSS-MODULE-v1|S13",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S14",
+        "fields": {
+          "Subject": "SYN-MM-S14 Support",
+          "ContactId": "@C14",
+          "AccountId": "@A09",
+          "Status": "Working",
+          "Priority": "Low",
+          "Origin": "Phone",
+          "Description": "SDA-CROSS-MODULE-v1|S14",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S15",
+        "fields": {
+          "Subject": "SYN-MM-S15 Support",
+          "ContactId": "@C15",
+          "AccountId": "@A09",
+          "Status": "Escalated",
+          "Priority": "High",
+          "Origin": "Email",
+          "Description": "SDA-CROSS-MODULE-v1|S15",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S16",
+        "fields": {
+          "Subject": "SYN-MM-S16 Support",
+          "ContactId": "@C16",
+          "AccountId": "@A10",
+          "Status": "New",
+          "Priority": "Medium",
+          "Origin": "Web",
+          "Description": "SDA-CROSS-MODULE-v1|S16",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S17",
+        "fields": {
+          "Subject": "SYN-MM-S17 Support",
+          "ContactId": "@C17",
+          "AccountId": "@A10",
+          "Status": "Working",
+          "Priority": "Low",
+          "Origin": "Phone",
+          "Description": "SDA-CROSS-MODULE-v1|S17",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S18",
+        "fields": {
+          "Subject": "SYN-MM-S18 Support",
+          "ContactId": "@C18",
+          "AccountId": "@A10",
+          "Status": "Escalated",
+          "Priority": "High",
+          "Origin": "Email",
+          "Description": "SDA-CROSS-MODULE-v1|S18",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S19",
+        "fields": {
+          "Subject": "SYN-MM-S19 Support",
+          "ContactId": "@C19",
+          "AccountId": "@A11",
+          "Status": "New",
+          "Priority": "Medium",
+          "Origin": "Web",
+          "Description": "SDA-CROSS-MODULE-v1|S19",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S20",
+        "fields": {
+          "Subject": "SYN-MM-S20 Support",
+          "ContactId": "@C20",
+          "AccountId": "@A11",
+          "Status": "Working",
+          "Priority": "Low",
+          "Origin": "Phone",
+          "Description": "SDA-CROSS-MODULE-v1|S20",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S21",
+        "fields": {
+          "Subject": "SYN-MM-S21 Support",
+          "ContactId": "@C21",
+          "AccountId": "@A11",
+          "Status": "Escalated",
+          "Priority": "High",
+          "Origin": "Email",
+          "Description": "SDA-CROSS-MODULE-v1|S21",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S22",
+        "fields": {
+          "Subject": "SYN-MM-S22 Support",
+          "ContactId": "@C22",
+          "AccountId": "@A12",
+          "Status": "New",
+          "Priority": "Medium",
+          "Origin": "Web",
+          "Description": "SDA-CROSS-MODULE-v1|S22",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S23",
+        "fields": {
+          "Subject": "SYN-MM-S23 Support",
+          "ContactId": "@C23",
+          "AccountId": "@A12",
+          "Status": "Working",
+          "Priority": "Low",
+          "Origin": "Phone",
+          "Description": "SDA-CROSS-MODULE-v1|S23",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S24",
+        "fields": {
+          "Subject": "SYN-MM-S24 Support",
+          "ContactId": "@C24",
+          "AccountId": "@A12",
+          "Status": "Escalated",
+          "Priority": "High",
+          "Origin": "Email",
+          "Description": "SDA-CROSS-MODULE-v1|S24",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S25",
+        "fields": {
+          "Subject": "SYN-MM-S25 Support",
+          "ContactId": "@C25",
+          "AccountId": "@A13",
+          "Status": "New",
+          "Priority": "Medium",
+          "Origin": "Web",
+          "Description": "SDA-CROSS-MODULE-v1|S25",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S26",
+        "fields": {
+          "Subject": "SYN-MM-S26 Support",
+          "ContactId": "@C26",
+          "AccountId": "@A13",
+          "Status": "Working",
+          "Priority": "Low",
+          "Origin": "Phone",
+          "Description": "SDA-CROSS-MODULE-v1|S26",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S27",
+        "fields": {
+          "Subject": "SYN-MM-S27 Support",
+          "ContactId": "@C27",
+          "AccountId": "@A13",
+          "Status": "Escalated",
+          "Priority": "High",
+          "Origin": "Email",
+          "Description": "SDA-CROSS-MODULE-v1|S27",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S28",
+        "fields": {
+          "Subject": "SYN-MM-S28 Support",
+          "ContactId": "@C28",
+          "AccountId": "@A14",
+          "Status": "New",
+          "Priority": "Medium",
+          "Origin": "Web",
+          "Description": "SDA-CROSS-MODULE-v1|S28",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S29",
+        "fields": {
+          "Subject": "SYN-MM-S29 Support",
+          "ContactId": "@C29",
+          "AccountId": "@A14",
+          "Status": "Working",
+          "Priority": "Low",
+          "Origin": "Phone",
+          "Description": "SDA-CROSS-MODULE-v1|S29",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "S30",
+        "fields": {
+          "Subject": "SYN-MM-S30 Support",
+          "ContactId": "@C30",
+          "AccountId": "@A14",
+          "Status": "Escalated",
+          "Priority": "High",
+          "Origin": "Email",
+          "Description": "SDA-CROSS-MODULE-v1|S30",
+          "OwnerId": "@operator"
+        }
+      }
+    ],
+    "Task": [
+      {
+        "key": "T01",
+        "fields": {
+          "Subject": "SYN-MM-T01 Follow Up",
+          "WhoId": "@C01",
+          "WhatId": "@A05",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T01",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T02",
+        "fields": {
+          "Subject": "SYN-MM-T02 Follow Up",
+          "WhoId": "@C02",
+          "WhatId": "@A05",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T02",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T03",
+        "fields": {
+          "Subject": "SYN-MM-T03 Follow Up",
+          "WhoId": "@C03",
+          "WhatId": "@A05",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T03",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T04",
+        "fields": {
+          "Subject": "SYN-MM-T04 Follow Up",
+          "WhoId": "@C04",
+          "WhatId": "@A06",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T04",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T05",
+        "fields": {
+          "Subject": "SYN-MM-T05 Follow Up",
+          "WhoId": "@C05",
+          "WhatId": "@A06",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T05",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T06",
+        "fields": {
+          "Subject": "SYN-MM-T06 Follow Up",
+          "WhoId": "@C06",
+          "WhatId": "@A06",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T06",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T07",
+        "fields": {
+          "Subject": "SYN-MM-T07 Follow Up",
+          "WhoId": "@C07",
+          "WhatId": "@A07",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T07",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T08",
+        "fields": {
+          "Subject": "SYN-MM-T08 Follow Up",
+          "WhoId": "@C08",
+          "WhatId": "@A07",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T08",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T09",
+        "fields": {
+          "Subject": "SYN-MM-T09 Follow Up",
+          "WhoId": "@C09",
+          "WhatId": "@A07",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T09",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T10",
+        "fields": {
+          "Subject": "SYN-MM-T10 Follow Up",
+          "WhoId": "@C10",
+          "WhatId": "@A08",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T10",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T11",
+        "fields": {
+          "Subject": "SYN-MM-T11 Follow Up",
+          "WhoId": "@C11",
+          "WhatId": "@A08",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T11",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T12",
+        "fields": {
+          "Subject": "SYN-MM-T12 Follow Up",
+          "WhoId": "@C12",
+          "WhatId": "@A08",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T12",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T13",
+        "fields": {
+          "Subject": "SYN-MM-T13 Follow Up",
+          "WhoId": "@C13",
+          "WhatId": "@A09",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T13",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T14",
+        "fields": {
+          "Subject": "SYN-MM-T14 Follow Up",
+          "WhoId": "@C14",
+          "WhatId": "@A09",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T14",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T15",
+        "fields": {
+          "Subject": "SYN-MM-T15 Follow Up",
+          "WhoId": "@C15",
+          "WhatId": "@A09",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T15",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T16",
+        "fields": {
+          "Subject": "SYN-MM-T16 Follow Up",
+          "WhoId": "@C16",
+          "WhatId": "@A10",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T16",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T17",
+        "fields": {
+          "Subject": "SYN-MM-T17 Follow Up",
+          "WhoId": "@C17",
+          "WhatId": "@A10",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T17",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T18",
+        "fields": {
+          "Subject": "SYN-MM-T18 Follow Up",
+          "WhoId": "@C18",
+          "WhatId": "@A10",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T18",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T19",
+        "fields": {
+          "Subject": "SYN-MM-T19 Follow Up",
+          "WhoId": "@C19",
+          "WhatId": "@A11",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T19",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T20",
+        "fields": {
+          "Subject": "SYN-MM-T20 Follow Up",
+          "WhoId": "@C20",
+          "WhatId": "@A11",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T20",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T21",
+        "fields": {
+          "Subject": "SYN-MM-T21 Follow Up",
+          "WhoId": "@C01",
+          "WhatId": "@O01",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T21",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T22",
+        "fields": {
+          "Subject": "SYN-MM-T22 Follow Up",
+          "WhoId": "@C01",
+          "WhatId": "@O02",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T22",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T23",
+        "fields": {
+          "Subject": "SYN-MM-T23 Follow Up",
+          "WhoId": "@C04",
+          "WhatId": "@O03",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T23",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T24",
+        "fields": {
+          "Subject": "SYN-MM-T24 Follow Up",
+          "WhoId": "@C04",
+          "WhatId": "@O04",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T24",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T25",
+        "fields": {
+          "Subject": "SYN-MM-T25 Follow Up",
+          "WhoId": "@C07",
+          "WhatId": "@O05",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T25",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T26",
+        "fields": {
+          "Subject": "SYN-MM-T26 Follow Up",
+          "WhoId": "@C07",
+          "WhatId": "@O06",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T26",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T27",
+        "fields": {
+          "Subject": "SYN-MM-T27 Follow Up",
+          "WhoId": "@C10",
+          "WhatId": "@O07",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T27",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T28",
+        "fields": {
+          "Subject": "SYN-MM-T28 Follow Up",
+          "WhoId": "@C10",
+          "WhatId": "@O08",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T28",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T29",
+        "fields": {
+          "Subject": "SYN-MM-T29 Follow Up",
+          "WhoId": "@C13",
+          "WhatId": "@O09",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T29",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T30",
+        "fields": {
+          "Subject": "SYN-MM-T30 Follow Up",
+          "WhoId": "@C13",
+          "WhatId": "@O10",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T30",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T31",
+        "fields": {
+          "Subject": "SYN-MM-T31 Follow Up",
+          "WhoId": "@C16",
+          "WhatId": "@O11",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T31",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T32",
+        "fields": {
+          "Subject": "SYN-MM-T32 Follow Up",
+          "WhoId": "@C16",
+          "WhatId": "@O12",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T32",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T33",
+        "fields": {
+          "Subject": "SYN-MM-T33 Follow Up",
+          "WhoId": "@C19",
+          "WhatId": "@O13",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T33",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T34",
+        "fields": {
+          "Subject": "SYN-MM-T34 Follow Up",
+          "WhoId": "@C19",
+          "WhatId": "@O14",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T34",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T35",
+        "fields": {
+          "Subject": "SYN-MM-T35 Follow Up",
+          "WhoId": "@C22",
+          "WhatId": "@O15",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T35",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T36",
+        "fields": {
+          "Subject": "SYN-MM-T36 Follow Up",
+          "WhoId": "@C22",
+          "WhatId": "@O16",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T36",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T37",
+        "fields": {
+          "Subject": "SYN-MM-T37 Follow Up",
+          "WhoId": "@C25",
+          "WhatId": "@O17",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T37",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T38",
+        "fields": {
+          "Subject": "SYN-MM-T38 Follow Up",
+          "WhoId": "@C25",
+          "WhatId": "@O18",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T38",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T39",
+        "fields": {
+          "Subject": "SYN-MM-T39 Follow Up",
+          "WhoId": "@C28",
+          "WhatId": "@O19",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T39",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T40",
+        "fields": {
+          "Subject": "SYN-MM-T40 Follow Up",
+          "WhoId": "@C28",
+          "WhatId": "@O20",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T40",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T41",
+        "fields": {
+          "Subject": "SYN-MM-T41 Follow Up",
+          "WhoId": "@C01",
+          "WhatId": "@S01",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T41",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T42",
+        "fields": {
+          "Subject": "SYN-MM-T42 Follow Up",
+          "WhoId": "@C02",
+          "WhatId": "@S02",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T42",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T43",
+        "fields": {
+          "Subject": "SYN-MM-T43 Follow Up",
+          "WhoId": "@C03",
+          "WhatId": "@S03",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T43",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T44",
+        "fields": {
+          "Subject": "SYN-MM-T44 Follow Up",
+          "WhoId": "@C04",
+          "WhatId": "@S04",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T44",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T45",
+        "fields": {
+          "Subject": "SYN-MM-T45 Follow Up",
+          "WhoId": "@C05",
+          "WhatId": "@S05",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T45",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T46",
+        "fields": {
+          "Subject": "SYN-MM-T46 Follow Up",
+          "WhoId": "@C06",
+          "WhatId": "@S06",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T46",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T47",
+        "fields": {
+          "Subject": "SYN-MM-T47 Follow Up",
+          "WhoId": "@C07",
+          "WhatId": "@S07",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T47",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T48",
+        "fields": {
+          "Subject": "SYN-MM-T48 Follow Up",
+          "WhoId": "@C08",
+          "WhatId": "@S08",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T48",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T49",
+        "fields": {
+          "Subject": "SYN-MM-T49 Follow Up",
+          "WhoId": "@C09",
+          "WhatId": "@S09",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T49",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T50",
+        "fields": {
+          "Subject": "SYN-MM-T50 Follow Up",
+          "WhoId": "@C10",
+          "WhatId": "@S10",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T50",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T51",
+        "fields": {
+          "Subject": "SYN-MM-T51 Follow Up",
+          "WhoId": "@C11",
+          "WhatId": "@S11",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T51",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T52",
+        "fields": {
+          "Subject": "SYN-MM-T52 Follow Up",
+          "WhoId": "@C12",
+          "WhatId": "@S12",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T52",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T53",
+        "fields": {
+          "Subject": "SYN-MM-T53 Follow Up",
+          "WhoId": "@C13",
+          "WhatId": "@S13",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T53",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T54",
+        "fields": {
+          "Subject": "SYN-MM-T54 Follow Up",
+          "WhoId": "@C14",
+          "WhatId": "@S14",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T54",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T55",
+        "fields": {
+          "Subject": "SYN-MM-T55 Follow Up",
+          "WhoId": "@C15",
+          "WhatId": "@S15",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T55",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T56",
+        "fields": {
+          "Subject": "SYN-MM-T56 Follow Up",
+          "WhoId": "@C16",
+          "WhatId": "@S16",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T56",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T57",
+        "fields": {
+          "Subject": "SYN-MM-T57 Follow Up",
+          "WhoId": "@C17",
+          "WhatId": "@S17",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T57",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T58",
+        "fields": {
+          "Subject": "SYN-MM-T58 Follow Up",
+          "WhoId": "@C18",
+          "WhatId": "@S18",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T58",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T59",
+        "fields": {
+          "Subject": "SYN-MM-T59 Follow Up",
+          "WhoId": "@C19",
+          "WhatId": "@S19",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T59",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "T60",
+        "fields": {
+          "Subject": "SYN-MM-T60 Follow Up",
+          "WhoId": "@C20",
+          "WhatId": "@S20",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-12-15",
+          "Description": "SDA-CROSS-MODULE-v1|T60",
+          "OwnerId": "@operator"
+        }
+      }
+    ],
+    "Campaign": [
+      {
+        "key": "M01",
+        "fields": {
+          "Name": "SYN-MM-M01 Outreach",
+          "Status": "Planned",
+          "Type": "Conference",
+          "IsActive": true,
+          "StartDate": "2026-10-01",
+          "EndDate": "2026-12-31",
+          "Description": "SDA-CROSS-MODULE-v1|M01",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "M02",
+        "fields": {
+          "Name": "SYN-MM-M02 Outreach",
+          "Status": "Planned",
+          "Type": "Conference",
+          "IsActive": true,
+          "StartDate": "2026-10-01",
+          "EndDate": "2026-12-31",
+          "Description": "SDA-CROSS-MODULE-v1|M02",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "M03",
+        "fields": {
+          "Name": "SYN-MM-M03 Outreach",
+          "Status": "Planned",
+          "Type": "Conference",
+          "IsActive": true,
+          "StartDate": "2026-10-01",
+          "EndDate": "2026-12-31",
+          "Description": "SDA-CROSS-MODULE-v1|M03",
+          "OwnerId": "@operator"
+        }
+      },
+      {
+        "key": "M04",
+        "fields": {
+          "Name": "SYN-MM-M04 Outreach",
+          "Status": "Planned",
+          "Type": "Conference",
+          "IsActive": true,
+          "StartDate": "2026-10-01",
+          "EndDate": "2026-12-31",
+          "Description": "SDA-CROSS-MODULE-v1|M04",
+          "OwnerId": "@operator"
+        }
+      }
+    ],
+    "CampaignMember": [
+      {
+        "key": "CM01",
+        "fields": {
+          "CampaignId": "@M01",
+          "ContactId": "@C01",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM02",
+        "fields": {
+          "CampaignId": "@M01",
+          "ContactId": "@C02",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM03",
+        "fields": {
+          "CampaignId": "@M01",
+          "ContactId": "@C03",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM04",
+        "fields": {
+          "CampaignId": "@M01",
+          "ContactId": "@C04",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM05",
+        "fields": {
+          "CampaignId": "@M01",
+          "ContactId": "@C05",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM06",
+        "fields": {
+          "CampaignId": "@M01",
+          "ContactId": "@C06",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM07",
+        "fields": {
+          "CampaignId": "@M01",
+          "ContactId": "@C07",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM08",
+        "fields": {
+          "CampaignId": "@M01",
+          "ContactId": "@C08",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM09",
+        "fields": {
+          "CampaignId": "@M01",
+          "ContactId": "@C09",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM10",
+        "fields": {
+          "CampaignId": "@M01",
+          "ContactId": "@C10",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM11",
+        "fields": {
+          "CampaignId": "@M02",
+          "ContactId": "@C11",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM12",
+        "fields": {
+          "CampaignId": "@M02",
+          "ContactId": "@C12",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM13",
+        "fields": {
+          "CampaignId": "@M02",
+          "ContactId": "@C13",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM14",
+        "fields": {
+          "CampaignId": "@M02",
+          "ContactId": "@C14",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM15",
+        "fields": {
+          "CampaignId": "@M02",
+          "ContactId": "@C15",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM16",
+        "fields": {
+          "CampaignId": "@M02",
+          "ContactId": "@C16",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM17",
+        "fields": {
+          "CampaignId": "@M02",
+          "ContactId": "@C17",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM18",
+        "fields": {
+          "CampaignId": "@M02",
+          "ContactId": "@C18",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM19",
+        "fields": {
+          "CampaignId": "@M02",
+          "ContactId": "@C19",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM20",
+        "fields": {
+          "CampaignId": "@M02",
+          "ContactId": "@C20",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM21",
+        "fields": {
+          "CampaignId": "@M03",
+          "LeadId": "@L01",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM22",
+        "fields": {
+          "CampaignId": "@M03",
+          "LeadId": "@L02",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM23",
+        "fields": {
+          "CampaignId": "@M03",
+          "LeadId": "@L03",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM24",
+        "fields": {
+          "CampaignId": "@M03",
+          "LeadId": "@L04",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM25",
+        "fields": {
+          "CampaignId": "@M03",
+          "LeadId": "@L05",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM26",
+        "fields": {
+          "CampaignId": "@M03",
+          "LeadId": "@L06",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM27",
+        "fields": {
+          "CampaignId": "@M03",
+          "LeadId": "@L07",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM28",
+        "fields": {
+          "CampaignId": "@M03",
+          "LeadId": "@L08",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM29",
+        "fields": {
+          "CampaignId": "@M03",
+          "LeadId": "@L09",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM30",
+        "fields": {
+          "CampaignId": "@M03",
+          "LeadId": "@L10",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM31",
+        "fields": {
+          "CampaignId": "@M04",
+          "LeadId": "@L11",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM32",
+        "fields": {
+          "CampaignId": "@M04",
+          "LeadId": "@L12",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM33",
+        "fields": {
+          "CampaignId": "@M04",
+          "LeadId": "@L13",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM34",
+        "fields": {
+          "CampaignId": "@M04",
+          "LeadId": "@L14",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM35",
+        "fields": {
+          "CampaignId": "@M04",
+          "LeadId": "@L15",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM36",
+        "fields": {
+          "CampaignId": "@M04",
+          "LeadId": "@L16",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM37",
+        "fields": {
+          "CampaignId": "@M04",
+          "LeadId": "@L17",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM38",
+        "fields": {
+          "CampaignId": "@M04",
+          "LeadId": "@L18",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM39",
+        "fields": {
+          "CampaignId": "@M04",
+          "LeadId": "@L19",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "CM40",
+        "fields": {
+          "CampaignId": "@M04",
+          "LeadId": "@L20",
+          "Status": "Sent"
+        }
+      }
+    ],
+    "OpportunityContactRole": [
+      {
+        "key": "R01A",
+        "fields": {
+          "OpportunityId": "@O01",
+          "ContactId": "@C01",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R01B",
+        "fields": {
+          "OpportunityId": "@O01",
+          "ContactId": "@C02",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R02A",
+        "fields": {
+          "OpportunityId": "@O02",
+          "ContactId": "@C01",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R02B",
+        "fields": {
+          "OpportunityId": "@O02",
+          "ContactId": "@C02",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R03A",
+        "fields": {
+          "OpportunityId": "@O03",
+          "ContactId": "@C04",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R03B",
+        "fields": {
+          "OpportunityId": "@O03",
+          "ContactId": "@C05",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R04A",
+        "fields": {
+          "OpportunityId": "@O04",
+          "ContactId": "@C04",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R04B",
+        "fields": {
+          "OpportunityId": "@O04",
+          "ContactId": "@C05",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R05A",
+        "fields": {
+          "OpportunityId": "@O05",
+          "ContactId": "@C07",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R05B",
+        "fields": {
+          "OpportunityId": "@O05",
+          "ContactId": "@C08",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R06A",
+        "fields": {
+          "OpportunityId": "@O06",
+          "ContactId": "@C07",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R06B",
+        "fields": {
+          "OpportunityId": "@O06",
+          "ContactId": "@C08",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R07A",
+        "fields": {
+          "OpportunityId": "@O07",
+          "ContactId": "@C10",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R07B",
+        "fields": {
+          "OpportunityId": "@O07",
+          "ContactId": "@C11",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R08A",
+        "fields": {
+          "OpportunityId": "@O08",
+          "ContactId": "@C10",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R08B",
+        "fields": {
+          "OpportunityId": "@O08",
+          "ContactId": "@C11",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R09A",
+        "fields": {
+          "OpportunityId": "@O09",
+          "ContactId": "@C13",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R09B",
+        "fields": {
+          "OpportunityId": "@O09",
+          "ContactId": "@C14",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R10A",
+        "fields": {
+          "OpportunityId": "@O10",
+          "ContactId": "@C13",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R10B",
+        "fields": {
+          "OpportunityId": "@O10",
+          "ContactId": "@C14",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R11A",
+        "fields": {
+          "OpportunityId": "@O11",
+          "ContactId": "@C16",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R11B",
+        "fields": {
+          "OpportunityId": "@O11",
+          "ContactId": "@C17",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R12A",
+        "fields": {
+          "OpportunityId": "@O12",
+          "ContactId": "@C16",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R12B",
+        "fields": {
+          "OpportunityId": "@O12",
+          "ContactId": "@C17",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R13A",
+        "fields": {
+          "OpportunityId": "@O13",
+          "ContactId": "@C19",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R13B",
+        "fields": {
+          "OpportunityId": "@O13",
+          "ContactId": "@C20",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R14A",
+        "fields": {
+          "OpportunityId": "@O14",
+          "ContactId": "@C19",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R14B",
+        "fields": {
+          "OpportunityId": "@O14",
+          "ContactId": "@C20",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R15A",
+        "fields": {
+          "OpportunityId": "@O15",
+          "ContactId": "@C22",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R15B",
+        "fields": {
+          "OpportunityId": "@O15",
+          "ContactId": "@C23",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R16A",
+        "fields": {
+          "OpportunityId": "@O16",
+          "ContactId": "@C22",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R16B",
+        "fields": {
+          "OpportunityId": "@O16",
+          "ContactId": "@C23",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R17A",
+        "fields": {
+          "OpportunityId": "@O17",
+          "ContactId": "@C25",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R17B",
+        "fields": {
+          "OpportunityId": "@O17",
+          "ContactId": "@C26",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R18A",
+        "fields": {
+          "OpportunityId": "@O18",
+          "ContactId": "@C25",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R18B",
+        "fields": {
+          "OpportunityId": "@O18",
+          "ContactId": "@C26",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R19A",
+        "fields": {
+          "OpportunityId": "@O19",
+          "ContactId": "@C28",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R19B",
+        "fields": {
+          "OpportunityId": "@O19",
+          "ContactId": "@C29",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R20A",
+        "fields": {
+          "OpportunityId": "@O20",
+          "ContactId": "@C28",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R20B",
+        "fields": {
+          "OpportunityId": "@O20",
+          "ContactId": "@C29",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R21A",
+        "fields": {
+          "OpportunityId": "@O21",
+          "ContactId": "@C31",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R21B",
+        "fields": {
+          "OpportunityId": "@O21",
+          "ContactId": "@C32",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R22A",
+        "fields": {
+          "OpportunityId": "@O22",
+          "ContactId": "@C31",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R22B",
+        "fields": {
+          "OpportunityId": "@O22",
+          "ContactId": "@C32",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R23A",
+        "fields": {
+          "OpportunityId": "@O23",
+          "ContactId": "@C34",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R23B",
+        "fields": {
+          "OpportunityId": "@O23",
+          "ContactId": "@C35",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R24A",
+        "fields": {
+          "OpportunityId": "@O24",
+          "ContactId": "@C34",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R24B",
+        "fields": {
+          "OpportunityId": "@O24",
+          "ContactId": "@C35",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R25A",
+        "fields": {
+          "OpportunityId": "@O25",
+          "ContactId": "@C37",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R25B",
+        "fields": {
+          "OpportunityId": "@O25",
+          "ContactId": "@C38",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R26A",
+        "fields": {
+          "OpportunityId": "@O26",
+          "ContactId": "@C37",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R26B",
+        "fields": {
+          "OpportunityId": "@O26",
+          "ContactId": "@C38",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R27A",
+        "fields": {
+          "OpportunityId": "@O27",
+          "ContactId": "@C40",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R27B",
+        "fields": {
+          "OpportunityId": "@O27",
+          "ContactId": "@C41",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R28A",
+        "fields": {
+          "OpportunityId": "@O28",
+          "ContactId": "@C40",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R28B",
+        "fields": {
+          "OpportunityId": "@O28",
+          "ContactId": "@C41",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R29A",
+        "fields": {
+          "OpportunityId": "@O29",
+          "ContactId": "@C43",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R29B",
+        "fields": {
+          "OpportunityId": "@O29",
+          "ContactId": "@C44",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R30A",
+        "fields": {
+          "OpportunityId": "@O30",
+          "ContactId": "@C43",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R30B",
+        "fields": {
+          "OpportunityId": "@O30",
+          "ContactId": "@C44",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R31A",
+        "fields": {
+          "OpportunityId": "@O31",
+          "ContactId": "@C46",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R31B",
+        "fields": {
+          "OpportunityId": "@O31",
+          "ContactId": "@C47",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R32A",
+        "fields": {
+          "OpportunityId": "@O32",
+          "ContactId": "@C46",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R32B",
+        "fields": {
+          "OpportunityId": "@O32",
+          "ContactId": "@C47",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R33A",
+        "fields": {
+          "OpportunityId": "@O33",
+          "ContactId": "@C49",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R33B",
+        "fields": {
+          "OpportunityId": "@O33",
+          "ContactId": "@C50",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R34A",
+        "fields": {
+          "OpportunityId": "@O34",
+          "ContactId": "@C49",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R34B",
+        "fields": {
+          "OpportunityId": "@O34",
+          "ContactId": "@C50",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R35A",
+        "fields": {
+          "OpportunityId": "@O35",
+          "ContactId": "@C52",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R35B",
+        "fields": {
+          "OpportunityId": "@O35",
+          "ContactId": "@C53",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R36A",
+        "fields": {
+          "OpportunityId": "@O36",
+          "ContactId": "@C52",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R36B",
+        "fields": {
+          "OpportunityId": "@O36",
+          "ContactId": "@C53",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R37A",
+        "fields": {
+          "OpportunityId": "@O37",
+          "ContactId": "@C55",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R37B",
+        "fields": {
+          "OpportunityId": "@O37",
+          "ContactId": "@C56",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R38A",
+        "fields": {
+          "OpportunityId": "@O38",
+          "ContactId": "@C55",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R38B",
+        "fields": {
+          "OpportunityId": "@O38",
+          "ContactId": "@C56",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R39A",
+        "fields": {
+          "OpportunityId": "@O39",
+          "ContactId": "@C58",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R39B",
+        "fields": {
+          "OpportunityId": "@O39",
+          "ContactId": "@C59",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      },
+      {
+        "key": "R40A",
+        "fields": {
+          "OpportunityId": "@O40",
+          "ContactId": "@C58",
+          "Role": "Decision Maker",
+          "IsPrimary": true
+        }
+      },
+      {
+        "key": "R40B",
+        "fields": {
+          "OpportunityId": "@O40",
+          "ContactId": "@C59",
+          "Role": "Technical Buyer",
+          "IsPrimary": false
+        }
+      }
+    ]
+  },
+  "expectedCounts": {
+    "Account": 24,
+    "Contact": 60,
+    "Opportunity": 40,
+    "Lead": 30,
+    "Case": 30,
+    "Task": 60,
+    "Campaign": 4,
+    "CampaignMember": 40,
+    "OpportunityContactRole": 80
+  },
+  "expectedBusinessRows": 368
+}
