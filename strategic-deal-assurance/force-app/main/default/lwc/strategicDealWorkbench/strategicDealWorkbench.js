@@ -3,8 +3,18 @@ import OPPORTUNITY from '@salesforce/schema/Opportunity';
 import { notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
 
 const INPUT_FIELDS = ['Name', 'AccountId', 'StageName', 'CloseDate', 'Amount', 'Strategic_Deal__c', 'Discount__c', 'Regional_VP_Approver__c'];
+// Presentation only: field identity, FLS, LDS saves and policy semantics never change.
+const LAYOUTS = {
+    baseline: [{ key: 'deal', label: 'Deal details', fields: INPUT_FIELDS }],
+    reordered: [{ key: 'commercial', label: 'Commercial details', fields: ['Discount__c', 'Amount', 'Regional_VP_Approver__c', 'Strategic_Deal__c', 'CloseDate', 'StageName', 'AccountId', 'Name'] }],
+    regrouped: [
+        { key: 'policy', label: 'Pricing and policy', fields: ['Strategic_Deal__c', 'Discount__c', 'Amount', 'Regional_VP_Approver__c'] },
+        { key: 'customer', label: 'Customer and timing', fields: ['AccountId', 'Name', 'CloseDate', 'StageName'] }
+    ]
+};
 export default class StrategicDealWorkbench extends LightningElement {
     @api recordId;
+    @api locatorVariant = 'baseline';
     objectApiName = OPPORTUNITY;
     selectedId;
     busy = false;
@@ -15,6 +25,21 @@ export default class StrategicDealWorkbench extends LightningElement {
     get canStartNew() { return !this.recordId && Boolean(this.selectedId); }
     get heading() { return this.currentId ? 'Edit strategic deal' : 'Create a strategic deal'; }
     get defaultName() { return this.currentId ? undefined : 'SYN-Strategic Deal'; }
+    get activeVariant() { return Object.hasOwn(LAYOUTS, this.locatorVariant) ? this.locatorVariant : 'baseline'; }
+    get inputTitle() { return this.activeVariant === 'baseline' ? 'Deal inputs' : 'Commercial proposal'; }
+    get saveLabel() { return this.activeVariant === 'baseline' ? 'Save and Evaluate' : 'Save proposal and check policy'; }
+    get saveHook() { return this.activeVariant === 'baseline' ? 'save-evaluate-v1' : `save-evaluate-${this.activeVariant}-v2`; }
+    get fieldGroups() {
+        return LAYOUTS[this.activeVariant].map(group => ({
+            key: group.key,
+            label: group.label,
+            fields: group.fields.map(apiName => ({
+                apiName,
+                hook: `deal-${this.activeVariant}-${apiName}`,
+                value: apiName === 'Name' ? this.defaultName : undefined
+            }))
+        }));
+    }
     handleSubmit(event) {
         event.preventDefault();
         if (this.busy) { return; }

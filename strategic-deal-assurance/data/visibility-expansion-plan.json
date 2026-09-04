@@ -1,0 +1,2155 @@
+{
+  "schemaVersion": 1,
+  "dataset": "SDA-VISIBILITY-EXPANSION-v1",
+  "currency": "USD",
+  "anchorDate": "2026-09-04",
+  "expectedBusinessRows": 186,
+  "expectedCounts": {
+    "Account": 10,
+    "Contact": 20,
+    "Opportunity": 0,
+    "Lead": 0,
+    "Case": 30,
+    "Task": 60,
+    "Campaign": 6,
+    "CampaignMember": 60,
+    "OpportunityContactRole": 0
+  },
+  "objects": {
+    "Account": [
+      {
+        "key": "XA01",
+        "fields": {
+          "Name": "SYN-MM-XA01 Aurora Analytics",
+          "AccountNumber": "SDA-VISIBILITY-EXPANSION-v1|XA01",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XA01 | Extra customer for service and activity demos.",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Technology"
+        }
+      },
+      {
+        "key": "XA02",
+        "fields": {
+          "Name": "SYN-MM-XA02 Birch Manufacturing",
+          "AccountNumber": "SDA-VISIBILITY-EXPANSION-v1|XA02",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XA02 | Extra customer for service and activity demos.",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Technology"
+        }
+      },
+      {
+        "key": "XA03",
+        "fields": {
+          "Name": "SYN-MM-XA03 Cobalt Healthcare",
+          "AccountNumber": "SDA-VISIBILITY-EXPANSION-v1|XA03",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XA03 | Extra customer for service and activity demos.",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Manufacturing"
+        }
+      },
+      {
+        "key": "XA04",
+        "fields": {
+          "Name": "SYN-MM-XA04 Dahlia Retail",
+          "AccountNumber": "SDA-VISIBILITY-EXPANSION-v1|XA04",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XA04 | Extra customer for service and activity demos.",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Manufacturing"
+        }
+      },
+      {
+        "key": "XA05",
+        "fields": {
+          "Name": "SYN-MM-XA05 Ember Energy",
+          "AccountNumber": "SDA-VISIBILITY-EXPANSION-v1|XA05",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XA05 | Extra customer for service and activity demos.",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Healthcare"
+        }
+      },
+      {
+        "key": "XA06",
+        "fields": {
+          "Name": "SYN-MM-XA06 Fjord Robotics",
+          "AccountNumber": "SDA-VISIBILITY-EXPANSION-v1|XA06",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XA06 | Extra customer for service and activity demos.",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Healthcare"
+        }
+      },
+      {
+        "key": "XA07",
+        "fields": {
+          "Name": "SYN-MM-XA07 Garnet Logistics",
+          "AccountNumber": "SDA-VISIBILITY-EXPANSION-v1|XA07",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XA07 | Extra customer for service and activity demos.",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Retail"
+        }
+      },
+      {
+        "key": "XA08",
+        "fields": {
+          "Name": "SYN-MM-XA08 Horizon Optics",
+          "AccountNumber": "SDA-VISIBILITY-EXPANSION-v1|XA08",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XA08 | Extra customer for service and activity demos.",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Retail"
+        }
+      },
+      {
+        "key": "XA09",
+        "fields": {
+          "Name": "SYN-MM-XA09 Indigo Foods",
+          "AccountNumber": "SDA-VISIBILITY-EXPANSION-v1|XA09",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XA09 | Extra customer for service and activity demos.",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Energy"
+        }
+      },
+      {
+        "key": "XA10",
+        "fields": {
+          "Name": "SYN-MM-XA10 Juniper Media",
+          "AccountNumber": "SDA-VISIBILITY-EXPANSION-v1|XA10",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XA10 | Extra customer for service and activity demos.",
+          "OwnerId": "@operator",
+          "Type": "Customer - Direct",
+          "Industry": "Energy"
+        }
+      }
+    ],
+    "Contact": [
+      {
+        "key": "XC01",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC01 AuroraService",
+          "AccountId": "@XA01",
+          "Email": "xc01@example.invalid",
+          "Title": "Service Lead",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC01"
+        }
+      },
+      {
+        "key": "XC02",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC02 AuroraOperations",
+          "AccountId": "@XA01",
+          "Email": "xc02@example.invalid",
+          "Title": "Operations Manager",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC02"
+        }
+      },
+      {
+        "key": "XC03",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC03 BirchService",
+          "AccountId": "@XA02",
+          "Email": "xc03@example.invalid",
+          "Title": "Service Lead",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC03"
+        }
+      },
+      {
+        "key": "XC04",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC04 BirchOperations",
+          "AccountId": "@XA02",
+          "Email": "xc04@example.invalid",
+          "Title": "Operations Manager",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC04"
+        }
+      },
+      {
+        "key": "XC05",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC05 CobaltService",
+          "AccountId": "@XA03",
+          "Email": "xc05@example.invalid",
+          "Title": "Service Lead",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC05"
+        }
+      },
+      {
+        "key": "XC06",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC06 CobaltOperations",
+          "AccountId": "@XA03",
+          "Email": "xc06@example.invalid",
+          "Title": "Operations Manager",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC06"
+        }
+      },
+      {
+        "key": "XC07",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC07 DahliaService",
+          "AccountId": "@XA04",
+          "Email": "xc07@example.invalid",
+          "Title": "Service Lead",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC07"
+        }
+      },
+      {
+        "key": "XC08",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC08 DahliaOperations",
+          "AccountId": "@XA04",
+          "Email": "xc08@example.invalid",
+          "Title": "Operations Manager",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC08"
+        }
+      },
+      {
+        "key": "XC09",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC09 EmberService",
+          "AccountId": "@XA05",
+          "Email": "xc09@example.invalid",
+          "Title": "Service Lead",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC09"
+        }
+      },
+      {
+        "key": "XC10",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC10 EmberOperations",
+          "AccountId": "@XA05",
+          "Email": "xc10@example.invalid",
+          "Title": "Operations Manager",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC10"
+        }
+      },
+      {
+        "key": "XC11",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC11 FjordService",
+          "AccountId": "@XA06",
+          "Email": "xc11@example.invalid",
+          "Title": "Service Lead",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC11"
+        }
+      },
+      {
+        "key": "XC12",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC12 FjordOperations",
+          "AccountId": "@XA06",
+          "Email": "xc12@example.invalid",
+          "Title": "Operations Manager",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC12"
+        }
+      },
+      {
+        "key": "XC13",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC13 GarnetService",
+          "AccountId": "@XA07",
+          "Email": "xc13@example.invalid",
+          "Title": "Service Lead",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC13"
+        }
+      },
+      {
+        "key": "XC14",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC14 GarnetOperations",
+          "AccountId": "@XA07",
+          "Email": "xc14@example.invalid",
+          "Title": "Operations Manager",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC14"
+        }
+      },
+      {
+        "key": "XC15",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC15 HorizonService",
+          "AccountId": "@XA08",
+          "Email": "xc15@example.invalid",
+          "Title": "Service Lead",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC15"
+        }
+      },
+      {
+        "key": "XC16",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC16 HorizonOperations",
+          "AccountId": "@XA08",
+          "Email": "xc16@example.invalid",
+          "Title": "Operations Manager",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC16"
+        }
+      },
+      {
+        "key": "XC17",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC17 IndigoService",
+          "AccountId": "@XA09",
+          "Email": "xc17@example.invalid",
+          "Title": "Service Lead",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC17"
+        }
+      },
+      {
+        "key": "XC18",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC18 IndigoOperations",
+          "AccountId": "@XA09",
+          "Email": "xc18@example.invalid",
+          "Title": "Operations Manager",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC18"
+        }
+      },
+      {
+        "key": "XC19",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC19 JuniperService",
+          "AccountId": "@XA10",
+          "Email": "xc19@example.invalid",
+          "Title": "Service Lead",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC19"
+        }
+      },
+      {
+        "key": "XC20",
+        "fields": {
+          "FirstName": "Synthetic",
+          "LastName": "SYN-MM-XC20 JuniperOperations",
+          "AccountId": "@XA10",
+          "Email": "xc20@example.invalid",
+          "Title": "Operations Manager",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XC20"
+        }
+      }
+    ],
+    "Opportunity": [],
+    "Lead": [],
+    "Case": [
+      {
+        "key": "XS01",
+        "fields": {
+          "Subject": "SYN-MM-XS01 Access issue",
+          "AccountId": "@XA01",
+          "ContactId": "@XC02",
+          "Status": "New",
+          "Priority": "High",
+          "Origin": "Web",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS01",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS02",
+        "fields": {
+          "Subject": "SYN-MM-XS02 Invoice query",
+          "AccountId": "@XA01",
+          "ContactId": "@XC01",
+          "Status": "Working",
+          "Priority": "Medium",
+          "Origin": "Phone",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS02",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS03",
+        "fields": {
+          "Subject": "SYN-MM-XS03 Integration check",
+          "AccountId": "@XA01",
+          "ContactId": "@XC02",
+          "Status": "Closed",
+          "Priority": "Low",
+          "Origin": "Email",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS03",
+          "Demo_Resolution__c": "Synthetic issue resolved and verified for demo."
+        }
+      },
+      {
+        "key": "XS04",
+        "fields": {
+          "Subject": "SYN-MM-XS04 Access issue",
+          "AccountId": "@XA02",
+          "ContactId": "@XC03",
+          "Status": "New",
+          "Priority": "High",
+          "Origin": "Web",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS04",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS05",
+        "fields": {
+          "Subject": "SYN-MM-XS05 Invoice query",
+          "AccountId": "@XA02",
+          "ContactId": "@XC04",
+          "Status": "Working",
+          "Priority": "Medium",
+          "Origin": "Phone",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS05",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS06",
+        "fields": {
+          "Subject": "SYN-MM-XS06 Integration check",
+          "AccountId": "@XA02",
+          "ContactId": "@XC03",
+          "Status": "Closed",
+          "Priority": "Low",
+          "Origin": "Email",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS06",
+          "Demo_Resolution__c": "Synthetic issue resolved and verified for demo."
+        }
+      },
+      {
+        "key": "XS07",
+        "fields": {
+          "Subject": "SYN-MM-XS07 Access issue",
+          "AccountId": "@XA03",
+          "ContactId": "@XC06",
+          "Status": "New",
+          "Priority": "High",
+          "Origin": "Web",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS07",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS08",
+        "fields": {
+          "Subject": "SYN-MM-XS08 Invoice query",
+          "AccountId": "@XA03",
+          "ContactId": "@XC05",
+          "Status": "Working",
+          "Priority": "Medium",
+          "Origin": "Phone",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS08",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS09",
+        "fields": {
+          "Subject": "SYN-MM-XS09 Integration check",
+          "AccountId": "@XA03",
+          "ContactId": "@XC06",
+          "Status": "Closed",
+          "Priority": "Low",
+          "Origin": "Email",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS09",
+          "Demo_Resolution__c": "Synthetic issue resolved and verified for demo."
+        }
+      },
+      {
+        "key": "XS10",
+        "fields": {
+          "Subject": "SYN-MM-XS10 Access issue",
+          "AccountId": "@XA04",
+          "ContactId": "@XC07",
+          "Status": "New",
+          "Priority": "High",
+          "Origin": "Web",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS10",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS11",
+        "fields": {
+          "Subject": "SYN-MM-XS11 Invoice query",
+          "AccountId": "@XA04",
+          "ContactId": "@XC08",
+          "Status": "Working",
+          "Priority": "Medium",
+          "Origin": "Phone",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS11",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS12",
+        "fields": {
+          "Subject": "SYN-MM-XS12 Integration check",
+          "AccountId": "@XA04",
+          "ContactId": "@XC07",
+          "Status": "Closed",
+          "Priority": "Low",
+          "Origin": "Email",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS12",
+          "Demo_Resolution__c": "Synthetic issue resolved and verified for demo."
+        }
+      },
+      {
+        "key": "XS13",
+        "fields": {
+          "Subject": "SYN-MM-XS13 Access issue",
+          "AccountId": "@XA05",
+          "ContactId": "@XC10",
+          "Status": "New",
+          "Priority": "High",
+          "Origin": "Web",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS13",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS14",
+        "fields": {
+          "Subject": "SYN-MM-XS14 Invoice query",
+          "AccountId": "@XA05",
+          "ContactId": "@XC09",
+          "Status": "Working",
+          "Priority": "Medium",
+          "Origin": "Phone",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS14",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS15",
+        "fields": {
+          "Subject": "SYN-MM-XS15 Integration check",
+          "AccountId": "@XA05",
+          "ContactId": "@XC10",
+          "Status": "Closed",
+          "Priority": "Low",
+          "Origin": "Email",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS15",
+          "Demo_Resolution__c": "Synthetic issue resolved and verified for demo."
+        }
+      },
+      {
+        "key": "XS16",
+        "fields": {
+          "Subject": "SYN-MM-XS16 Access issue",
+          "AccountId": "@XA06",
+          "ContactId": "@XC11",
+          "Status": "New",
+          "Priority": "High",
+          "Origin": "Web",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS16",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS17",
+        "fields": {
+          "Subject": "SYN-MM-XS17 Invoice query",
+          "AccountId": "@XA06",
+          "ContactId": "@XC12",
+          "Status": "Working",
+          "Priority": "Medium",
+          "Origin": "Phone",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS17",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS18",
+        "fields": {
+          "Subject": "SYN-MM-XS18 Integration check",
+          "AccountId": "@XA06",
+          "ContactId": "@XC11",
+          "Status": "Closed",
+          "Priority": "Low",
+          "Origin": "Email",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS18",
+          "Demo_Resolution__c": "Synthetic issue resolved and verified for demo."
+        }
+      },
+      {
+        "key": "XS19",
+        "fields": {
+          "Subject": "SYN-MM-XS19 Access issue",
+          "AccountId": "@XA07",
+          "ContactId": "@XC14",
+          "Status": "New",
+          "Priority": "High",
+          "Origin": "Web",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS19",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS20",
+        "fields": {
+          "Subject": "SYN-MM-XS20 Invoice query",
+          "AccountId": "@XA07",
+          "ContactId": "@XC13",
+          "Status": "Working",
+          "Priority": "Medium",
+          "Origin": "Phone",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS20",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS21",
+        "fields": {
+          "Subject": "SYN-MM-XS21 Integration check",
+          "AccountId": "@XA07",
+          "ContactId": "@XC14",
+          "Status": "Closed",
+          "Priority": "Low",
+          "Origin": "Email",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS21",
+          "Demo_Resolution__c": "Synthetic issue resolved and verified for demo."
+        }
+      },
+      {
+        "key": "XS22",
+        "fields": {
+          "Subject": "SYN-MM-XS22 Access issue",
+          "AccountId": "@XA08",
+          "ContactId": "@XC15",
+          "Status": "New",
+          "Priority": "High",
+          "Origin": "Web",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS22",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS23",
+        "fields": {
+          "Subject": "SYN-MM-XS23 Invoice query",
+          "AccountId": "@XA08",
+          "ContactId": "@XC16",
+          "Status": "Working",
+          "Priority": "Medium",
+          "Origin": "Phone",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS23",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS24",
+        "fields": {
+          "Subject": "SYN-MM-XS24 Integration check",
+          "AccountId": "@XA08",
+          "ContactId": "@XC15",
+          "Status": "Closed",
+          "Priority": "Low",
+          "Origin": "Email",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS24",
+          "Demo_Resolution__c": "Synthetic issue resolved and verified for demo."
+        }
+      },
+      {
+        "key": "XS25",
+        "fields": {
+          "Subject": "SYN-MM-XS25 Access issue",
+          "AccountId": "@XA09",
+          "ContactId": "@XC18",
+          "Status": "New",
+          "Priority": "High",
+          "Origin": "Web",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS25",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS26",
+        "fields": {
+          "Subject": "SYN-MM-XS26 Invoice query",
+          "AccountId": "@XA09",
+          "ContactId": "@XC17",
+          "Status": "Working",
+          "Priority": "Medium",
+          "Origin": "Phone",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS26",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS27",
+        "fields": {
+          "Subject": "SYN-MM-XS27 Integration check",
+          "AccountId": "@XA09",
+          "ContactId": "@XC18",
+          "Status": "Closed",
+          "Priority": "Low",
+          "Origin": "Email",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS27",
+          "Demo_Resolution__c": "Synthetic issue resolved and verified for demo."
+        }
+      },
+      {
+        "key": "XS28",
+        "fields": {
+          "Subject": "SYN-MM-XS28 Access issue",
+          "AccountId": "@XA10",
+          "ContactId": "@XC19",
+          "Status": "New",
+          "Priority": "High",
+          "Origin": "Web",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS28",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS29",
+        "fields": {
+          "Subject": "SYN-MM-XS29 Invoice query",
+          "AccountId": "@XA10",
+          "ContactId": "@XC20",
+          "Status": "Working",
+          "Priority": "Medium",
+          "Origin": "Phone",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS29",
+          "Demo_Resolution__c": null
+        }
+      },
+      {
+        "key": "XS30",
+        "fields": {
+          "Subject": "SYN-MM-XS30 Integration check",
+          "AccountId": "@XA10",
+          "ContactId": "@XC19",
+          "Status": "Closed",
+          "Priority": "Low",
+          "Origin": "Email",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XS30",
+          "Demo_Resolution__c": "Synthetic issue resolved and verified for demo."
+        }
+      }
+    ],
+    "Task": [
+      {
+        "key": "XT01",
+        "fields": {
+          "Subject": "SYN-MM-XT01 Customer follow up",
+          "WhoId": "@XC02",
+          "WhatId": "@XS01",
+          "Status": "Not Started",
+          "Priority": "High",
+          "ActivityDate": "2026-09-03",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT01"
+        }
+      },
+      {
+        "key": "XT02",
+        "fields": {
+          "Subject": "SYN-MM-XT02 Resolution review",
+          "WhoId": "@XC02",
+          "WhatId": "@XS01",
+          "Status": "In Progress",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-04",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT02"
+        }
+      },
+      {
+        "key": "XT03",
+        "fields": {
+          "Subject": "SYN-MM-XT03 Customer follow up",
+          "WhoId": "@XC01",
+          "WhatId": "@XS02",
+          "Status": "Completed",
+          "Priority": "High",
+          "ActivityDate": "2026-09-05",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT03"
+        }
+      },
+      {
+        "key": "XT04",
+        "fields": {
+          "Subject": "SYN-MM-XT04 Resolution review",
+          "WhoId": "@XC01",
+          "WhatId": "@XS02",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-11",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT04"
+        }
+      },
+      {
+        "key": "XT05",
+        "fields": {
+          "Subject": "SYN-MM-XT05 Customer follow up",
+          "WhoId": "@XC02",
+          "WhatId": "@XS03",
+          "Status": "In Progress",
+          "Priority": "High",
+          "ActivityDate": "2026-09-03",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT05"
+        }
+      },
+      {
+        "key": "XT06",
+        "fields": {
+          "Subject": "SYN-MM-XT06 Resolution review",
+          "WhoId": "@XC02",
+          "WhatId": "@XS03",
+          "Status": "Completed",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-04",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT06"
+        }
+      },
+      {
+        "key": "XT07",
+        "fields": {
+          "Subject": "SYN-MM-XT07 Customer follow up",
+          "WhoId": "@XC03",
+          "WhatId": "@XS04",
+          "Status": "Not Started",
+          "Priority": "High",
+          "ActivityDate": "2026-09-05",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT07"
+        }
+      },
+      {
+        "key": "XT08",
+        "fields": {
+          "Subject": "SYN-MM-XT08 Resolution review",
+          "WhoId": "@XC03",
+          "WhatId": "@XS04",
+          "Status": "In Progress",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-11",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT08"
+        }
+      },
+      {
+        "key": "XT09",
+        "fields": {
+          "Subject": "SYN-MM-XT09 Customer follow up",
+          "WhoId": "@XC04",
+          "WhatId": "@XS05",
+          "Status": "Completed",
+          "Priority": "High",
+          "ActivityDate": "2026-09-03",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT09"
+        }
+      },
+      {
+        "key": "XT10",
+        "fields": {
+          "Subject": "SYN-MM-XT10 Resolution review",
+          "WhoId": "@XC04",
+          "WhatId": "@XS05",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-04",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT10"
+        }
+      },
+      {
+        "key": "XT11",
+        "fields": {
+          "Subject": "SYN-MM-XT11 Customer follow up",
+          "WhoId": "@XC03",
+          "WhatId": "@XS06",
+          "Status": "In Progress",
+          "Priority": "High",
+          "ActivityDate": "2026-09-05",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT11"
+        }
+      },
+      {
+        "key": "XT12",
+        "fields": {
+          "Subject": "SYN-MM-XT12 Resolution review",
+          "WhoId": "@XC03",
+          "WhatId": "@XS06",
+          "Status": "Completed",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-11",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT12"
+        }
+      },
+      {
+        "key": "XT13",
+        "fields": {
+          "Subject": "SYN-MM-XT13 Customer follow up",
+          "WhoId": "@XC06",
+          "WhatId": "@XS07",
+          "Status": "Not Started",
+          "Priority": "High",
+          "ActivityDate": "2026-09-03",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT13"
+        }
+      },
+      {
+        "key": "XT14",
+        "fields": {
+          "Subject": "SYN-MM-XT14 Resolution review",
+          "WhoId": "@XC06",
+          "WhatId": "@XS07",
+          "Status": "In Progress",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-04",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT14"
+        }
+      },
+      {
+        "key": "XT15",
+        "fields": {
+          "Subject": "SYN-MM-XT15 Customer follow up",
+          "WhoId": "@XC05",
+          "WhatId": "@XS08",
+          "Status": "Completed",
+          "Priority": "High",
+          "ActivityDate": "2026-09-05",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT15"
+        }
+      },
+      {
+        "key": "XT16",
+        "fields": {
+          "Subject": "SYN-MM-XT16 Resolution review",
+          "WhoId": "@XC05",
+          "WhatId": "@XS08",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-11",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT16"
+        }
+      },
+      {
+        "key": "XT17",
+        "fields": {
+          "Subject": "SYN-MM-XT17 Customer follow up",
+          "WhoId": "@XC06",
+          "WhatId": "@XS09",
+          "Status": "In Progress",
+          "Priority": "High",
+          "ActivityDate": "2026-09-03",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT17"
+        }
+      },
+      {
+        "key": "XT18",
+        "fields": {
+          "Subject": "SYN-MM-XT18 Resolution review",
+          "WhoId": "@XC06",
+          "WhatId": "@XS09",
+          "Status": "Completed",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-04",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT18"
+        }
+      },
+      {
+        "key": "XT19",
+        "fields": {
+          "Subject": "SYN-MM-XT19 Customer follow up",
+          "WhoId": "@XC07",
+          "WhatId": "@XS10",
+          "Status": "Not Started",
+          "Priority": "High",
+          "ActivityDate": "2026-09-05",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT19"
+        }
+      },
+      {
+        "key": "XT20",
+        "fields": {
+          "Subject": "SYN-MM-XT20 Resolution review",
+          "WhoId": "@XC07",
+          "WhatId": "@XS10",
+          "Status": "In Progress",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-11",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT20"
+        }
+      },
+      {
+        "key": "XT21",
+        "fields": {
+          "Subject": "SYN-MM-XT21 Customer follow up",
+          "WhoId": "@XC08",
+          "WhatId": "@XS11",
+          "Status": "Completed",
+          "Priority": "High",
+          "ActivityDate": "2026-09-03",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT21"
+        }
+      },
+      {
+        "key": "XT22",
+        "fields": {
+          "Subject": "SYN-MM-XT22 Resolution review",
+          "WhoId": "@XC08",
+          "WhatId": "@XS11",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-04",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT22"
+        }
+      },
+      {
+        "key": "XT23",
+        "fields": {
+          "Subject": "SYN-MM-XT23 Customer follow up",
+          "WhoId": "@XC07",
+          "WhatId": "@XS12",
+          "Status": "In Progress",
+          "Priority": "High",
+          "ActivityDate": "2026-09-05",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT23"
+        }
+      },
+      {
+        "key": "XT24",
+        "fields": {
+          "Subject": "SYN-MM-XT24 Resolution review",
+          "WhoId": "@XC07",
+          "WhatId": "@XS12",
+          "Status": "Completed",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-11",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT24"
+        }
+      },
+      {
+        "key": "XT25",
+        "fields": {
+          "Subject": "SYN-MM-XT25 Customer follow up",
+          "WhoId": "@XC10",
+          "WhatId": "@XS13",
+          "Status": "Not Started",
+          "Priority": "High",
+          "ActivityDate": "2026-09-03",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT25"
+        }
+      },
+      {
+        "key": "XT26",
+        "fields": {
+          "Subject": "SYN-MM-XT26 Resolution review",
+          "WhoId": "@XC10",
+          "WhatId": "@XS13",
+          "Status": "In Progress",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-04",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT26"
+        }
+      },
+      {
+        "key": "XT27",
+        "fields": {
+          "Subject": "SYN-MM-XT27 Customer follow up",
+          "WhoId": "@XC09",
+          "WhatId": "@XS14",
+          "Status": "Completed",
+          "Priority": "High",
+          "ActivityDate": "2026-09-05",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT27"
+        }
+      },
+      {
+        "key": "XT28",
+        "fields": {
+          "Subject": "SYN-MM-XT28 Resolution review",
+          "WhoId": "@XC09",
+          "WhatId": "@XS14",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-11",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT28"
+        }
+      },
+      {
+        "key": "XT29",
+        "fields": {
+          "Subject": "SYN-MM-XT29 Customer follow up",
+          "WhoId": "@XC10",
+          "WhatId": "@XS15",
+          "Status": "In Progress",
+          "Priority": "High",
+          "ActivityDate": "2026-09-03",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT29"
+        }
+      },
+      {
+        "key": "XT30",
+        "fields": {
+          "Subject": "SYN-MM-XT30 Resolution review",
+          "WhoId": "@XC10",
+          "WhatId": "@XS15",
+          "Status": "Completed",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-04",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT30"
+        }
+      },
+      {
+        "key": "XT31",
+        "fields": {
+          "Subject": "SYN-MM-XT31 Customer follow up",
+          "WhoId": "@XC11",
+          "WhatId": "@XS16",
+          "Status": "Not Started",
+          "Priority": "High",
+          "ActivityDate": "2026-09-05",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT31"
+        }
+      },
+      {
+        "key": "XT32",
+        "fields": {
+          "Subject": "SYN-MM-XT32 Resolution review",
+          "WhoId": "@XC11",
+          "WhatId": "@XS16",
+          "Status": "In Progress",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-11",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT32"
+        }
+      },
+      {
+        "key": "XT33",
+        "fields": {
+          "Subject": "SYN-MM-XT33 Customer follow up",
+          "WhoId": "@XC12",
+          "WhatId": "@XS17",
+          "Status": "Completed",
+          "Priority": "High",
+          "ActivityDate": "2026-09-03",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT33"
+        }
+      },
+      {
+        "key": "XT34",
+        "fields": {
+          "Subject": "SYN-MM-XT34 Resolution review",
+          "WhoId": "@XC12",
+          "WhatId": "@XS17",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-04",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT34"
+        }
+      },
+      {
+        "key": "XT35",
+        "fields": {
+          "Subject": "SYN-MM-XT35 Customer follow up",
+          "WhoId": "@XC11",
+          "WhatId": "@XS18",
+          "Status": "In Progress",
+          "Priority": "High",
+          "ActivityDate": "2026-09-05",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT35"
+        }
+      },
+      {
+        "key": "XT36",
+        "fields": {
+          "Subject": "SYN-MM-XT36 Resolution review",
+          "WhoId": "@XC11",
+          "WhatId": "@XS18",
+          "Status": "Completed",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-11",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT36"
+        }
+      },
+      {
+        "key": "XT37",
+        "fields": {
+          "Subject": "SYN-MM-XT37 Customer follow up",
+          "WhoId": "@XC14",
+          "WhatId": "@XS19",
+          "Status": "Not Started",
+          "Priority": "High",
+          "ActivityDate": "2026-09-03",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT37"
+        }
+      },
+      {
+        "key": "XT38",
+        "fields": {
+          "Subject": "SYN-MM-XT38 Resolution review",
+          "WhoId": "@XC14",
+          "WhatId": "@XS19",
+          "Status": "In Progress",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-04",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT38"
+        }
+      },
+      {
+        "key": "XT39",
+        "fields": {
+          "Subject": "SYN-MM-XT39 Customer follow up",
+          "WhoId": "@XC13",
+          "WhatId": "@XS20",
+          "Status": "Completed",
+          "Priority": "High",
+          "ActivityDate": "2026-09-05",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT39"
+        }
+      },
+      {
+        "key": "XT40",
+        "fields": {
+          "Subject": "SYN-MM-XT40 Resolution review",
+          "WhoId": "@XC13",
+          "WhatId": "@XS20",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-11",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT40"
+        }
+      },
+      {
+        "key": "XT41",
+        "fields": {
+          "Subject": "SYN-MM-XT41 Customer follow up",
+          "WhoId": "@XC14",
+          "WhatId": "@XS21",
+          "Status": "In Progress",
+          "Priority": "High",
+          "ActivityDate": "2026-09-03",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT41"
+        }
+      },
+      {
+        "key": "XT42",
+        "fields": {
+          "Subject": "SYN-MM-XT42 Resolution review",
+          "WhoId": "@XC14",
+          "WhatId": "@XS21",
+          "Status": "Completed",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-04",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT42"
+        }
+      },
+      {
+        "key": "XT43",
+        "fields": {
+          "Subject": "SYN-MM-XT43 Customer follow up",
+          "WhoId": "@XC15",
+          "WhatId": "@XS22",
+          "Status": "Not Started",
+          "Priority": "High",
+          "ActivityDate": "2026-09-05",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT43"
+        }
+      },
+      {
+        "key": "XT44",
+        "fields": {
+          "Subject": "SYN-MM-XT44 Resolution review",
+          "WhoId": "@XC15",
+          "WhatId": "@XS22",
+          "Status": "In Progress",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-11",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT44"
+        }
+      },
+      {
+        "key": "XT45",
+        "fields": {
+          "Subject": "SYN-MM-XT45 Customer follow up",
+          "WhoId": "@XC16",
+          "WhatId": "@XS23",
+          "Status": "Completed",
+          "Priority": "High",
+          "ActivityDate": "2026-09-03",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT45"
+        }
+      },
+      {
+        "key": "XT46",
+        "fields": {
+          "Subject": "SYN-MM-XT46 Resolution review",
+          "WhoId": "@XC16",
+          "WhatId": "@XS23",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-04",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT46"
+        }
+      },
+      {
+        "key": "XT47",
+        "fields": {
+          "Subject": "SYN-MM-XT47 Customer follow up",
+          "WhoId": "@XC15",
+          "WhatId": "@XS24",
+          "Status": "In Progress",
+          "Priority": "High",
+          "ActivityDate": "2026-09-05",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT47"
+        }
+      },
+      {
+        "key": "XT48",
+        "fields": {
+          "Subject": "SYN-MM-XT48 Resolution review",
+          "WhoId": "@XC15",
+          "WhatId": "@XS24",
+          "Status": "Completed",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-11",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT48"
+        }
+      },
+      {
+        "key": "XT49",
+        "fields": {
+          "Subject": "SYN-MM-XT49 Customer follow up",
+          "WhoId": "@XC18",
+          "WhatId": "@XS25",
+          "Status": "Not Started",
+          "Priority": "High",
+          "ActivityDate": "2026-09-03",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT49"
+        }
+      },
+      {
+        "key": "XT50",
+        "fields": {
+          "Subject": "SYN-MM-XT50 Resolution review",
+          "WhoId": "@XC18",
+          "WhatId": "@XS25",
+          "Status": "In Progress",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-04",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT50"
+        }
+      },
+      {
+        "key": "XT51",
+        "fields": {
+          "Subject": "SYN-MM-XT51 Customer follow up",
+          "WhoId": "@XC17",
+          "WhatId": "@XS26",
+          "Status": "Completed",
+          "Priority": "High",
+          "ActivityDate": "2026-09-05",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT51"
+        }
+      },
+      {
+        "key": "XT52",
+        "fields": {
+          "Subject": "SYN-MM-XT52 Resolution review",
+          "WhoId": "@XC17",
+          "WhatId": "@XS26",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-11",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT52"
+        }
+      },
+      {
+        "key": "XT53",
+        "fields": {
+          "Subject": "SYN-MM-XT53 Customer follow up",
+          "WhoId": "@XC18",
+          "WhatId": "@XS27",
+          "Status": "In Progress",
+          "Priority": "High",
+          "ActivityDate": "2026-09-03",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT53"
+        }
+      },
+      {
+        "key": "XT54",
+        "fields": {
+          "Subject": "SYN-MM-XT54 Resolution review",
+          "WhoId": "@XC18",
+          "WhatId": "@XS27",
+          "Status": "Completed",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-04",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT54"
+        }
+      },
+      {
+        "key": "XT55",
+        "fields": {
+          "Subject": "SYN-MM-XT55 Customer follow up",
+          "WhoId": "@XC19",
+          "WhatId": "@XS28",
+          "Status": "Not Started",
+          "Priority": "High",
+          "ActivityDate": "2026-09-05",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT55"
+        }
+      },
+      {
+        "key": "XT56",
+        "fields": {
+          "Subject": "SYN-MM-XT56 Resolution review",
+          "WhoId": "@XC19",
+          "WhatId": "@XS28",
+          "Status": "In Progress",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-11",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT56"
+        }
+      },
+      {
+        "key": "XT57",
+        "fields": {
+          "Subject": "SYN-MM-XT57 Customer follow up",
+          "WhoId": "@XC20",
+          "WhatId": "@XS29",
+          "Status": "Completed",
+          "Priority": "High",
+          "ActivityDate": "2026-09-03",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT57"
+        }
+      },
+      {
+        "key": "XT58",
+        "fields": {
+          "Subject": "SYN-MM-XT58 Resolution review",
+          "WhoId": "@XC20",
+          "WhatId": "@XS29",
+          "Status": "Not Started",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-04",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT58"
+        }
+      },
+      {
+        "key": "XT59",
+        "fields": {
+          "Subject": "SYN-MM-XT59 Customer follow up",
+          "WhoId": "@XC19",
+          "WhatId": "@XS30",
+          "Status": "In Progress",
+          "Priority": "High",
+          "ActivityDate": "2026-09-05",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT59"
+        }
+      },
+      {
+        "key": "XT60",
+        "fields": {
+          "Subject": "SYN-MM-XT60 Resolution review",
+          "WhoId": "@XC19",
+          "WhatId": "@XS30",
+          "Status": "Completed",
+          "Priority": "Normal",
+          "ActivityDate": "2026-09-11",
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XT60"
+        }
+      }
+    ],
+    "Campaign": [
+      {
+        "key": "XM01",
+        "fields": {
+          "Name": "SYN-MM-XM01 Service Webinar",
+          "IsActive": true,
+          "Status": "Planned",
+          "Type": "Webinar",
+          "StartDate": "2026-09-01",
+          "EndDate": "2026-12-31",
+          "BudgetedCost": 10000,
+          "ActualCost": 2500,
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XM01"
+        }
+      },
+      {
+        "key": "XM02",
+        "fields": {
+          "Name": "SYN-MM-XM02 Customer Conference",
+          "IsActive": true,
+          "Status": "In Progress",
+          "Type": "Conference",
+          "StartDate": "2026-09-01",
+          "EndDate": "2026-12-31",
+          "BudgetedCost": 20000,
+          "ActualCost": 5000,
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XM02"
+        }
+      },
+      {
+        "key": "XM03",
+        "fields": {
+          "Name": "SYN-MM-XM03 Product Outreach",
+          "IsActive": true,
+          "Status": "Completed",
+          "Type": "Email",
+          "StartDate": "2026-09-01",
+          "EndDate": "2026-12-31",
+          "BudgetedCost": 30000,
+          "ActualCost": 7500,
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XM03"
+        }
+      },
+      {
+        "key": "XM04",
+        "fields": {
+          "Name": "SYN-MM-XM04 Service Webinar",
+          "IsActive": true,
+          "Status": "Planned",
+          "Type": "Webinar",
+          "StartDate": "2026-09-01",
+          "EndDate": "2026-12-31",
+          "BudgetedCost": 40000,
+          "ActualCost": 10000,
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XM04"
+        }
+      },
+      {
+        "key": "XM05",
+        "fields": {
+          "Name": "SYN-MM-XM05 Customer Conference",
+          "IsActive": false,
+          "Status": "In Progress",
+          "Type": "Conference",
+          "StartDate": "2026-09-01",
+          "EndDate": "2026-12-31",
+          "BudgetedCost": 50000,
+          "ActualCost": 12500,
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XM05"
+        }
+      },
+      {
+        "key": "XM06",
+        "fields": {
+          "Name": "SYN-MM-XM06 Product Outreach",
+          "IsActive": false,
+          "Status": "Completed",
+          "Type": "Email",
+          "StartDate": "2026-09-01",
+          "EndDate": "2026-12-31",
+          "BudgetedCost": 60000,
+          "ActualCost": 15000,
+          "OwnerId": "@operator",
+          "Description": "SDA-VISIBILITY-EXPANSION-v1|XM06"
+        }
+      }
+    ],
+    "CampaignMember": [
+      {
+        "key": "XCM01_01",
+        "fields": {
+          "CampaignId": "@XM01",
+          "ContactId": "@XC01",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM01_02",
+        "fields": {
+          "CampaignId": "@XM01",
+          "ContactId": "@XC02",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM01_03",
+        "fields": {
+          "CampaignId": "@XM01",
+          "ContactId": "@XC03",
+          "Status": "Responded"
+        }
+      },
+      {
+        "key": "XCM01_04",
+        "fields": {
+          "CampaignId": "@XM01",
+          "ContactId": "@XC04",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM01_05",
+        "fields": {
+          "CampaignId": "@XM01",
+          "ContactId": "@XC05",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM01_06",
+        "fields": {
+          "CampaignId": "@XM01",
+          "ContactId": "@XC06",
+          "Status": "Responded"
+        }
+      },
+      {
+        "key": "XCM01_07",
+        "fields": {
+          "CampaignId": "@XM01",
+          "ContactId": "@XC07",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM01_08",
+        "fields": {
+          "CampaignId": "@XM01",
+          "ContactId": "@XC08",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM01_09",
+        "fields": {
+          "CampaignId": "@XM01",
+          "ContactId": "@XC09",
+          "Status": "Responded"
+        }
+      },
+      {
+        "key": "XCM01_10",
+        "fields": {
+          "CampaignId": "@XM01",
+          "ContactId": "@XC10",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM02_01",
+        "fields": {
+          "CampaignId": "@XM02",
+          "ContactId": "@XC11",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM02_02",
+        "fields": {
+          "CampaignId": "@XM02",
+          "ContactId": "@XC12",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM02_03",
+        "fields": {
+          "CampaignId": "@XM02",
+          "ContactId": "@XC13",
+          "Status": "Responded"
+        }
+      },
+      {
+        "key": "XCM02_04",
+        "fields": {
+          "CampaignId": "@XM02",
+          "ContactId": "@XC14",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM02_05",
+        "fields": {
+          "CampaignId": "@XM02",
+          "ContactId": "@XC15",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM02_06",
+        "fields": {
+          "CampaignId": "@XM02",
+          "ContactId": "@XC16",
+          "Status": "Responded"
+        }
+      },
+      {
+        "key": "XCM02_07",
+        "fields": {
+          "CampaignId": "@XM02",
+          "ContactId": "@XC17",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM02_08",
+        "fields": {
+          "CampaignId": "@XM02",
+          "ContactId": "@XC18",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM02_09",
+        "fields": {
+          "CampaignId": "@XM02",
+          "ContactId": "@XC19",
+          "Status": "Responded"
+        }
+      },
+      {
+        "key": "XCM02_10",
+        "fields": {
+          "CampaignId": "@XM02",
+          "ContactId": "@XC20",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM03_01",
+        "fields": {
+          "CampaignId": "@XM03",
+          "ContactId": "@XC01",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM03_02",
+        "fields": {
+          "CampaignId": "@XM03",
+          "ContactId": "@XC02",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM03_03",
+        "fields": {
+          "CampaignId": "@XM03",
+          "ContactId": "@XC03",
+          "Status": "Responded"
+        }
+      },
+      {
+        "key": "XCM03_04",
+        "fields": {
+          "CampaignId": "@XM03",
+          "ContactId": "@XC04",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM03_05",
+        "fields": {
+          "CampaignId": "@XM03",
+          "ContactId": "@XC05",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM03_06",
+        "fields": {
+          "CampaignId": "@XM03",
+          "ContactId": "@XC06",
+          "Status": "Responded"
+        }
+      },
+      {
+        "key": "XCM03_07",
+        "fields": {
+          "CampaignId": "@XM03",
+          "ContactId": "@XC07",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM03_08",
+        "fields": {
+          "CampaignId": "@XM03",
+          "ContactId": "@XC08",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM03_09",
+        "fields": {
+          "CampaignId": "@XM03",
+          "ContactId": "@XC09",
+          "Status": "Responded"
+        }
+      },
+      {
+        "key": "XCM03_10",
+        "fields": {
+          "CampaignId": "@XM03",
+          "ContactId": "@XC10",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM04_01",
+        "fields": {
+          "CampaignId": "@XM04",
+          "ContactId": "@XC11",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM04_02",
+        "fields": {
+          "CampaignId": "@XM04",
+          "ContactId": "@XC12",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM04_03",
+        "fields": {
+          "CampaignId": "@XM04",
+          "ContactId": "@XC13",
+          "Status": "Responded"
+        }
+      },
+      {
+        "key": "XCM04_04",
+        "fields": {
+          "CampaignId": "@XM04",
+          "ContactId": "@XC14",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM04_05",
+        "fields": {
+          "CampaignId": "@XM04",
+          "ContactId": "@XC15",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM04_06",
+        "fields": {
+          "CampaignId": "@XM04",
+          "ContactId": "@XC16",
+          "Status": "Responded"
+        }
+      },
+      {
+        "key": "XCM04_07",
+        "fields": {
+          "CampaignId": "@XM04",
+          "ContactId": "@XC17",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM04_08",
+        "fields": {
+          "CampaignId": "@XM04",
+          "ContactId": "@XC18",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM04_09",
+        "fields": {
+          "CampaignId": "@XM04",
+          "ContactId": "@XC19",
+          "Status": "Responded"
+        }
+      },
+      {
+        "key": "XCM04_10",
+        "fields": {
+          "CampaignId": "@XM04",
+          "ContactId": "@XC20",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM05_01",
+        "fields": {
+          "CampaignId": "@XM05",
+          "ContactId": "@XC01",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM05_02",
+        "fields": {
+          "CampaignId": "@XM05",
+          "ContactId": "@XC02",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM05_03",
+        "fields": {
+          "CampaignId": "@XM05",
+          "ContactId": "@XC03",
+          "Status": "Responded"
+        }
+      },
+      {
+        "key": "XCM05_04",
+        "fields": {
+          "CampaignId": "@XM05",
+          "ContactId": "@XC04",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM05_05",
+        "fields": {
+          "CampaignId": "@XM05",
+          "ContactId": "@XC05",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM05_06",
+        "fields": {
+          "CampaignId": "@XM05",
+          "ContactId": "@XC06",
+          "Status": "Responded"
+        }
+      },
+      {
+        "key": "XCM05_07",
+        "fields": {
+          "CampaignId": "@XM05",
+          "ContactId": "@XC07",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM05_08",
+        "fields": {
+          "CampaignId": "@XM05",
+          "ContactId": "@XC08",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM05_09",
+        "fields": {
+          "CampaignId": "@XM05",
+          "ContactId": "@XC09",
+          "Status": "Responded"
+        }
+      },
+      {
+        "key": "XCM05_10",
+        "fields": {
+          "CampaignId": "@XM05",
+          "ContactId": "@XC10",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM06_01",
+        "fields": {
+          "CampaignId": "@XM06",
+          "ContactId": "@XC11",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM06_02",
+        "fields": {
+          "CampaignId": "@XM06",
+          "ContactId": "@XC12",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM06_03",
+        "fields": {
+          "CampaignId": "@XM06",
+          "ContactId": "@XC13",
+          "Status": "Responded"
+        }
+      },
+      {
+        "key": "XCM06_04",
+        "fields": {
+          "CampaignId": "@XM06",
+          "ContactId": "@XC14",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM06_05",
+        "fields": {
+          "CampaignId": "@XM06",
+          "ContactId": "@XC15",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM06_06",
+        "fields": {
+          "CampaignId": "@XM06",
+          "ContactId": "@XC16",
+          "Status": "Responded"
+        }
+      },
+      {
+        "key": "XCM06_07",
+        "fields": {
+          "CampaignId": "@XM06",
+          "ContactId": "@XC17",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM06_08",
+        "fields": {
+          "CampaignId": "@XM06",
+          "ContactId": "@XC18",
+          "Status": "Sent"
+        }
+      },
+      {
+        "key": "XCM06_09",
+        "fields": {
+          "CampaignId": "@XM06",
+          "ContactId": "@XC19",
+          "Status": "Responded"
+        }
+      },
+      {
+        "key": "XCM06_10",
+        "fields": {
+          "CampaignId": "@XM06",
+          "ContactId": "@XC20",
+          "Status": "Sent"
+        }
+      }
+    ],
+    "OpportunityContactRole": []
+  }
+}

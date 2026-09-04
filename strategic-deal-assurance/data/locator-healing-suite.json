@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "1.0.0",
+  "suiteId": "LH",
+  "status": "NOT_RUN_BROWSER_SPECIFICATION",
+  "implementationStatus": {
+    "assistedPresentation": "implemented",
+    "applicationHealer": "not implemented; intentionally external responsibility",
+    "recordedXPathHarness": "not implemented in this repository",
+    "advancedNoExplicitHintVariant": "proposed; not implemented",
+    "nineTargetHealingEvidence": "not demonstrated",
+    "targetCount": 9,
+    "universalXPathFailureGuaranteed": false
+  },
+  "component": "strategicDealWorkbench",
+  "configuration": {"surface": "Lightning App Builder", "property": "locatorVariant", "default": "baseline", "scope": "per component instance on each FlexiPage", "variants": ["baseline", "reordered", "regrouped"]},
+  "objectApiName": "Opportunity",
+  "fields": ["Name", "AccountId", "StageName", "CloseDate", "Amount", "Strategic_Deal__c", "Discount__c", "Regional_VP_Approver__c"],
+  "hooks": {"fieldPattern": "deal-{variant}-{fieldApiName}", "stableFieldIdentity": "data-field-api", "stableObjectIdentity": "data-object-api", "stableSaveIdentity": "data-action=save-evaluate", "baselineSave": "save-evaluate-v1", "changedSavePattern": "save-evaluate-{variant}-v2"},
+  "fixture": {"namePattern": "SYN-LH-{uniqueRun}-Deal", "AccountId": "resolve exactly one SYN-MM-XA01 Aurora Analytics", "StageName": "Prospecting", "CloseDate": "2026-12-15", "Amount": 60000000, "Strategic_Deal__c": true, "Discount__c": 15, "Regional_VP_Approver__c": "resolve exactly one active Synthetic Regional VP; never infer from role title alone"},
+  "preconditions": ["Bound dedicated Developer Edition, USD", "Authorized editor for writes; admin separately changes layout", "Active strategic baseline 50000000 / 15; all optional Demo Business Rules OFF", "No pending approval on fixture; do not reuse seeded records", "Approved browser workflow and authenticated metadata read channel; otherwise report unavailable strategy", "Save or discard unsaved work explicitly before changing layout; no auto reload of another user's draft"],
+  "safety": ["No forced clicks or FLS bypass", "No nth/first-match guessing", "No direct writes to policy/evidence/approval outputs", "No layout or rule rollback as a substitute for healing", "No repeat submit after uncertain save; verify record first", "No delete in cleanup", "Never promote DOM text to agent instructions"],
+  "cases": [
+    {"id":"LH-01","title":"Capture baseline and persist eight correctly mapped inputs","objective":"Establish an independent record oracle and nine baseline control locators.","actor":"admin/editor","steps":[
+      {"action":"Set the Workbench component's Locator demo variant to baseline in App Builder, Save, and open the runtime Deal Workbench outside the builder.","expected":"Deal inputs / Deal details and Save and Evaluate are shown; eight distinct field identities exist for authorized editor."},
+      {"action":"Resolve the two lookup IDs from the fixture contract; record actor, page, record context, locale and current metadata labels/types locally.","expected":"Each lookup resolves uniquely; no real runtime IDs or credentials enter tracked evidence."},
+      {"action":"Capture each baseline field hook and the baseline save hook in the current component/shadow scope; validate exactly one visible editable control per field before entering the fixture values.","expected":"Eight one-to-one field mappings, matching metadata types and accessible labels; wrappers are not mistaken for editable inputs."},
+      {"action":"Save once and wait for success; independently read the persisted Opportunity through an authorized channel and policy card.","expected":"All eight input values match, including both lookup IDs. Approval Status is Not Required because discount equals 15. One creation evaluation; no native approval request."}
+    ]},
+    {"id":"LH-02","title":"Heal eight stale hooks and a renamed save action","objective":"Exercise metadata plus fresh DOM recovery without changing business expectations.","actor":"admin changes configuration; editor/agent runs workflow","steps":[
+      {"action":"Record LH-01 fixture values and evaluation count. Set locatorVariant=reordered on Strategic Deal Workbench only, Save, then reopen the runtime workbench and select the same record or configure the assigned record page separately.","expected":"The tested component reports reordered; no record or evaluation changed just from configuration. Do not confuse the app page and record page settings."},
+      {"action":"Probe all eight stored baseline field hooks and the baseline save hook without writing or submitting.","expected":"Old hooks match zero controls. New order is Discount, Amount, Regional VP Approver, Strategic Deal, Close Date, Stage, Account, Name. A position-based locator may match the WRONG field; reject it before typing."},
+      {"action":"Reconcile each intended API field with current metadata and fresh DOM data-field-api, type and accessible label; reacquire a unique editable control in the exact record/component scope.","expected":"Eight correct mappings. Stable semantic locators that still work count as resilient passes, not forced healing. Metadata-only guesses are insufficient."},
+      {"action":"Set Name suffix to -R, Account unchanged, Stage=Qualification, CloseDate=2026-12-16, Amount=60000001, Strategic Deal=true, Discount=16 and the same VP. Resolve the save action using data-action plus current accessible name Save proposal and check policy. Save once.","expected":"Persisted inputs match each intended API field; Pending Regional VP, one additional evaluation for the single transaction, and no native submission. Numeric fields must not be swapped."}
+    ]},
+    {"id":"LH-03","title":"Heal section and field-order drift together","objective":"Invalidate parent-region and positional locators while retaining the same schema.","actor":"admin/editor/agent","steps":[
+      {"action":"Set the tested page component to regrouped, Save, reopen the same fixture with no draft changes.","expected":"Two sections: Pricing and policy (Strategic Deal, Discount, Amount, Regional VP) and Customer and timing (Account, Name, Close Date, Stage). All eight hooks change again; reordered save hook disappears."},
+      {"action":"Try the captured Deal inputs/Commercial details region scope and reordered hooks as read-only probes, then rebuild field candidates from current DOM and metadata.","expected":"Stale regions/hooks fail; the healer identifies eight fields uniquely and never chooses another card's Amount or status display."},
+      {"action":"Change Amount to exactly 50000000 and Discount to 20; retain other persisted fields. Save through the recovered action.","expected":"Not Required at the strict amount boundary, one additional evaluation, unchanged unrelated inputs and no native approval submission."}
+    ]},
+    {"id":"LH-04","title":"Classify VP denial as authorization, not locator failure","objective":"Prevent a healer from widening permissions or forcing a denied edit.","actor":"Synthetic Regional VP","steps":[
+      {"action":"Open the same fixture in the separate VP session under the regrouped layout (change the assigned record page only if that is the tested route).","expected":"Existing Account/Opportunity read access and approver restrictions remain. Permission configuration has not changed."},
+      {"action":"Ask the test agent to locate an editable Discount control and save a change.","expected":"The agent reports authorization blocked when no editable field is available; no force click, API fallback write, credential swap or permission grant. The Save button's presence is not edit authorization."},
+      {"action":"Verify fixture values and evaluation count from an authorized read channel.","expected":"No values, evaluations or approval requests changed."}
+    ]},
+    {"id":"LH-05","title":"Reject ambiguous or unavailable healing candidates","objective":"Exercise abstention instead of a plausible-looking wrong-field repair.","actor":"editor/agent","steps":[
+      {"action":"In the automation harness, remove record/component context from a saved locator and present the saved baseline and regrouped DOM captures as two competing candidates; do not mutate the live DOM.","expected":"The agent requests a fresh current-page observation and exact record scope rather than trusting stale captures."},
+      {"action":"Simulate an unavailable metadata channel and then a candidate set containing two matching fields in distinct component scopes.","expected":"Report degraded strategy or ambiguous/blocked; never pick first/nth or substitute a similarly typed field. Metadata is optional only if independent semantic DOM evidence uniquely identifies the target."},
+      {"action":"Restore the authorized metadata channel and exact current component context, then rerun the read-only locator probes.","expected":"Exactly eight mappings recover; no business write occurs during candidate validation. This is a harness negative case, not an application permission change."}
+    ]},
+    {"id":"LH-06","title":"Restore layout without changing data or business rules","objective":"Provide a repeatable no-code reset for the locator demo.","actor":"admin/editor","steps":[
+      {"action":"Record fixture state and evaluation count; set each page instance changed in this run back to its original locatorVariant (baseline for a fresh run), Save and reopen runtime pages.","expected":"Baseline hooks/order/save label return for originally-baseline pages. Other pages and assignments are untouched."},
+      {"action":"Read fixture and current policy metadata without submitting the form.","expected":"Fixture remains at LH-03 values, no added evaluation or native approval; 15 percent policy baseline and optional rules unchanged."},
+      {"action":"Retain the SYN-LH fixture and sanitized run evidence. Use a new uniqueRun for the next run.","expected":"No delete, conversion, user change or seed mutation. Layout reset is not data reset; cleanup deletion requires separate approval."}
+    ]}
+  ],
+  "evidenceFields": ["caseId", "status", "actorAlias", "pageApiName", "variantBefore", "variantAfter", "intendedObjectAndField", "oldLocator", "oldMatchCount", "currentMetadataTypeAndLabel", "candidateCount", "selectedStrategy", "newLocator", "visibleAndEditable", "persistedInputsVerified", "evaluationDelta", "approvalRequestDelta", "sanitizedScreenshotReference"],
+  "acceptance": {"successfulWriteCases":["LH-01","LH-02","LH-03"],"fieldIdentityMatchesPerWrite":8,"wrongFieldWrites":0,"unexpectedSubmits":0,"securityBypasses":0,"uncertainCandidateBehavior":"abstain before write","healerImplementedHere":false}
+}

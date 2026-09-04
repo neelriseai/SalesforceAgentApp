@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns><field>ACCOUNT.NAME</field></columns>
+    <columns><field>RATING</field></columns>
+    <description>Synthetic SYN-MM demo records, including original and expansion data. All statuses; no current-week or recently-viewed restriction.</description>
+    <filter><criteriaItems><column>ACCOUNT.NAME</column><operator>startsWith</operator><value>SYN-MM-</value></criteriaItems></filter>
+    <format>Summary</format>
+    <groupingsDown><dateGranularity>None</dateGranularity><field>TYPE</field><sortOrder>Asc</sortOrder></groupingsDown>
+    <name>SDA Demo Accounts</name>
+
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails><showGrandTotal>true</showGrandTotal><showSubTotals>true</showSubTotals>
+    <timeFrameFilter><dateColumn>CREATED_DATE</dateColumn><interval>INTERVAL_CUSTOM</interval><startDate>2020-01-01</startDate><endDate>2035-12-31</endDate></timeFrameFilter>
+</Report>

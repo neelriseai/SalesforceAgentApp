@@ -1,8 +1,18 @@
 # Strategic Deal Assurance
 
-Salesforce system-under-test for a separately developed assurance agent. The current milestone adds **eight configurable CRM save guards and a 42-case / 232-step manual suite** to the existing 368-record demo, in addition to the Lightning workbench, USD 15% policy and separate-persona Regional VP approval. This is not yet a full showcase release.
+Salesforce system-under-test for a separately developed assurance agent. Current additions include a **186-record expansion (554 combined SYN-MM business records)**, populated reports/views and an **assisted multi-field locator-change demo with six cases / 20 steps**, alongside eight configurable CRM guards, the 42-case / 232-step business suite, USD 15% policy and separate-persona Regional VP approval. This is not yet a full showcase release.
+
+## More data and named demo views/reports
+
+The original 368-row dataset is preserved. A separate **186-record expansion** brings the combined SYN-MM population to **554 business records**: 60 Cases, 120 Tasks, 10 Campaigns, 34 Accounts, 80 Contacts, plus the existing Opportunities, Leads and relationships. New cases/tasks have varied statuses and task due dates around 2026-09-04.
+
+Use the **SDA Demo Cases/Tasks/Campaigns** list views and **Reports > All Folders > SDA Demo Reports**, which contains five populated saved reports. Read the [visibility guide and supplemental manual checks](docs/demo-data-visibility.md). Loader: [seed-visibility-expansion.ps1](scripts/demo/seed-visibility-expansion.ps1); plan: [visibility-expansion-plan.json](data/visibility-expansion-plan.json); scope: [milestone-7-demo-visibility.xml](manifest/milestone-7-demo-visibility.xml).
 
 ## Configure and demo without code changes
+
+Salesforce contains no locator healer: only UI change controls. Recorded baseline XPath automation, external-agent healing integration and an advanced no-explicit-identity-hint mode are **not yet implemented here**. The current assisted hints support recovery but do not prove every existing locator fails. Nine-target failure/recovery must be demonstrated against an actual baseline browser run; see the [status boundary](docs/locator-healing-demo.md#implementation-status-and-showcase-boundary).
+
+For UI locator changes, use **Setup > Lightning App Builder > Strategic Deal Workbench (or Strategic Deal Record Page) > Edit > select Workbench component > Locator demo variant**. Choose `baseline`, `reordered` or `regrouped`, Save and reopen the runtime page. This changes presentation across eight fields plus the save action, not policy or permissions. Read the [locator demo guide](docs/locator-healing-demo.md), [six-case / 20-step automation specification](data/locator-healing-suite.json) and [verification limits](evidence/milestone-8-verification.md). The external agent's healer is not implemented in Salesforce.
 
 As administrator, open **Setup > Custom Metadata Types > Demo Business Rule > Manage Records**. All eight new restrictions start OFF. Enable the desired rule, adjust its supported parameter/version, then save the target record to observe the changed behavior. The existing strategic discount remains under **Strategic Discount Rule > Default**, unchanged at 15%.
 

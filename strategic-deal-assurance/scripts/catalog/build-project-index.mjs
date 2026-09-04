@@ -172,6 +172,7 @@ export function buildArtifacts() {
   }
   const fixturePath=prefix+'data/multi-module-plan.json', plan=JSON.parse(read(fixturePath));
   const dataset=sourced('dataset:'+plan.dataset,'synthetic-dataset',plan.dataset,fixturePath,{counts:plan.expectedCounts,expectedBusinessRows:plan.expectedBusinessRows,resetMode:'create-only'});
+  function addFixtures(plan,fixturePath,dataset) {
   for(const [type,rows] of Object.entries(plan.objects)) for(const [i,row] of rows.entries()) {
     const id=sourced('fixture:'+row.key,'synthetic-fixture',row.fields.Name || row.fields.LastName || row.fields.Subject || row.key,fixturePath,{logicalKey:row.key,object:type,jsonPointer:'/objects/'+type+'/'+i,realRecordIdIncluded:false});
     edge(dataset,'contains',id,fixturePath); edge(id,'instance_of',object(type),fixturePath);
@@ -184,6 +185,22 @@ export function buildArtifacts() {
         if(targetType) edge('field:'+type+'.'+f,'references','object:'+targetType,fixturePath,{observedFixtureReference:true});
       }
     }
+  }
+  }
+  addFixtures(plan,fixturePath,dataset);
+  const expansionPath=prefix+'data/visibility-expansion-plan.json', expansion=JSON.parse(read(expansionPath));
+  const expansionId=sourced('dataset:'+expansion.dataset,'synthetic-dataset',expansion.dataset,expansionPath,{counts:expansion.expectedCounts,expectedBusinessRows:186,resetMode:'create-only; original fixtures untouched'});
+  addFixtures(expansion,expansionPath,expansionId);
+  edge('file:'+prefix+'scripts/demo/seed-visibility-expansion.ps1','manages',expansionId,prefix+'scripts/demo/seed-visibility-expansion.ps1');
+  for(const p of files.filter(p=>p.startsWith(base+'reports/')&&p.endsWith('.report-meta.xml'))) {
+    const s=read(p), key=path.posix.basename(p,'.report-meta.xml');
+    const id=sourced('report:'+key,'saved-report',tag(s,'name'),p,{reportType:tag(s,'reportType'),scope:tag(s,'scope'),format:tag(s,'format'),syntheticPrefix:'SYN-MM-'});
+    edge(id,'reads_dataset',dataset,p);edge(id,'reads_dataset',expansionId,p);
+  }
+  for(const p of files.filter(p=>p.includes('/listViews/')&&p.endsWith('.listView-meta.xml'))) {
+    const s=read(p), obj=p.slice((base+'objects/').length).split('/')[0];
+    const id=sourced('list-view:'+obj+'.'+tag(s,'fullName'),'list-view',tag(s,'label'),p,{scope:tag(s,'filterScope'),filters:blocks(s,'filters').map(b=>({field:tag(b,'field'),operation:tag(b,'operation'),value:tag(b,'value')}))});
+    edge(id,'lists',object(obj),p);
   }
   const baselinePath=prefix+'data/baseline-15-plan.json', baseline=JSON.parse(read(baselinePath));
   const baselineId=sourced('dataset:'+baseline.dataset,'synthetic-dataset',baseline.dataset,baselinePath,{opportunities:7,businessRows:8,resetMode:'guarded restore; pending approvals blocked'});
@@ -199,6 +216,16 @@ export function buildArtifacts() {
     const id=sourced('use-case:'+c.id,'manual-use-case',c.title,manualPath,{objective:c.objective,actor:c.actor,steps:c.steps.length,manualSuiteExecution:'NOT_RUN specification; consult run evidence'});
     for(const key of c.ruleKeys) edge(id,'tests_configuration','config:Demo_Business_Rule.'+key,manualPath);
     for(const module of c.modules) edge(id,'covers',module==='ApprovalProcess'?ap:object(module),manualPath);
+  }
+  const locatorPath=prefix+'data/locator-healing-suite.json', locatorSuite=JSON.parse(read(locatorPath));
+  const locatorConfig=sourced('config:workbench.locatorVariant','presentation-configuration','Workbench locator demo variant',locatorPath,{...locatorSuite.configuration,implementationStatus:locatorSuite.implementationStatus,presentationOnly:true,healerImplementedHere:false});
+  edge(locatorConfig,'configures','lwc:strategicDealWorkbench',locatorPath);
+  for(const page of ['Strategic_Deal_Workbench','Strategic_Deal_Record_Page']) edge('page:'+page,'offers_configuration',locatorConfig,locatorPath,{perComponentInstance:true});
+  for(const name of locatorSuite.fields) edge(locatorConfig,'changes_locator_for',field('Opportunity.'+name),locatorPath,{fieldIdentityUnchanged:true});
+  for(const c of locatorSuite.cases) {
+    const id=sourced('use-case:'+c.id,'locator-use-case',c.title,locatorPath,{objective:c.objective,actor:c.actor,steps:c.steps.length,execution:locatorSuite.status});
+    edge(id,'tests_configuration',locatorConfig,locatorPath);
+    edge(id,'covers','lwc:strategicDealWorkbench',locatorPath);
   }
   for(const [runner,target] of [['scripts/demo/reset-baseline.ps1',baselineId],['scripts/demo/seed-multi-module.ps1',dataset]]) edge('file:'+prefix+runner,'manages',target,prefix+runner);
   for(const e of edges.values()) if(!nodes.has(e.from) || !nodes.has(e.to)) throw new Error('Unresolved graph edge: '+e.from+' -> '+e.to);

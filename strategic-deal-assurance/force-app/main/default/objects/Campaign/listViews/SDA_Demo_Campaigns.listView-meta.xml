@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SDA_Demo_Campaigns</fullName>
+    <filterScope>Everything</filterScope>
+    <filters><field>CAMPAIGN.NAME</field><operation>startsWith</operation><value>SYN-MM-</value></filters>
+    <label>SDA Demo Campaigns</label>
+</ListView>

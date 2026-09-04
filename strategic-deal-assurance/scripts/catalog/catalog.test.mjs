@@ -19,7 +19,9 @@ test('every indexed source and reading entry exists',()=>{
   for(const p of index.readOrder) assert.ok(fs.existsSync(path.join(repoRoot,p)) || artifacts.has(p));
 });
 test('graph includes fixture population and all 42 manual cases and new rules',()=>{
-  assert.equal(graph.nodes.filter(n=>n.kind==='synthetic-fixture').length,368);
+  assert.equal(graph.nodes.filter(n=>n.kind==='synthetic-fixture').length,554);
+  assert.equal(graph.nodes.filter(n=>n.kind==='saved-report').length,5);
+  assert.equal(graph.nodes.filter(n=>n.kind==='list-view').length,3);
   assert.equal(graph.nodes.filter(n=>n.kind==='manual-use-case').length,42);
   assert.equal(graph.nodes.filter(n=>n.kind==='permission-set').length,5);
   assert.equal(graph.nodes.filter(n=>n.kind==='apex-test').length,5);

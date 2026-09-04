@@ -16,6 +16,44 @@ function mount(recordId) {
 function submit(form, fields) { form.dispatchEvent(new CustomEvent('submit', { detail: { fields }, cancelable: true })); }
 afterEach(() => { while (document.body.firstChild) { document.body.removeChild(document.body.firstChild); } jest.clearAllMocks(); });
 describe('BR-STRATEGIC-DISCOUNT workbench', () => {
+    const expectedFields = ['Name', 'AccountId', 'StageName', 'CloseDate', 'Amount', 'Strategic_Deal__c', 'Discount__c', 'Regional_VP_Approver__c'];
+    it.each(['baseline', 'reordered', 'regrouped'])('preserves eight unique metadata identities and the LDS payload in %s', async (variant) => {
+        const element = mount(); element.locatorVariant = variant; await flush();
+        const wrappers = [...element.shadowRoot.querySelectorAll('[data-field-api]')];
+        expect(wrappers.map(node => node.dataset.fieldApi).sort()).toEqual([...expectedFields].sort());
+        wrappers.forEach(node => {
+            expect(node.dataset.testid).toBe(`deal-${variant}-${node.dataset.fieldApi}`);
+            expect(node.querySelector('lightning-input-field').fieldName).toBe(node.dataset.fieldApi);
+        });
+        const form = element.shadowRoot.querySelector('lightning-record-edit-form');
+        const spy = jest.spyOn(form, 'submit');
+        const inputs = { Name: 'SYN-LH-Test', AccountId: null, StageName: 'Prospecting', CloseDate: '2026-12-15', Amount: 60000000, Strategic_Deal__c: true, Discount__c: 15, Regional_VP_Approver__c: null };
+        submit(form, { ...inputs, Approval_Status__c: 'Approved' }); await flush();
+        expect(spy).toHaveBeenCalledWith(inputs);
+        expect(element.shadowRoot.querySelector('[data-action="save-evaluate"]').disabled).toBe(true);
+    });
+    it('breaks old hooks, changes order and action name, then restores baseline', async () => {
+        const element = mount();
+        element.locatorVariant = 'reordered'; await flush();
+        expect(element.shadowRoot.querySelector('[data-testid="save-evaluate-v1"]')).toBeNull();
+        expect(element.shadowRoot.querySelector('[data-testid="deal-baseline-Amount"]')).toBeNull();
+        expect(element.shadowRoot.querySelector('lightning-input-field').fieldName).toBe('Discount__c');
+        expect(element.shadowRoot.querySelector('[data-action="save-evaluate"]').label).toBe('Save proposal and check policy');
+        element.locatorVariant = 'regrouped'; await flush();
+        expect(element.shadowRoot.querySelectorAll('section')).toHaveLength(2);
+        expect(element.shadowRoot.querySelector('lightning-input-field').fieldName).toBe('Strategic_Deal__c');
+        element.locatorVariant = 'baseline'; await flush();
+        expect([...element.shadowRoot.querySelectorAll('lightning-input-field')].map(f => f.fieldName)).toEqual(expectedFields);
+        expect(element.shadowRoot.querySelector('[data-testid="save-evaluate-v1"]').label).toBe('Save and Evaluate');
+    });
+    it('falls back safely for unknown variants and never auto-submits on layout change', async () => {
+        const element = mount(); const form = element.shadowRoot.querySelector('lightning-record-edit-form');
+        const spy = jest.spyOn(form, 'submit');
+        element.locatorVariant = 'regrouped'; await flush();
+        element.locatorVariant = 'constructor'; await flush();
+        expect(element.shadowRoot.querySelector('[data-locator-variant]').dataset.locatorVariant).toBe('baseline');
+        expect(spy).not.toHaveBeenCalled();
+    });
     it('renders only allowed inputs and stable accessible save hook', () => {
         const element = mount();
         const fields = [...element.shadowRoot.querySelectorAll('lightning-input-field')].map(field => field.fieldName);

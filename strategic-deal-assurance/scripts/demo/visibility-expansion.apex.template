@@ -1,0 +1,39 @@
+String mode='__MODE__';
+System.assert(new Set<String>{'Preview','Apply','Verify','Rehearse'}.contains(mode),'Unsupported mode');
+System.assertEquals('__ORG_FINGERPRINT__',EncodingUtil.convertToHex(Crypto.generateDigest('SHA-256',Blob.valueOf(UserInfo.getOrganizationId()))),'Org binding mismatch');
+System.assertEquals('Developer Edition',[SELECT OrganizationType FROM Organization WITH USER_MODE LIMIT 1].OrganizationType,'Developer Edition only');
+System.assertEquals('USD',UserInfo.getDefaultCurrency(),'USD required');
+Id profileId=UserInfo.getProfileId();
+System.assert([SELECT PermissionsModifyAllData FROM Profile WHERE Id=:profileId WITH USER_MODE].PermissionsModifyAllData,'Demo administrator required');
+System.assertEquals(0,[SELECT COUNT() FROM Demo_Business_Rule__mdt WHERE Enabled__c=true WITH USER_MODE],'Optional demo rules must be OFF; no automatic configuration changes');
+Compression.ZipReader archive=new Compression.ZipReader(EncodingUtil.base64Decode('__PLAN_BASE64__'));
+Map<String,Object> plan=(Map<String,Object>)JSON.deserializeUntyped(archive.extract(archive.getEntry('plan.json')).toString());
+System.assertEquals('SDA-VISIBILITY-EXPANSION-v1',plan.get('dataset'),'Unexpected dataset');
+CrossModuleFixtures fixture=new CrossModuleFixtures();
+fixture.dataset='SDA-VISIBILITY-EXPANSION-v1';
+fixture.objects=(Map<String,Object>)plan.get('objects');
+fixture.ids.put('operator',UserInfo.getUserId());
+fixture.loadAll();
+Integer before=fixture.existing;
+Integer expected=186;
+Boolean writeMode=mode=='Apply'||mode=='Rehearse';
+if(writeMode) System.assert(before==0 || before==expected,'Partial expansion dataset; no automatic repair');
+Savepoint checkpoint;
+if(writeMode && before==0) {
+    checkpoint=Database.setSavepoint();
+    fixture.createRows('Account',0); fixture.createRows('Contact',0);
+    fixture.createRows('Case',0); fixture.createRows('Task',0);
+    fixture.createRows('Campaign',0); fixture.createRows('CampaignMember',0);
+    fixture.loadAll();
+}
+if(fixture.existing==expected) fixture.compareAll();
+if(mode!='Preview') System.assertEquals(expected,fixture.existing,'Expected complete expansion');
+if(writeMode && before==0) System.assertEquals(0,fixture.drift.size(),'Inserted values do not match; rollback required');
+Boolean simulation=mode=='Rehearse';
+if(simulation && checkpoint!=null) Database.rollback(checkpoint);
+System.debug('EXPANSION_RESULT|'+JSON.serialize(new Map<String,Object>{
+    'dataset'=>fixture.dataset,'mode'=>mode,'simulation'=>simulation,'beforeRows'=>before,
+    'insertedRows'=>fixture.inserted,'committedRows'=>simulation?0:fixture.inserted,'counts'=>fixture.counts,
+    'expectedRows'=>expected,'baselineMatches'=>fixture.existing==expected && fixture.drift.isEmpty(),
+    'drift'=>fixture.drift,'noExistingRecordsUpdated'=>true,'manualBrowserTestsExecuted'=>false
+}));

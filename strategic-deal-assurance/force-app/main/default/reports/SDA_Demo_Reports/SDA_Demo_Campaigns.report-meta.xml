@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns><field>CAMPAIGN_NAME</field></columns>
+    <columns><field>CAMPAIGN_TYPE</field></columns>
+    <columns><field>ACTIVE</field></columns>
+    <columns><field>NUM_CONTACTS</field></columns>
+    <columns><field>NUM_RESPONSES</field></columns>
+    <description>Synthetic SYN-MM demo records, including original and expansion data. All statuses; no current-week or recently-viewed restriction.</description>
+    <filter><criteriaItems><column>CAMPAIGN_NAME</column><operator>startsWith</operator><value>SYN-MM-</value></criteriaItems></filter>
+    <format>Summary</format>
+    <groupingsDown><dateGranularity>None</dateGranularity><field>CAMPAIGN_STATUS</field><sortOrder>Asc</sortOrder></groupingsDown>
+    <name>SDA Demo Campaigns</name>
+
+    <reportType>CampaignList</reportType>
+    <scope>orgAll</scope>
+    <showDetails>true</showDetails><showGrandTotal>true</showGrandTotal><showSubTotals>true</showSubTotals>
+</Report>

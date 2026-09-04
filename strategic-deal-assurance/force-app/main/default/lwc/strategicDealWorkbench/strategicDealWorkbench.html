@@ -1,25 +1,27 @@
 <template>
-    <div class="workbench">
+    <div class="workbench" data-object-api="Opportunity" data-locator-variant={activeVariant}>
         <header class="intro">
             <p class="eyebrow">STRATEGIC DEAL ASSURANCE · SYNTHETIC DEMO</p>
             <h1>{heading}</h1>
             <p>Save a deal to evaluate the current policy and capture an auditable input snapshot. All amounts are USD.</p>
         </header>
         <div class="columns">
-            <lightning-card title="Deal inputs" icon-name="standard:opportunity">
+            <lightning-card title={inputTitle} icon-name="standard:opportunity">
                 <div class="slds-p-around_medium">
                     <p class="slds-m-bottom_medium">Use only synthetic data. Approval outcomes cannot be edited here.</p>
                     <lightning-record-edit-form object-api-name={objectApiName} record-id={currentId} onsubmit={handleSubmit} onsuccess={handleSuccess} onerror={handleError}>
-                        <lightning-input-field field-name="Name" value={defaultName} disabled={busy}></lightning-input-field>
-                        <lightning-input-field field-name="AccountId" disabled={busy}></lightning-input-field>
-                        <lightning-input-field field-name="StageName" disabled={busy}></lightning-input-field>
-                        <lightning-input-field field-name="CloseDate" disabled={busy}></lightning-input-field>
-                        <lightning-input-field field-name="Amount" disabled={busy}></lightning-input-field>
-                        <lightning-input-field field-name="Strategic_Deal__c" disabled={busy}></lightning-input-field>
-                        <lightning-input-field field-name="Discount__c" disabled={busy}></lightning-input-field>
-                        <lightning-input-field field-name="Regional_VP_Approver__c" disabled={busy}></lightning-input-field>
+                        <template for:each={fieldGroups} for:item="group">
+                            <section key={group.key} aria-label={group.label} class="slds-m-bottom_medium">
+                                <h2 class="slds-text-heading_small slds-m-bottom_small">{group.label}</h2>
+                                <template for:each={group.fields} for:item="field">
+                                    <div key={field.apiName} data-field-api={field.apiName} data-testid={field.hook}>
+                                        <lightning-input-field field-name={field.apiName} value={field.value} disabled={busy}></lightning-input-field>
+                                    </div>
+                                </template>
+                            </section>
+                        </template>
                         <div class="slds-m-top_medium actions">
-                            <lightning-button type="submit" variant="brand" label="Save and Evaluate" data-testid="save-evaluate-v1" disabled={busy}></lightning-button>
+                            <lightning-button type="submit" variant="brand" label={saveLabel} data-testid={saveHook} data-action="save-evaluate" disabled={busy}></lightning-button>
                             <template lwc:if={canStartNew}><lightning-button label="Start new deal" onclick={startNew} disabled={busy}></lightning-button></template>
                         </div>
                     </lightning-record-edit-form>

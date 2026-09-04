@@ -5,6 +5,28 @@
   "currency": "USD",
   "sourceOfTruth": "force-app/main/default and requirements; generated knowledge files are discovery aids, not authority",
   "configurationTemplate": ".env.example",
+  "locatorHealingDemo": {
+    "guide": "docs/locator-healing-demo.md",
+    "suite": "data/locator-healing-suite.json",
+    "component": "strategicDealWorkbench",
+    "property": "locatorVariant",
+    "configurationSurface": "Lightning App Builder; per component instance; administrator only",
+    "variants": ["baseline", "reordered", "regrouped"],
+    "default": "baseline",
+    "affectedFieldCount": 8,
+    "difficultyLevel": "assisted; explicit DOM identity hints present",
+    "recordedXPathHarness": "not implemented in this repository",
+    "advancedNoExplicitHintVariant": "proposed; not implemented",
+    "nineTargetHealingEvidence": "not demonstrated",
+    "universalXPathFailureGuaranteed": false,
+    "alsoChanges": ["field test hooks", "field order", "sections", "save label", "save test hook"],
+    "stableDOMHints": ["data-object-api", "data-field-api", "data-action"],
+    "metadataRead": "Existing authorized describe/UI API channel only; no new API or VP grant",
+    "businessRulesChanged": false,
+    "permissionsChanged": false,
+    "healerLocation": "separate external agent; not implemented here",
+    "browserSuiteStatus": "NOT_RUN; see evidence/milestone-8-verification.md"
+  },
   "authentication": {
     "operatorCliAlias": "caip-dev",
     "browser": "Separate interactive owner and VP sessions; user completes passwords and MFA privately",
@@ -181,6 +203,13 @@
       "initialEvaluations": 40,
       "runner": "scripts/demo/seed-multi-module.ps1",
       "behavior": "Create-only; existing rows unchanged; partial datasets refused; Verify reports drift"
+    },
+    {
+      "id": "SDA-VISIBILITY-EXPANSION-v1",
+      "plan": "data/visibility-expansion-plan.json",
+      "businessRows": 186,
+      "runner": "scripts/demo/seed-visibility-expansion.ps1",
+      "behavior": "Create-only; independent accounts/contacts preserve original fixtures. No overwrites/deletion; partial datasets refused."
     }
   ],
   "validation": {
@@ -190,8 +219,9 @@
     "liveApexRunner": "scripts/test-milestone-6.ps1",
     "externalApiHarness": "not implemented",
     "repeatableBrowserHarness": "not implemented",
-    "latestRecordedMilestoneEvidence": "evidence/milestone-6-verification.md",
-    "testPlan": "docs/test-plan.md"
+    "latestRecordedMilestoneEvidence": "evidence/milestone-7-verification.md",
+    "testPlan": "docs/test-plan.md",
+    "supplementalVisibilityCases": "docs/demo-data-visibility.md#supplemental-manual-verification-cases"
   },
   "demoRules": {
     "specification": "data/demo-rule-scenarios.json",
@@ -232,5 +262,30 @@
       "Ordinary sObject REST does not update Custom Metadata",
       "No new OAuth client, full-module CRUD, VP API or metadata-admin grant"
     ]
+  },
+  "visibility": {
+    "guide": "docs/demo-data-visibility.md",
+    "listViews": {
+      "Case": "SDA_Demo_Cases",
+      "Task": "SDA_Demo_Tasks",
+      "Campaign": "SDA_Demo_Campaigns"
+    },
+    "reportFolder": "SDA_Demo_Reports",
+    "reports": [
+      "SDA_Demo_Cases",
+      "SDA_Demo_Tasks",
+      "SDA_Demo_Campaigns",
+      "SDA_Demo_Opportunities",
+      "SDA_Demo_Accounts"
+    ],
+    "expectedCombinedCounts": {
+      "Case": 60,
+      "Task": 120,
+      "Campaign": 10,
+      "Account": 34,
+      "Contact": 80,
+      "Opportunity": 40
+    },
+    "warning": "Not effective access grants. Report date windows/status/scope must be checked; Recently Viewed can be empty."
   }
 }

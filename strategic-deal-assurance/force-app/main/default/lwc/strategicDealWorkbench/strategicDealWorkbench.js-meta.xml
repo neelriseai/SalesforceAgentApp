@@ -4,5 +4,13 @@
     <masterLabel>Strategic Deal Workbench</masterLabel>
     <description>BR-STRATEGIC-DISCOUNT: secure USD demo interface.</description>
     <targets><target>lightning__RecordPage</target><target>lightning__AppPage</target><target>lightning__HomePage</target></targets>
-    <targetConfigs><targetConfig targets="lightning__RecordPage"><objects><object>Opportunity</object></objects></targetConfig></targetConfigs>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="locatorVariant" type="String" default="baseline" datasource="baseline,reordered,regrouped" label="Locator demo variant" description="Presentation-only locator drift across eight fields. Save work first; reload runtime page after changing. Baseline restores default layout."/>
+            <objects><object>Opportunity</object></objects>
+        </targetConfig>
+        <targetConfig targets="lightning__AppPage,lightning__HomePage">
+            <property name="locatorVariant" type="String" default="baseline" datasource="baseline,reordered,regrouped" label="Locator demo variant" description="Presentation-only locator drift across eight fields. Save work first; reload runtime page after changing. Baseline restores default layout."/>
+        </targetConfig>
+    </targetConfigs>
 </LightningComponentBundle>

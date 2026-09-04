@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "application": "Strategic Deal Assurance",
   "pathBase": "repository-root",
-  "sourceSnapshot": "7cfb475133f7605a70fad57ee6dcbd1830da93985854197880b9e6a05e979c32",
+  "sourceSnapshot": "9d635bc0d69024e3f163db1c91bc1ea4fb53b6952b4003efcac66e9b517ac769",
   "hashAlgorithm": "SHA-256 of UTF-8 text normalized to LF",
   "generator": "strategic-deal-assurance/scripts/catalog/build-project-index.mjs",
   "generatedOutputs": [
@@ -42,7 +42,7 @@
     {
       "path": "README.md",
       "category": "documentation",
-      "sha256NormalizedLf": "87c49f3de621db7d7ac16a696541c3c59abde562a346d02e8436a37869ee647d"
+      "sha256NormalizedLf": "8975e0a05ca3886b3fe8b63af8477e68196a1e291297803f6aa0ffa09f1dd8e5"
     },
     {
       "path": "strategic-deal-assurance/.env.example",
@@ -97,7 +97,7 @@
     {
       "path": "strategic-deal-assurance/README.md",
       "category": "documentation",
-      "sha256NormalizedLf": "6a9132fd0e3698fee89a7e7b19a93d471e4080b603c6578e0b8b64619a9f284a"
+      "sha256NormalizedLf": "009081f55e911cc98c40d727a6ad2931cd6c821bdc4b86b30112f340a7c6655e"
     },
     {
       "path": "strategic-deal-assurance/config/project-scratch-def.json",
@@ -107,7 +107,7 @@
     {
       "path": "strategic-deal-assurance/contracts/agent-interface.json",
       "category": "agent-contract",
-      "sha256NormalizedLf": "2d919cc35a1fb1c869552b98a63f1d0c2f8b2384339a3a747dfbef7e96114b09"
+      "sha256NormalizedLf": "bc01b80f5c5b1a5aa8a473f7db1965196d97f5d37678344a1f7ee7326b1fc018"
     },
     {
       "path": "strategic-deal-assurance/data/baseline-15-plan.json",
@@ -118,6 +118,11 @@
       "path": "strategic-deal-assurance/data/demo-rule-scenarios.json",
       "category": "synthetic-fixture",
       "sha256NormalizedLf": "70c905c5e536045c7342d92f8ab866c70d7f79255a9fa1e9e94772e5f72b0893"
+    },
+    {
+      "path": "strategic-deal-assurance/data/locator-healing-suite.json",
+      "category": "synthetic-fixture",
+      "sha256NormalizedLf": "a9aa9efc503839cd60289e92bbacde61e3fd6c846301198d0b004f9141504ef9"
     },
     {
       "path": "strategic-deal-assurance/data/manual-test-suite.json",
@@ -135,14 +140,19 @@
       "sha256NormalizedLf": "0be56f443e93f256c29b80451b563543ed3dcbd78f03ac835cd7e05d88ea9b29"
     },
     {
+      "path": "strategic-deal-assurance/data/visibility-expansion-plan.json",
+      "category": "synthetic-fixture",
+      "sha256NormalizedLf": "962ab0dab86b0792278be710874d147dcae0518f315b37f76e3e34e26eddf4b8"
+    },
+    {
       "path": "strategic-deal-assurance/docs/agent-integration-guide.md",
       "category": "documentation",
-      "sha256NormalizedLf": "539aaa626bd2ea7b8c7544a46c481d5c9d7ea1ad321cad8312eaf6510ea50603"
+      "sha256NormalizedLf": "9ec9ff0bd9a6f844d4389a55b826862edb36782bc75887a6b6da613fdccb2ba7"
     },
     {
       "path": "strategic-deal-assurance/docs/application-knowledge-graph.md",
       "category": "documentation",
-      "sha256NormalizedLf": "cf4b3f8dd810a51d31b6e2048928e8a3b93aaa8f35751ac4682e50be17f51d23"
+      "sha256NormalizedLf": "f3a587639ce469b6e2208c47257bd3c5fb6b48d686ab7feda7d8eed0a32f3d60"
     },
     {
       "path": "strategic-deal-assurance/docs/approval-demo-walkthrough.md",
@@ -155,9 +165,19 @@
       "sha256NormalizedLf": "c117489515a2c1d610a25bdf9ad0cdd7bda01c17f052bfc6297e6ee84a6c5207"
     },
     {
+      "path": "strategic-deal-assurance/docs/demo-data-visibility.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "76771e50d7a6c97cd7dcfa983a82e5b68dd0d18ff3f448bbb9d87bd04a667f53"
+    },
+    {
       "path": "strategic-deal-assurance/docs/demo-rules-guide.md",
       "category": "documentation",
       "sha256NormalizedLf": "5cf0820f61ecaa8014c30ede6f76a0a507e2350035121b42db8888b5f82df957"
+    },
+    {
+      "path": "strategic-deal-assurance/docs/locator-healing-demo.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "86c2a7bef31d5c43a6114c9d75242f769babd0aaca7edda1185b66fd9a9e1723"
     },
     {
       "path": "strategic-deal-assurance/docs/manual-test-cases.md",
@@ -202,12 +222,12 @@
     {
       "path": "strategic-deal-assurance/docs/project-index.md",
       "category": "documentation",
-      "sha256NormalizedLf": "d11237bd67e3f1e4b9e187d88419a18c9960bbed360c6428af9719512d24f647"
+      "sha256NormalizedLf": "9ee3bb445ef0825c06fc4f45417d533951867eac248a0eb2fc8a2e026a867547"
     },
     {
       "path": "strategic-deal-assurance/docs/test-plan.md",
       "category": "documentation",
-      "sha256NormalizedLf": "e67023dcdc2ac8e0b2348638efbc199e6d84bc6acdb67f905b11a9338b1b12a3"
+      "sha256NormalizedLf": "0e458f8f3838a3d42ba83a6b4035d1af04c14b9ec9f35259059a7d1463090c25"
     },
     {
       "path": "strategic-deal-assurance/eslint.config.js",
@@ -278,6 +298,16 @@
       "path": "strategic-deal-assurance/evidence/milestone-6-verification.md",
       "category": "historical-evidence",
       "sha256NormalizedLf": "60d482c7b14174121be74da675483410a26f781d6e04f9989166d10caddfce7d"
+    },
+    {
+      "path": "strategic-deal-assurance/evidence/milestone-7-verification.md",
+      "category": "historical-evidence",
+      "sha256NormalizedLf": "b04a1d4b2d2ac07327c05b8a76d7a7b0d5f2b76c84eacd27baec00c844967642"
+    },
+    {
+      "path": "strategic-deal-assurance/evidence/milestone-8-verification.md",
+      "category": "historical-evidence",
+      "sha256NormalizedLf": "d5708e8d83fe641a5b389a2e7416a6389442910278883c13e2531d04094b367b"
     },
     {
       "path": "strategic-deal-assurance/force-app/main/default/applications/Strategic_Deal_Assurance.app-meta.xml",
@@ -502,7 +532,7 @@
     {
       "path": "strategic-deal-assurance/force-app/main/default/lwc/strategicDealWorkbench/__tests__/strategicDealWorkbench.test.js",
       "category": "test",
-      "sha256NormalizedLf": "09005cc8f4b7dae824ddfafd4e1b47d69883b95fc6f870646cb97f706159c8ec"
+      "sha256NormalizedLf": "7308a263416697a2558de1a3d1faf08e131abcd872b52e001e511981cd2b5562"
     },
     {
       "path": "strategic-deal-assurance/force-app/main/default/lwc/strategicDealWorkbench/strategicDealWorkbench.css",
@@ -512,22 +542,32 @@
     {
       "path": "strategic-deal-assurance/force-app/main/default/lwc/strategicDealWorkbench/strategicDealWorkbench.html",
       "category": "salesforce-source",
-      "sha256NormalizedLf": "1d72a568fa0e9ab5e592950d11abf823498fd63465726f8387fce7f17025e46d"
+      "sha256NormalizedLf": "f2b03ed0ebfa8b24654c5b720da031902614469ac007d7a21707dcf5f4f1705b"
     },
     {
       "path": "strategic-deal-assurance/force-app/main/default/lwc/strategicDealWorkbench/strategicDealWorkbench.js",
       "category": "salesforce-source",
-      "sha256NormalizedLf": "b964252b968f3c8eeea51f418932d41b38f5247cbe2d422f49dff6d01273acb2"
+      "sha256NormalizedLf": "95c37bc8d06e79682cb2c6f415277745ecbe5195e33fe9e0c3b79dea3439a83a"
     },
     {
       "path": "strategic-deal-assurance/force-app/main/default/lwc/strategicDealWorkbench/strategicDealWorkbench.js-meta.xml",
       "category": "salesforce-source",
-      "sha256NormalizedLf": "b8075f1ae683e6bd1deadc8a8fd9c0d56653fdf44f8ce6dd66195a867fed69cf"
+      "sha256NormalizedLf": "a1e07dfe99c233bee83b296dff9b836d51772a45af29746a8dc884f3ef00a5e2"
+    },
+    {
+      "path": "strategic-deal-assurance/force-app/main/default/objects/Campaign/listViews/SDA_Demo_Campaigns.listView-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "c31af923945d87423b3f97960ba0340ff5aa1492c333f0fbf5f4a5301245047e"
     },
     {
       "path": "strategic-deal-assurance/force-app/main/default/objects/Case/fields/Demo_Resolution__c.field-meta.xml",
       "category": "salesforce-source",
       "sha256NormalizedLf": "cd4d84ab32e72a7bc4cebb9df1d461d3c5934f934e9c6b358ba00ba7e9c16084"
+    },
+    {
+      "path": "strategic-deal-assurance/force-app/main/default/objects/Case/listViews/SDA_Demo_Cases.listView-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "37af22f49bde280c8b4953a12948a055d961f8041143eecb5a4bccb1c133867d"
     },
     {
       "path": "strategic-deal-assurance/force-app/main/default/objects/Demo_Business_Rule__mdt/Demo_Business_Rule__mdt.object-meta.xml",
@@ -690,6 +730,11 @@
       "sha256NormalizedLf": "bc662c092323fbc6fbbdb513499d93fc53e2509c712531ba716a668c2ea7dca6"
     },
     {
+      "path": "strategic-deal-assurance/force-app/main/default/objects/Task/listViews/SDA_Demo_Tasks.listView-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "53ea80f3873dfe23c1b3150985f8c32d6ce982896b551170cd3a231f65b29cd3"
+    },
+    {
       "path": "strategic-deal-assurance/force-app/main/default/permissionsets/Change_Assurance_Integration.permissionset-meta.xml",
       "category": "salesforce-source",
       "sha256NormalizedLf": "fe4f0f2d3732fddc1c46a1608a07366c720faec75dc505feab8f722585ef29f9"
@@ -713,6 +758,36 @@
       "path": "strategic-deal-assurance/force-app/main/default/permissionsets/Strategic_Deal_User.permissionset-meta.xml",
       "category": "salesforce-source",
       "sha256NormalizedLf": "232edf88f6405ff9249e735bd853d00e2699f3d019d9357f02dbf866613c5097"
+    },
+    {
+      "path": "strategic-deal-assurance/force-app/main/default/reports/SDA_Demo_Reports.reportFolder-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "5e731d1772c52c4e74ecaf8fa9d03f69b78bd65b4938f44f496e06fee7a0bf0a"
+    },
+    {
+      "path": "strategic-deal-assurance/force-app/main/default/reports/SDA_Demo_Reports/SDA_Demo_Accounts.report-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "4a542d397febab5547ec7b20a74d9e476df78ac91fe0605fb3cf01f6c39c34cd"
+    },
+    {
+      "path": "strategic-deal-assurance/force-app/main/default/reports/SDA_Demo_Reports/SDA_Demo_Campaigns.report-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "6b1dd5aada4016daf002f1bcc1b7329b2c287fb0f08624c9a5a425bd6a640373"
+    },
+    {
+      "path": "strategic-deal-assurance/force-app/main/default/reports/SDA_Demo_Reports/SDA_Demo_Cases.report-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "3fa6d56820163ba97dbdbdaddfee351a9b8f801dfc452468db02f7450d74eb6c"
+    },
+    {
+      "path": "strategic-deal-assurance/force-app/main/default/reports/SDA_Demo_Reports/SDA_Demo_Opportunities.report-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "52e35773a19a7dd0b8b52f793bdec26eeda6c359821fa23e5aca75aa530c0a07"
+    },
+    {
+      "path": "strategic-deal-assurance/force-app/main/default/reports/SDA_Demo_Reports/SDA_Demo_Tasks.report-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "96cb7becae5344225421e4f3c51f915cdb9b9b9adbeec0321fc1f4cd35b4f99a"
     },
     {
       "path": "strategic-deal-assurance/force-app/main/default/tabs/Strategic_Deal_Workbench.tab-meta.xml",
@@ -835,6 +910,16 @@
       "sha256NormalizedLf": "65a8a347df2e8f5f2bfbb7dcaa94ea32e3eaced198f33e247c1335c8ecb6cdf8"
     },
     {
+      "path": "strategic-deal-assurance/manifest/milestone-7-demo-visibility.xml",
+      "category": "deployment-scope",
+      "sha256NormalizedLf": "f8566f92cbf21cad12ef3a91f78b6a72aec08cd7f1a6ea91d278e7c4fc725ebf"
+    },
+    {
+      "path": "strategic-deal-assurance/manifest/milestone-8-locator-demo.xml",
+      "category": "deployment-scope",
+      "sha256NormalizedLf": "21ec03c4d552e2309c11047bda04bc801d533eb7cfc9e4ad98e923a0a99e6ec5"
+    },
+    {
       "path": "strategic-deal-assurance/manifest/package.xml",
       "category": "deployment-scope",
       "sha256NormalizedLf": "cd38cc1cf01eec5d63564dad9c3b89ab571e531e6b140a00edaf8293544314b8"
@@ -847,7 +932,7 @@
     {
       "path": "strategic-deal-assurance/package.json",
       "category": "configuration",
-      "sha256NormalizedLf": "071ae3feb85c494a523806de86fd7438a9ed26459a01bd55f84e940187c5249d"
+      "sha256NormalizedLf": "f1f91c06f12c39ef71eff414f3a9196e5d03eb1a72c8a7186d0950b37b5d1fa9"
     },
     {
       "path": "strategic-deal-assurance/requirements/BR-DEMO-CONFIGURABLE-RULES.md",
@@ -872,17 +957,27 @@
     {
       "path": "strategic-deal-assurance/scripts/catalog/build-project-index.mjs",
       "category": "operator-tool",
-      "sha256NormalizedLf": "e72d30cc73799ff2e1bd01dab601efd39075e382d7c029004dfc26640cba3ed9"
+      "sha256NormalizedLf": "57f92d35587e036593158b212f76c71e0faa1f74e18faf798898dcd47f74f212"
     },
     {
       "path": "strategic-deal-assurance/scripts/catalog/catalog.test.mjs",
       "category": "operator-tool",
-      "sha256NormalizedLf": "f5c09907eb67b7136705574193b8aa21138e7bd3a6f6d805aba15698c37117e5"
+      "sha256NormalizedLf": "ac4dcae626e72332852b8896a2a1dadab1d78b3b2aa007eef172311ac44ebdc9"
+    },
+    {
+      "path": "strategic-deal-assurance/scripts/catalog/locator-healing.test.mjs",
+      "category": "operator-tool",
+      "sha256NormalizedLf": "79438cd315fc9decadf7b6864075842370be001ba19ed92e7de09d6e259ab1c3"
     },
     {
       "path": "strategic-deal-assurance/scripts/catalog/manual-suite.test.mjs",
       "category": "operator-tool",
       "sha256NormalizedLf": "2ed208fbe8fc8038b2beb39a1be3b353937fa601341e91577a247acd1e784281"
+    },
+    {
+      "path": "strategic-deal-assurance/scripts/catalog/visibility-expansion.test.mjs",
+      "category": "operator-tool",
+      "sha256NormalizedLf": "2be22a2255c02d1547eee0a411f1a8d1289bcf7ad9d578e2c7d2e5bd92127a96"
     },
     {
       "path": "strategic-deal-assurance/scripts/demo/create-regional-vp.apex",
@@ -915,6 +1010,11 @@
       "sha256NormalizedLf": "3f0301bd97254a8453da08b1c7d3732f91ad046a1c95885668b709e6d47641c2"
     },
     {
+      "path": "strategic-deal-assurance/scripts/demo/seed-visibility-expansion.ps1",
+      "category": "operator-tool",
+      "sha256NormalizedLf": "b24536d0ecc5a3cadd544f79ebb9cd9fcae81591b0ab86feeacffacc3e237922"
+    },
+    {
       "path": "strategic-deal-assurance/scripts/demo/test-multi-module-local.ps1",
       "category": "operator-tool",
       "sha256NormalizedLf": "6946ef0f593f691443a50241773d495bf295602787dd9a753bfec72d5770b12a"
@@ -923,6 +1023,11 @@
       "path": "strategic-deal-assurance/scripts/demo/test-reset-local.ps1",
       "category": "operator-tool",
       "sha256NormalizedLf": "4ebc4c1d74f250c94bd1f6b7ab7a9603fbf17f8940e22d813ba66d5ebbac8a13"
+    },
+    {
+      "path": "strategic-deal-assurance/scripts/demo/visibility-expansion.apex.template",
+      "category": "operator-tool",
+      "sha256NormalizedLf": "4427cd9add8b27ff2b0a9352ae9f20f7a84de6d6ddbd68d069f94cc9ad2da76d"
     },
     {
       "path": "strategic-deal-assurance/scripts/soql/account.soql",

@@ -1,8 +1,12 @@
 # Application knowledge graph
 
-The full [machine-readable graph](../knowledge/application-graph.json) contains typed nodes and directed, source-attributed edges for metadata, permissions, components, tests, datasets, 368 logical fixtures and 42 manual scenarios. These compact views show its main relationships; the JSON has the field-level detail. Nothing in the graph grants an agent permission to execute an action.
+The full [machine-readable graph](../knowledge/application-graph.json) contains typed nodes and directed, source-attributed edges for metadata, permissions, components, tests, datasets, 554 logical fixtures across original and expansion datasets and 42 manual scenarios. These compact views show its main relationships; the JSON has the field-level detail. Nothing in the graph grants an agent permission to execute an action.
 
 ## Business record relationships
+
+`config:workbench.locatorVariant.implementationStatus` distinguishes implemented assisted presentation from the unimplemented recorded XPath harness and proposed advanced no-explicit-hint mode. Nine-target browser healing is not demonstrated; the app contains no healer. Consumers must not infer implementation or execution from the existence of a scenario node.
+
+The graph also includes six `locator-use-case` nodes and `config:workbench.locatorVariant`, linked to the Workbench, both page configuration surfaces and all eight input field identities. These presentation-only scenarios are separate from the 42 business cases; their browser/healer execution is not certified by static graph edges. See the [locator guide](locator-healing-demo.md).
 
 ```mermaid
 flowchart LR
@@ -69,6 +73,10 @@ flowchart LR
 ```
 
 Dashed edges describe limitations/prerequisites, not active access grants. The UI's narrow private-history reader is not an external API. The current integration permission set grants Opportunity input operations and Account read only, not all seeded modules. Read the [agent guide](agent-integration-guide.md) before designing connectors or API tests.
+
+## Visibility and reporting
+
+The graph includes five `saved-report` nodes, three `list-view` nodes and the independent `SDA-VISIBILITY-EXPANSION-v1` dataset (186 rows). Reports read synthetic scoped data; list-view filters are recorded as source facts, not proof of effective user access. Original fixture keys/relationships remain unchanged. See [visibility guide](demo-data-visibility.md) for expected counts and run instructions.
 
 ## Graph schema and traversal
 

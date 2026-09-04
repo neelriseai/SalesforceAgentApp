@@ -2,6 +2,12 @@
 
 ## Scope and artifacts
 
+Locator showcase acceptance is distinct from component tests: record eight working field locators plus Save, change the runtime variant, prove all nine old targets invalid or wrong by identity before any write, then have the external agent recover and verify persisted results. Resilient locators are passes, not healing events. The runnable baseline XPath harness and advanced no-explicit-hint variant are not implemented; the current LH specification covers the assisted level only. Salesforce must not contain the healer or roll back presentation to conceal a failed locator.
+
+Execute the supplemental **LH-01–06 / 20-step locator suite** in [JSON](../data/locator-healing-suite.json) and the [operator/recovery guide](locator-healing-demo.md). It covers all eight Opportunity input mappings plus the save action across three configurable layouts, authorization denial, ambiguous candidates and restoration. Require independent persisted-value checks, zero wrong-field writes, zero unapproved submissions and abstention on uncertain identity. Source/Jest and Apex test results do not certify browser-based healing; [milestone 8 evidence](../evidence/milestone-8-verification.md) records the distinction.
+
+For the later data-visibility expansion, also execute VIS-01–03 in the [demo data and reports guide](demo-data-visibility.md). These supplemental cases check three named views, five saved reports and create-only repeatability; the original 42-case behavioral specification remains unchanged.
+
 The unified [manual suite](manual-test-cases.md) contains **42 cases / 232 action-and-expected-result steps**. Its [JSON companion](../data/manual-test-suite.json) provides stable IDs, actor, modules, fixture names, preconditions, exact data where applicable, ordered steps, negative checks, cleanup and evidence requirements. All generated case statuses are NOT_RUN specifications, not test results.
 
 | Group | Cases | Coverage |

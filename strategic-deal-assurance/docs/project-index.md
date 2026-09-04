@@ -4,6 +4,10 @@ All paths below are relative to the Salesforce DX project unless stated otherwis
 
 ## Find the right entry point
 
+The locator entry points describe **assisted UI drift**, not an in-app healer. The recorded XPath harness, external-agent integration and advanced no-explicit-hint variant are not implemented. Their status is machine-readable in `data/locator-healing-suite.json` and `contracts/agent-interface.json`, and carried into `config:workbench.locatorVariant` in the graph.
+
+For multi-field locator drift: [no-code guide](locator-healing-demo.md), [six LH cases](../data/locator-healing-suite.json), [scoped manifest](../manifest/milestone-8-locator-demo.xml) and [verification](../evidence/milestone-8-verification.md).
+
 | Task | Read / use |
 |---|---|
 | Connect an external agent safely | [Agent integration guide](agent-integration-guide.md), [interface contract](../contracts/agent-interface.json), [.env.example](../.env.example) |
@@ -17,6 +21,7 @@ All paths below are relative to the Salesforce DX project unless stated otherwis
 | Configure optional demo rules | [Rule guide](demo-rules-guide.md), [requirement](../requirements/BR-DEMO-CONFIGURABLE-RULES.md), [guard service](../force-app/main/default/classes/DemoBusinessRules.cls) |
 | Build a future automation suite | [42 detailed cases](manual-test-cases.md), [JSON suite](../data/manual-test-suite.json), [test plan](test-plan.md) |
 | Run original baseline demos | [Ten-case guide](multi-module-manual-e2e.md), [machine-readable cases](../data/multi-module-use-cases.json), [result sheet](multi-module-test-results.md), [two-login approval](approval-demo-walkthrough.md) |
+| Find populated demo views/reports | [Visibility guide](demo-data-visibility.md), [expansion plan](../data/visibility-expansion-plan.json), [expansion runner](../scripts/demo/seed-visibility-expansion.ps1) |
 | Prepare/reconcile fixtures | [Multi-module operations](multi-module-data.md), [baseline reset](demo-data-reset.md) |
 | Build/check this index | [Catalog generator](../scripts/catalog/build-project-index.mjs), [catalog tests](../scripts/catalog/catalog.test.mjs) |
 
@@ -34,6 +39,7 @@ SalesforceAgentApp/                  repository root
       applications/, tabs/          app navigation
       objects/, customMetadata/     custom fields, evidence object and policy
       classes/                      policy/controllers/save guards and five Apex test suites
+      reports/                      five saved synthetic-data reports and dedicated folder
       triggers/                     seven synthetic-record save-guard entry points
       flows/                        record-triggered evaluation and evidence writer
       approvalProcesses/, workflows/ native approval and final/recall field updates
@@ -71,6 +77,7 @@ SalesforceAgentApp/                  repository root
 | VP UI correction | [milestone-4-lightning-access.xml](../manifest/milestone-4-lightning-access.xml) | One permission set; LightningExperienceUser |
 | 5 | [milestone-5-navigation.xml](../manifest/milestone-5-navigation.xml) | One app; cross-module navigation |
 | 6 | [milestone-6-demo-rules.xml](../manifest/milestone-6-demo-rules.xml) | DemoBusinessRulesTest plus previous four suites; eight OFF rules, seven triggers, Case resolution/layout |
+| 7 | [milestone-7-demo-visibility.xml](../manifest/milestone-7-demo-visibility.xml) | Three named list views and five reports; no rule/default/code redeployment |
 
 The current live regression runner is [test-milestone-6.ps1](../scripts/test-milestone-6.ps1), covering all five suites. Component tests are under each LWC's `__tests__`. `npm run catalog:test` and the two demo local-test scripts are local-only; they do not establish live UI/API behavior. Do not use the scaffold's broad package.xml as a routine deployment scope.
 
@@ -85,6 +92,7 @@ The current live regression runner is [test-milestone-6.ps1](../scripts/test-mil
 | [Milestone 4](../evidence/milestone-4-verification.md) | Native approval, Lightning permission correction, later VP confirmation |
 | [Milestone 5](../evidence/milestone-5-verification.md) | 368-row load, no-op rerun, source/API validation and navigation smoke |
 | [Milestone 6](../evidence/milestone-6-verification.md) | Configurable rule deployment and regression; manual specs do not certify browser execution |
+| [Milestone 7](../evidence/milestone-7-verification.md) | 186-row expansion, named views, five live report counts and unchanged original fixtures |
 | [Manual results](multi-module-test-results.md) | Ten-case browser suite remains Not run until explicitly executed |
 
 Historical source-hash files intentionally refer to their original snapshots. They are not expected to match files changed by later milestones. The generated project index is the current LF-normalized source fingerprint, not a substitute for fresh live test receipts. Runtime IDs/auth files are intentionally absent from the source graph.

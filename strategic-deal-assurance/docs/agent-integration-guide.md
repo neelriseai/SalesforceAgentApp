@@ -104,6 +104,10 @@ Ingest `data/manual-test-suite.json` as the test specification, not an execution
 
 ## 6. Browser interaction contract
 
+**Responsibility split:** Salesforce only changes presentation; it does not heal XPath. The current scenario is assisted by explicit DOM field-identity hints. A recorded executable baseline locator suite, external-agent integration and advanced no-explicit-hint mode remain future work. Capture actual before/after target validity and verify all eight saved inputs before claiming nine-target healing. The [demo status](locator-healing-demo.md#implementation-status-and-showcase-boundary) is authoritative about these implementation limits.
+
+The table below describes the **baseline** presentation. The [locator-healing demo](locator-healing-demo.md) adds per-page `locatorVariant` configuration (`baseline`, `reordered`, `regrouped`) in App Builder. Changed variants deliberately alter eight field hooks/order/regions and the save label/hook. Ingest [LH-01–06](../data/locator-healing-suite.json); correlate current metadata and fresh scoped DOM using `data-object-api`, `data-field-api` and `data-action`, not stale labels or positions. Business semantics/permissions remain unchanged; a missing editable field for VP is not a healing opportunity. Do not infer browser execution or healer implementation from this specification.
+
 Open App Launcher > **Strategic Deal Assurance**. Use an all-records list instead of Recently Viewed for CLI-seeded data. New data uses `SYN-MM-`; the original policy fixtures use `SYN-SDA-`. Resolve the intended record once and retain its environment-specific ID locally.
 
 | Component / region | Stable semantics | Expected behavior |
@@ -119,6 +123,12 @@ Scope locators to the component/region and verify uniqueness. Prefer fresh acces
 The VP can read and decide assigned requests but cannot edit deal inputs. **Save and Evaluate is currently still visible for that account**; do not interpret visibility as edit permission. A clear role-specific read-only presentation is a remaining UI improvement. LightningExperienceUser was explicitly added to the VP permission set; stale sessions may need sign-out/sign-in.
 
 The app-specific Opportunity page focuses on policy and approval and may not expose native Related/Contact Roles lists. Use the same record in the standard Sales app for those manual tests. On narrow screens, module tabs are in Show more navigation items. See the manual guide for exact case steps and cleanup.
+
+### Named views and saved reports
+
+When Recently Viewed or Today looks empty, select **SDA Demo Cases**, **SDA Demo Tasks** or **SDA Demo Campaigns** from the list dropdown. They filter SYN-MM names/subjects and have no date/status restriction. Five reports live in **SDA Demo Reports**; open and Run rather than treating the Reports list as business data. See [visibility guide](demo-data-visibility.md) for report filters and three supplemental manual checks.
+
+A separate 186-record expansion gives combined SYN-MM totals of 60 Cases, 120 Tasks, 10 Campaigns, 34 Accounts and 80 Contacts. It uses independent XA/XC customers/people, preserving original scenario relationships. Runtime report results remain subject to record/field/folder permissions. Existing integration/VP permissions are not expanded by these views or reports.
 
 ## 7. Native approval lifecycle
 
@@ -200,8 +210,9 @@ Critical limitation: standard approval APIs do not execute `StrategicDealApprova
 |---|---|---|
 | `SDA-DEMO-BASELINE-15-v1` | One Account + seven boundary Opportunities | `reset-baseline.ps1`: guarded restore; blocks pending native approvals; history retained |
 | `SDA-CROSS-MODULE-v1` | 368 linked business records + 40 initial evaluations | `seed-multi-module.ps1`: create-only, no overwrites/deletes; Verify reports drift |
+| `SDA-VISIBILITY-EXPANSION-v1` | 186 additional business rows with independent Accounts/Contacts | `seed-visibility-expansion.ps1`: create-only, original dataset untouched |
 
-Both use locally bound `caip-dev`, synthetic markers and an administrative operator. They are operator tools, **not endpoints or permissions for an agent runtime**. Read [baseline reset](demo-data-reset.md) and [multi-module operations](multi-module-data.md) before executing them. Write switches are explicit. Never silently run a baseline reset after an approval or a failed test.
+All three use locally bound `caip-dev`, synthetic markers and an administrative operator. They are operator tools, **not endpoints or permissions for an agent runtime**. Read [baseline reset](demo-data-reset.md) and [multi-module operations](multi-module-data.md) before executing them. Write switches are explicit. Never silently run a baseline reset after an approval or a failed test.
 
 Dates are fixed in 2026, not rolling. Multi-module plan logical references such as `@A05` and `@vp` are not Salesforce IDs; resolve the matching current-environment records. Marker-only keys are not database-enforced uniqueness. Original `SYN-UI-` fixtures are outside both datasets.
 
@@ -232,7 +243,7 @@ Milestone-5 recorded 35/35 Apex results with 99% coverage; that remains historic
 
 ## 11. Deployment and source maintenance
 
-Do not deploy merely to inspect or connect. For an explicitly authorized rebuild into the verified non-production org, use scoped manifests in order: milestone-1, milestone-2, milestone-3, milestone-4, milestone-4-lightning-access, milestone-5-navigation, milestone-6-demo-rules, each with its named tests and explicit test level. Review native Workflow/ApprovalProcess conflicts and licenses before deployment. Avoid the broad scaffold `manifest/package.xml`. Milestone 6 includes OFF Custom Metadata values and will restore those settings on deployment; do not redeploy mid-demo. Its Case layout references pre-existing Developer Edition sample fields; adapt explicitly for a different org.
+Do not deploy merely to inspect or connect. For an explicitly authorized rebuild into the verified non-production org, use scoped manifests in order: milestone-1, milestone-2, milestone-3, milestone-4, milestone-4-lightning-access, milestone-5-navigation, milestone-6-demo-rules, milestone-7-demo-visibility, each with its named tests and explicit test level. Review native Workflow/ApprovalProcess conflicts and licenses before deployment. Avoid the broad scaffold `manifest/package.xml`. Milestone 6 includes OFF Custom Metadata values and will restore those settings on deployment; do not redeploy mid-demo. Its Case layout references pre-existing Developer Edition sample fields; adapt explicitly for a different org.
 
 Metadata in Git is the reproducible source; retrieved runtime authorization is not. User activation, permission assignment, Marketing User enablement and local org binding are environment setup actions that require appropriate authorization. The seed scripts do not silently grant missing permissions. A Git push neither deploys the org nor creates API credentials.
 
