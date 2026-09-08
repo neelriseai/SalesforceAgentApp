@@ -16,6 +16,20 @@ The graph is a static source snapshot, not a live org export, entitlement engine
 
 Historical evidence is deliberately preserved. In particular, `evidence/metadata/permission-matrix.json` is a milestone-2 snapshot; its deferred-reader/assignment/approval notes are NOT the current security contract. Some permission-set descriptions also retain old prose. Effective grants come from XML plus the current user's profile, assignments, sharing and runtime describe checks.
 
+### Checkout synchronization gate
+
+Authentication and source synchronization are separate prerequisites. Before ingesting this contract on another machine, update that machine's Salesforce-app checkout through the normal Git workflow (for a clean `main` checkout, `git pull --ff-only origin main`) and verify that all of these milestone-9 artifacts exist:
+
+- `force-app/main/default/classes/StrategicDealAgentApi.cls`
+- `force-app/main/default/permissionsets/Strategic_Deal_API_Access.permissionset-meta.xml`
+- `contracts/agent-interface.json` with schema version 1.4.0 or newer
+- `data/agent-api-test-suite.json`
+- `docs/external-agent-provisioning.md`
+- `evidence/milestone-9-verification.md`
+- regenerated `knowledge/application-graph.json` and `knowledge/project-index.json`
+
+Run `npm run catalog:check` after the update. A consumer must fail closed when the contract and generated graph snapshots disagree; it must not keep an older `api.custom.rest = not implemented` decision after the updated contract is available. Do not copy `.sf`/`.sfdx` files, auth URLs or tokens between machines. Each machine must authorize its own CLI aliases privately.
+
 ## 2. Environment and authentication
 
 | Lane | Available now | What the external agent must do |

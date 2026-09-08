@@ -19,5 +19,14 @@
     {"id":"API-05","objective":"Prove pagination bound and newest-first ordering","steps":["Use an authorized per-run SYN-API fixture and create approved relevant-input changes through standard REST","GET with limit=1 then limit=50","Assert returned counts are bounded and newest evaluation matches persisted latest input","Verify unknown write outcomes before retry; retain fixture"]},
     {"id":"API-06","objective":"Keep transport separate from business authority","steps":["Assign only Strategic_Deal_API_Access to a minimum-access test identity in an isolated test transaction","Assert API/class transport does not grant Opportunity read or approval decision","Pair permissions only under the intended automation persona setup"]}
   ],
-  "acceptance": {"directEvidenceCrud":false,"deleteGranted":false,"viewAllGranted":false,"metadataAdminGranted":false,"browserEvidence":false,"liveStatus":"pending JWT/CLI authorization and deployment"}
+  "acceptance": {
+    "directEvidenceCrud": false,
+    "deleteGranted": false,
+    "viewAllGranted": false,
+    "metadataAdminGranted": false,
+    "browserEvidence": false,
+    "deploymentStatus": "deployed",
+    "hackathonAdministratorSmokeStatus": "passed",
+    "dedicatedIdentitySuiteStatus": "not run; optional production-hardening lane"
+  }
 }

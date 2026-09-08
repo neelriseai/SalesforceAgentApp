@@ -71,10 +71,11 @@ flowchart LR
   AGENT -. dedicated OAuth and permissions needed .-> REST[Standard Salesforce REST]
   REST --> CRM[Permitted CRM records]
   EVID[Private evaluation evidence] -. no direct ordinary API CRUD .-> REST
-  CUSTOM[Custom Apex REST facade: not implemented]
+  AGENT -->|approved CLI/OAuth session| CUSTOM[Custom Apex REST facade: deployed]
+  CUSTOM -->|parent-authorized, bounded read| EVID
 ```
 
-Dashed edges describe limitations/prerequisites, not active access grants. The UI's narrow private-history reader is not an external API. The current integration permission set grants Opportunity input operations and Account read only, not all seeded modules. Read the [agent guide](agent-integration-guide.md) before designing connectors or API tests.
+Dashed edges describe limitations/prerequisites, not active access grants. The custom facade exposes only a parent-authorized, bounded policy/evidence read; it does not grant direct evidence CRUD. `Change_Assurance_Integration` now covers the nine synthetic CRM modules described by the current contract, while `Strategic_Deal_API_Access` remains transport-only. Read the [agent guide](agent-integration-guide.md) before designing connectors or API tests.
 
 ## Visibility and reporting
 

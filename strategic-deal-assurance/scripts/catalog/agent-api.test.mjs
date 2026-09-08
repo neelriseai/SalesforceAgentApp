@@ -12,6 +12,9 @@ test('external API specification has six honest, non-destructive cases',()=>{
   assert.equal(suite.acceptance.directEvidenceCrud,false);
   assert.equal(suite.acceptance.deleteGranted,false);
   assert.equal(suite.acceptance.metadataAdminGranted,false);
+  assert.equal(suite.acceptance.deploymentStatus,'deployed');
+  assert.equal(suite.acceptance.hackathonAdministratorSmokeStatus,'passed');
+  assert.match(suite.acceptance.dedicatedIdentitySuiteStatus,/not run/);
 });
 test('REST source is read-only, bounded and parent-gated',()=>{
   const body=read('force-app/main/default/classes/StrategicDealAgentApi.cls');

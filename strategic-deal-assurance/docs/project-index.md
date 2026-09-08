@@ -82,7 +82,7 @@ SalesforceAgentApp/                  repository root
 | 6 | [milestone-6-demo-rules.xml](../manifest/milestone-6-demo-rules.xml) | DemoBusinessRulesTest plus previous four suites; eight OFF rules, seven triggers, Case resolution/layout |
 | 7 | [milestone-7-demo-visibility.xml](../manifest/milestone-7-demo-visibility.xml) | Three named list views and five reports; no rule/default/code redeployment |
 | 8 | [milestone-8-locator-demo.xml](../manifest/milestone-8-locator-demo.xml) | Workbench presentation variants; browser healing not proven |
-| 9 | [milestone-9-agent-api.xml](../manifest/milestone-9-agent-api.xml) | StrategicDealAgentApiTest plus five regressions; source prepared, org validation pending refreshed CLI auth |
+| 9 | [milestone-9-agent-api.xml](../manifest/milestone-9-agent-api.xml) | StrategicDealAgentApiTest plus five regressions; deployed with 50/50 tests, administrator REST smoke test passed; dedicated-identity suite pending |
 
 The regression runner [test-milestone-6.ps1](../scripts/test-milestone-6.ps1) now names all six suites; its filename is retained for compatibility. Component tests are under each LWC's `__tests__`. Local checks do not establish live UI/API behavior. Do not use broad `package.xml` as routine scope.
 

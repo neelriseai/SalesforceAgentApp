@@ -32,8 +32,12 @@ test('integration limitations and strict boundaries are represented',()=>{
   const req=graph.nodes.find(n=>n.id==='requirement:BR-STRATEGIC-DISCOUNT');
   assert.equal(req.discountComparison,'>');assert.equal(req.discount,15);assert.equal(req.amount,50000000);
   const contract=JSON.parse(fs.readFileSync(path.join(repoRoot,'strategic-deal-assurance/contracts/agent-interface.json'),'utf8'));
-  assert.equal(contract.capabilities.find(c=>c.id==='api.custom.rest').status,'deployed; hackathon-administrator HTTP 200 smoke test passed; dedicated-identity validation pending');
-  assert.equal(contract.capabilities.find(c=>c.id==='api.custom.rest').directEvidenceCrud,false);
+  const customRest=contract.capabilities.find(c=>c.id==='api.custom.rest');
+  assert.equal(customRest.status,'implemented');
+  assert.equal(customRest.deploymentStatus,'deployed');
+  assert.equal(customRest.hackathonAdministratorValidation,'HTTP 200 smoke test passed');
+  assert.equal(customRest.dedicatedIdentityValidation,'pending');
+  assert.equal(customRest.directEvidenceCrud,false);
   assert.equal(contract.opportunity.automaticSubmission,false);
   assert.ok(graph.edges.some(e=>e.from==='flow:Strategic_Discount_Approval' && e.relation==='appends' && e.to==='object:Strategic_Deal_Evaluation__c'));
 });

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.3.0",
+  "schemaVersion": "1.4.0",
   "application": "Strategic Deal Assurance",
   "apiVersion": "67.0",
   "currency": "USD",
@@ -101,7 +101,10 @@
     },
     {
       "id": "api.custom.rest",
-      "status": "deployed; hackathon-administrator HTTP 200 smoke test passed; dedicated-identity validation pending",
+      "status": "implemented",
+      "deploymentStatus": "deployed",
+      "hackathonAdministratorValidation": "HTTP 200 smoke test passed",
+      "dedicatedIdentityValidation": "pending",
       "method": "GET",
       "route": "/services/apexrest/sda/v1/policy/{OpportunityId}?limit=1..50",
       "class": "StrategicDealAgentApi",

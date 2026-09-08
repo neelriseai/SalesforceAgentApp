@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "application": "Strategic Deal Assurance",
   "pathBase": "repository-root",
-  "sourceSnapshot": "69262611c72b201f3770b913da61861707262d2996545ee110182355af3cb346",
+  "sourceSnapshot": "a26ba134502c2fe0c6c61479868fc75ceeb67ea2872ce01ad4cf2e247bbf853a",
   "hashAlgorithm": "SHA-256 of UTF-8 text normalized to LF",
   "generator": "strategic-deal-assurance/scripts/catalog/build-project-index.mjs",
   "generatedOutputs": [
@@ -109,12 +109,12 @@
     {
       "path": "strategic-deal-assurance/contracts/agent-interface.json",
       "category": "agent-contract",
-      "sha256NormalizedLf": "483121816c1784e1ded69c6204b895704cabd333195354e49ccd01c54f5705b9"
+      "sha256NormalizedLf": "f601ac6bffbbfc4eb529f0d018b0ff5eb72eaf832351922951fbb03f5bec06e2"
     },
     {
       "path": "strategic-deal-assurance/data/agent-api-test-suite.json",
       "category": "synthetic-fixture",
-      "sha256NormalizedLf": "76a8aadc7a9bdf4eaa74347c3d104f2e173064dabdc9801d8e0a9457cf941374"
+      "sha256NormalizedLf": "d3170a12becb82e98804b6c1eae0d2c30701d31e3a6099c14545f8799833d6a2"
     },
     {
       "path": "strategic-deal-assurance/data/baseline-15-plan.json",
@@ -154,12 +154,12 @@
     {
       "path": "strategic-deal-assurance/docs/agent-integration-guide.md",
       "category": "documentation",
-      "sha256NormalizedLf": "65494013d15e34392102e09cb7f117312c2bb7e603a8ad6d023079b0db41c49d"
+      "sha256NormalizedLf": "5bdcc993044e3953b002c8c657e9e594ee4ecccc904b4e6ccad34cb1ce4b794c"
     },
     {
       "path": "strategic-deal-assurance/docs/application-knowledge-graph.md",
       "category": "documentation",
-      "sha256NormalizedLf": "31ae7127b6a7af8d2a8a977d32243f6125fe42b660cd25b1ae90c0a727a0c197"
+      "sha256NormalizedLf": "9e8bcd8a3a060f9cfccda544908179f65ff2de23f85d242481cdcc43af7e37f0"
     },
     {
       "path": "strategic-deal-assurance/docs/approval-demo-walkthrough.md",
@@ -234,7 +234,7 @@
     {
       "path": "strategic-deal-assurance/docs/project-index.md",
       "category": "documentation",
-      "sha256NormalizedLf": "72f0288ba330b7979f4c577fb8ad78202be5b545ccaeae34624573f6791f78f8"
+      "sha256NormalizedLf": "fa9f6f5f187379cef8a4289a447d36bd06b792e77cf9c88b1e548cacaeefb06f"
     },
     {
       "path": "strategic-deal-assurance/docs/test-plan.md",
@@ -1004,7 +1004,7 @@
     {
       "path": "strategic-deal-assurance/scripts/catalog/agent-api.test.mjs",
       "category": "operator-tool",
-      "sha256NormalizedLf": "10775db0e25ad3a720dd00a945784df1b3037201d707cbee877552d4534672ed"
+      "sha256NormalizedLf": "723cbcf7011f44641ef7ea8f25305b7ce3cabfca873a5d893569cfc875005a6b"
     },
     {
       "path": "strategic-deal-assurance/scripts/catalog/build-manual-suite.mjs",
@@ -1019,7 +1019,7 @@
     {
       "path": "strategic-deal-assurance/scripts/catalog/catalog.test.mjs",
       "category": "operator-tool",
-      "sha256NormalizedLf": "7d3895f1fab3f5d29758c5f2a406c72a51c905d2c00ebf047de350c21e89d857"
+      "sha256NormalizedLf": "b08cdbb24ca0231f8ab60fb08bb5e06b93e82bc4fc445e12af65dcc5dea2262f"
     },
     {
       "path": "strategic-deal-assurance/scripts/catalog/locator-healing.test.mjs",
