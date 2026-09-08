@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "application": "Strategic Deal Assurance",
   "apiVersion": "67.0",
-  "sourceSnapshot": "9d635bc0d69024e3f163db1c91bc1ea4fb53b6952b4003efcac66e9b517ac769",
+  "sourceSnapshot": "69262611c72b201f3770b913da61861707262d2996545ee110182355af3cb346",
   "provenance": "Static DX metadata, curated lifecycle relationships and logical synthetic fixture references. Not a live org dump or complete Apex call graph.",
   "authorization": "Descriptive only; graph edges grant no execution authority.",
   "nodes": [
@@ -21,6 +21,26 @@
       "kind": "apex-test",
       "label": "DemoBusinessRulesTest",
       "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls",
+      "withSharing": false,
+      "restResource": false,
+      "auraEnabled": false,
+      "invocable": false
+    },
+    {
+      "id": "apex:StrategicDealAgentApi",
+      "kind": "apex-class",
+      "label": "StrategicDealAgentApi",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApi.cls",
+      "withSharing": true,
+      "restResource": true,
+      "auraEnabled": false,
+      "invocable": false
+    },
+    {
+      "id": "apex:StrategicDealAgentApiTest",
+      "kind": "apex-test",
+      "label": "StrategicDealAgentApiTest",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApiTest.cls",
       "withSharing": false,
       "restResource": false,
       "auraEnabled": false,
@@ -128,7 +148,14 @@
       "kind": "capability",
       "label": "api.custom.rest",
       "source": "strategic-deal-assurance/contracts/agent-interface.json",
-      "status": "not implemented"
+      "status": "deployed; hackathon-administrator HTTP 200 smoke test passed; dedicated-identity validation pending",
+      "method": "GET",
+      "route": "/services/apexrest/sda/v1/policy/{OpportunityId}?limit=1..50",
+      "class": "StrategicDealAgentApi",
+      "readOnly": true,
+      "response": "Current derived policy, active policy configuration, newest parent-bound evaluation summaries",
+      "gate": "Caller must read the parent Opportunity and returned fields WITH USER_MODE; facade class permission also required",
+      "directEvidenceCrud": false
     },
     {
       "id": "capability:api.native.approvals",
@@ -145,15 +172,15 @@
       "kind": "capability",
       "label": "api.private.evaluation.history",
       "source": "strategic-deal-assurance/contracts/agent-interface.json",
-      "status": "not granted to ordinary/integration personas",
-      "alternative": "Use the Lightning summary or separately design an approved narrow API; never escalate via admin as a workaround"
+      "status": "direct CRUD not granted; narrow parent-authorized REST deployed and hackathon-administrator smoke-validated; dedicated-identity validation pending",
+      "alternative": "Use the Lightning summary or GET /services/apexrest/sda/v1/policy/{OpportunityId}; never escalate via admin as a workaround"
     },
     {
       "id": "capability:api.standard.crm",
       "kind": "capability",
       "label": "api.standard.crm",
       "source": "strategic-deal-assurance/contracts/agent-interface.json",
-      "status": "platform-supported; dedicated agent integration not validated",
+      "status": "platform-supported; caip-dev hackathon-administrator transport validated; dedicated agent identity not provisioned or validated",
       "routes": [
         "GET /services/data/v67.0/sobjects/{object}/describe",
         "GET /services/data/v67.0/query?q={encodedSOQL}",
@@ -1278,7 +1305,7 @@
       "label": ".gitignore",
       "path": ".gitignore",
       "category": "configuration",
-      "sha256NormalizedLf": "c7ed71c6654a65616cbd5500f680796e8e0e61c03c1a8a3a8b6f5acf423fcfc1"
+      "sha256NormalizedLf": "053fc7e2cf7de442797b79b8a32db163c873d5b02d0f79745cd955db47ce09f0"
     },
     {
       "id": "file:AGENTS.md",
@@ -1294,7 +1321,7 @@
       "label": "README.md",
       "path": "README.md",
       "category": "documentation",
-      "sha256NormalizedLf": "8975e0a05ca3886b3fe8b63af8477e68196a1e291297803f6aa0ffa09f1dd8e5"
+      "sha256NormalizedLf": "750302d5ec29adc001e6d830de42c9ff37b793e6f04512e320e0f9f692a11cdb"
     },
     {
       "id": "file:strategic-deal-assurance/.env.example",
@@ -1302,7 +1329,7 @@
       "label": "strategic-deal-assurance/.env.example",
       "path": "strategic-deal-assurance/.env.example",
       "category": "configuration",
-      "sha256NormalizedLf": "424f2a719fe85d498e226b95ce4315e64afb9f65c49fa209b6bb9cbfa78c923c"
+      "sha256NormalizedLf": "e92ed4733c74f249c706950d8ff22185904f959f2cb61876b659607aff5b5e9e"
     },
     {
       "id": "file:strategic-deal-assurance/.forceignore",
@@ -1390,7 +1417,15 @@
       "label": "strategic-deal-assurance/contracts/agent-interface.json",
       "path": "strategic-deal-assurance/contracts/agent-interface.json",
       "category": "agent-contract",
-      "sha256NormalizedLf": "bc01b80f5c5b1a5aa8a473f7db1965196d97f5d37678344a1f7ee7326b1fc018"
+      "sha256NormalizedLf": "483121816c1784e1ded69c6204b895704cabd333195354e49ccd01c54f5705b9"
+    },
+    {
+      "id": "file:strategic-deal-assurance/data/agent-api-test-suite.json",
+      "kind": "file",
+      "label": "strategic-deal-assurance/data/agent-api-test-suite.json",
+      "path": "strategic-deal-assurance/data/agent-api-test-suite.json",
+      "category": "synthetic-fixture",
+      "sha256NormalizedLf": "76a8aadc7a9bdf4eaa74347c3d104f2e173064dabdc9801d8e0a9457cf941374"
     },
     {
       "id": "file:strategic-deal-assurance/data/baseline-15-plan.json",
@@ -1454,7 +1489,7 @@
       "label": "strategic-deal-assurance/docs/agent-integration-guide.md",
       "path": "strategic-deal-assurance/docs/agent-integration-guide.md",
       "category": "documentation",
-      "sha256NormalizedLf": "9ec9ff0bd9a6f844d4389a55b826862edb36782bc75887a6b6da613fdccb2ba7"
+      "sha256NormalizedLf": "65494013d15e34392102e09cb7f117312c2bb7e603a8ad6d023079b0db41c49d"
     },
     {
       "id": "file:strategic-deal-assurance/docs/application-knowledge-graph.md",
@@ -1462,7 +1497,7 @@
       "label": "strategic-deal-assurance/docs/application-knowledge-graph.md",
       "path": "strategic-deal-assurance/docs/application-knowledge-graph.md",
       "category": "documentation",
-      "sha256NormalizedLf": "f3a587639ce469b6e2208c47257bd3c5fb6b48d686ab7feda7d8eed0a32f3d60"
+      "sha256NormalizedLf": "31ae7127b6a7af8d2a8a977d32243f6125fe42b660cd25b1ae90c0a727a0c197"
     },
     {
       "id": "file:strategic-deal-assurance/docs/approval-demo-walkthrough.md",
@@ -1495,6 +1530,14 @@
       "path": "strategic-deal-assurance/docs/demo-rules-guide.md",
       "category": "documentation",
       "sha256NormalizedLf": "5cf0820f61ecaa8014c30ede6f76a0a507e2350035121b42db8888b5f82df957"
+    },
+    {
+      "id": "file:strategic-deal-assurance/docs/external-agent-provisioning.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/docs/external-agent-provisioning.md",
+      "path": "strategic-deal-assurance/docs/external-agent-provisioning.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "dbac50c002cb8bfae607ca0b457360cfa97d32366b1777c82715a96a64754bca"
     },
     {
       "id": "file:strategic-deal-assurance/docs/locator-healing-demo.md",
@@ -1574,7 +1617,7 @@
       "label": "strategic-deal-assurance/docs/project-index.md",
       "path": "strategic-deal-assurance/docs/project-index.md",
       "category": "documentation",
-      "sha256NormalizedLf": "9ee3bb445ef0825c06fc4f45417d533951867eac248a0eb2fc8a2e026a867547"
+      "sha256NormalizedLf": "72f0288ba330b7979f4c577fb8ad78202be5b545ccaeae34624573f6791f78f8"
     },
     {
       "id": "file:strategic-deal-assurance/docs/test-plan.md",
@@ -1582,7 +1625,7 @@
       "label": "strategic-deal-assurance/docs/test-plan.md",
       "path": "strategic-deal-assurance/docs/test-plan.md",
       "category": "documentation",
-      "sha256NormalizedLf": "0e458f8f3838a3d42ba83a6b4035d1af04c14b9ec9f35259059a7d1463090c25"
+      "sha256NormalizedLf": "cf76750c27d2f59a1314c2acbccf34aff6259d14a3c68e51662ebb574f16bdc1"
     },
     {
       "id": "file:strategic-deal-assurance/eslint.config.js",
@@ -1713,6 +1756,14 @@
       "sha256NormalizedLf": "d5708e8d83fe641a5b389a2e7416a6389442910278883c13e2531d04094b367b"
     },
     {
+      "id": "file:strategic-deal-assurance/evidence/milestone-9-verification.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/evidence/milestone-9-verification.md",
+      "path": "strategic-deal-assurance/evidence/milestone-9-verification.md",
+      "category": "historical-evidence",
+      "sha256NormalizedLf": "e119615fc9c697fc0461bcc25f623c8f854a1b0b1dc473ca4ecb119715378bdb"
+    },
+    {
       "id": "file:strategic-deal-assurance/force-app/main/default/applications/Strategic_Deal_Assurance.app-meta.xml",
       "kind": "file",
       "label": "strategic-deal-assurance/force-app/main/default/applications/Strategic_Deal_Assurance.app-meta.xml",
@@ -1757,6 +1808,38 @@
       "kind": "file",
       "label": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls-meta.xml",
       "path": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRulesTest.cls-meta.xml",
+      "category": "test",
+      "sha256NormalizedLf": "17e31f2473b0c9f7048b434edab7d12261a9b8a0b9ede833cb9c3141eeeccb7b"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApi.cls",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApi.cls",
+      "path": "strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApi.cls",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "3febea4b47bcab0f5305acb89f3e7a26851f42fd629874bf95d3214138a2c5f7"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApi.cls-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApi.cls-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApi.cls-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "17e31f2473b0c9f7048b434edab7d12261a9b8a0b9ede833cb9c3141eeeccb7b"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApiTest.cls",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApiTest.cls",
+      "path": "strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApiTest.cls",
+      "category": "test",
+      "sha256NormalizedLf": "bdeddc077e2f570dc403e458593ff861a55dd810ca299e2a94cd97d51b49aa21"
+    },
+    {
+      "id": "file:strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApiTest.cls-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApiTest.cls-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApiTest.cls-meta.xml",
       "category": "test",
       "sha256NormalizedLf": "17e31f2473b0c9f7048b434edab7d12261a9b8a0b9ede833cb9c3141eeeccb7b"
     },
@@ -1830,7 +1913,7 @@
       "label": "strategic-deal-assurance/force-app/main/default/classes/StrategicDiscountFlowTest.cls",
       "path": "strategic-deal-assurance/force-app/main/default/classes/StrategicDiscountFlowTest.cls",
       "category": "test",
-      "sha256NormalizedLf": "99f759448efa804dad7e5120c3ce649cf8c45deeab6f130961eb5f35879c9ea8"
+      "sha256NormalizedLf": "d4315d4d11c4557a07c7fa4967678560c3ec041a72d2f4f7c79afb7f47539a66"
     },
     {
       "id": "file:strategic-deal-assurance/force-app/main/default/classes/StrategicDiscountFlowTest.cls-meta.xml",
@@ -2398,7 +2481,7 @@
       "label": "strategic-deal-assurance/force-app/main/default/permissionsets/Change_Assurance_Integration.permissionset-meta.xml",
       "path": "strategic-deal-assurance/force-app/main/default/permissionsets/Change_Assurance_Integration.permissionset-meta.xml",
       "category": "salesforce-source",
-      "sha256NormalizedLf": "fe4f0f2d3732fddc1c46a1608a07366c720faec75dc505feab8f722585ef29f9"
+      "sha256NormalizedLf": "886a1c2625ca084ddb63da909b3925e0eea2a3b36ffe3f6dcee81689fe99e253"
     },
     {
       "id": "file:strategic-deal-assurance/force-app/main/default/permissionsets/Demo_Rule_Operator.permissionset-meta.xml",
@@ -2417,12 +2500,20 @@
       "sha256NormalizedLf": "fb9771c08516291483f13dd8228babe5ba8956dc7145958aab16938bbc8227d8"
     },
     {
+      "id": "file:strategic-deal-assurance/force-app/main/default/permissionsets/Strategic_Deal_API_Access.permissionset-meta.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/force-app/main/default/permissionsets/Strategic_Deal_API_Access.permissionset-meta.xml",
+      "path": "strategic-deal-assurance/force-app/main/default/permissionsets/Strategic_Deal_API_Access.permissionset-meta.xml",
+      "category": "salesforce-source",
+      "sha256NormalizedLf": "8b9dbff148425f92158f724b2a760da0d8951de52d0bd8b746c9664562560159"
+    },
+    {
       "id": "file:strategic-deal-assurance/force-app/main/default/permissionsets/Strategic_Deal_UI_Runner.permissionset-meta.xml",
       "kind": "file",
       "label": "strategic-deal-assurance/force-app/main/default/permissionsets/Strategic_Deal_UI_Runner.permissionset-meta.xml",
       "path": "strategic-deal-assurance/force-app/main/default/permissionsets/Strategic_Deal_UI_Runner.permissionset-meta.xml",
       "category": "salesforce-source",
-      "sha256NormalizedLf": "21d07a7e32347494399a0bc73f54a83edecc2d1a0c97a620653762f9332bd83e"
+      "sha256NormalizedLf": "da3a78f942b785eeffabffb881cf23a4110eac32d4edb65a15333876719c2761"
     },
     {
       "id": "file:strategic-deal-assurance/force-app/main/default/permissionsets/Strategic_Deal_User.permissionset-meta.xml",
@@ -2689,6 +2780,14 @@
       "sha256NormalizedLf": "21ec03c4d552e2309c11047bda04bc801d533eb7cfc9e4ad98e923a0a99e6ec5"
     },
     {
+      "id": "file:strategic-deal-assurance/manifest/milestone-9-agent-api.xml",
+      "kind": "file",
+      "label": "strategic-deal-assurance/manifest/milestone-9-agent-api.xml",
+      "path": "strategic-deal-assurance/manifest/milestone-9-agent-api.xml",
+      "category": "deployment-scope",
+      "sha256NormalizedLf": "1e44b005ec1011949beedc34f7fbbb1cc9339f429b9b9024650b6fb12c2d4305"
+    },
+    {
       "id": "file:strategic-deal-assurance/manifest/package.xml",
       "kind": "file",
       "label": "strategic-deal-assurance/manifest/package.xml",
@@ -2710,7 +2809,7 @@
       "label": "strategic-deal-assurance/package.json",
       "path": "strategic-deal-assurance/package.json",
       "category": "configuration",
-      "sha256NormalizedLf": "f1f91c06f12c39ef71eff414f3a9196e5d03eb1a72c8a7186d0950b37b5d1fa9"
+      "sha256NormalizedLf": "2e6424c7269f42a15f9ec779572d9852fee244390c70ecbde43dbf9ad27f1fed"
     },
     {
       "id": "file:strategic-deal-assurance/README.md",
@@ -2718,7 +2817,15 @@
       "label": "strategic-deal-assurance/README.md",
       "path": "strategic-deal-assurance/README.md",
       "category": "documentation",
-      "sha256NormalizedLf": "009081f55e911cc98c40d727a6ad2931cd6c821bdc4b86b30112f340a7c6655e"
+      "sha256NormalizedLf": "c01c9578885db162e6ada92783adb2bedf1c06b9e26d08d799a225d549d2cd0f"
+    },
+    {
+      "id": "file:strategic-deal-assurance/requirements/BR-AGENT-INTEGRATION.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/requirements/BR-AGENT-INTEGRATION.md",
+      "path": "strategic-deal-assurance/requirements/BR-AGENT-INTEGRATION.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "2a98641b8026d41ad199d912fb3c24540e5795583cb8d703208062c7dd6bbc74"
     },
     {
       "id": "file:strategic-deal-assurance/requirements/BR-DEMO-CONFIGURABLE-RULES.md",
@@ -2745,6 +2852,14 @@
       "sha256NormalizedLf": "0b8cac6770ee49f2d72fc201f78829da0847c0a5662322ba9ce68f0e201642e5"
     },
     {
+      "id": "file:strategic-deal-assurance/scripts/catalog/agent-api.test.mjs",
+      "kind": "file",
+      "label": "strategic-deal-assurance/scripts/catalog/agent-api.test.mjs",
+      "path": "strategic-deal-assurance/scripts/catalog/agent-api.test.mjs",
+      "category": "operator-tool",
+      "sha256NormalizedLf": "10775db0e25ad3a720dd00a945784df1b3037201d707cbee877552d4534672ed"
+    },
+    {
       "id": "file:strategic-deal-assurance/scripts/catalog/build-manual-suite.mjs",
       "kind": "file",
       "label": "strategic-deal-assurance/scripts/catalog/build-manual-suite.mjs",
@@ -2758,7 +2873,7 @@
       "label": "strategic-deal-assurance/scripts/catalog/build-project-index.mjs",
       "path": "strategic-deal-assurance/scripts/catalog/build-project-index.mjs",
       "category": "operator-tool",
-      "sha256NormalizedLf": "57f92d35587e036593158b212f76c71e0faa1f74e18faf798898dcd47f74f212"
+      "sha256NormalizedLf": "f0463c69d039216638803883506a3095c63664aa64836ce41068c16578e16a48"
     },
     {
       "id": "file:strategic-deal-assurance/scripts/catalog/catalog.test.mjs",
@@ -2766,7 +2881,7 @@
       "label": "strategic-deal-assurance/scripts/catalog/catalog.test.mjs",
       "path": "strategic-deal-assurance/scripts/catalog/catalog.test.mjs",
       "category": "operator-tool",
-      "sha256NormalizedLf": "ac4dcae626e72332852b8896a2a1dadab1d78b3b2aa007eef172311ac44ebdc9"
+      "sha256NormalizedLf": "7d3895f1fab3f5d29758c5f2a406c72a51c905d2c00ebf047de350c21e89d857"
     },
     {
       "id": "file:strategic-deal-assurance/scripts/catalog/locator-healing.test.mjs",
@@ -2918,7 +3033,7 @@
       "label": "strategic-deal-assurance/scripts/test-milestone-6.ps1",
       "path": "strategic-deal-assurance/scripts/test-milestone-6.ps1",
       "category": "operator-tool",
-      "sha256NormalizedLf": "b0d9fc3b04018a4a6a90ba277cff1613a59e14316b2ed39215d9a90aa8bf314b"
+      "sha256NormalizedLf": "bb57040f7e0c91ef0ec6501a1d587148c2003350418e6f699d46258b5de945c5"
     },
     {
       "id": "file:strategic-deal-assurance/sfdx-project.json",
@@ -8681,7 +8796,9 @@
       "grantsAreAdditive": true,
       "notEffectiveUserAccess": true,
       "userPermissions": [
-        "ApiEnabled"
+        "ApiEnabled",
+        "EditTask",
+        "ConvertLeads"
       ]
     },
     {
@@ -8705,13 +8822,26 @@
       ]
     },
     {
+      "id": "permission-set:Strategic_Deal_API_Access",
+      "kind": "permission-set",
+      "label": "Strategic_Deal_API_Access",
+      "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Strategic_Deal_API_Access.permissionset-meta.xml",
+      "grantsAreAdditive": true,
+      "notEffectiveUserAccess": true,
+      "userPermissions": [
+        "ApiEnabled"
+      ]
+    },
+    {
       "id": "permission-set:Strategic_Deal_UI_Runner",
       "kind": "permission-set",
       "label": "Strategic_Deal_UI_Runner",
       "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Strategic_Deal_UI_Runner.permissionset-meta.xml",
       "grantsAreAdditive": true,
       "notEffectiveUserAccess": true,
-      "userPermissions": []
+      "userPermissions": [
+        "ApiEnabled"
+      ]
     },
     {
       "id": "permission-set:Strategic_Deal_User",
@@ -8785,6 +8915,15 @@
       "scope": "organization",
       "format": "Summary",
       "syntheticPrefix": "SYN-MM-"
+    },
+    {
+      "id": "requirement:BR-AGENT-INTEGRATION",
+      "kind": "requirement",
+      "label": "Governed external agent API lane",
+      "source": "strategic-deal-assurance/requirements/BR-AGENT-INTEGRATION.md",
+      "directEvidenceCrud": false,
+      "metadataAdministration": false,
+      "deploymentStatus": "pending CLI reauthorization"
     },
     {
       "id": "requirement:BR-DEMO-CONFIGURABLE-RULES",
@@ -8874,6 +9013,54 @@
         "before insert",
         "before update"
       ]
+    },
+    {
+      "id": "use-case:API-01",
+      "kind": "api-use-case",
+      "label": "Read parent-authorized current policy and private history",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json",
+      "steps": 4,
+      "execution": "NOT_RUN_EXTERNAL_API_SPECIFICATION"
+    },
+    {
+      "id": "use-case:API-02",
+      "kind": "api-use-case",
+      "label": "Validate strict boundary oracles independent of runtime config",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json",
+      "steps": 3,
+      "execution": "NOT_RUN_EXTERNAL_API_SPECIFICATION"
+    },
+    {
+      "id": "use-case:API-03",
+      "kind": "api-use-case",
+      "label": "Prevent private-evidence enumeration",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json",
+      "steps": 4,
+      "execution": "NOT_RUN_EXTERNAL_API_SPECIFICATION"
+    },
+    {
+      "id": "use-case:API-04",
+      "kind": "api-use-case",
+      "label": "Reject malformed inputs without execution",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json",
+      "steps": 3,
+      "execution": "NOT_RUN_EXTERNAL_API_SPECIFICATION"
+    },
+    {
+      "id": "use-case:API-05",
+      "kind": "api-use-case",
+      "label": "Prove pagination bound and newest-first ordering",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json",
+      "steps": 4,
+      "execution": "NOT_RUN_EXTERNAL_API_SPECIFICATION"
+    },
+    {
+      "id": "use-case:API-06",
+      "kind": "api-use-case",
+      "label": "Keep transport separate from business authority",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json",
+      "steps": 3,
+      "execution": "NOT_RUN_EXTERNAL_API_SPECIFICATION"
     },
     {
       "id": "use-case:APPROVAL-01",
@@ -9809,6 +9996,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:05115fd8007c0a919dce779d",
+      "from": "use-case:API-02",
+      "relation": "tests",
+      "to": "apex:StrategicDealAgentApi",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
+    },
+    {
       "id": "edge:0516e90f692dffcfda24cbb6",
       "from": "fixture:C58",
       "relation": "defined_in",
@@ -10459,6 +10653,13 @@
       "field": "Account.ParentId"
     },
     {
+      "id": "edge:0ab61e792721af251de0c374",
+      "from": "use-case:API-02",
+      "relation": "tests_requirement",
+      "to": "requirement:BR-AGENT-INTEGRATION",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
+    },
+    {
       "id": "edge:0ac4f1e691b48ceee7c39d9b",
       "from": "dataset:SDA-VISIBILITY-EXPANSION-v1",
       "relation": "contains",
@@ -10701,6 +10902,19 @@
       "relation": "defined_in",
       "to": "file:strategic-deal-assurance/data/multi-module-plan.json",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:0d396027faa6e9eb792db750",
+      "from": "permission-set:Change_Assurance_Integration",
+      "relation": "object_grant",
+      "to": "object:Contact",
+      "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Change_Assurance_Integration.permissionset-meta.xml",
+      "allowCreate": true,
+      "allowRead": true,
+      "allowEdit": true,
+      "allowDelete": false,
+      "viewAllRecords": false,
+      "modifyAllRecords": false
     },
     {
       "id": "edge:0d63b8ed8bb2c12b2d5599cd",
@@ -11576,6 +11790,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:163a1ec0095510332d9fb4fa",
+      "from": "requirement:BR-AGENT-INTEGRATION",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/requirements/BR-AGENT-INTEGRATION.md",
+      "source": "strategic-deal-assurance/requirements/BR-AGENT-INTEGRATION.md"
+    },
+    {
       "id": "edge:164f57a36468d6985a19b766",
       "from": "fixture:R07B",
       "relation": "instance_of",
@@ -11596,6 +11817,13 @@
       "relation": "instance_of",
       "to": "object:Task",
       "source": "strategic-deal-assurance/data/visibility-expansion-plan.json"
+    },
+    {
+      "id": "edge:167fdfda29a0e5d2c6ace9a4",
+      "from": "use-case:API-03",
+      "relation": "tests_requirement",
+      "to": "requirement:BR-AGENT-INTEGRATION",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
     },
     {
       "id": "edge:1684ee0739f6e04a8900f08c",
@@ -12781,6 +13009,13 @@
       "to": "persona:operator",
       "source": "strategic-deal-assurance/data/visibility-expansion-plan.json",
       "field": "Contact.OwnerId"
+    },
+    {
+      "id": "edge:21510eb9760a2176ff4d2561",
+      "from": "use-case:API-04",
+      "relation": "uses_dataset",
+      "to": "dataset:SDA-CROSS-MODULE-v1",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
     },
     {
       "id": "edge:21822d8c8f320ccb8edd67ff",
@@ -15315,6 +15550,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:396615a77d2a8901d7695c86",
+      "from": "use-case:API-02",
+      "relation": "uses_dataset",
+      "to": "dataset:SDA-CROSS-MODULE-v1",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
+    },
+    {
       "id": "edge:39824ac597a503a80714b9fe",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -15554,6 +15796,15 @@
       "field": "OpportunityContactRole.OpportunityId"
     },
     {
+      "id": "edge:3bc1f1089273d61a180bcc29",
+      "from": "permission-set:Change_Assurance_Integration",
+      "relation": "field_grant",
+      "to": "field:Case.Demo_Resolution__c",
+      "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Change_Assurance_Integration.permissionset-meta.xml",
+      "readable": true,
+      "editable": true
+    },
+    {
       "id": "edge:3c0bc8408607ab2ccc511a7a",
       "from": "fixture:XS03",
       "relation": "defined_in",
@@ -15668,6 +15919,19 @@
       "relation": "contains",
       "to": "fixture:XC10",
       "source": "strategic-deal-assurance/data/visibility-expansion-plan.json"
+    },
+    {
+      "id": "edge:3cccda5e72ec181d72236193",
+      "from": "permission-set:Change_Assurance_Integration",
+      "relation": "object_grant",
+      "to": "object:Lead",
+      "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Change_Assurance_Integration.permissionset-meta.xml",
+      "allowCreate": true,
+      "allowRead": true,
+      "allowEdit": true,
+      "allowDelete": false,
+      "viewAllRecords": false,
+      "modifyAllRecords": false
     },
     {
       "id": "edge:3cd5e8e44d00ff9ffbd3973e",
@@ -16875,6 +17139,19 @@
       "field": "CampaignMember.ContactId"
     },
     {
+      "id": "edge:491f0746f67e4ff5be15fce1",
+      "from": "permission-set:Change_Assurance_Integration",
+      "relation": "object_grant",
+      "to": "object:Account",
+      "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Change_Assurance_Integration.permissionset-meta.xml",
+      "allowCreate": true,
+      "allowRead": true,
+      "allowEdit": true,
+      "allowDelete": false,
+      "viewAllRecords": false,
+      "modifyAllRecords": false
+    },
+    {
       "id": "edge:493218a3b5df77d5d143ad79",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -16903,6 +17180,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:497922556647deae4f21d029",
+      "from": "apex:StrategicDealAgentApiTest",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApiTest.cls",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApiTest.cls"
+    },
+    {
       "id": "edge:4988527cc2632b368b2691ae",
       "from": "dataset:SDA-VISIBILITY-EXPANSION-v1",
       "relation": "contains",
@@ -16924,6 +17208,13 @@
       "source": "strategic-deal-assurance/data/visibility-expansion-plan.json"
     },
     {
+      "id": "edge:49f49f59b65bc9a4c1f48e25",
+      "from": "use-case:API-04",
+      "relation": "tests",
+      "to": "apex:StrategicDealAgentApi",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
+    },
+    {
       "id": "edge:49f9ac65c0b75c2cf4a84c17",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -16936,6 +17227,13 @@
       "relation": "instance_of",
       "to": "object:Task",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:4a016bde59b5a706035d7b3a",
+      "from": "permission-set:Strategic_Deal_API_Access",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/permissionsets/Strategic_Deal_API_Access.permissionset-meta.xml",
+      "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Strategic_Deal_API_Access.permissionset-meta.xml"
     },
     {
       "id": "edge:4a26e1201935b424c31b771a",
@@ -17254,6 +17552,13 @@
       "to": "fixture:C18",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "CampaignMember.ContactId"
+    },
+    {
+      "id": "edge:4d7503b16a394dcd47db3ebd",
+      "from": "use-case:API-05",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/agent-api-test-suite.json",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
     },
     {
       "id": "edge:4d7a0d913749e1648886f1cf",
@@ -17985,6 +18290,13 @@
       "to": "persona:operator",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Task.OwnerId"
+    },
+    {
+      "id": "edge:53dde2da030e62d0802cdd14",
+      "from": "use-case:API-01",
+      "relation": "tests",
+      "to": "apex:StrategicDealAgentApi",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
     },
     {
       "id": "edge:53ebc01cd0e391378d15324a",
@@ -19814,6 +20126,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:63dc867f2c31aeb642064702",
+      "from": "use-case:API-01",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/agent-api-test-suite.json",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
+    },
+    {
       "id": "edge:63e1a03fceadd23ff0af97bf",
       "from": "dataset:SDA-VISIBILITY-EXPANSION-v1",
       "relation": "contains",
@@ -20322,6 +20641,13 @@
       "relation": "contains",
       "to": "fixture:XCM04_06",
       "source": "strategic-deal-assurance/data/visibility-expansion-plan.json"
+    },
+    {
+      "id": "edge:693d378777cd67d0db65ee43",
+      "from": "use-case:API-04",
+      "relation": "tests_requirement",
+      "to": "requirement:BR-AGENT-INTEGRATION",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
     },
     {
       "id": "edge:694448251caee9294e19f92e",
@@ -22403,6 +22729,13 @@
       "source": "strategic-deal-assurance/data/visibility-expansion-plan.json"
     },
     {
+      "id": "edge:7e5036a2837cb1ed4c5b3887",
+      "from": "use-case:API-03",
+      "relation": "tests",
+      "to": "apex:StrategicDealAgentApi",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
+    },
+    {
       "id": "edge:7e6487869a3e34c58e0296d2",
       "from": "fixture:T07",
       "relation": "instance_of",
@@ -23416,6 +23749,14 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:87703ec015d0837be1cb3fc1",
+      "from": "permission-set:Strategic_Deal_API_Access",
+      "relation": "class_access",
+      "to": "apex:StrategicDealAgentApi",
+      "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Strategic_Deal_API_Access.permissionset-meta.xml",
+      "enabled": true
+    },
+    {
       "id": "edge:87a7f1c17591aa44556bb791",
       "from": "fixture:XCM01_07",
       "relation": "defined_in",
@@ -23744,6 +24085,13 @@
       "relation": "covers",
       "to": "object:Opportunity",
       "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:8a5418951c571c25943b0ec1",
+      "from": "use-case:API-06",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/agent-api-test-suite.json",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
     },
     {
       "id": "edge:8a6aab8d269bb97364f3e679",
@@ -24120,19 +24468,6 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
-      "id": "edge:8dfb49b0f5488e63506688cd",
-      "from": "permission-set:Change_Assurance_Integration",
-      "relation": "object_grant",
-      "to": "object:Account",
-      "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Change_Assurance_Integration.permissionset-meta.xml",
-      "allowCreate": false,
-      "allowRead": true,
-      "allowEdit": false,
-      "allowDelete": false,
-      "viewAllRecords": false,
-      "modifyAllRecords": false
-    },
-    {
       "id": "edge:8e00de16d2db31e86870fe1d",
       "from": "fixture:XS26",
       "relation": "references",
@@ -24416,6 +24751,13 @@
       "to": "fixture:A16",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "Contact.AccountId"
+    },
+    {
+      "id": "edge:90421717373bc976b2f751ae",
+      "from": "use-case:API-06",
+      "relation": "tests_requirement",
+      "to": "requirement:BR-AGENT-INTEGRATION",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
     },
     {
       "id": "edge:90463d19eb44c54155925e6b",
@@ -24787,6 +25129,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:936a6c0fb2a0eec27dab2d76",
+      "from": "use-case:API-02",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/agent-api-test-suite.json",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
+    },
+    {
       "id": "edge:937f19b42a90476bc7f8d44c",
       "from": "fixture:XCM02_03",
       "relation": "defined_in",
@@ -25113,6 +25462,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:96bd3f7e6ad6199ad33000ec",
+      "from": "use-case:API-05",
+      "relation": "tests_requirement",
+      "to": "requirement:BR-AGENT-INTEGRATION",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
+    },
+    {
       "id": "edge:96d25148e2a72dae48019440",
       "from": "fixture:XC08",
       "relation": "instance_of",
@@ -25161,6 +25517,13 @@
       "relation": "contains",
       "to": "fixture:CM37",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:975ba29e9e7ab61acab53702",
+      "from": "use-case:API-03",
+      "relation": "uses_dataset",
+      "to": "dataset:SDA-CROSS-MODULE-v1",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
     },
     {
       "id": "edge:978846ff8884ad5cfb13f24f",
@@ -26479,6 +26842,19 @@
       "field": "Task.WhoId"
     },
     {
+      "id": "edge:a279b1aa95d2eb53dc677eb3",
+      "from": "permission-set:Change_Assurance_Integration",
+      "relation": "object_grant",
+      "to": "object:Case",
+      "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Change_Assurance_Integration.permissionset-meta.xml",
+      "allowCreate": true,
+      "allowRead": true,
+      "allowEdit": true,
+      "allowDelete": false,
+      "viewAllRecords": false,
+      "modifyAllRecords": false
+    },
+    {
       "id": "edge:a27d3c9fb56af20429e6bd63",
       "from": "fixture:XS04",
       "relation": "references",
@@ -26664,6 +27040,13 @@
       "to": "fixture:L08",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "CampaignMember.LeadId"
+    },
+    {
+      "id": "edge:a3d29b8ae066ceecb140a0c5",
+      "from": "use-case:API-06",
+      "relation": "uses_dataset",
+      "to": "dataset:SDA-CROSS-MODULE-v1",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
     },
     {
       "id": "edge:a3df3cd20034aadf9a656179",
@@ -26967,6 +27350,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:a6fb6e2db98a274958112426",
+      "from": "use-case:API-04",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/agent-api-test-suite.json",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
+    },
+    {
       "id": "edge:a75d3e55b04aec5fd981e0f6",
       "from": "fixture:C22",
       "relation": "instance_of",
@@ -27210,6 +27600,13 @@
       "relation": "instance_of",
       "to": "object:Contact",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:a9242a03ae7a753baea7bb51",
+      "from": "use-case:API-06",
+      "relation": "tests",
+      "to": "apex:StrategicDealAgentApi",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
     },
     {
       "id": "edge:a9304e2fb5937dcd72abff05",
@@ -27784,6 +28181,13 @@
       "source": "strategic-deal-assurance/force-app/main/default/classes/DemoBusinessRules.cls"
     },
     {
+      "id": "edge:aea3578fa578399f2672cb66",
+      "from": "apex:StrategicDealAgentApiTest",
+      "relation": "tests",
+      "to": "apex:StrategicDealAgentApi",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApiTest.cls"
+    },
+    {
       "id": "edge:aeb5e8f60713a9e1b417f92e",
       "from": "fixture:CM25",
       "relation": "defined_in",
@@ -28234,6 +28638,13 @@
       "relation": "contains",
       "to": "fixture:C03",
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
+    },
+    {
+      "id": "edge:b416dad047fab515c1758885",
+      "from": "use-case:API-05",
+      "relation": "uses_dataset",
+      "to": "dataset:SDA-CROSS-MODULE-v1",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
     },
     {
       "id": "edge:b437e622e181a0918c1ed867",
@@ -29398,6 +29809,19 @@
       "source": "strategic-deal-assurance/data/manual-test-suite.json"
     },
     {
+      "id": "edge:beccfc95efff603de242c1e9",
+      "from": "permission-set:Change_Assurance_Integration",
+      "relation": "object_grant",
+      "to": "object:Campaign",
+      "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Change_Assurance_Integration.permissionset-meta.xml",
+      "allowCreate": true,
+      "allowRead": true,
+      "allowEdit": true,
+      "allowDelete": false,
+      "viewAllRecords": false,
+      "modifyAllRecords": false
+    },
+    {
       "id": "edge:bf0b7c3dd338d6a376fa0a47",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -29905,6 +30329,19 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:c3c337548241dd33faf7c54e",
+      "from": "permission-set:Change_Assurance_Integration",
+      "relation": "object_grant",
+      "to": "object:CampaignMember",
+      "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Change_Assurance_Integration.permissionset-meta.xml",
+      "allowCreate": true,
+      "allowRead": true,
+      "allowEdit": true,
+      "allowDelete": false,
+      "viewAllRecords": false,
+      "modifyAllRecords": false
+    },
+    {
       "id": "edge:c3ccdc642854044627a8d93b",
       "from": "fixture:XS07",
       "relation": "references",
@@ -29991,6 +30428,13 @@
       "relation": "contains",
       "to": "fixture:XT09",
       "source": "strategic-deal-assurance/data/visibility-expansion-plan.json"
+    },
+    {
+      "id": "edge:c48472c0524a896533ba0597",
+      "from": "use-case:API-01",
+      "relation": "uses_dataset",
+      "to": "dataset:SDA-CROSS-MODULE-v1",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
     },
     {
       "id": "edge:c486a78bfc92cd006cdc9643",
@@ -30232,6 +30676,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:c6a6aeca964f47a290446cca",
+      "from": "apex:StrategicDealAgentApi",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApi.cls",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApi.cls"
+    },
+    {
       "id": "edge:c6a6ffe56bb99eb666b146f9",
       "from": "fixture:XCM04_10",
       "relation": "instance_of",
@@ -30416,6 +30867,19 @@
       "allowCreate": false,
       "allowRead": true,
       "allowEdit": false,
+      "allowDelete": false,
+      "viewAllRecords": false,
+      "modifyAllRecords": false
+    },
+    {
+      "id": "edge:c85bb129367f2e5832e5dd12",
+      "from": "permission-set:Change_Assurance_Integration",
+      "relation": "object_grant",
+      "to": "object:Task",
+      "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Change_Assurance_Integration.permissionset-meta.xml",
+      "allowCreate": true,
+      "allowRead": true,
+      "allowEdit": true,
       "allowDelete": false,
       "viewAllRecords": false,
       "modifyAllRecords": false
@@ -31168,6 +31632,14 @@
       "source": "strategic-deal-assurance/data/visibility-expansion-plan.json"
     },
     {
+      "id": "edge:cf7c7c73d550cfea2c2051c7",
+      "from": "permission-set:Strategic_Deal_UI_Runner",
+      "relation": "class_access",
+      "to": "apex:StrategicDealAgentApi",
+      "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Strategic_Deal_UI_Runner.permissionset-meta.xml",
+      "enabled": true
+    },
+    {
       "id": "edge:cf7de1dad38765b93284cb6f",
       "from": "fixture:R15B",
       "relation": "defined_in",
@@ -31361,6 +31833,19 @@
       "relation": "contains",
       "to": "fixture:XC19",
       "source": "strategic-deal-assurance/data/visibility-expansion-plan.json"
+    },
+    {
+      "id": "edge:d1e1aeef4825faf22ffee9e3",
+      "from": "permission-set:Change_Assurance_Integration",
+      "relation": "object_grant",
+      "to": "object:OpportunityContactRole",
+      "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Change_Assurance_Integration.permissionset-meta.xml",
+      "allowCreate": true,
+      "allowRead": true,
+      "allowEdit": true,
+      "allowDelete": false,
+      "viewAllRecords": false,
+      "modifyAllRecords": false
     },
     {
       "id": "edge:d1ea62ddd7727ae2cb3a7116",
@@ -32508,6 +32993,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:dcc8a3854d1f4872eb9e43a5",
+      "from": "use-case:API-03",
+      "relation": "defined_in",
+      "to": "file:strategic-deal-assurance/data/agent-api-test-suite.json",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
+    },
+    {
       "id": "edge:dccb1c169e5c499be75e56ce",
       "from": "app:Strategic_Deal_Assurance",
       "relation": "opportunity_record_page",
@@ -33250,6 +33742,13 @@
       "source": "strategic-deal-assurance/data/multi-module-plan.json"
     },
     {
+      "id": "edge:e338e17a3c0fcc3577a373bc",
+      "from": "apex:StrategicDealAgentApiTest",
+      "relation": "tests",
+      "to": "requirement:BR-AGENT-INTEGRATION",
+      "source": "strategic-deal-assurance/force-app/main/default/classes/StrategicDealAgentApiTest.cls"
+    },
+    {
       "id": "edge:e353d1f01e34f3c90c12079f",
       "from": "dataset:SDA-VISIBILITY-EXPANSION-v1",
       "relation": "contains",
@@ -33550,6 +34049,13 @@
       "relation": "covers",
       "to": "object:Account",
       "source": "strategic-deal-assurance/data/manual-test-suite.json"
+    },
+    {
+      "id": "edge:e5ef6dcfbe54ca283fbfc822",
+      "from": "use-case:API-05",
+      "relation": "tests",
+      "to": "apex:StrategicDealAgentApi",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
     },
     {
       "id": "edge:e60ae0cdaf8ac06163b721c0",
@@ -34375,6 +34881,14 @@
       "source": "strategic-deal-assurance/data/visibility-expansion-plan.json"
     },
     {
+      "id": "edge:ecadf66dca2de1c6aac4a60d",
+      "from": "permission-set:Change_Assurance_Integration",
+      "relation": "class_access",
+      "to": "apex:StrategicDealAgentApi",
+      "source": "strategic-deal-assurance/force-app/main/default/permissionsets/Change_Assurance_Integration.permissionset-meta.xml",
+      "enabled": true
+    },
+    {
       "id": "edge:ecb1acbe8600862b7e4feb12",
       "from": "dataset:SDA-CROSS-MODULE-v1",
       "relation": "contains",
@@ -35184,6 +35698,13 @@
       "to": "fixture:O33",
       "source": "strategic-deal-assurance/data/multi-module-plan.json",
       "field": "OpportunityContactRole.OpportunityId"
+    },
+    {
+      "id": "edge:f444500a75f2f363ff91103b",
+      "from": "use-case:API-01",
+      "relation": "tests_requirement",
+      "to": "requirement:BR-AGENT-INTEGRATION",
+      "source": "strategic-deal-assurance/data/agent-api-test-suite.json"
     },
     {
       "id": "edge:f45546a9ee2b4e5145115c43",

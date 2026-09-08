@@ -1,6 +1,8 @@
 # Application knowledge graph
 
-The full [machine-readable graph](../knowledge/application-graph.json) contains typed nodes and directed, source-attributed edges for metadata, permissions, components, tests, datasets, 554 logical fixtures across original and expansion datasets and 42 manual scenarios. These compact views show its main relationships; the JSON has the field-level detail. Nothing in the graph grants an agent permission to execute an action.
+The full [machine-readable graph](../knowledge/application-graph.json) contains typed nodes and directed, source-attributed edges for metadata, permissions, components, tests, datasets, 554 logical fixtures, 42 manual scenarios, six locator cases and six agent-API cases. These compact views show its main relationships; the JSON has field-level detail. Nothing in the graph grants an agent permission to execute an action.
+
+Milestone 9 adds `requirement:BR-AGENT-INTEGRATION`, `apex:StrategicDealAgentApi`, its test and API case edges. Source implementation does not mean live deployment or identity validation; the current CLI authorization must be refreshed first.
 
 ## Business record relationships
 

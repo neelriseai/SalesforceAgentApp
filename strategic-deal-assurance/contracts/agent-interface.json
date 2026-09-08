@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.1.0",
+  "schemaVersion": "1.3.0",
   "application": "Strategic Deal Assurance",
   "apiVersion": "67.0",
   "currency": "USD",
@@ -29,7 +29,11 @@
   },
   "authentication": {
     "operatorCliAlias": "caip-dev",
-    "browser": "Separate interactive owner and VP sessions; user completes passwords and MFA privately",
+    "vpCliAlias": "caip-vp",
+    "mvpMode": "user-approved hackathon administrator mode: Salesforce CLI brokers REST, Metadata API, Apex and short-lived Lightning browser sessions for the dedicated non-production org",
+    "mvpBootstrap": "One private sf org login web is required when Salesforce expires/revokes the CLI authorization; no certificate or stored Salesforce password is required",
+    "mvpScope": "Verified caip-dev Developer Edition, synthetic demo data, scoped manifests and task-authorized mutations only; not least-privilege production evidence",
+    "browser": "caip-dev and caip-vp can each mint ephemeral authenticated Lightning URLs in memory; passwords and MFA remain private",
     "externalAgent": "Dedicated OAuth client/user is not provisioned by this repository; approved Salesforce client and least-privilege identity required",
     "neverPublish": [
       "access tokens",
@@ -78,7 +82,7 @@
     },
     {
       "id": "api.standard.crm",
-      "status": "platform-supported; dedicated agent integration not validated",
+      "status": "platform-supported; caip-dev hackathon-administrator transport validated; dedicated agent identity not provisioned or validated",
       "routes": [
         "GET /services/data/v67.0/sobjects/{object}/describe",
         "GET /services/data/v67.0/query?q={encodedSOQL}",
@@ -97,12 +101,19 @@
     },
     {
       "id": "api.custom.rest",
-      "status": "not implemented"
+      "status": "deployed; hackathon-administrator HTTP 200 smoke test passed; dedicated-identity validation pending",
+      "method": "GET",
+      "route": "/services/apexrest/sda/v1/policy/{OpportunityId}?limit=1..50",
+      "class": "StrategicDealAgentApi",
+      "readOnly": true,
+      "response": "Current derived policy, active policy configuration, newest parent-bound evaluation summaries",
+      "gate": "Caller must read the parent Opportunity and returned fields WITH USER_MODE; facade class permission also required",
+      "directEvidenceCrud": false
     },
     {
       "id": "api.private.evaluation.history",
-      "status": "not granted to ordinary/integration personas",
-      "alternative": "Use the Lightning summary or separately design an approved narrow API; never escalate via admin as a workaround"
+      "status": "direct CRUD not granted; narrow parent-authorized REST deployed and hackathon-administrator smoke-validated; dedicated-identity validation pending",
+      "alternative": "Use the Lightning summary or GET /services/apexrest/sda/v1/policy/{OpportunityId}; never escalate via admin as a workaround"
     },
     {
       "id": "configuration.demo.save.guards",
@@ -165,9 +176,10 @@
   "permissionSets": {
     "sourceDirectory": "force-app/main/default/permissionsets",
     "Strategic_Deal_User": "Opportunity create/read/edit, Account read, no direct outcome/evidence writes; no API grant",
-    "Regional_VP_Approver": "Opportunity/Account read, Lightning enabled; assigned native decision only; no API grant or deal-input editing",
-    "Change_Assurance_Integration": "API enabled; Opportunity create/read/edit, Account read; no other CRM module grants or direct evidence CRUD",
-    "Strategic_Deal_UI_Runner": "Opportunity create/read/edit, Account read, no API grant",
+    "Regional_VP_Approver": "Opportunity/Account read, Lightning enabled and assigned native decision only; no deal-input editing. Existing VP is paired live with transport-only Strategic_Deal_API_Access for the hackathon.",
+    "Change_Assurance_Integration": "Deployed API/facade, create/read/edit without Delete/View All for Account, Contact, Lead, Opportunity, OpportunityContactRole, Case, Task, Campaign and CampaignMember, plus Convert Leads and its required Edit Tasks prerequisite; no direct evidence CRUD, approval or metadata admin. No live assignee at milestone validation.",
+    "Strategic_Deal_UI_Runner": "Deployed existing Opportunity UI permissions plus API/facade transport; no live assignee at milestone validation",
+    "Strategic_Deal_API_Access": "Transport-only API/facade access, no object CRUD or approval authority. Assigned live to Synthetic Regional VP and validated through caip-vp; Regional_VP_Approver supplies the separate business authority.",
     "additivePermissionsWarning": "Profiles and all assignments combine; inspect actual effective permissions. Administrator demo is not least-privilege evidence.",
     "Demo_Rule_Operator": "Case.Demo_Resolution__c read/edit only; no object, API, metadata-admin or VP grants"
   },
@@ -175,7 +187,7 @@
     "defaultMode": "read-only",
     "writesRequire": "Explicit task authorization, verified non-production environment and synthetic target",
     "neverInferAuthorizationFor": [
-      "metadata or policy changes",
+      "metadata or policy changes outside an explicitly authorized scoped hackathon operation",
       "permission/user administration",
       "delete or merge",
       "lead conversion outside its named scenario",
@@ -217,9 +229,9 @@
     "manualGuide": "docs/manual-test-cases.md",
     "manualResults": "Protected local artifacts/manual-runs/<run>/ ledger; generated cases remain NOT_RUN",
     "liveApexRunner": "scripts/test-milestone-6.ps1",
-    "externalApiHarness": "not implemented",
+    "externalApiHarness": "Specification data/agent-api-test-suite.json; runnable external harness not implemented",
     "repeatableBrowserHarness": "not implemented",
-    "latestRecordedMilestoneEvidence": "evidence/milestone-7-verification.md",
+    "latestRecordedMilestoneEvidence": "evidence/milestone-9-verification.md (deployment, 50 Apex tests, REST and CLI browser launch validated through hackathon administrator; dedicated identity pending)",
     "testPlan": "docs/test-plan.md",
     "supplementalVisibilityCases": "docs/demo-data-visibility.md#supplemental-manual-verification-cases"
   },
@@ -260,7 +272,7 @@
       "Primary-contact guard runs on Opportunity save, not later role deletion",
       "Campaign guard runs only on member Status update",
       "Ordinary sObject REST does not update Custom Metadata",
-      "No new OAuth client, full-module CRUD, VP API or metadata-admin grant"
+      "No OAuth client/identity assignment, direct evidence CRUD, VP human API or metadata-admin grant; hackathon metadata automation uses the existing administrator CLI alias"
     ]
   },
   "visibility": {

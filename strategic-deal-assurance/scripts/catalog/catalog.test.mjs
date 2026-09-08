@@ -23,8 +23,8 @@ test('graph includes fixture population and all 42 manual cases and new rules',(
   assert.equal(graph.nodes.filter(n=>n.kind==='saved-report').length,5);
   assert.equal(graph.nodes.filter(n=>n.kind==='list-view').length,3);
   assert.equal(graph.nodes.filter(n=>n.kind==='manual-use-case').length,42);
-  assert.equal(graph.nodes.filter(n=>n.kind==='permission-set').length,5);
-  assert.equal(graph.nodes.filter(n=>n.kind==='apex-test').length,5);
+  assert.equal(graph.nodes.filter(n=>n.kind==='permission-set').length,6);
+  assert.equal(graph.nodes.filter(n=>n.kind==='apex-test').length,6);
   assert.equal(graph.nodes.filter(n=>n.kind==='apex-trigger').length,7);
   assert.equal(graph.nodes.filter(n=>n.id.startsWith('config:Demo_Business_Rule.')).length,8);
 });
@@ -32,7 +32,8 @@ test('integration limitations and strict boundaries are represented',()=>{
   const req=graph.nodes.find(n=>n.id==='requirement:BR-STRATEGIC-DISCOUNT');
   assert.equal(req.discountComparison,'>');assert.equal(req.discount,15);assert.equal(req.amount,50000000);
   const contract=JSON.parse(fs.readFileSync(path.join(repoRoot,'strategic-deal-assurance/contracts/agent-interface.json'),'utf8'));
-  assert.equal(contract.capabilities.find(c=>c.id==='api.custom.rest').status,'not implemented');
+  assert.equal(contract.capabilities.find(c=>c.id==='api.custom.rest').status,'deployed; hackathon-administrator HTTP 200 smoke test passed; dedicated-identity validation pending');
+  assert.equal(contract.capabilities.find(c=>c.id==='api.custom.rest').directEvidenceCrud,false);
   assert.equal(contract.opportunity.automaticSubmission,false);
   assert.ok(graph.edges.some(e=>e.from==='flow:Strategic_Discount_Approval' && e.relation==='appends' && e.to==='object:Strategic_Deal_Evaluation__c'));
 });

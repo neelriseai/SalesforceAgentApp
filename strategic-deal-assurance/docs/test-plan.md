@@ -2,6 +2,8 @@
 
 ## Scope and artifacts
 
+The supplemental [API-01–06 specification](../data/agent-api-test-suite.json) covers the narrow custom REST endpoint, strict boundary fixtures, parent denial, invalid requests, history bounds and separation of API transport from business authority. It remains `NOT_RUN_EXTERNAL_API_SPECIFICATION` until a dedicated external identity calls the deployed endpoint. Unit tests cannot prove connected-app policy, permission assignment or record sharing in that identity.
+
 Locator showcase acceptance is distinct from component tests: record eight working field locators plus Save, change the runtime variant, prove all nine old targets invalid or wrong by identity before any write, then have the external agent recover and verify persisted results. Resilient locators are passes, not healing events. The runnable baseline XPath harness and advanced no-explicit-hint variant are not implemented; the current LH specification covers the assisted level only. Salesforce must not contain the healer or roll back presentation to conceal a failed locator.
 
 Execute the supplemental **LH-01–06 / 20-step locator suite** in [JSON](../data/locator-healing-suite.json) and the [operator/recovery guide](locator-healing-demo.md). It covers all eight Opportunity input mappings plus the save action across three configurable layouts, authorization denial, ambiguous candidates and restoration. Require independent persisted-value checks, zero wrong-field writes, zero unapproved submissions and abstention on uncertain identity. Source/Jest and Apex test results do not certify browser-based healing; [milestone 8 evidence](../evidence/milestone-8-verification.md) records the distinction.

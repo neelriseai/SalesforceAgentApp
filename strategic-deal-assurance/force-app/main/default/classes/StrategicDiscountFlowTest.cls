@@ -168,23 +168,27 @@ private class StrategicDiscountFlowTest {
     }
 
     @IsTest static void permissionSetDefinitionsMatchContract() {
-        Set<String> names=new Set<String>{'Strategic_Deal_User','Regional_VP_Approver','Change_Assurance_Integration','Strategic_Deal_UI_Runner'};
+        Set<String> names=new Set<String>{'Strategic_Deal_User','Regional_VP_Approver','Change_Assurance_Integration','Strategic_Deal_UI_Runner','Strategic_Deal_API_Access'};
         Map<Id,PermissionSet> access=new Map<Id,PermissionSet>([SELECT Id, Name, PermissionsApiEnabled,
             PermissionsModifyAllData, PermissionsViewAllData FROM PermissionSet WHERE Name IN :names WITH SYSTEM_MODE]);
-        System.assertEquals(4, access.size(), 'All four personas deployed');
+        System.assertEquals(5, access.size(), 'All five personas deployed');
+        Set<String> apiPersonas=new Set<String>{'Change_Assurance_Integration','Strategic_Deal_UI_Runner','Strategic_Deal_API_Access'};
         for (PermissionSet permission : access.values()) {
             System.assertEquals(false, permission.PermissionsModifyAllData, 'No global write elevation');
             System.assertEquals(false, permission.PermissionsViewAllData, 'No global read elevation');
-            System.assertEquals(permission.Name=='Change_Assurance_Integration', permission.PermissionsApiEnabled, 'Only API persona grants API');
+            System.assertEquals(apiPersonas.contains(permission.Name), permission.PermissionsApiEnabled, 'Only declared transport personas grant API');
         }
         List<ObjectPermissions> objects=[SELECT ParentId, SObjectType, PermissionsRead, PermissionsCreate, PermissionsEdit,
             PermissionsDelete, PermissionsViewAllRecords, PermissionsModifyAllRecords FROM ObjectPermissions
             WHERE ParentId IN :access.keySet() WITH SYSTEM_MODE];
-        System.assertEquals(8, objects.size(), 'Opportunity and read-only Account navigation grants');
+        System.assertEquals(12, objects.size(), 'Salesforce exposes twelve explicit permission rows; relationship/activity grants are normalized; transport-only API adds none');
+        Set<String> integrationObjects=new Set<String>{'Account','Contact','Lead','Opportunity','OpportunityContactRole','Case','Task','Campaign','CampaignMember'};
         for (ObjectPermissions permission : objects) {
-            Boolean writer=permission.SObjectType=='Opportunity' && access.get(permission.ParentId).Name!='Regional_VP_Approver';
-            System.assert(new Set<String>{'Opportunity','Account'}.contains(permission.SObjectType), 'No direct evaluation-object permissions');
-            System.assertEquals(true, permission.PermissionsRead, 'All personas read Opportunity');
+            String persona=access.get(permission.ParentId).Name;
+            Boolean integration=persona=='Change_Assurance_Integration';
+            Boolean writer=integration || (permission.SObjectType=='Opportunity' && persona!='Regional_VP_Approver');
+            System.assert(integration ? integrationObjects.contains(permission.SObjectType) : new Set<String>{'Opportunity','Account'}.contains(permission.SObjectType), 'Only declared CRM object permissions');
+            System.assertEquals(true, permission.PermissionsRead, 'Every declared object grant is readable');
             System.assertEquals(writer, permission.PermissionsCreate, 'Persona create rights');
             System.assertEquals(writer, permission.PermissionsEdit, 'Persona edit rights');
             System.assertEquals(false, permission.PermissionsDelete, 'No deletes');

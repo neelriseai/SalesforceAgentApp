@@ -4,6 +4,7 @@
     <classAccesses><apexClass>StrategicDealPolicyController</apexClass><enabled>true</enabled></classAccesses>
     <classAccesses><apexClass>StrategicDealApprovalController</apexClass><enabled>true</enabled></classAccesses>
     <classAccesses><apexClass>StrategicDiscountPolicy</apexClass><enabled>true</enabled></classAccesses>
+    <classAccesses><apexClass>StrategicDealAgentApi</apexClass><enabled>true</enabled></classAccesses>
     <customMetadataTypeAccesses><enabled>true</enabled><name>Strategic_Discount_Rule__mdt</name></customMetadataTypeAccesses>
     <description>BR-STRATEGIC-DISCOUNT: edit inputs, read outcomes. No direct evaluation-object access; parent-checked history reader deferred.</description>
     <fieldPermissions><editable>true</editable><field>Opportunity.Amount</field><readable>true</readable></fieldPermissions>
@@ -23,5 +24,5 @@
         <modifyAllRecords>false</modifyAllRecords><object>Opportunity</object><viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <tabSettings><tab>Strategic_Deal_Workbench</tab><visibility>Visible</visibility></tabSettings>
-
+    <userPermissions><enabled>true</enabled><name>ApiEnabled</name></userPermissions>
 </PermissionSet>

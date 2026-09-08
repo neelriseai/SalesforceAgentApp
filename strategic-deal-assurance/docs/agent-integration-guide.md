@@ -9,8 +9,8 @@ This is the current handoff contract for an external agent interacting with **St
 3. This guide and [project index](project-index.md): runtime and source entry points.
 4. `knowledge/application-graph.json`: metadata dependencies, lifecycle, permissions, logical fixture relationships and test mappings.
 5. `knowledge/project-index.json`: repository-relative file paths and LF-normalized SHA-256 source fingerprints.
-6. `data/manual-test-suite.json`, [complete manual suite](manual-test-cases.md), [test plan](test-plan.md) and [rule configuration guide](demo-rules-guide.md): 42 cases / 232 steps, exact fixtures, cleanup and future automation contract. The original ten-case file remains the native-workflow source.
-7. Relevant `force-app/main/default` source and `requirements/BR-STRATEGIC-DISCOUNT-baseline.md`: implementation and policy authority.
+6. [External-agent provisioning](external-agent-provisioning.md), `data/agent-api-test-suite.json`, `data/manual-test-suite.json`, [test plan](test-plan.md) and [rule guide](demo-rules-guide.md): authentication boundaries and test specifications.
+7. Relevant source plus `requirements/BR-AGENT-INTEGRATION.md` and `requirements/BR-STRATEGIC-DISCOUNT-baseline.md`: implementation and policy authority.
 
 The graph is a static source snapshot, not a live org export, entitlement engine or complete Apex call graph. Source-derived and curated relationship edges have provenance. Check `npm run catalog:check` after checkout. When source changes, regenerate with `npm run catalog:build`. Do not infer a live deployment solely from files or hashes.
 
@@ -20,17 +20,19 @@ Historical evidence is deliberately preserved. In particular, `evidence/metadata
 
 | Lane | Available now | What the external agent must do |
 |---|---|---|
-| Operator CLI | Locally authorized alias `caip-dev` | Use only on the authorized operator's machine; verify the target org. Never export its auth file/token to another service. |
+| Hackathon administrator | Alias `caip-dev`; reauthorized and live-validated on 2026-09-08 | Owner-approved MVP lane for standard/custom REST, scoped Metadata API, Apex and ephemeral Lightning browser sessions in this dedicated Developer Edition org. Reauthorize privately after expiry/revocation; never export auth/token output. |
 | Owner browser | Existing demo administrator | Interactive login/MFA; acts as the sales/service/marketing stand-in. Do not treat admin capabilities as normal-user security evidence. |
-| VP browser | Separate Synthetic Regional VP | Interactive login/MFA; Minimum Access profile + Regional_VP_Approver. Keep sessions distinct. |
-| Dedicated agent API | Not provisioned by this repository | Use an explicitly approved Salesforce OAuth client and a suitable least-privilege user. Configure account/client approval before writes. |
-| Separate multi-module personas | Not provisioned | Additional sales/service/marketing/API permissions require a scoped design; the existing integration set is not all-module access. |
+| VP API/browser | Alias `caip-vp`, verified as Synthetic Regional VP on 2026-09-08 | Minimum Access profile + Regional_VP_Approver + transport-only Strategic_Deal_API_Access. Permitted Opportunity REST and ephemeral browser credential validated; no metadata or deal-input authority. |
+| Dedicated agent API | Endpoint deployed and administrator-smoke-tested; OAuth client/user not provisioned | Optional least-privilege/production-hardening lane; not an MVP dependency. |
+| Separate multi-module personas | Source integration coverage prepared; assignments not performed | Review effective CRUD/FLS/sharing and assign only to the intended automation identity. |
 
 Project API version is **67.0**. The current org is a dedicated Developer Edition, with USD, but its hostnames/IDs are intentionally not published. Obtain the REST `instance_url` from the approved OAuth response and the Lightning base URL from the target org. Do not construct one by guessing the other. Sample local configuration is [.env.example](../.env.example); the supplied CLI runners do not read it automatically.
 
-Store client secrets, private keys and refresh tokens in your agent service's secret manager/OS credential store. Inject access tokens only at runtime into the HTTP Authorization header. Never put them in Git, logs, URL query strings, screenshots or prompts. A logged-in browser session is sufficient for browser operations, not for an unrelated backend's REST authentication. Do not scrape browser cookies or replay internal Aura requests as an API.
+In the approved MVP mode, call Salesforce CLI as the local authentication broker. Use `sf api request rest` for authenticated REST, scoped `sf project` commands for metadata, and consume `sf org open --url-only --json` directly in memory for the browser. Never echo or persist the returned frontdoor URL. Store any later client secrets, private keys and refresh tokens in the agent service's secret manager/OS credential store. Never put them in Git, logs, screenshots or prompts. Do not scrape browser cookies or replay internal Aura requests as an API.
 
-No new plugin is required for local Salesforce CLI work. Your separately built agent can use its Salesforce SDK, an approved connector or ordinary HTTPS REST client. Library choice does not supply authentication, permissions or record sharing. The CLI and browser are separate trust lanes.
+This administrator-backed lane preserves the capabilities needed for the hackathon, but it does not prove least privilege. Limit it to `caip-dev`, synthetic records, scoped manifests and actions authorized by the current task. A one-time user browser login is unavoidable after Salesforce expires or revokes the CLI authorization; no app-side code can recreate a valid credential from nothing. Regional VP actions use the separate `caip-vp` alias and only genuinely assigned work items. The same Salesforce VP user supports human and automated demos, so use a new automation user later if strict human-versus-bot attribution is required.
+
+No new plugin is required. Your separately built agent can invoke Salesforce CLI or use an approved REST client. Authentication/browser-session code stays in that agent. The Salesforce app provides no token store. See [provisioning and deliberately deferred settings](external-agent-provisioning.md).
 
 ## 3. Startup checklist and runtime discovery
 
@@ -202,7 +204,13 @@ Use the assigned approver's authorized API identity if one is separately provisi
 
 Critical limitation: standard approval APIs do not execute `StrategicDealApprovalController`'s extra current-policy recomputation. Validate current metadata, inputs and applied version before native API submission and abstain on stale state. The native formula itself enforces stored eligibility, active separate approver and synthetic name; it is not a universal current-policy API interception layer.
 
-`StrategicDealPolicyController.getPolicy`, `StrategicDealApprovalController.getState` and `.act` are `@AuraEnabled` methods, **not `/services/apexrest/...` endpoints**. Do not invent HTTP URLs for them. Direct `Strategic_Deal_Evaluation__c` SOQL access is withheld from normal/integration personas. Its UI DTO omits IDs/correlation/hash and limits history to five rows. If your agent requires full correlated history over REST, a separately approved narrow read API/security design is still needed.
+`StrategicDealPolicyController.getPolicy`, `StrategicDealApprovalController.getState` and `.act` remain internal `@AuraEnabled` methods. The only custom HTTP source is:
+
+```text
+GET {instance_url}/services/apexrest/sda/v1/policy/{resolved_Opportunity_ID}?limit=20
+```
+
+`StrategicDealAgentApi` returns current derived Opportunity policy values, active metadata values and newest parent-bound evaluation summaries (limit 1–50, default 20). It performs a `WITH USER_MODE` parent/field read before its narrow system-mode history read, returns uniform 404 for missing/inaccessible records, 400 for invalid input and `Cache-Control: no-store`. It has no POST/PATCH/DELETE or approval action. Direct evaluation SOQL remains denied. The endpoint is deployed and passed an administrator HTTP-200 smoke test against `SYN-MM-O02 Deal`; dedicated-identity API-01–06 execution remains pending. Ingest [API-01–06](../data/agent-api-test-suite.json).
 
 ## 9. Fixtures, verification and reset
 
@@ -212,7 +220,7 @@ Critical limitation: standard approval APIs do not execute `StrategicDealApprova
 | `SDA-CROSS-MODULE-v1` | 368 linked business records + 40 initial evaluations | `seed-multi-module.ps1`: create-only, no overwrites/deletes; Verify reports drift |
 | `SDA-VISIBILITY-EXPANSION-v1` | 186 additional business rows with independent Accounts/Contacts | `seed-visibility-expansion.ps1`: create-only, original dataset untouched |
 
-All three use locally bound `caip-dev`, synthetic markers and an administrative operator. They are operator tools, **not endpoints or permissions for an agent runtime**. Read [baseline reset](demo-data-reset.md) and [multi-module operations](multi-module-data.md) before executing them. Write switches are explicit. Never silently run a baseline reset after an approval or a failed test.
+All three use locally bound `caip-dev`, synthetic markers and an administrative operator. The approved hackathon agent may invoke them through CLI, but they remain administrative tools rather than public app endpoints, and their explicit write/confirmation switches still apply. Read [baseline reset](demo-data-reset.md) and [multi-module operations](multi-module-data.md) before executing them. Never silently run a baseline reset after an approval or a failed test.
 
 Dates are fixed in 2026, not rolling. Multi-module plan logical references such as `@A05` and `@vp` are not Salesforce IDs; resolve the matching current-environment records. Marker-only keys are not database-enforced uniqueness. Original `SYN-UI-` fixtures are outside both datasets.
 

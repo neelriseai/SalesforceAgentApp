@@ -11,6 +11,8 @@ For multi-field locator drift: [no-code guide](locator-healing-demo.md), [six LH
 | Task | Read / use |
 |---|---|
 | Connect an external agent safely | [Agent integration guide](agent-integration-guide.md), [interface contract](../contracts/agent-interface.json), [.env.example](../.env.example) |
+| Provision CLI/JWT and review deferred org settings | [External-agent provisioning](external-agent-provisioning.md), [integration requirement](../requirements/BR-AGENT-INTEGRATION.md), [API cases](../data/agent-api-test-suite.json) |
+| Inspect the narrow policy/evidence API | [REST class](../force-app/main/default/classes/StrategicDealAgentApi.cls), [tests](../force-app/main/default/classes/StrategicDealAgentApiTest.cls), [milestone manifest](../manifest/milestone-9-agent-api.xml) |
 | Understand the data/automation architecture | [Knowledge graph overview](application-knowledge-graph.md), [generated graph](../knowledge/application-graph.json) |
 | Check the strict approval rule | [Baseline requirement](../requirements/BR-STRATEGIC-DISCOUNT-baseline.md), [policy Apex](../force-app/main/default/classes/StrategicDiscountPolicy.cls), [Default configuration](../force-app/main/default/customMetadata/Strategic_Discount_Rule.Default.md-meta.xml) |
 | Trace a saved input to evidence | [Active Flow](../force-app/main/default/flows/Strategic_Discount_Approval.flow-meta.xml), [evaluation schema](../force-app/main/default/objects/Strategic_Deal_Evaluation__c/Strategic_Deal_Evaluation__c.object-meta.xml) |
@@ -38,12 +40,12 @@ SalesforceAgentApp/                  repository root
     force-app/main/default/
       applications/, tabs/          app navigation
       objects/, customMetadata/     custom fields, evidence object and policy
-      classes/                      policy/controllers/save guards and five Apex test suites
+      classes/                      policy/controllers/save guards, REST facade and six Apex test suites
       reports/                      five saved synthetic-data reports and dedicated folder
       triggers/                     seven synthetic-record save-guard entry points
       flows/                        record-triggered evaluation and evidence writer
       approvalProcesses/, workflows/ native approval and final/recall field updates
-      permissionsets/               five additive capability sets; field-only demo operator added
+      permissionsets/               six additive capability sets, including transport-only API access
       lwc/                          three components and component tests
       flexipages/, layouts/         Lightning pages, rule settings and Case resolution layout
     manifest/                       scoped deployment slices
@@ -62,9 +64,10 @@ SalesforceAgentApp/                  repository root
 - Workbench tab/page: `Strategic_Deal_Workbench`; Opportunity page: `Strategic_Deal_Record_Page`.
 - LWC: `strategicDealWorkbench`, `strategicDealPolicyCard`, `strategicDealApprovalPanel`.
 - Pure policy: `StrategicDiscountPolicy.evaluate(List<Input>)`, invoked by `Strategic_Discount_Approval` Flow.
-- Internal UI readers/actions: `StrategicDealPolicyController.getPolicy`, `StrategicDealApprovalController.getState` and `.act`. None is an Apex REST facade.
+- Internal UI readers/actions: `StrategicDealPolicyController.getPolicy`, `StrategicDealApprovalController.getState` and `.act`.
+- Custom read-only facade source: `GET /services/apexrest/sda/v1/policy/{OpportunityId}` via `StrategicDealAgentApi`; live deployment/external identity pending.
 - Native process developer name: `Strategic_Opportunity_Regional_VP`, on Opportunity.
-- Standard CRM REST is a platform integration option, conditional on separate OAuth and privileges. No custom external API or full private-history API is implemented.
+- Standard CRM/native approval REST remain conditional on separate OAuth and privileges. The custom endpoint is narrow policy/history read only, never a generic proxy.
 
 ## Tests and manifests
 
@@ -78,8 +81,10 @@ SalesforceAgentApp/                  repository root
 | 5 | [milestone-5-navigation.xml](../manifest/milestone-5-navigation.xml) | One app; cross-module navigation |
 | 6 | [milestone-6-demo-rules.xml](../manifest/milestone-6-demo-rules.xml) | DemoBusinessRulesTest plus previous four suites; eight OFF rules, seven triggers, Case resolution/layout |
 | 7 | [milestone-7-demo-visibility.xml](../manifest/milestone-7-demo-visibility.xml) | Three named list views and five reports; no rule/default/code redeployment |
+| 8 | [milestone-8-locator-demo.xml](../manifest/milestone-8-locator-demo.xml) | Workbench presentation variants; browser healing not proven |
+| 9 | [milestone-9-agent-api.xml](../manifest/milestone-9-agent-api.xml) | StrategicDealAgentApiTest plus five regressions; source prepared, org validation pending refreshed CLI auth |
 
-The current live regression runner is [test-milestone-6.ps1](../scripts/test-milestone-6.ps1), covering all five suites. Component tests are under each LWC's `__tests__`. `npm run catalog:test` and the two demo local-test scripts are local-only; they do not establish live UI/API behavior. Do not use the scaffold's broad package.xml as a routine deployment scope.
+The regression runner [test-milestone-6.ps1](../scripts/test-milestone-6.ps1) now names all six suites; its filename is retained for compatibility. Component tests are under each LWC's `__tests__`. Local checks do not establish live UI/API behavior. Do not use broad `package.xml` as routine scope.
 
 ## Evidence index and freshness
 

@@ -69,6 +69,8 @@ export function buildArtifacts() {
   for(const name of ['operator','vp']) node('persona:'+name,'persona',name==='vp'?'Separate Synthetic Regional VP':'Current demo operator',{source:contractPath,realUserIdIncluded:false});
   const reqPath=prefix+'requirements/BR-STRATEGIC-DISCOUNT-baseline.md';
   const req=sourced('requirement:BR-STRATEGIC-DISCOUNT','requirement','Strict USD strategic-discount rule',reqPath,{currency:'USD',amountComparison:'>',amount:50000000,discountComparison:'>',discount:15});
+  const agentReqPath=prefix+'requirements/BR-AGENT-INTEGRATION.md';
+  const agentReq=sourced('requirement:BR-AGENT-INTEGRATION','requirement','Governed external agent API lane',agentReqPath,{directEvidenceCrud:false,metadataAdministration:false,deploymentStatus:'pending CLI reauthorization'});
 
   // Parser is deliberately scoped to this DX metadata shape; it is not a general XML/Apex analyzer.
   for(const p of files.filter(p=>p.startsWith(base+'objects/'))) {
@@ -161,7 +163,7 @@ export function buildArtifacts() {
   const app=sourced('app:Strategic_Deal_Assurance','lightning-app','Strategic Deal Assurance',appPath,{tabs:blocks(read(appPath),'tabs').map(decode)});
   edge(app,'opportunity_record_page','page:Strategic_Deal_Record_Page',appPath);
   edge(app,'workbench_page','page:Strategic_Deal_Workbench',base+'tabs/Strategic_Deal_Workbench.tab-meta.xml');
-  for(const [test,targets] of Object.entries({StrategicDiscountPolicyTest:[policy],StrategicDiscountFlowTest:[flow,policy],StrategicDealPolicyControllerTest:['apex:StrategicDealPolicyController'],StrategicDealApprovalControllerTest:['apex:StrategicDealApprovalController',ap]})) for(const target of targets) edge('apex:'+test,'tests',target,base+'classes/'+test+'.cls');
+  for(const [test,targets] of Object.entries({StrategicDiscountPolicyTest:[policy],StrategicDiscountFlowTest:[flow,policy],StrategicDealPolicyControllerTest:['apex:StrategicDealPolicyController'],StrategicDealApprovalControllerTest:['apex:StrategicDealApprovalController',ap],StrategicDealAgentApiTest:['apex:StrategicDealAgentApi',agentReq]})) for(const target of targets) edge('apex:'+test,'tests',target,base+'classes/'+test+'.cls');
   for(const p of files.filter(p=>p.includes('/lwc/') && p.endsWith('.test.js'))) {
     const component=p.slice((base+'lwc/').length).split('/')[0];
     edge(sourced('jest:'+component,'component-test',component+' Jest tests',p,{mocksPlatform:true}),'tests','lwc:'+component,p);
@@ -217,6 +219,13 @@ export function buildArtifacts() {
     for(const key of c.ruleKeys) edge(id,'tests_configuration','config:Demo_Business_Rule.'+key,manualPath);
     for(const module of c.modules) edge(id,'covers',module==='ApprovalProcess'?ap:object(module),manualPath);
   }
+  const apiSuitePath=prefix+'data/agent-api-test-suite.json', apiSuite=JSON.parse(read(apiSuitePath));
+  for(const c of apiSuite.cases) {
+    const id=sourced('use-case:'+c.id,'api-use-case',c.objective,apiSuitePath,{steps:c.steps.length,execution:apiSuite.status});
+    edge(id,'tests','apex:StrategicDealAgentApi',apiSuitePath);
+    edge(id,'tests_requirement',agentReq,apiSuitePath);
+    edge(id,'uses_dataset',dataset,apiSuitePath);
+  }
   const locatorPath=prefix+'data/locator-healing-suite.json', locatorSuite=JSON.parse(read(locatorPath));
   const locatorConfig=sourced('config:workbench.locatorVariant','presentation-configuration','Workbench locator demo variant',locatorPath,{...locatorSuite.configuration,implementationStatus:locatorSuite.implementationStatus,presentationOnly:true,healerImplementedHere:false});
   edge(locatorConfig,'configures','lwc:strategicDealWorkbench',locatorPath);
@@ -230,7 +239,7 @@ export function buildArtifacts() {
   for(const [runner,target] of [['scripts/demo/reset-baseline.ps1',baselineId],['scripts/demo/seed-multi-module.ps1',dataset]]) edge('file:'+prefix+runner,'manages',target,prefix+runner);
   for(const e of edges.values()) if(!nodes.has(e.from) || !nodes.has(e.to)) throw new Error('Unresolved graph edge: '+e.from+' -> '+e.to);
   const graph={schemaVersion:'1.0.0',application:'Strategic Deal Assurance',apiVersion:contract.apiVersion,sourceSnapshot,provenance:'Static DX metadata, curated lifecycle relationships and logical synthetic fixture references. Not a live org dump or complete Apex call graph.',authorization:'Descriptive only; graph edges grant no execution authority.',nodes:[...nodes.values()].sort((a,b)=>a.id.localeCompare(b.id)),edges:[...edges.values()].sort((a,b)=>a.id.localeCompare(b.id))};
-  const index={schemaVersion:'1.0.0',application:'Strategic Deal Assurance',pathBase:'repository-root',sourceSnapshot,hashAlgorithm:'SHA-256 of UTF-8 text normalized to LF',generator:prefix+'scripts/catalog/build-project-index.mjs',generatedOutputs:outputs,readOrder:[prefix+'contracts/agent-interface.json',prefix+'docs/agent-integration-guide.md',prefix+'docs/project-index.md',outputs[0],prefix+'docs/demo-rules-guide.md',prefix+'docs/test-plan.md',prefix+'data/manual-test-suite.json'],authoritativePaths:[prefix+'force-app/main/default',prefix+'requirements'],historicalEvidenceNotice:'Milestone reports describe their recorded snapshot, not current runtime state. Older permission descriptions can be stale.',files:inventory};
+  const index={schemaVersion:'1.0.0',application:'Strategic Deal Assurance',pathBase:'repository-root',sourceSnapshot,hashAlgorithm:'SHA-256 of UTF-8 text normalized to LF',generator:prefix+'scripts/catalog/build-project-index.mjs',generatedOutputs:outputs,readOrder:[prefix+'contracts/agent-interface.json',prefix+'docs/agent-integration-guide.md',prefix+'docs/external-agent-provisioning.md',prefix+'docs/project-index.md',outputs[0],prefix+'docs/demo-rules-guide.md',prefix+'docs/test-plan.md',prefix+'data/agent-api-test-suite.json',prefix+'data/manual-test-suite.json'],authoritativePaths:[prefix+'force-app/main/default',prefix+'requirements'],historicalEvidenceNotice:'Milestone reports describe their recorded snapshot, not current runtime state. Older permission descriptions can be stale.',files:inventory};
   return new Map([[outputs[0],JSON.stringify(graph,null,2)+'\n'],[outputs[1],JSON.stringify(index,null,2)+'\n']]);
 }
 

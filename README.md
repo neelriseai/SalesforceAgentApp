@@ -2,11 +2,14 @@
 
 Native Salesforce demo system for a separately developed assurance/testing agent. The Salesforce DX project is in [`strategic-deal-assurance/`](strategic-deal-assurance/). Salesforce owns CRM records, deterministic strategic-deal policy and native human approval; the external agent owns planning, test execution, analysis and any explicitly approved repair.
 
+For the dedicated hackathon org, the approved autonomous MVP lane uses the local `caip-dev` Salesforce CLI authorization for REST, scoped metadata operations and short-lived browser sessions. JWT/certificate setup and a second integration user are optional production-hardening steps, not prerequisites. Reauthorization still requires one private browser login whenever Salesforce expires the CLI session.
+
 ## Start here
 
 | Reader | Entry point |
 |---|---|
 | Agent developer | [Agent integration guide](strategic-deal-assurance/docs/agent-integration-guide.md) |
+| Agent authentication / org setup | [External-agent provisioning](strategic-deal-assurance/docs/external-agent-provisioning.md), [integration requirement](strategic-deal-assurance/requirements/BR-AGENT-INTEGRATION.md) |
 | Agent runtime / ingestion | [Interface contract](strategic-deal-assurance/contracts/agent-interface.json), [knowledge graph](strategic-deal-assurance/knowledge/application-graph.json), [project index](strategic-deal-assurance/knowledge/project-index.json) |
 | Application architecture | [Knowledge graph overview](strategic-deal-assurance/docs/application-knowledge-graph.md), [project map](strategic-deal-assurance/docs/project-index.md) |
 | Human demo tester | [42 detailed manual cases](strategic-deal-assurance/docs/manual-test-cases.md), [test plan](strategic-deal-assurance/docs/test-plan.md), [rule configuration guide](strategic-deal-assurance/docs/demo-rules-guide.md) |
@@ -17,7 +20,7 @@ Native Salesforce demo system for a separately developed assurance/testing agent
 Locator-demo scope: Salesforce changes the UI; it contains **no XPath healer**. The assisted variant is implemented. A recorded runnable XPath baseline, external-agent healing integration and advanced no-explicit-hint variant remain future work; nine-target failure/recovery is not yet browser-proven. See the [status and demo boundaries](strategic-deal-assurance/docs/locator-healing-demo.md#implementation-status-and-showcase-boundary).
 
 - A no-code [multi-field locator drift demo](strategic-deal-assurance/docs/locator-healing-demo.md): three App Builder variants change eight field hooks, ordering/sections and the save action; six detailed scenarios guide external-agent metadata/DOM recovery without changing business rules.
-- Lightning app: **Strategic Deal Assurance**, with a deal workbench, policy/evaluation card and native approval panel.
+- Lightning app: **Strategic Deal Assurance**, with a deal workbench, policy/evaluation card, native approval panel and deployed narrow read-only agent policy/evidence REST endpoint.
 - Active rule: strategic AND Amount **> USD 50,000,000** AND Discount **> 15%**. Missing required approver produces Configuration Error. No currency conversion.
 - Native owner submission, separate assigned VP approval/rejection, owner recall and normal-user record locking.
 - Native Accounts, Contacts, Leads, Opportunities, Cases, Tasks and Campaigns. A create-only loader prepares **368 linked business records + 40 initial policy evaluations**, separate from the original seven-case boundary dataset.
@@ -33,9 +36,9 @@ A separate create-only expansion adds **186 records** without touching the origi
 
 ## Important integration boundaries
 
-The existing local Salesforce CLI authorization is an **operator lane**, not portable agent credentials. The two human browser sessions are separate from an API integration. `Change_Assurance_Integration` defines limited Opportunity access, but this repository does not provision a dedicated authenticated agent client/user or grant access to every CRM module.
+The local Salesforce CLI uses two verified aliases: owner-approved `caip-dev` brokers REST, scoped metadata and administrator browser sessions; `caip-vp` maps to Synthetic Regional VP and adds only transport to its existing approver authority. This preserves administrator-versus-approver separation for the hackathon. Dedicated human-versus-bot users and a portable API client remain optional production hardening.
 
-There is **no custom Apex REST facade**. The `@AuraEnabled` controllers serve Lightning and are not public HTTP endpoints. Standard Salesforce REST APIs are available only with suitable OAuth, object/field permissions and sharing. Direct evaluation-object access is intentionally withheld; the browser's parent-authorized history reader exposes only narrow summaries. Read the integration guide before assuming API parity.
+Milestone 9 deployed a narrow `GET /services/apexrest/sda/v1/policy/{OpportunityId}` facade and passed 50 Apex tests plus an administrator HTTP-200 smoke test. It is not a CRM write proxy or authentication endpoint; standard Salesforce REST handles CRUD and native REST handles approvals. Direct evaluation-object access remains withheld. Dedicated-identity API-01–06 execution is optional/pending; read the integration/provisioning guides before claiming least-privilege parity.
 
 ## Local checks
 

@@ -8,7 +8,7 @@ try {
     $sha = [Security.Cryptography.SHA256]::Create()
     try { $fingerprint = ([BitConverter]::ToString($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes([string]$org.Id)))).Replace('-','').ToLowerInvariant() } finally { $sha.Dispose() }
     if ($org.OrganizationType -ne 'Developer Edition' -or $binding.alias -ne 'caip-dev' -or $binding.fingerprint -ne $fingerprint) { throw 'Dedicated demo org binding mismatch.' }
-    $raw = & sf apex run test --class-names DemoBusinessRulesTest StrategicDiscountPolicyTest StrategicDiscountFlowTest StrategicDealPolicyControllerTest StrategicDealApprovalControllerTest --target-org caip-dev --code-coverage --wait 20 --json
+    $raw = & sf apex run test --class-names DemoBusinessRulesTest StrategicDiscountPolicyTest StrategicDiscountFlowTest StrategicDealPolicyControllerTest StrategicDealApprovalControllerTest StrategicDealAgentApiTest --target-org caip-dev --code-coverage --wait 20 --json
     $code = $LASTEXITCODE
     $response = $raw | ConvertFrom-Json
     $summary = $response.result.summary

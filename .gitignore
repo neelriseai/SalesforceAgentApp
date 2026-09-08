@@ -16,3 +16,5 @@
 *.pem
 *.key
 auth*.json
+# Local source screenshots can contain private chat/account context; keep only sanitized transcriptions.
+strategic-deal-assurance/docs/new enhacement/

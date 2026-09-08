@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "Salesforce App",
   "scripts": {
+    "agent-api:test": "node --test scripts/catalog/agent-api.test.mjs",
     "locator:test": "node --test scripts/catalog/locator-healing.test.mjs",
     "visibility:test": "node --test scripts/catalog/visibility-expansion.test.mjs",
     "manual:build": "node scripts/catalog/build-manual-suite.mjs",

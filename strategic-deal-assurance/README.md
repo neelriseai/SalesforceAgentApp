@@ -1,6 +1,12 @@
 # Strategic Deal Assurance
 
-Salesforce system-under-test for a separately developed assurance agent. Current additions include a **186-record expansion (554 combined SYN-MM business records)**, populated reports/views and an **assisted multi-field locator-change demo with six cases / 20 steps**, alongside eight configurable CRM guards, the 42-case / 232-step business suite, USD 15% policy and separate-persona Regional VP approval. This is not yet a full showcase release.
+Salesforce system-under-test for a separately developed assurance agent. Current additions include a deployed narrow read-only agent policy/evidence REST endpoint and integration permission design, plus the **186-record expansion (554 combined SYN-MM business records)**, populated reports/views, assisted locator-change demo, configurable CRM guards, 42-case business suite, USD 15% policy and separate-persona Regional VP approval. Milestone 9 is live-smoke-validated through the approved hackathon administrator lane; dedicated-identity validation remains optional/pending.
+
+## External agent API and authentication
+
+Read the [integration requirement](requirements/BR-AGENT-INTEGRATION.md), [provisioning/settings guide](docs/external-agent-provisioning.md), [agent guide](docs/agent-integration-guide.md) and [six-case API specification](data/agent-api-test-suite.json). The app supplies a read-only parent-authorized policy/evidence facade. Standard CRM REST, native approval REST, CLI/JWT authentication, browser session handling and locator healing remain outside that facade.
+
+No JWT private key, consumer key, username, token or frontdoor URL belongs in this repository. For this dedicated hackathon org, the owner approved `caip-dev` administrator-backed REST, scoped Metadata API and ephemeral browser sessions as the MVP lane. Separate `caip-vp` is verified as Synthetic Regional VP with only its existing approver authority plus transport-only API access. Neither alias needs a certificate or stored Salesforce password; reauthorize privately after future expiry. External Client App/JWT and dedicated bot identities are optional production-hardening work, not blockers.
 
 ## More data and named demo views/reports
 
@@ -20,13 +26,13 @@ Read the [configuration guide](docs/demo-rules-guide.md), [approved rule specifi
 
 Implementation: DemoBusinessRules, seven thin triggers, eight Demo_Business_Rule__mdt records, Case Demo Resolution field/layout and field-only Demo_Rule_Operator permission set. Existing approval security and 15% policy are not weakened. New guards target only SYN-MM-/SYN-RULE- synthetic names; this is not a production-wide validation framework.
 
-Run `npm run manual:build`, `npm run manual:check` and `npm run manual:test` after changing scenarios; then rebuild/check the knowledge catalog. Current live runner: [test-milestone-6.ps1](scripts/test-milestone-6.ps1), all five Apex suites with coverage. Scoped deployment: [milestone-6-demo-rules.xml](manifest/milestone-6-demo-rules.xml). Read [verification and limitations](evidence/milestone-6-verification.md) before claiming execution.
+Run `npm run manual:build`, `npm run manual:check` and `npm run manual:test` after changing scenarios; then rebuild/check the knowledge catalog. Current live runner: [test-milestone-6.ps1](scripts/test-milestone-6.ps1), all six Apex suites with coverage. Scoped deployment: [milestone-6-demo-rules.xml](manifest/milestone-6-demo-rules.xml). Read [verification and limitations](evidence/milestone-6-verification.md) before claiming execution.
 
 ## Agent handoff and project discovery
 
 Start with the [agent integration guide](docs/agent-integration-guide.md) and [machine-readable interface contract](contracts/agent-interface.json). Use the [project map](docs/project-index.md), [knowledge graph overview](docs/application-knowledge-graph.md), [generated graph](knowledge/application-graph.json) and [hashed file index](knowledge/project-index.json) to locate implementation and test evidence. [.env.example](.env.example) defines optional local connection settings without credentials.
 
-The guide covers authentication lanes, exact field names, record relationships, policy/approval lifecycle, browser controls, standard REST request shapes, current permission limits, data/reset safety and known gaps. There is no custom Apex REST facade or authenticated external-agent client provisioned by this repo. Internal AuraEnabled methods must not be treated as HTTP endpoints. Existing integration permissions do not grant every CRM module or direct private-evidence access.
+The guide covers authentication lanes, exact field names, relationships, lifecycle, browser controls, REST shapes, current permission limits and reset safety. `StrategicDealAgentApi` is the only custom external endpoint and is read-only; internal AuraEnabled methods remain non-HTTP. The endpoint is deployed and administrator-smoke-tested. No dedicated identity is provisioned or live-validated, and direct private-evidence CRUD remains denied.
 
 Regenerate discovery artifacts with `npm run catalog:build`, validate freshness with `npm run catalog:check`, and run local catalog/security checks with `npm run catalog:test`. Historical milestone reports remain historical; current graph/index source fingerprints do not certify the live org.
 
@@ -52,7 +58,7 @@ Regenerate discovery artifacts with `npm run catalog:build`, validate freshness 
 
 The first slice provides seven Opportunity fields, the evaluation evidence object, central policy custom metadata, and tested invocable Apex. Milestone 2 activates the after-save Flow: creating an Opportunity or changing policy inputs updates its outcome and creates one evaluation row. Irrelevant/output-only changes create none. The rule is strategic=true AND Amount > USD 50,000,000 AND Discount > 15%. No currency conversion occurs.
 
-Five permission sets are defined; Strategic_Deal_User is assigned to the authorized demo identity with user approval. Evaluation history remains private without direct normal-user CRUD; the controller checks parent access before returning five narrow history summaries. Seven managed synthetic deals have a repeatable, non-destructive data reset. Native approval supports submission, assigned-actor approval/rejection, owner recall and record locking. A separate minimum-access demo VP is provisioned. Reset refuses pending approval requests. External API correlation, a repeatable UI/API harness and full tagged release reset remain future milestones. A custom external REST facade is deferred; the approval controller is an internal Lightning adapter.
+Six permission sets are defined. The new transport-only API set grants no business access itself; deployed updates expand the integration/UI automation lanes without Delete, View All, direct evidence CRUD, approval or metadata administration. Evaluation history remains private and is exposed only after a parent user-mode gate. A separate human VP remains browser-only. External JWT identity/assignment, a complete API/UI harness and full tagged reset remain optional future milestones.
 
 Run commands from this directory and explicitly target `caip-dev`. Do not deploy the template's broad package manifest; use the appropriate scoped milestone manifest. Repeat current Apex tests with `powershell -NoProfile -File scripts/test-milestone-6.ps1`, component tests with `npm run test:unit -- -- --runInBand`, and lint with `npm run lint`. VS Code is optional. Open App Launcher > Strategic Deal Assurance for the demo UI.
 

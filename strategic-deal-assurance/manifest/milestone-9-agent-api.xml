@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types><members>StrategicDealAgentApi</members><members>StrategicDealAgentApiTest</members><members>StrategicDiscountFlowTest</members><name>ApexClass</name></types>
+    <types><members>Change_Assurance_Integration</members><members>Strategic_Deal_UI_Runner</members><members>Strategic_Deal_API_Access</members><name>PermissionSet</name></types>
+    <version>67.0</version>
+</Package>
