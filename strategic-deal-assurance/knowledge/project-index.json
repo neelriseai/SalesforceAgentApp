@@ -2,8 +2,8 @@
   "schemaVersion": "1.0.0",
   "application": "Strategic Deal Assurance",
   "pathBase": "repository-root",
-  "sourceSnapshot": "8e76de7142fad65f6bd764dcb3a37fb467897b96221c4f80e0e948bfa5d66f02",
-  "applicationGraphSha256": "0ba61a73f1cf0328ad2f2c83dd69cf33d41ebb602d9a55acedb47029b03e24ea",
+  "sourceSnapshot": "f55e40cd125aefcc072dfb9f6d425ef16f7a69be93aeda945049ead5c7e244f4",
+  "applicationGraphSha256": "c8e6fc4aa62f7769324b4fc9aa66084a72989c344c71ab077d9a3e51348f24fb",
   "hashAlgorithm": "SHA-256 of UTF-8 text normalized to LF",
   "generator": "strategic-deal-assurance/scripts/catalog/build-project-index.mjs",
   "generatedOutputs": [
@@ -590,7 +590,7 @@
     {
       "path": "strategic-deal-assurance/force-app/main/default/lwc/strategicDealWorkbench/strategicDealWorkbench.html",
       "category": "salesforce-source",
-      "sha256NormalizedLf": "f2b03ed0ebfa8b24654c5b720da031902614469ac007d7a21707dcf5f4f1705b"
+      "sha256NormalizedLf": "a1896634d3611d59137f1754e47947d10a1cd6e7e35c363f00f9554792b2a370"
     },
     {
       "path": "strategic-deal-assurance/force-app/main/default/lwc/strategicDealWorkbench/strategicDealWorkbench.js",

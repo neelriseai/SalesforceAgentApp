@@ -21,7 +21,7 @@
                             </section>
                         </template>
                         <div class="slds-m-top_medium actions">
-                            <lightning-button type="submit" variant="brand" label={saveLabel} data-testid={saveHook} data-action="save-evaluate" disabled={busy}></lightning-button>
+                            <lightning-button type="submit" variant="brand" label={saveLabel} data-testid={saveHook} data-action="save-evaluate-live" disabled={busy}></lightning-button>
                             <template lwc:if={canStartNew}><lightning-button label="Start new deal" onclick={startNew} disabled={busy}></lightning-button></template>
                         </div>
                     </lightning-record-edit-form>
