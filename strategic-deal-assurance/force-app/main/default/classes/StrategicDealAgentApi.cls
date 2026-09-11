@@ -19,9 +19,10 @@ global with sharing class StrategicDealAgentApi {
             if(parents.isEmpty()) { notFound(); return; }
             Opportunity parent=parents[0];
             Map<String,Object> result=new Map<String,Object>{
-                'schemaVersion'=>'1.0.0',
+                'schemaVersion'=>'1.1.0',
                 'objectApiName'=>'Opportunity',
                 'opportunity'=>new Map<String,Object>{
+                    'id'=>opportunityId,
                     'approvalStatus'=>parent.Approval_Status__c,
                     'approvalReason'=>parent.Approval_Reason__c,
                     'appliedRuleVersion'=>parent.Policy_Rule_Version__c,
@@ -88,6 +89,7 @@ global with sharing class StrategicDealAgentApi {
                 FROM Strategic_Deal_Evaluation__c WHERE Opportunity__c=:opportunityId
                 WITH SYSTEM_MODE ORDER BY Evaluated_At__c DESC,CreatedDate DESC,Id DESC LIMIT :rowLimit]) {
                 result.add(new Map<String,Object>{
+                    'opportunityId'=>opportunityId,
                     'evaluationNumber'=>row.Name,'outcome'=>row.Outcome__c,'reason'=>row.Reason__c,
                     'ruleVersion'=>row.Rule_Version__c,'evaluatedAt'=>row.Evaluated_At__c,
                     'amount'=>row.Amount_INR__c,'discountPercent'=>row.Discount_Percent__c,

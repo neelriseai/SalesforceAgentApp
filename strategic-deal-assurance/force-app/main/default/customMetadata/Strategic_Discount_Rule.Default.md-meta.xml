@@ -4,6 +4,6 @@
     <protected>false</protected>
     <values><field>Active__c</field><value xsi:type="xsd:boolean">true</value></values>
     <values><field>Minimum_Amount_INR__c</field><value xsi:type="xsd:double">50000000</value></values>
-    <values><field>Discount_Threshold_Percent__c</field><value xsi:type="xsd:double">15</value></values>
-    <values><field>Rule_Version__c</field><value xsi:type="xsd:string">baseline-15</value></values>
+    <values><field>Discount_Threshold_Percent__c</field><value xsi:type="xsd:double">20</value></values>
+    <values><field>Rule_Version__c</field><value xsi:type="xsd:string">demo-20</value></values>
 </CustomMetadata>

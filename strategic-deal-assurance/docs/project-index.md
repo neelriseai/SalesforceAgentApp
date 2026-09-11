@@ -2,6 +2,12 @@
 
 All paths below are relative to the Salesforce DX project unless stated otherwise. Machine-readable [project-index.json](../knowledge/project-index.json) uses repository-root paths, includes source fingerprints and declares its generated-output exclusions. [application-graph.json](../knowledge/application-graph.json) adds semantic dependencies and logical fixture relationships.
 
+Catalog publication is content-bound. The generator writes the canonical application graph through
+a temporary file first, then publishes the project index as the commit marker. The index's
+`applicationGraphSha256` is the SHA-256 of the exact LF-normalized graph document. Consumers must
+reject a missing or mismatched binding; rerunning the catalog generator repairs a torn publication
+without copying a digest into another repository or environment file.
+
 ## Find the right entry point
 
 The locator entry points describe **assisted UI drift**, not an in-app healer. The recorded XPath harness, external-agent integration and advanced no-explicit-hint variant are not implemented. Their status is machine-readable in `data/locator-healing-suite.json` and `contracts/agent-interface.json`, and carried into `config:workbench.locatorVariant` in the graph.
@@ -13,6 +19,7 @@ For multi-field locator drift: [no-code guide](locator-healing-demo.md), [six LH
 | Connect an external agent safely | [Agent integration guide](agent-integration-guide.md), [interface contract](../contracts/agent-interface.json), [.env.example](../.env.example) |
 | Provision CLI/JWT and review deferred org settings | [External-agent provisioning](external-agent-provisioning.md), [integration requirement](../requirements/BR-AGENT-INTEGRATION.md), [API cases](../data/agent-api-test-suite.json) |
 | Inspect the narrow policy/evidence API | [REST class](../force-app/main/default/classes/StrategicDealAgentApi.cls), [tests](../force-app/main/default/classes/StrategicDealAgentApiTest.cls), [milestone manifest](../manifest/milestone-9-agent-api.xml) |
+| Review exact live-operation facts and API 1.1.0 candidate | [Source-owned declarations](source-operation-declarations.md), [closed operations contract](../contracts/source-operations.json); local candidate requires validation/deployment and fresh live evidence |
 | Understand the data/automation architecture | [Knowledge graph overview](application-knowledge-graph.md), [generated graph](../knowledge/application-graph.json) |
 | Check the strict approval rule | [Baseline requirement](../requirements/BR-STRATEGIC-DISCOUNT-baseline.md), [policy Apex](../force-app/main/default/classes/StrategicDiscountPolicy.cls), [Default configuration](../force-app/main/default/customMetadata/Strategic_Discount_Rule.Default.md-meta.xml) |
 | Trace a saved input to evidence | [Active Flow](../force-app/main/default/flows/Strategic_Discount_Approval.flow-meta.xml), [evaluation schema](../force-app/main/default/objects/Strategic_Deal_Evaluation__c/Strategic_Deal_Evaluation__c.object-meta.xml) |

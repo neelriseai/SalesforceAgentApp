@@ -3,6 +3,7 @@
   "suiteId": "AGENT-API",
   "status": "NOT_RUN_EXTERNAL_API_SPECIFICATION",
   "requirement": "requirements/BR-AGENT-INTEGRATION.md",
+  "responseSchemaVersion": "1.1.0",
   "route": "GET /services/apexrest/sda/v1/policy/{OpportunityId}?limit=1..50",
   "data": {
     "eligible": "SYN-MM-O02 Deal",
@@ -12,7 +13,7 @@
     "resolution": "Resolve exactly one record in the bound org; never publish runtime IDs"
   },
   "cases": [
-    {"id":"API-01","objective":"Read parent-authorized current policy and private history","steps":["Authenticate as explicitly assigned integration persona","Resolve SYN-MM-O02 uniquely","GET with limit=20","Assert USD, baseline-15, Pending Regional VP and history correlated only to the requested parent"]},
+    {"id":"API-01","objective":"Read parent-authorized current policy and private history","steps":["Authenticate as explicitly assigned integration persona","Resolve SYN-MM-O02 uniquely","GET with limit=20","Assert response schemaVersion exactly 1.1.0 and opportunity.id exactly matches the requested authorized parent","Assert every history item opportunityId matches that same requested parent, and no caller, owner or other user IDs are exposed","Assert USD, baseline-15, Pending Regional VP and history correlated only to the requested parent"]},
     {"id":"API-02","objective":"Validate strict boundary oracles independent of runtime config","steps":["GET SYN-MM-O03 and assert Not Required at exactly USD 50,000,000","GET SYN-MM-O04 and assert Not Required at exactly 15 percent","Do not modify either fixture"]},
     {"id":"API-03","objective":"Prevent private-evidence enumeration","steps":["Authenticate as a persona without parent access","GET a known-but-inaccessible synthetic Opportunity","Assert uniform 404 with no record ID, stack trace or evidence values","Confirm direct Strategic_Deal_Evaluation__c query remains denied"]},
     {"id":"API-04","objective":"Reject malformed inputs without execution","steps":["GET with non-Opportunity ID and malformed ID","GET valid Opportunity with limits 0 and 51","Assert 400 INVALID_REQUEST and no data changes"]},
@@ -25,8 +26,8 @@
     "viewAllGranted": false,
     "metadataAdminGranted": false,
     "browserEvidence": false,
-    "deploymentStatus": "deployed",
-    "hackathonAdministratorSmokeStatus": "passed",
+    "deploymentStatus": "local candidate; response schema 1.1.0 not deployed or live-verified",
+    "hackathonAdministratorSmokeStatus": "not run for response schema 1.1.0; historical schema 1.0.0 smoke passed",
     "dedicatedIdentitySuiteStatus": "not run; optional production-hardening lane"
   }
 }

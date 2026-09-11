@@ -31,13 +31,47 @@ private class StrategicDealAgentApiTest {
             Opportunity row=deal();update as user new Opportunity(Id=row.Id,Discount__c=21);
             Map<String,Object> body=invoke(row.Id,'1');
             System.assertEquals(200,RestContext.response.statusCode);
+            System.assertEquals('1.1.0',body.get('schemaVersion'));
+            System.assertEquals(String.valueOf(row.Id),((Map<String,Object>)body.get('opportunity')).get('id'));
             System.assertEquals('no-store',RestContext.response.headers.get('Cache-Control'));
             System.assertEquals(1,((List<Object>)body.get('history')).size());
             System.assertEquals(1,body.get('historyLimit'));
             System.assertEquals('USD',((Map<String,Object>)body.get('opportunity')).get('currencyCode'));
             System.assertEquals(21,((Map<String,Object>)((List<Object>)body.get('history'))[0]).get('discountPercent'));
+            for(Object entry:(List<Object>)body.get('history')) {
+                System.assertEquals(String.valueOf(row.Id),((Map<String,Object>)entry).get('opportunityId'));
+            }
             System.assertEquals(false,Strategic_Deal_Evaluation__c.SObjectType.getDescribe().isAccessible());
             System.assert(!RestContext.response.responseBody.toString().contains(String.valueOf(UserInfo.getUserId())));
+        }
+    }
+    @IsTest static void allHistoryRowsBindOnlyRequestedParent(){
+        System.runAs(allowed()){
+            Opportunity requested=deal();
+            update as user new Opportunity(Id=requested.Id,Discount__c=21);
+            update as user new Opportunity(Id=requested.Id,Discount__c=22);
+            Opportunity other=deal();
+            update as user new Opportunity(Id=other.Id,Discount__c=23);
+            Set<String> otherEvaluationNumbers=new Set<String>();
+            for(Strategic_Deal_Evaluation__c entry:[SELECT Name FROM Strategic_Deal_Evaluation__c
+                WHERE Opportunity__c=:other.Id WITH SYSTEM_MODE]){
+                otherEvaluationNumbers.add(entry.Name);
+            }
+            System.assert(!otherEvaluationNumbers.isEmpty(),'The unrelated parent must have real history.');
+            Map<String,Object> body=invoke(requested.Id,'50');
+            System.assertEquals(200,RestContext.response.statusCode);
+            System.assertEquals('1.1.0',body.get('schemaVersion'));
+            System.assertEquals(String.valueOf(requested.Id),((Map<String,Object>)body.get('opportunity')).get('id'));
+            List<Object> history=(List<Object>)body.get('history');
+            System.assert(history.size()>1,'Multiple independently generated history rows must be checked.');
+            for(Object entry:history){
+                System.assertEquals(String.valueOf(requested.Id),((Map<String,Object>)entry).get('opportunityId'));
+                System.assert(!otherEvaluationNumbers.contains((String)((Map<String,Object>)entry).get('evaluationNumber')),
+                    'Echoing the requested ID must not disguise history from another parent.');
+            }
+            String serialized=RestContext.response.responseBody.toString();
+            System.assert(!serialized.contains(String.valueOf(other.Id)));
+            System.assert(!serialized.contains(String.valueOf(UserInfo.getUserId())));
         }
     }
     @IsTest static void inaccessibleParentIsUniformNotFound(){
@@ -46,6 +80,24 @@ private class StrategicDealAgentApiTest {
             Map<String,Object> body=invoke(rowId,null);
             System.assertEquals(404,RestContext.response.statusCode);System.assertEquals('NOT_FOUND',body.get('code'));
             System.assert(!RestContext.response.responseBody.toString().contains(String.valueOf(rowId)));
+        }
+    }
+    @IsTest static void deletedAndInaccessibleParentsHaveIdenticalSafeResponse(){
+        Id deletedId; Id inaccessibleId;
+        System.runAs(allowed()){
+            Opportunity removed=deal();deletedId=removed.Id;delete as system removed;
+            inaccessibleId=deal().Id;
+        }
+        System.runAs(denied()){
+            invoke(inaccessibleId,null);String deniedBody=RestContext.response.responseBody.toString();
+            System.assertEquals(404,RestContext.response.statusCode);
+            Map<String,Object> missing=invoke(deletedId,null);
+            System.assertEquals(404,RestContext.response.statusCode);
+            System.assertEquals('NOT_FOUND',missing.get('code'));
+            System.assertEquals(deniedBody,RestContext.response.responseBody.toString());
+            System.assert(!deniedBody.contains(String.valueOf(inaccessibleId)));
+            System.assert(!deniedBody.contains(String.valueOf(deletedId)));
+            System.assert(!deniedBody.contains(String.valueOf(UserInfo.getUserId())));
         }
     }
     @IsTest static void malformedIdsAndLimitsAreBadRequests(){

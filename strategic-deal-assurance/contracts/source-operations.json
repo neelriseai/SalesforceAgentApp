@@ -1,0 +1,738 @@
+{
+  "schemaVersion": "1.0.0",
+  "standardRest": [
+    {
+      "datasetId": "SDA-DEMO-BASELINE-15-v1",
+      "method": "GET",
+      "minimumCardinality": 1,
+      "maximumCardinality": 1,
+      "maximumResponseBytes": 1048576,
+      "sourceNodeId": "object:Opportunity",
+      "routeTemplate": "/services/data/v{apiVersion}/sobjects/Opportunity/{recordId}?fields=Amount,Approval_Reason__c,Approval_Status__c,Discount__c,Id,Name,NextStep,OwnerId,Policy_Evaluated_At__c,Policy_Rule_Version__c,Regional_VP_Approver__c,Strategic_Deal__c",
+      "variables": [
+        {
+          "name": "apiVersion",
+          "valueSource": "API_VERSION",
+          "dataType": "STRING",
+          "datasetField": null
+        },
+        {
+          "name": "recordId",
+          "valueSource": "SYNTHETIC_DATASET_RECEIPT",
+          "dataType": "ID",
+          "datasetField": "Id"
+        }
+      ],
+      "responseFields": [
+        {
+          "path": "Amount",
+          "dataType": "NUMBER",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "Approval_Reason__c",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "Approval_Status__c",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "attributes",
+          "dataType": "OBJECT",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "path": "attributes.type",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": false,
+          "expectedLiteral": {
+            "value": "Opportunity"
+          }
+        },
+        {
+          "path": "attributes.url",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "path": "Discount__c",
+          "dataType": "NUMBER",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "Id",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "path": "Name",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "path": "NextStep",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "path": "OwnerId",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "path": "Policy_Evaluated_At__c",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "Policy_Rule_Version__c",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "Regional_VP_Approver__c",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "Strategic_Deal__c",
+          "dataType": "BOOLEAN",
+          "required": true,
+          "nullable": false
+        }
+      ],
+      "requestExpansion": "EACH_DATASET_RECORD",
+      "responseRecordPath": "",
+      "parentBindings": [],
+      "datasetFieldPaths": {
+        "Amount": "Amount",
+        "Approval_Reason__c": "Approval_Reason__c",
+        "Approval_Status__c": "Approval_Status__c",
+        "Discount__c": "Discount__c",
+        "Id": "Id",
+        "Name": "Name",
+        "NextStep": "NextStep",
+        "OwnerId": "OwnerId",
+        "Policy_Evaluated_At__c": "Policy_Evaluated_At__c",
+        "Policy_Rule_Version__c": "Policy_Rule_Version__c",
+        "Regional_VP_Approver__c": "Regional_VP_Approver__c",
+        "Strategic_Deal__c": "Strategic_Deal__c"
+      }
+    }
+  ],
+  "customRest": [
+    {
+      "datasetId": "SDA-DEMO-BASELINE-15-v1",
+      "method": "GET",
+      "minimumCardinality": 1,
+      "maximumCardinality": 1,
+      "maximumResponseBytes": 1048576,
+      "sourceNodeId": "apex:StrategicDealAgentApi",
+      "routeTemplate": "/services/apexrest/sda/v1/policy/{recordId}?limit=20",
+      "variables": [
+        {
+          "name": "recordId",
+          "valueSource": "SYNTHETIC_DATASET_RECEIPT",
+          "dataType": "ID",
+          "datasetField": "Id"
+        }
+      ],
+      "responseFields": [
+        {
+          "path": "activePolicy",
+          "dataType": "OBJECT",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "path": "activePolicy.active",
+          "dataType": "BOOLEAN",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "path": "activePolicy.currencyCode",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": false,
+          "expectedLiteral": {
+            "value": "USD"
+          }
+        },
+        {
+          "path": "activePolicy.discountThresholdPercent",
+          "dataType": "NUMBER",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "activePolicy.minimumAmount",
+          "dataType": "NUMBER",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "activePolicy.ruleVersion",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "history[]",
+          "dataType": "ARRAY",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "path": "history[].amount",
+          "dataType": "NUMBER",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "history[].approvalRequired",
+          "dataType": "BOOLEAN",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "path": "history[].approverPresent",
+          "dataType": "BOOLEAN",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "path": "history[].correlationId",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "history[].discountPercent",
+          "dataType": "NUMBER",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "history[].evaluatedAt",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "history[].evaluationNumber",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "path": "history[].inputHash",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "history[].opportunityId",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "path": "history[].outcome",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "history[].reason",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "history[].ruleVersion",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "history[].source",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "history[].strategicDeal",
+          "dataType": "BOOLEAN",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "path": "historyLimit",
+          "dataType": "INTEGER",
+          "required": true,
+          "nullable": false,
+          "expectedLiteral": {
+            "value": 20
+          }
+        },
+        {
+          "path": "objectApiName",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": false,
+          "expectedLiteral": {
+            "value": "Opportunity"
+          }
+        },
+        {
+          "path": "opportunity",
+          "dataType": "OBJECT",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "path": "opportunity.amount",
+          "dataType": "NUMBER",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "opportunity.appliedRuleVersion",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "opportunity.approvalReason",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "opportunity.approvalStatus",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "opportunity.currencyCode",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": false,
+          "expectedLiteral": {
+            "value": "USD"
+          }
+        },
+        {
+          "path": "opportunity.discountPercent",
+          "dataType": "NUMBER",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "opportunity.evaluatedAt",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": true
+        },
+        {
+          "path": "opportunity.id",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "path": "schemaVersion",
+          "dataType": "STRING",
+          "required": true,
+          "nullable": false,
+          "expectedLiteral": {
+            "value": "1.1.0"
+          }
+        }
+      ],
+      "requestExpansion": "EACH_DATASET_RECORD",
+      "responseRecordPath": "",
+      "parentBindings": [
+        {
+          "collectionPath": "history[]",
+          "parentIdPath": "opportunityId",
+          "datasetField": "Id",
+          "maximumCardinality": 20
+        }
+      ],
+      "datasetFieldPaths": {
+        "Id": "opportunity.id"
+      }
+    }
+  ],
+  "syntheticDatasets": [
+    {
+      "datasetId": "SDA-DEMO-BASELINE-15-v1",
+      "sourceNodeId": "object:Opportunity",
+      "objectApiName": "Opportunity",
+      "fieldProjection": [
+        "Amount",
+        "Approval_Reason__c",
+        "Approval_Status__c",
+        "Discount__c",
+        "Id",
+        "Name",
+        "NextStep",
+        "OwnerId",
+        "Policy_Evaluated_At__c",
+        "Policy_Rule_Version__c",
+        "Regional_VP_Approver__c",
+        "Strategic_Deal__c"
+      ],
+      "predicates": [
+        {
+          "field": "NextStep",
+          "operator": "IN_SET",
+          "valueSource": "SOURCE_LITERAL_SET",
+          "values": [
+            "SDA-DEMO-BASELINE-15-v1|amount-exact",
+            "SDA-DEMO-BASELINE-15-v1|discount-above",
+            "SDA-DEMO-BASELINE-15-v1|discount-exact",
+            "SDA-DEMO-BASELINE-15-v1|missing-approver",
+            "SDA-DEMO-BASELINE-15-v1|non-strategic",
+            "SDA-DEMO-BASELINE-15-v1|null-amount",
+            "SDA-DEMO-BASELINE-15-v1|null-discount"
+          ]
+        },
+        {
+          "field": "OwnerId",
+          "operator": "EQUALS",
+          "valueSource": "CURRENT_ENROLLED_ACTOR",
+          "values": []
+        }
+      ],
+      "ownershipMarkerField": "NextStep",
+      "exactCardinality": 7,
+      "identityField": "Id"
+    }
+  ],
+  "browserIntents": [
+    {
+      "sourceNodeId": "lwc:strategicDealWorkbench",
+      "applicationIntent": "Strategic_Deal_Assurance",
+      "actionClass": "LOCATOR_REBIND_PREVIEW",
+      "surfaceIntent": "Strategic_Deal_Record_Page:strategicDealWorkbench",
+      "locatorRebind": {
+        "navigation": {
+          "kind": "DATASET_RECORD_PAGE",
+          "datasetId": "SDA-DEMO-BASELINE-15-v1",
+          "objectApiName": "Opportunity",
+          "identityField": "Id",
+          "markerField": "NextStep",
+          "markerValue": "SDA-DEMO-BASELINE-15-v1|discount-exact",
+          "resolution": "EXACTLY_ONE_AUTHORIZED_DATASET_MEMBER"
+        },
+        "metadataDrift": {
+          "metadataType": "FlexiPage",
+          "member": "Strategic_Deal_Record_Page",
+          "componentName": "c:strategicDealWorkbench",
+          "componentIdentifier": "dealWorkbench",
+          "propertyName": "locatorVariant",
+          "operation": "SET_SCALAR",
+          "baselineValue": "baseline",
+          "allowedPreStates": [
+            { "state": "ABSENT" },
+            { "state": "PRESENT", "value": "baseline" }
+          ],
+          "alternateValue": "reordered",
+          "restoration": "PREIMAGE_EXACT",
+          "maximumFiles": 1,
+          "maximumBytes": 65536
+        },
+        "obligationPolicy": "COMPLETE_DECLARED_SET",
+        "obligations": [
+          {
+            "obligationId": "field:AccountId",
+            "originalLocator": {
+              "kind": "ATTRIBUTE_EQUALS",
+              "attribute": "data-testid",
+              "value": "deal-baseline-AccountId"
+            },
+            "semanticIdentity": {
+              "kind": "FIELD",
+              "objectApiName": "Opportunity",
+              "fieldApiName": "AccountId"
+            },
+            "assertions": [
+              "EDITABLE",
+              "ENABLED",
+              "VISIBLE"
+            ]
+          },
+          {
+            "obligationId": "field:Amount",
+            "originalLocator": {
+              "kind": "ATTRIBUTE_EQUALS",
+              "attribute": "data-testid",
+              "value": "deal-baseline-Amount"
+            },
+            "semanticIdentity": {
+              "kind": "FIELD",
+              "objectApiName": "Opportunity",
+              "fieldApiName": "Amount"
+            },
+            "assertions": [
+              "EDITABLE",
+              "ENABLED",
+              "VISIBLE"
+            ]
+          },
+          {
+            "obligationId": "field:CloseDate",
+            "originalLocator": {
+              "kind": "ATTRIBUTE_EQUALS",
+              "attribute": "data-testid",
+              "value": "deal-baseline-CloseDate"
+            },
+            "semanticIdentity": {
+              "kind": "FIELD",
+              "objectApiName": "Opportunity",
+              "fieldApiName": "CloseDate"
+            },
+            "assertions": [
+              "EDITABLE",
+              "ENABLED",
+              "VISIBLE"
+            ]
+          },
+          {
+            "obligationId": "field:Discount__c",
+            "originalLocator": {
+              "kind": "ATTRIBUTE_EQUALS",
+              "attribute": "data-testid",
+              "value": "deal-baseline-Discount__c"
+            },
+            "semanticIdentity": {
+              "kind": "FIELD",
+              "objectApiName": "Opportunity",
+              "fieldApiName": "Discount__c"
+            },
+            "assertions": [
+              "EDITABLE",
+              "ENABLED",
+              "VISIBLE"
+            ]
+          },
+          {
+            "obligationId": "field:Name",
+            "originalLocator": {
+              "kind": "ATTRIBUTE_EQUALS",
+              "attribute": "data-testid",
+              "value": "deal-baseline-Name"
+            },
+            "semanticIdentity": {
+              "kind": "FIELD",
+              "objectApiName": "Opportunity",
+              "fieldApiName": "Name"
+            },
+            "assertions": [
+              "EDITABLE",
+              "ENABLED",
+              "VISIBLE"
+            ]
+          },
+          {
+            "obligationId": "field:Regional_VP_Approver__c",
+            "originalLocator": {
+              "kind": "ATTRIBUTE_EQUALS",
+              "attribute": "data-testid",
+              "value": "deal-baseline-Regional_VP_Approver__c"
+            },
+            "semanticIdentity": {
+              "kind": "FIELD",
+              "objectApiName": "Opportunity",
+              "fieldApiName": "Regional_VP_Approver__c"
+            },
+            "assertions": [
+              "EDITABLE",
+              "ENABLED",
+              "VISIBLE"
+            ]
+          },
+          {
+            "obligationId": "field:StageName",
+            "originalLocator": {
+              "kind": "ATTRIBUTE_EQUALS",
+              "attribute": "data-testid",
+              "value": "deal-baseline-StageName"
+            },
+            "semanticIdentity": {
+              "kind": "FIELD",
+              "objectApiName": "Opportunity",
+              "fieldApiName": "StageName"
+            },
+            "assertions": [
+              "EDITABLE",
+              "ENABLED",
+              "VISIBLE"
+            ]
+          },
+          {
+            "obligationId": "field:Strategic_Deal__c",
+            "originalLocator": {
+              "kind": "ATTRIBUTE_EQUALS",
+              "attribute": "data-testid",
+              "value": "deal-baseline-Strategic_Deal__c"
+            },
+            "semanticIdentity": {
+              "kind": "FIELD",
+              "objectApiName": "Opportunity",
+              "fieldApiName": "Strategic_Deal__c"
+            },
+            "assertions": [
+              "EDITABLE",
+              "ENABLED",
+              "VISIBLE"
+            ]
+          },
+          {
+            "obligationId": "probe:save-evaluate",
+            "originalLocator": {
+              "kind": "ATTRIBUTE_EQUALS",
+              "attribute": "data-testid",
+              "value": "save-evaluate-v1"
+            },
+            "semanticIdentity": {
+              "kind": "ACTION",
+              "objectApiName": "Opportunity",
+              "action": "save-evaluate"
+            },
+            "assertions": [
+              "ENABLED",
+              "VISIBLE"
+            ]
+          }
+        ],
+        "dataMutation": "FORBIDDEN"
+      }
+    }
+  ],
+  "nonRuntimeFiles": [
+    {
+      "locator": "strategic-deal-assurance/data/agent-api-test-suite.json",
+      "category": "LOCAL_TEST_SPECIFICATION",
+      "localObligationIds": [
+        "local:catalog-and-api-contract-tests",
+        "local:catalog-currentness"
+      ]
+    },
+    {
+      "locator": "strategic-deal-assurance/docs/project-index.md",
+      "category": "DOCUMENTATION",
+      "localObligationIds": [
+        "local:catalog-and-api-contract-tests",
+        "local:catalog-currentness"
+      ]
+    },
+    {
+      "locator": "strategic-deal-assurance/docs/source-operation-declarations.md",
+      "category": "DOCUMENTATION",
+      "localObligationIds": [
+        "local:catalog-and-api-contract-tests",
+        "local:catalog-currentness"
+      ]
+    },
+    {
+      "locator": "strategic-deal-assurance/knowledge/application-graph.json",
+      "category": "GENERATED_INDEX",
+      "localObligationIds": [
+        "local:catalog-and-api-contract-tests",
+        "local:catalog-currentness"
+      ]
+    },
+    {
+      "locator": "strategic-deal-assurance/knowledge/project-index.json",
+      "category": "GENERATED_INDEX",
+      "localObligationIds": [
+        "local:catalog-and-api-contract-tests",
+        "local:catalog-currentness"
+      ]
+    },
+    {
+      "locator": "strategic-deal-assurance/scripts/catalog/agent-api.test.mjs",
+      "category": "LOCAL_CATALOG_TOOL",
+      "localObligationIds": [
+        "local:catalog-and-api-contract-tests",
+        "local:catalog-currentness"
+      ]
+    },
+    {
+      "locator": "strategic-deal-assurance/scripts/catalog/build-project-index.mjs",
+      "category": "LOCAL_CATALOG_TOOL",
+      "localObligationIds": [
+        "local:catalog-and-api-contract-tests",
+        "local:catalog-currentness"
+      ]
+    },
+    {
+      "locator": "strategic-deal-assurance/scripts/catalog/catalog.test.mjs",
+      "category": "LOCAL_CATALOG_TOOL",
+      "localObligationIds": [
+        "local:catalog-and-api-contract-tests",
+        "local:catalog-currentness"
+      ]
+    }
+  ],
+  "localTestObligations": [
+    {
+      "obligationId": "local:catalog-and-api-contract-tests",
+      "runnerKind": "NODE_TEST",
+      "requiredEvidencePhases": [
+        "CANDIDATE_CHECK_ONLY",
+        "DEPLOYED_CANDIDATE",
+        "RESTORED_BASELINE"
+      ],
+      "workingDirectory": "strategic-deal-assurance",
+      "testLocators": [
+        "strategic-deal-assurance/scripts/catalog/agent-api.test.mjs",
+        "strategic-deal-assurance/scripts/catalog/catalog.test.mjs"
+      ],
+      "maximumSeconds": 120,
+      "regeneratedLocators": [],
+      "requiredResult": "COMPLETE_PASS_NO_SKIP"
+    },
+    {
+      "obligationId": "local:catalog-currentness",
+      "runnerKind": "NODE_GENERATED_CHECK",
+      "requiredEvidencePhases": [
+        "CANDIDATE_CHECK_ONLY",
+        "DEPLOYED_CANDIDATE",
+        "RESTORED_BASELINE"
+      ],
+      "workingDirectory": "strategic-deal-assurance",
+      "testLocators": [
+        "strategic-deal-assurance/scripts/catalog/build-project-index.mjs"
+      ],
+      "maximumSeconds": 120,
+      "regeneratedLocators": [
+        "strategic-deal-assurance/knowledge/application-graph.json",
+        "strategic-deal-assurance/knowledge/project-index.json"
+      ],
+      "requiredResult": "COMPLETE_PASS_NO_SKIP"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import {buildArtifacts,repoRoot,trackedCandidates} from './build-project-index.mjs';
@@ -8,6 +9,11 @@ const artifacts=buildArtifacts();
 const graph=JSON.parse(artifacts.get('strategic-deal-assurance/knowledge/application-graph.json'));
 const index=JSON.parse(artifacts.get('strategic-deal-assurance/knowledge/project-index.json'));
 test('catalog generation is deterministic',()=>assert.deepEqual([...buildArtifacts()],[...artifacts]));
+test('project index binds the exact canonical application graph',()=>{
+  const graphBody=artifacts.get('strategic-deal-assurance/knowledge/application-graph.json');
+  assert.match(index.applicationGraphSha256,/^[0-9a-f]{64}$/);
+  assert.equal(index.applicationGraphSha256,crypto.createHash('sha256').update(graphBody).digest('hex'));
+});
 test('node identities and edge targets are valid',()=>{
   const ids=new Set(graph.nodes.map(n=>n.id));
   assert.equal(ids.size,graph.nodes.length);
@@ -34,8 +40,8 @@ test('integration limitations and strict boundaries are represented',()=>{
   const contract=JSON.parse(fs.readFileSync(path.join(repoRoot,'strategic-deal-assurance/contracts/agent-interface.json'),'utf8'));
   const customRest=contract.capabilities.find(c=>c.id==='api.custom.rest');
   assert.equal(customRest.status,'implemented');
-  assert.equal(customRest.deploymentStatus,'deployed');
-  assert.equal(customRest.hackathonAdministratorValidation,'HTTP 200 smoke test passed');
+  assert.match(customRest.deploymentStatus,/response schema 1\.1\.0 is a local candidate/);
+  assert.match(customRest.hackathonAdministratorValidation,/not evidence for current 1\.1\.0 candidate/);
   assert.equal(customRest.dedicatedIdentityValidation,'pending');
   assert.equal(customRest.directEvidenceCrud,false);
   assert.equal(contract.opportunity.automaticSubmission,false);

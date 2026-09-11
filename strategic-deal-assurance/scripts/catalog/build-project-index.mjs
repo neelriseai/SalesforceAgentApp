@@ -7,7 +7,9 @@ import { fileURLToPath } from 'node:url';
 export const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 export const repoRoot = path.resolve(projectRoot, '..');
 const prefix = 'strategic-deal-assurance/';
-const outputs = ['knowledge/application-graph.json', 'knowledge/project-index.json'].map(p => prefix + p);
+const graphOutput = prefix + 'knowledge/application-graph.json';
+const indexOutput = prefix + 'knowledge/project-index.json';
+const outputs = [graphOutput, indexOutput];
 const hash = value => crypto.createHash('sha256').update(value).digest('hex');
 const read = p => fs.readFileSync(path.join(repoRoot, p), 'utf8').replace(/\r\n/g, '\n');
 const decode = s => s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, '&');
@@ -239,15 +241,30 @@ export function buildArtifacts() {
   for(const [runner,target] of [['scripts/demo/reset-baseline.ps1',baselineId],['scripts/demo/seed-multi-module.ps1',dataset]]) edge('file:'+prefix+runner,'manages',target,prefix+runner);
   for(const e of edges.values()) if(!nodes.has(e.from) || !nodes.has(e.to)) throw new Error('Unresolved graph edge: '+e.from+' -> '+e.to);
   const graph={schemaVersion:'1.0.0',application:'Strategic Deal Assurance',apiVersion:contract.apiVersion,sourceSnapshot,provenance:'Static DX metadata, curated lifecycle relationships and logical synthetic fixture references. Not a live org dump or complete Apex call graph.',authorization:'Descriptive only; graph edges grant no execution authority.',nodes:[...nodes.values()].sort((a,b)=>a.id.localeCompare(b.id)),edges:[...edges.values()].sort((a,b)=>a.id.localeCompare(b.id))};
-  const index={schemaVersion:'1.0.0',application:'Strategic Deal Assurance',pathBase:'repository-root',sourceSnapshot,hashAlgorithm:'SHA-256 of UTF-8 text normalized to LF',generator:prefix+'scripts/catalog/build-project-index.mjs',generatedOutputs:outputs,readOrder:[prefix+'contracts/agent-interface.json',prefix+'docs/agent-integration-guide.md',prefix+'docs/external-agent-provisioning.md',prefix+'docs/project-index.md',outputs[0],prefix+'docs/demo-rules-guide.md',prefix+'docs/test-plan.md',prefix+'data/agent-api-test-suite.json',prefix+'data/manual-test-suite.json'],authoritativePaths:[prefix+'force-app/main/default',prefix+'requirements'],historicalEvidenceNotice:'Milestone reports describe their recorded snapshot, not current runtime state. Older permission descriptions can be stale.',files:inventory};
-  return new Map([[outputs[0],JSON.stringify(graph,null,2)+'\n'],[outputs[1],JSON.stringify(index,null,2)+'\n']]);
+  const graphBody=JSON.stringify(graph,null,2)+'\n';
+  const index={schemaVersion:'1.0.0',application:'Strategic Deal Assurance',pathBase:'repository-root',sourceSnapshot,applicationGraphSha256:hash(graphBody),hashAlgorithm:'SHA-256 of UTF-8 text normalized to LF',generator:prefix+'scripts/catalog/build-project-index.mjs',generatedOutputs:outputs,readOrder:[prefix+'contracts/agent-interface.json',prefix+'docs/agent-integration-guide.md',prefix+'docs/external-agent-provisioning.md',prefix+'docs/project-index.md',graphOutput,prefix+'docs/demo-rules-guide.md',prefix+'docs/test-plan.md',prefix+'data/agent-api-test-suite.json',prefix+'data/manual-test-suite.json'],authoritativePaths:[prefix+'force-app/main/default',prefix+'requirements'],historicalEvidenceNotice:'Milestone reports describe their recorded snapshot, not current runtime state. Older permission descriptions can be stale.',files:inventory};
+  return new Map([[graphOutput,graphBody],[indexOutput,JSON.stringify(index,null,2)+'\n']]);
+}
+
+function writeAtomic(p,body) {
+  const target=path.join(repoRoot,p);
+  const temporary=target+'.'+process.pid+'.'+crypto.randomUUID()+'.tmp';
+  fs.mkdirSync(path.dirname(target),{recursive:true});
+  try {
+    fs.writeFileSync(temporary,body,{encoding:'utf8',flag:'wx'});
+    fs.renameSync(temporary,target);
+  } finally {
+    if(fs.existsSync(temporary)) fs.unlinkSync(temporary);
+  }
 }
 
 export function writeOrCheck(check=false) {
   const artifacts=buildArtifacts(); const stale=[];
   for(const [p,body] of artifacts) {
     if(check) {if(!fs.existsSync(path.join(repoRoot,p)) || read(p)!==body) stale.push(p);}
-    else {fs.mkdirSync(path.dirname(path.join(repoRoot,p)),{recursive:true}); fs.writeFileSync(path.join(repoRoot,p),body);}
+    // The graph is published first and the index (its digest-bearing commit marker) last.
+    // A torn publication therefore fails closed until the generator is rerun.
+    else writeAtomic(p,body);
   }
   if(stale.length) throw new Error('Catalog is stale: '+stale.join(', ')+'. Run npm run catalog:build.');
   const graph=JSON.parse(artifacts.values().next().value);
