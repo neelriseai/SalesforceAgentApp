@@ -2,8 +2,8 @@
   "schemaVersion": "1.0.0",
   "application": "Strategic Deal Assurance",
   "pathBase": "repository-root",
-  "sourceSnapshot": "f55e40cd125aefcc072dfb9f6d425ef16f7a69be93aeda945049ead5c7e244f4",
-  "applicationGraphSha256": "c8e6fc4aa62f7769324b4fc9aa66084a72989c344c71ab077d9a3e51348f24fb",
+  "sourceSnapshot": "68e69be2568ba67873bcc18b80ea9e52ebdbd122f4851371dceeb3ac9f09e071",
+  "applicationGraphSha256": "64834a4e3d489b73e8410d285c0c60a4be099714240700399a3902d8d58ee806",
   "hashAlgorithm": "SHA-256 of UTF-8 text normalized to LF",
   "generator": "strategic-deal-assurance/scripts/catalog/build-project-index.mjs",
   "generatedOutputs": [
@@ -440,7 +440,7 @@
     {
       "path": "strategic-deal-assurance/force-app/main/default/classes/StrategicDiscountPolicy.cls",
       "category": "salesforce-source",
-      "sha256NormalizedLf": "7cc2a17a8d3063fb162b2e10f8c23a58ffd7484d0bf044acc4eec52fa33d952c"
+      "sha256NormalizedLf": "fb28d6cbd199b39d220880b059be6a6bdc4d4304c00011e46de7c2da72dc889b"
     },
     {
       "path": "strategic-deal-assurance/force-app/main/default/classes/StrategicDiscountPolicy.cls-meta.xml",

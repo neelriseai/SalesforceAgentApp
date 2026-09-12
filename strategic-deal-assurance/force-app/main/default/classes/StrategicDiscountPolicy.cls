@@ -59,7 +59,7 @@ public with sharing class StrategicDiscountPolicy {
         result.configurationValid = true;
         result.approvalRequired = request != null && request.strategicDeal == true
             && request.amount != null && request.amount > minimumAmount
-            && request.discountPercent != null && request.discountPercent > threshold;
+            && request.discountPercent != null && request.discountPercent >= threshold;
         if (result.approvalRequired && String.isBlank(request.regionalVpApproverId)) {
             result.desiredStatus = 'Configuration Error';
             result.reason = 'Regional VP approval is required, but no approver is configured.';
