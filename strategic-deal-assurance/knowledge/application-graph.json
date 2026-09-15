@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "application": "Strategic Deal Assurance",
   "apiVersion": "67.0",
-  "sourceSnapshot": "68e69be2568ba67873bcc18b80ea9e52ebdbd122f4851371dceeb3ac9f09e071",
+  "sourceSnapshot": "b0e14009823fb4d76953a35025f81231908f521c28ca08d1cdc8f805d50eebf5",
   "provenance": "Static DX metadata, curated lifecycle relationships and logical synthetic fixture references. Not a live org dump or complete Apex call graph.",
   "authorization": "Descriptive only; graph edges grant no execution authority.",
   "nodes": [
@@ -1638,6 +1638,14 @@
       "sha256NormalizedLf": "537041ceea48b10b6a3f675567633719873c2f5883d1eaa2b0b7727009a606b5"
     },
     {
+      "id": "file:strategic-deal-assurance/docs/repeatable-local-candidate-demo.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/docs/repeatable-local-candidate-demo.md",
+      "path": "strategic-deal-assurance/docs/repeatable-local-candidate-demo.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "e983a50a2e3cbb9a281ef0d5a200c1d806c67af8ff69e4e3ea49d8abadba6385"
+    },
+    {
       "id": "file:strategic-deal-assurance/docs/source-operation-declarations.md",
       "kind": "file",
       "label": "strategic-deal-assurance/docs/source-operation-declarations.md",
@@ -2734,6 +2742,118 @@
       "sha256NormalizedLf": "efde0c82326eff2fdc786dfb0878321e23677f9ca393cbac3ef0a1e470cd4eb7"
     },
     {
+      "id": "file:strategic-deal-assurance/knowledge-repo/00-knowledge-map.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/knowledge-repo/00-knowledge-map.md",
+      "path": "strategic-deal-assurance/knowledge-repo/00-knowledge-map.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "bbd20fe9ff23b9a69daf57906d880601a65d76b68deb277581b7c5695ff4d4a7"
+    },
+    {
+      "id": "file:strategic-deal-assurance/knowledge-repo/impact/e2e-scenario-matrix.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/knowledge-repo/impact/e2e-scenario-matrix.md",
+      "path": "strategic-deal-assurance/knowledge-repo/impact/e2e-scenario-matrix.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "e3054187f11f805bf4dd0dd844f3b6ba28eef99741b52fe982ed7a5db5a2056e"
+    },
+    {
+      "id": "file:strategic-deal-assurance/knowledge-repo/impact/field-impact-matrix.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/knowledge-repo/impact/field-impact-matrix.md",
+      "path": "strategic-deal-assurance/knowledge-repo/impact/field-impact-matrix.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "f5a87593713280eb4d02e36c94e02ec01c1d7517c507baf736093dfd349f15e0"
+    },
+    {
+      "id": "file:strategic-deal-assurance/knowledge-repo/impact/page-dependency-map.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/knowledge-repo/impact/page-dependency-map.md",
+      "path": "strategic-deal-assurance/knowledge-repo/impact/page-dependency-map.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "a647578a1c1c5b8f15145c18a73afdf2b3fe904cb59da6a8a28f3637eb481b04"
+    },
+    {
+      "id": "file:strategic-deal-assurance/knowledge-repo/modules/configurable-cross-module-rules.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/knowledge-repo/modules/configurable-cross-module-rules.md",
+      "path": "strategic-deal-assurance/knowledge-repo/modules/configurable-cross-module-rules.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "d4a1f73646e061b88a750b987201d1a6877dc4db31e81d3120353bbb44c16ac8"
+    },
+    {
+      "id": "file:strategic-deal-assurance/knowledge-repo/modules/demo-data-and-examples.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/knowledge-repo/modules/demo-data-and-examples.md",
+      "path": "strategic-deal-assurance/knowledge-repo/modules/demo-data-and-examples.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "689624a3aa6fc835dec2ff1257148346603ee4061ec8e18c93d1cbcdb24de06c"
+    },
+    {
+      "id": "file:strategic-deal-assurance/knowledge-repo/modules/persona-permission-journeys.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/knowledge-repo/modules/persona-permission-journeys.md",
+      "path": "strategic-deal-assurance/knowledge-repo/modules/persona-permission-journeys.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "7d45210580d158f9f32d65dcd92e11c0afb8bcbd87a34fd87bdc1fd9cf078564"
+    },
+    {
+      "id": "file:strategic-deal-assurance/knowledge-repo/modules/strategic-deal-policy-and-approval.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/knowledge-repo/modules/strategic-deal-policy-and-approval.md",
+      "path": "strategic-deal-assurance/knowledge-repo/modules/strategic-deal-policy-and-approval.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "fdb64885d5ff53390301f6516677e6744292203b11ae727ca132c62b2a90c208"
+    },
+    {
+      "id": "file:strategic-deal-assurance/knowledge-repo/pages/accounts-home.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/knowledge-repo/pages/accounts-home.md",
+      "path": "strategic-deal-assurance/knowledge-repo/pages/accounts-home.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "d573522942624ea43b54beacd5752736dff9675883d5472bceb93cf876a21054"
+    },
+    {
+      "id": "file:strategic-deal-assurance/knowledge-repo/pages/crm-native-pages.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/knowledge-repo/pages/crm-native-pages.md",
+      "path": "strategic-deal-assurance/knowledge-repo/pages/crm-native-pages.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "4a54ef482c0fa965c297411bade164c9bcc660f0c31249587bd7e64393598f0b"
+    },
+    {
+      "id": "file:strategic-deal-assurance/knowledge-repo/pages/opportunities-home.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/knowledge-repo/pages/opportunities-home.md",
+      "path": "strategic-deal-assurance/knowledge-repo/pages/opportunities-home.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "790324cf8604afd7b06d9f3488847947d8f6afcf0c70dd9e5770af28f15bbe4c"
+    },
+    {
+      "id": "file:strategic-deal-assurance/knowledge-repo/pages/opportunity-record-page.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/knowledge-repo/pages/opportunity-record-page.md",
+      "path": "strategic-deal-assurance/knowledge-repo/pages/opportunity-record-page.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "f54f63686013d85832f25dd5172da647d2add5c4839901c12b6df186fc2e515e"
+    },
+    {
+      "id": "file:strategic-deal-assurance/knowledge-repo/pages/strategic-deal-workbench.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/knowledge-repo/pages/strategic-deal-workbench.md",
+      "path": "strategic-deal-assurance/knowledge-repo/pages/strategic-deal-workbench.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "c955939ec51dafd19d379bcd62b034d333e800fd9c68a729f30a81989c9c92c8"
+    },
+    {
+      "id": "file:strategic-deal-assurance/knowledge-repo/README.md",
+      "kind": "file",
+      "label": "strategic-deal-assurance/knowledge-repo/README.md",
+      "path": "strategic-deal-assurance/knowledge-repo/README.md",
+      "category": "documentation",
+      "sha256NormalizedLf": "7e12d711fb55ae16d6fed0f78242321ceb990e828f31bb4ec46adb1f453a0d09"
+    },
+    {
       "id": "file:strategic-deal-assurance/manifest/milestone-1.xml",
       "kind": "file",
       "label": "strategic-deal-assurance/manifest/milestone-1.xml",
@@ -2932,6 +3052,22 @@
       "path": "strategic-deal-assurance/scripts/catalog/visibility-expansion.test.mjs",
       "category": "operator-tool",
       "sha256NormalizedLf": "2be22a2255c02d1547eee0a411f1a8d1289bcf7ad9d578e2c7d2e5bd92127a96"
+    },
+    {
+      "id": "file:strategic-deal-assurance/scripts/demo-candidate/prepare-local-candidate.ps1",
+      "kind": "file",
+      "label": "strategic-deal-assurance/scripts/demo-candidate/prepare-local-candidate.ps1",
+      "path": "strategic-deal-assurance/scripts/demo-candidate/prepare-local-candidate.ps1",
+      "category": "operator-tool",
+      "sha256NormalizedLf": "8993cd44c5b559787b4c8d5887250d89672cbd1d06726df9b417bf8facd2c111"
+    },
+    {
+      "id": "file:strategic-deal-assurance/scripts/demo-candidate/restore-local-candidate.ps1",
+      "kind": "file",
+      "label": "strategic-deal-assurance/scripts/demo-candidate/restore-local-candidate.ps1",
+      "path": "strategic-deal-assurance/scripts/demo-candidate/restore-local-candidate.ps1",
+      "category": "operator-tool",
+      "sha256NormalizedLf": "8e66ffc672e5d1f16aa97b827e227fbe40da7558766dd914d99a287295c716b1"
     },
     {
       "id": "file:strategic-deal-assurance/scripts/demo/create-regional-vp.apex",
